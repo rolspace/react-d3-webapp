@@ -16,19 +16,13 @@ const babelConfig = Object.assign({}, pkg.babel, {
 // Webpack configuration (main.js => public/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
 const config = {
-
 	// The base directory for resolving the entry option
 	context: __dirname,
-
 	// The entry point for the bundle
 	entry: [
-	/* Material Design Lite (https://getmdl.io) */
-		//'!!style!css!react-mdl/extra/material.min.css',
-		//'react-mdl/extra/material.min.js',
 		/* The main entry point of your JavaScript application */
 		'./main.js',
-		],
-
+	],
 	// Options affecting the output of the compilation
 	output: {
 		path: path.resolve(__dirname, './public/dist'),
@@ -61,11 +55,11 @@ const config = {
 
 	// The list of plugins for Webpack compiler
 	plugins: [
-	new webpack.optimize.OccurrenceOrderPlugin(),
-	new webpack.DefinePlugin({
-		'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-		__DEV__: isDebug,
-	}),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+			__DEV__: isDebug,
+		}),
 		// Emit a JSON file with assets paths
 		// https://github.com/sporto/assets-webpack-plugin#options
 		/*new AssetsPlugin({
@@ -73,54 +67,52 @@ const config = {
 			filename: 'assets.json',
 			prettyPrint: true,
 		}),*/
-		],
+	],
 
 	// Options affecting the normal modules
 	module: {
-		loaders: [
-		{
+		loaders: [{
 			test: /\.jsx?$/,
 			include: [
-			path.resolve(__dirname, './actions'),
-			path.resolve(__dirname, './components'),
-			path.resolve(__dirname, './core'),
-			path.resolve(__dirname, './pages'),
-			path.resolve(__dirname, './main.js'),
+				path.resolve(__dirname, './actions'),
+				path.resolve(__dirname, './components'),
+				path.resolve(__dirname, './core'),
+				path.resolve(__dirname, './pages'),
+				path.resolve(__dirname, './main.js'),
 			],
-			loader: `babel-loader?${JSON.stringify(babelConfig)}`,
+			loader: `babel-loader?${ JSON.stringify(babelConfig) }`,
 		},
 		{
 			test: /\.css/,
 			loaders: [
-			'style-loader',
-			`css-loader?${JSON.stringify({
-				sourceMap: isDebug,
-						// CSS Modules https://github.com/css-modules/css-modules
-						modules: true,
-						localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-						// CSS Nano http://cssnano.co/options/
-						minimize: !isDebug,
-					})}`,
-					'postcss-loader',
-					],
-				},
-				/*{
-					test: /\.json$/,
-					exclude: [
-					path.resolve(__dirname, './routes.json'),
-					],
-					loader: 'json-loader',
-				},
-				{
-					test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-					loader: 'url-loader?limit=10000',
-				},
-				{
-					test: /\.(eot|ttf|wav|mp3)$/,
-					loader: 'file-loader',
-				},*/
-				],
-			},
+				'style-loader',
+				`css-loader?${JSON.stringify({
+					sourceMap: isDebug,
+					// CSS Modules https://github.com/css-modules/css-modules
+					modules: true,
+					localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+					// CSS Nano http://cssnano.co/options/
+					minimize: !isDebug,
+				})}`,
+				'postcss-loader',
+			],
+		}]
+		/*{
+			test: /\.json$/,
+			exclude: [
+			path.resolve(__dirname, './routes.json'),
+			],
+			loader: 'json-loader',
+		},
+		{
+			test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+			loader: 'url-loader?limit=10000',
+		},
+		{
+			test: /\.(eot|ttf|wav|mp3)$/,
+			loader: 'file-loader',
+		},*/
+	},
 
 	// The list of plugins for PostCSS
 	// https://github.com/postcss/postcss
