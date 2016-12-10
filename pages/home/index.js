@@ -2,7 +2,12 @@ import React from 'react';
 
 class Home extends React.Component {
 	render() {
-		return <div>This is the HomePage</div>
+		return (
+			<div>
+				Welcome to TunnelStats
+				{this.props.children}
+			</div>
+		)
 	}
 }
 
