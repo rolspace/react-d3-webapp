@@ -4,7 +4,6 @@ const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 
-
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 const useHMR = !!global.HMR; // Hot Module Replacement (HMR)
