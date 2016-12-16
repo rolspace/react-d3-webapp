@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+  	"build": "node run build",
     "debug": "node run start --no-hmr",
     "release": "node run start --release"
   },
