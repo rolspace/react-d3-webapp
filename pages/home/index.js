@@ -4,8 +4,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				Welcome to TunnelStats
-				{this.props.children}
+				This is the HomePage
 			</div>
 		)
 	}
