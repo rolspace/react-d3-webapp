@@ -4,11 +4,11 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import App from './pages/App';
 import Home from './pages/home';
 import Register from './pages/register';
 
 import store from './core/store';
+import App from './components/App';
 
 const container = document.getElementById('container');
 
