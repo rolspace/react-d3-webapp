@@ -6,7 +6,7 @@ class StartPage extends React.Component {
 			<div>
 				This is the Start Page!
 			</div>
-		)
+		);
 	}
 }
 

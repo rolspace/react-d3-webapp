@@ -7,8 +7,8 @@ class App extends React.Component {
 				Welcome to TunnelStats
 				{this.props.children}
 			</div>
-		)
+		);
 	}
 }
 
-export default App
+export default App;
