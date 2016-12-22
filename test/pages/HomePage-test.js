@@ -2,6 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import HomePage from '../../pages/home';
+import Button from '../../components/Button';
 
 describe('HomePage Component', function() {
 	it('should be wrapped by a div', function() {
