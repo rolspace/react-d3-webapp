@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node run build",
     "debug": "node run start --no-hmr",
+    "eslint": "eslint components core pages test main.js run.js webpack.config.js",
     "release": "node run start --release",
     "test": "mocha ./test/setup.js ./test/**/*-test.js"
   },
@@ -51,8 +52,5 @@
       "react",
       "es2015"
     ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint"
   }
 }
