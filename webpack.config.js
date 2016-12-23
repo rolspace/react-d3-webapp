@@ -19,7 +19,7 @@ const config = {
 	context: __dirname,
 	// The entry point for the bundle
 	entry: [
-		/* The main entry point of your JavaScript application */
+	/* The main entry point of your JavaScript application */
 		'./main.js',
 	],
 	// Options affecting the output of the compilation
@@ -159,10 +159,9 @@ const config = {
 			// Add vendor prefixes to CSS rules using values from caniuse.com
 			// https://github.com/postcss/autoprefixer
 			//require('autoprefixer')(),
-			];
-		},
-
-	};
+		];
+	},
+};
 
 // Optimize the bundle in release (production) mode
 if (!isDebug) {
