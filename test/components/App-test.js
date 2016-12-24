@@ -5,7 +5,7 @@ import App from '../../components/App';
 
 describe('App Component', function() {
 	it('should be wrapped by a div', function() {
-		const wrapper = shallow(<App />);
+		const wrapper = shallow(<App children="children" />);
 		expect(wrapper.find('div')).to.have.length(1);
 	});
 });
