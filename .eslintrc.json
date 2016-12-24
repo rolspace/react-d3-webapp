@@ -1,23 +1,30 @@
 {
-	"parser": "babel-eslint",
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		}
-	},
-	"env": {
-		"es6": true,
-		"node": true
-	},
-	"extends": "eslint:recommended",
-	"rules": {
-		"indent": [
-			"error",
-			"tab"
-		],
-		"quotes": [
-			"error",
-			"single"
-		]
-	}
+    "env": {
+    	"browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+    	"eslint:recommended",
+    	"plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+    	"react"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ]
+    }
 }
