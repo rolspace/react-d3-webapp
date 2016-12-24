@@ -5,8 +5,10 @@ class HomePage extends React.Component {
 	render() {
 		return (
 			<div>
+				<div>
 				This is the HomePage
-				<Button />
+				</div>
+				<Button text="Login" />
 			</div>
 		);
 	}
