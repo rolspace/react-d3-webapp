@@ -54,6 +54,7 @@ const config = {
 
 	// The list of plugins for Webpack compiler
 	plugins: [
+		new webpack.NoErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
@@ -70,32 +71,48 @@ const config = {
 
 	// Options affecting the normal modules
 	module: {
-		loaders: [{
-			test: /\.jsx?$/,
-			include: [
-				path.resolve(__dirname, './actions'),
-				path.resolve(__dirname, './components'),
-				path.resolve(__dirname, './core'),
-				path.resolve(__dirname, './pages'),
-				path.resolve(__dirname, './main.js')
-			],
-			loader: `babel-loader?${ JSON.stringify(babelConfig) }`,
-		},
-		{
-			test: /\.css/,
-			loaders: [
-				'style-loader',
-				`css-loader?${JSON.stringify({
-					sourceMap: isDebug,
-					// CSS Modules https://github.com/css-modules/css-modules
-					modules: true,
-					localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-					// CSS Nano http://cssnano.co/options/
-					minimize: !isDebug,
-				})}`,
-				'postcss-loader',
-			],
-		}]
+		preLoaders: [
+			{
+				test: /\.jsx?$/,
+				loader: 'eslint-loader',
+				include: [
+					path.resolve(__dirname, './actions'),
+					path.resolve(__dirname, './components'),
+					path.resolve(__dirname, './core'),
+					path.resolve(__dirname, './pages'),
+					path.resolve(__dirname, './main.js')
+				],
+				exclude: /node_modules/
+			}
+		],
+		loaders: [
+			{
+				test: /\.jsx?$/,
+				include: [
+					path.resolve(__dirname, './actions'),
+					path.resolve(__dirname, './components'),
+					path.resolve(__dirname, './core'),
+					path.resolve(__dirname, './pages'),
+					path.resolve(__dirname, './main.js')
+				],
+				loader: `babel-loader?${ JSON.stringify(babelConfig) }`,
+			},
+			{
+				test: /\.css/,
+				loaders: [
+					'style-loader',
+					`css-loader?${JSON.stringify({
+						sourceMap: isDebug,
+						// CSS Modules https://github.com/css-modules/css-modules
+						modules: true,
+						localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+						// CSS Nano http://cssnano.co/options/
+						minimize: !isDebug,
+					})}`,
+					'postcss-loader',
+				],
+			}
+		]
 		/*{
 			test: /\.json$/,
 			exclude: [
@@ -161,6 +178,11 @@ const config = {
 			//require('autoprefixer')(),
 		];
 	},
+
+	// ESLint specific config
+	eslint: {
+		failOnError: true
+	}
 };
 
 // Optimize the bundle in release (production) mode
