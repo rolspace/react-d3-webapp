@@ -3,13 +3,14 @@ import React from 'react';
 class Button extends React.Component {
 	render() {
 		return (
-			<button>{this.props.text}</button>
+			<button onClick={this.props.onClick}>{this.props.text}</button>
 		);
 	}
 }
 
 Button.propTypes = {
-	text: React.PropTypes.string.isRequired
+	onClick: React.PropTypes.func,
+	text: React.PropTypes.string.isRequired	
 }
 
 export default Button;
