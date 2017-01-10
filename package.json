@@ -44,6 +44,7 @@
     "jsdom": "^9.8.3",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.1",
+    "sinon": "^1.17.7",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.13.2"
