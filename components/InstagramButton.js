@@ -13,7 +13,7 @@ class InstagramButton extends React.Component {
 	}
 }
 
-Button.propTypes = {
+InstagramButton.propTypes = {
 	text: React.PropTypes.string.isRequired
 }
 
