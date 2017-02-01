@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../components/Button';
+import InstagramButton from '../../components/InstagramButton';
 
 class HomePage extends React.Component {
 	render() {
@@ -8,7 +8,7 @@ class HomePage extends React.Component {
 				<div>
 				This is the HomePage
 				</div>
-				<Button text="Login" />
+				<InstagramButton text="Login" />
 			</div>
 		);
 	}
