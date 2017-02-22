@@ -79,6 +79,7 @@ const config = {
 				include: [
 					path.resolve(__dirname, './actions'),
 					path.resolve(__dirname, './components'),
+					path.resolve(__dirname, './containers'),
 					path.resolve(__dirname, './core'),
 					path.resolve(__dirname, './pages'),
 					path.resolve(__dirname, './main.js')
@@ -92,6 +93,7 @@ const config = {
 				include: [
 					path.resolve(__dirname, './actions'),
 					path.resolve(__dirname, './components'),
+					path.resolve(__dirname, './containers'),
 					path.resolve(__dirname, './core'),
 					path.resolve(__dirname, './pages'),
 					path.resolve(__dirname, './main.js')
