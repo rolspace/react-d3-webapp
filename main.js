@@ -15,7 +15,7 @@ ReactDom.render(
 		<Router history={hashHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute component={HomePage}/>
-				<Route path="start" component={StartPage}/>
+				<Route path="/start" component={StartPage}/>
 			</Route>
 		</Router>
 	</Provider>,
