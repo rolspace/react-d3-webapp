@@ -15,25 +15,13 @@ describe('InstagramButton component', function() {
 		expect(wrapper.find('button')).to.have.length(1);
 	});
 
-	describe('logInUser method', function() {
-		afterEach(function() {
-			InstagramButton.prototype.logInUser.restore();
-		});
+	it('should execute the logInUser method on <button> click', function() {
+		const logInUser = sinon.spy(InstagramButton.prototype, 'logInUser');
+		const wrapper = mount(<InstagramButton text="text" />);
+		wrapper.find('button').simulate('click');
 
-		it('should execute the logInUser function on a <button> click', function() {
-			const logInUser = sinon.spy(InstagramButton.prototype, 'logInUser');
-			const wrapper = mount(<InstagramButton text="text" />);
-			wrapper.find('button').simulate('click');
+		expect(logInUser.calledOnce).to.equal(true);
 
-			expect(logInUser.calledOnce).to.equal(true);
-		});
-
-		it('should execute the logInUser function on a <button> click and return true', function() {
-			const logInUser = sinon.spy(InstagramButton.prototype, 'logInUser');
-			const wrapper = mount(<InstagramButton text="text" />);
-			wrapper.find('button').simulate('click');
-
-			expect(logInUser).to.have.returned(true);
-		});
-	})
+		logInUser.restore();
+	});
 });
