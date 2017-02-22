@@ -25,6 +25,12 @@
         "quotes": [
             "error",
             "single"
+        ],
+        "react/prop-types": [
+        	2,
+        	{
+        		"ignore": [ "location", "query", "code" ]
+        	}
         ]
     }
 }
