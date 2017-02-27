@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { connect } from 'react-redux';
 import Options from '../components/Options';
 
