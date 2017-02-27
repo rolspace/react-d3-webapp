@@ -58,7 +58,7 @@ const config = {
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-			'process.env.CLIENT_ID': '"some-id-here"',
+			'process.env.CLIENT_ID': '"4cd22e4d9e0a469a889ef29b94669b8c"',
 			__DEV__: isDebug,
 		}),
 		// Emit a JSON file with assets paths
