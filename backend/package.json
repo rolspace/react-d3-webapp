@@ -1,0 +1,25 @@
+{
+  "name": "tunnelstats-backend",
+  "version": "0.1.0",
+  "author": "Rolando Ramos",
+  "description": "",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/rolspace/tunnelstats"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "config": "^1.25.1",
+    "express": "^4.15.0"
+  }
+}
