@@ -20,6 +20,7 @@ const config = {
 	// The entry point for the bundle
 	entry: [
 	/* The main entry point of your JavaScript application */
+		'whatwg-fetch',
 		'./main.js',
 	],
 	// Options affecting the output of the compilation
@@ -82,6 +83,7 @@ const config = {
 					path.resolve(__dirname, './containers'),
 					path.resolve(__dirname, './core'),
 					path.resolve(__dirname, './pages'),
+					path.resolve(__dirname, './reducers'),
 					path.resolve(__dirname, './main.js')
 				],
 				exclude: /node_modules/
@@ -96,6 +98,7 @@ const config = {
 					path.resolve(__dirname, './containers'),
 					path.resolve(__dirname, './core'),
 					path.resolve(__dirname, './pages'),
+					path.resolve(__dirname, './reducers'),
 					path.resolve(__dirname, './main.js')
 				],
 				loader: `babel-loader?${ JSON.stringify(babelConfig) }`,
