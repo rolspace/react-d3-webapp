@@ -5,8 +5,8 @@
   "description": "",
   "main": "run.js",
   "scripts": {
-  	"start": "node run.js",
-  	"lint": "eslint . --ext .js",
+    "start": "node run.js",
+    "lint": "eslint . --ext .js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
