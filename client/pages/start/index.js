@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import React from 'react';
 import AuthorizedOptionsList from '../../containers/AuthorizedOptionsList';
 
