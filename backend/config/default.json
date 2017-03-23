@@ -1,4 +1,13 @@
 {
+	"client": {
+		"id": "some id",
+		"redirect_uri": "http://someuri/",
+		"secret": "some secret"
+	},
+	"cors": {
+		"origin": "http://localhost:3000",
+		"optionsSuccessStatus": 200
+	},
 	"http": {
 		"NotFound": 404,
 		"Ok": 200
