@@ -1,5 +1,7 @@
 {
-	"httpNotFound": 404,
-	"httpOk": 200,
-    "port": 4000
+	"http": {
+		"NotFound": 404,
+		"Ok": 200
+	},
+	"port": 4000
 }

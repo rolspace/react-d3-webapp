@@ -7,7 +7,7 @@ function postAuthentication(req, res) {
 		method: 'POST';
 	});
 
-	res.status(config.httpOk).send('postAuthentication method called').end();
+	res.status(config.http.Ok).send('postAuthentication method called').end();
 }
 
 const router = express.Router();

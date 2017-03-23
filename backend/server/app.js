@@ -9,7 +9,7 @@ function start() {
 
 	app.use('/api/authentication', require('./routes/authenticationRoutes'));
 	app.use((req, res) => {
-		res.status(config.httpNotFound).send({ 'message': 'Resource not found' });
+		res.status(config.http.NotFound).send({ 'message': 'Resource not found' });
 	});
 
 	app.set('port', config.port);
