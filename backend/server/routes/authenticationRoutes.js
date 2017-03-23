@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 function postAuthentication(req, res) {
 	fetch('https://api.instagram.com/oauth/access_token', {
-		method: 'POST';
+		method: 'POST'
 	});
 
 	res.status(config.http.Ok).send('postAuthentication method called').end();
