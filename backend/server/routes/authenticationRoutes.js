@@ -1,4 +1,5 @@
 const config = require('config');
+const cors = require('cors');
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -11,6 +12,8 @@ function postAuthentication(req, res) {
 }
 
 const router = express.Router();
+router.use(cors(config.cors));
+
 router.post('/', postAuthentication);
 
 module.exports = router;
