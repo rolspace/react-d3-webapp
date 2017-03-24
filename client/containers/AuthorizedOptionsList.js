@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Options from '../components/Options';
 import { requestAuthorization } from '../actions/request-authorization';
 
 class AuthorizedOptionsList extends React.Component {
 	componentDidMount() {
-		console.log(this.props.code);	
+		const { dispatch } = this.props;
+		dispatch(requestAuthorization(this.props.code));
+
+		//console.log(this.props.code);
 	}
 
 	render() {
@@ -16,7 +19,11 @@ class AuthorizedOptionsList extends React.Component {
 			<div>The Option Component list should be here</div>
 		);
 	}
-} 
+}
+
+AuthorizedOptionsList.propTypes = {
+	dispatch: PropTypes.func.isRequired
+}
 
 function mapStateToProps(state, ownProps) {
 	//Retrieve code from query string and
