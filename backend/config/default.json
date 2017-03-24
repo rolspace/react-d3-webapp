@@ -6,7 +6,8 @@
 	},
 	"cors": {
 		"origin": "http://localhost:3000",
-		"optionsSuccessStatus": 200
+		"optionsSuccessStatus": 200,
+		"preflightContinue": true
 	},
 	"http": {
 		"NotFound": 404,
