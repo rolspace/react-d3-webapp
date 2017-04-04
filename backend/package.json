@@ -22,9 +22,11 @@
   },
   "dependencies": {
     "body-parser": "^1.17.0",
+    "bunyan": "^1.8.9",
     "config": "^1.25.1",
     "cors": "^2.8.1",
     "express": "^4.15.0",
+    "mongoose": "^4.9.3",
     "request": "^2.81.0"
   }
 }
