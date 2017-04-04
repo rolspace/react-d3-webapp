@@ -1,2 +1,2 @@
 const serverApp = require('./server/app');
-serverApp.start();
+serverApp.init();
