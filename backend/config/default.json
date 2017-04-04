@@ -1,4 +1,9 @@
 {
+	"db": {
+		"connection": "mongodb://localhost/expressjskit",
+		"error": "error",
+		"open": "open"
+	},
 	"client": {
 		"id": "some id",
 		"redirect_uri": "http://someuri/",
@@ -10,8 +15,10 @@
 		"preflightContinue": true
 	},
 	"http": {
-		"NotFound": 404,
-		"Ok": 200
+		"internalError": 500,
+		"notFound": 404,
+		"ok": 200,
+		"unprocessable": 422
 	},
 	"port": 4000
 }
