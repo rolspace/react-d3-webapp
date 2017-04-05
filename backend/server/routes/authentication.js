@@ -1,5 +1,6 @@
 const config = require('config');
 const request = require('request');
+const utils = require('../../common/utils');
 
 function postAuthentication(req, res) {
 	if (!req.body || !req.body.code) {
@@ -15,12 +16,16 @@ function postAuthentication(req, res) {
 		}
 
 		request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },
-			function(error) {
+			function(error, response, body) {
+				utils.logger.info(response);
 				if (error) {
 					res.status(config.http.internalError).send('an error has occurred');
 				}
+				else if (response.statusCode !== config.http.ok) {
+					res.status(response.statusCode).send('postAuthentication method failed');
+				}
 				else {
-					res.status(config.http.ok).send('postAuthentication method called');
+					res.status(config.http.ok).send('postAuthentication method called successfully');
 				}
 			});
 	}
