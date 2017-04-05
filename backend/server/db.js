@@ -1,6 +1,6 @@
 const config = require('config')
 const mongoose = require('mongoose');
-const utils = require('./common/utils');
+const utils = require('../common/utils');
 
 mongoose.Promise = global.Promise;
 
