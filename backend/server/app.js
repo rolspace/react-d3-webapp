@@ -14,7 +14,7 @@ function init() {
 	app.use(bodyParser.json())
 	app.use(cors(config.cors));
 	
-	app.post('/api/authentication', authentication.post);
+	app.post('/api/authentication/', authentication.post);
 	
 	app.use((req, res) => {
 		res.status(config.http.notFound).send({ 'message': 'Resource not found' });
