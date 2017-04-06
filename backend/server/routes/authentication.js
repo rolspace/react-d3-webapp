@@ -1,6 +1,8 @@
 const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
+const UserModel = require('../../models/userModel');
+
 
 function postAuthentication(req, res) {
 	if (!req.body || !req.body.code) {
@@ -25,6 +27,22 @@ function postAuthentication(req, res) {
 					res.status(response.statusCode).send('postAuthentication method failed');
 				}
 				else {
+					json = JSON.parse(response.body);
+
+					let user = new UserModel();
+					user.instagram_id = json.user.id;
+					user.access_token = json.access_token;
+					user.username = json.user.username;
+
+					user.save((err) => {
+						if (err) {
+							console.log("error");
+						}
+						else {
+							console.log("success");
+						}
+					});
+
 					res.status(config.http.ok).send('postAuthentication method called successfully');
 				}
 			});
