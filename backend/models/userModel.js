@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const db = require('../server/db');
 
 const userSchema = mongoose.Schema({
-	'instagramId': { type: String, unique: true, index: true, required: true },
-	'token': { type: String, required: true },
-	'userName': { type: String	, required: true },
-	'profilePicture': { type: String }
+	'instagram_id': { type: String, index: true, required: true },
+	'access_token': { type: String, required: true },
+	'username': { type: String	, required: true },
+	'profile_picture': { type: String }
 });
 
 userSchema.pre('save', function(callback) {
@@ -15,19 +15,12 @@ userSchema.pre('save', function(callback) {
 	bcrypt.genSalt(10, (err, salt) => {
 		if (err) return callback(err);
 
-		bcrypt.hash(user.token, salt, (err, hash) => {
+		bcrypt.hash(user.access_token, salt, (err, hash) => {
 			if (err) return callback(err);
 
-			user.token = hash;
+			user.access_token = hash;
+			callback();
 		});
-
-		bcrypt.hash(user.instagramId, salt, (err, hash) => {
-			if (err) return callback(err);
-
-			user.token = hash;
-		});
-
-		callback();
 	});
 });
 
