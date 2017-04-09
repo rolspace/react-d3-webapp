@@ -12,7 +12,7 @@
 	"cors": {
 		"origin": "http://localhost:3000",
 		"optionsSuccessStatus": 200,
-		"preflightContinue": true
+		"preflightContinue": false
 	},
 	"http": {
 		"internalError": 500,
