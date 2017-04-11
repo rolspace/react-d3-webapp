@@ -3,7 +3,6 @@ const request = require('request');
 const utils = require('../../common/utils');
 const UserModel = require('../../models/userModel');
 
-
 function postAuthentication(req, res) {
 	if (!req.body || !req.body.code) {
 		res.status(config.http.unprocessable).send('"code" parameter is missing');
@@ -20,6 +19,7 @@ function postAuthentication(req, res) {
 		request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },
 			function(error, response, body) {
 				utils.logger.info(response);
+				
 				if (error) {
 					res.status(config.http.internalError).send('an error has occurred');
 				}
@@ -29,21 +29,20 @@ function postAuthentication(req, res) {
 				else {
 					json = JSON.parse(response.body);
 
-					let user = new UserModel();
-					user.instagram_id = json.user.id;
-					user.access_token = json.access_token;
-					user.username = json.user.username;
+					let user = new UserModel({
+						instagram_id: json.user.id,
+						token: json.access_token,
+						username: json.user.username
+					});
 
 					user.save((err) => {
 						if (err) {
-							console.log(err);
+							res.status(config.http.internalError).send('an error has occurred');
 						}
 						else {
-							console.log("success");
+							res.status(config.http.ok).send('postAuthentication method called successfully');
 						}
 					});
-
-					res.status(config.http.ok).send('postAuthentication method called successfully');
 				}
 			});
 	}
