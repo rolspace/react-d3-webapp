@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const authentication = require('./routes/authentication');
+const authorization = require('./routes/authorization');
 
 const app = express();
 
@@ -14,7 +14,7 @@ function init() {
 	app.use(bodyParser.json())
 	app.use(cors(config.cors));
 	
-	app.post('/api/authentication/', authentication.post);
+	app.post('/api/authorization/', authorization.post);
 	
 	app.use((req, res) => {
 		res.status(config.http.notFound).send({ 'message': 'Resource not found' });

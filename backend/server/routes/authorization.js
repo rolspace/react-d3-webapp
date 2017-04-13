@@ -1,9 +1,10 @@
 const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
+const jsonApi = require('../../common/jsonapi');
 const UserModel = require('../../models/userModel');
 
-function postAuthentication(req, res) {
+function postAuthorization(req, res) {
 	if (!req.body || !req.body.code) {
 		res.status(config.http.unprocessable).send('"code" parameter is missing');
 	}
@@ -24,13 +25,13 @@ function postAuthentication(req, res) {
 					res.status(config.http.internalError).send('an error has occurred');
 				}
 				else if (response.statusCode !== config.http.ok) {
-					res.status(response.statusCode).send('postAuthentication method failed');
+					res.status(response.statusCode).send('postAuthorization method failed');
 				}
 				else {
 					json = JSON.parse(response.body);
 
 					let user = new UserModel({
-						instagram_id: json.user.id,
+						id: json.user.id,
 						token: json.access_token,
 						username: json.user.username
 					});
@@ -40,7 +41,9 @@ function postAuthentication(req, res) {
 							res.status(config.http.internalError).send('an error has occurred');
 						}
 						else {
-							res.status(config.http.ok).send('postAuthentication method called successfully');
+							console.log(user);
+							console.log(jsonApi.userSerializer.serialize({ id: user.id }));
+							res.status(config.http.ok).send('postAuthorization method called successfully');
 						}
 					});
 				}
@@ -49,5 +52,5 @@ function postAuthentication(req, res) {
 }
 
 module.exports = {
-	post: postAuthentication
+	post: postAuthorization
 };

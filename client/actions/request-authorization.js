@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 export const REQUEST_AUTHORIZATION = 'REQUEST_AUTHORIZATION';
 export const requestAuthorization = createAction(REQUEST_AUTHORIZATION, /* async */code => {
 	//const result = 
-	/* await */fetch('http://localhost:4000/api/authentication/', {
+	/* await */fetch('http://localhost:4000/api/authorization/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
