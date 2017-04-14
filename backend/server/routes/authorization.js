@@ -6,7 +6,8 @@ const UserModel = require('../../models/userModel');
 
 function postAuthorization(req, res) {
 	if (!req.body || !req.body.code) {
-		res.status(config.http.unprocessable).send('"code" parameter is missing');
+		res.status(config.http.unprocessable)
+			.send(new jsonApi.Error({ detail: 'The `code property is missing.' }));
 	}
 	else {
 		var form = {
@@ -22,10 +23,10 @@ function postAuthorization(req, res) {
 				utils.logger.info(response);
 				
 				if (error) {
-					res.status(config.http.internalError).send('an error has occurred');
+					res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error.' }));
 				}
 				else if (response.statusCode !== config.http.ok) {
-					res.status(response.statusCode).send('postAuthorization method failed');
+					res.status(response.statusCode).send(new jsonApi.Error({ detail: 'Connection to external provider failed.' }));
 				}
 				else {
 					json = JSON.parse(response.body);
@@ -38,12 +39,10 @@ function postAuthorization(req, res) {
 
 					user.save((err) => {
 						if (err) {
-							res.status(config.http.internalError).send('an error has occurred');
+							res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error.' }));
 						}
 						else {
-							console.log(user);
-							console.log(jsonApi.userSerializer.serialize({ id: user.id }));
-							res.status(config.http.ok).send('postAuthorization method called successfully');
+							res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
 						}
 					});
 				}
