@@ -1,8 +1,9 @@
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
-const Deserializer = require('jsonapi-serializer').Deserializer;
+const JSONAPIError = require('jsonapi-serializer').Error;
 
-let userSerializer = new JSONAPISerializer('users', { attributes: [] });
+const userSerializer = new JSONAPISerializer('users', { attributes: [] });
 
 module.exports = {
+	Error: JSONAPIError,
 	userSerializer: userSerializer
 };
