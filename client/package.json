@@ -16,6 +16,7 @@
     "url": "https://bitbucket.org/rolspace/tunnelstats"
   },
   "dependencies": {
+    "jsonapi-serializer": "^3.5.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
