@@ -7,8 +7,6 @@ import 'whatwg-fetch';
 export const REQUEST_AUTHORIZATION = 'REQUEST_AUTHORIZATION';
 export const requestAuthorization = createAction(REQUEST_AUTHORIZATION, /* async */code => {
 	var payload = jsonapi.authorizationSerializer.serialize({ code: code });
-
-	console.log(payload);
 	//const result = 
 	/* await */fetch('http://localhost:4000/api/authorization/', {
 		method: 'POST',
@@ -16,8 +14,24 @@ export const requestAuthorization = createAction(REQUEST_AUTHORIZATION, /* async
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(payload)
-	}).then(function(json){
+	}).then(response => {
+		if (response.status === 200) {
+			return response.json();
+		}
+		else {
+			throw new Error(response.statusText);
+		}
+	}).then(json => {
 		console.log(json);
-		return json;
+		jsonapi.userDeserializer.deserialize(json, (error, users) => {
+			if (error) {
+				console.log(error);
+			}
+			else {
+				console.log(users);
+			}
+		})
+	}).catch(error => {
+		console.log(error);
 	});
 });	
