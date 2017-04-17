@@ -6,8 +6,7 @@ const UserModel = require('../../models/userModel');
 
 function postAuthorization(req, res) {
 	if (!req.body) {
-		res.status(config.http.unprocessable)
-			.send(new jsonApi.Error({ detail: 'The request payload is empty' }));
+		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request payload is empty' }));
 	}
 	else {
 		utils.logger.info(req.body);
