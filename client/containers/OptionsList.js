@@ -3,13 +3,13 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Options from '../components/Options';
-import { requestAuthorization } from '../actions/request-authorization';
+import Option from '../components/Option';
+import { logIn } from '../actions/login';
 
 class OptionsList extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(requestAuthorization(this.props.code));
+		dispatch(logIn(this.props.code));
 	}
 
 	render() {

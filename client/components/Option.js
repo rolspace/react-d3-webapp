@@ -8,4 +8,4 @@ class Option extends React.Component {
 	}
 }
 
-export default Options;
+export default Option;
