@@ -25,10 +25,12 @@ export const requestAuthorization = createAction(REQUEST_AUTHORIZATION, /* async
 		console.log(json);
 		jsonapi.userDeserializer.deserialize(json, (error, users) => {
 			if (error) {
-				console.log(error);
+				throw new Error(error);
 			}
 			else {
-				console.log(users);
+				const today = new Date();
+				const tomorrow = today.getDate()
+				document.cookie = `id=${users.id};expires=${(new Date().toUTCString())};path=/`;
 			}
 		})
 	}).catch(error => {
