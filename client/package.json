@@ -9,9 +9,9 @@
   },
   "scripts": {
     "build": "node run build",
-    "debug": "node run start --no-hmr",
-    "eslint": "eslint actions components core pages reducers test main.js run.js webpack.config.js",
+    "start": "node run start --no-hmr",
     "release": "node run start --release",
+    "eslint": "eslint actions components core pages reducers test main.js run.js webpack.config.js",
     "test": "mocha ./test/setup.js ./test/**/*-test.js"
   },
   "repository": {
