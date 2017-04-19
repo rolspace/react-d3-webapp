@@ -1,12 +1,12 @@
 import React from 'react';
-import AuthorizedOptionsList from '../../containers/AuthorizedOptionsList';
+import OptionsList from '../../containers/OptionsList';
 
 class StartPage extends React.Component {	
 	render() {
 		return (
 			<div>
 				This is the Start Page!
-				<AuthorizedOptionsList code={this.props.location.query.code} />
+				<OptionsList code={this.props.location.query.code} />
 			</div>
 		);
 	}
