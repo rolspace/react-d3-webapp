@@ -4,6 +4,9 @@
   "author": "Rolando Ramos",
   "description": "",
   "main": "run.js",
+  "engines": {
+    "node": ">=6.9.0"
+  },
   "scripts": {
     "build": "node run build",
     "debug": "node run start --no-hmr",
