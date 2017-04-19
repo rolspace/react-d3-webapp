@@ -6,12 +6,10 @@ import { connect } from 'react-redux';
 import Options from '../components/Options';
 import { requestAuthorization } from '../actions/request-authorization';
 
-class AuthorizedOptionsList extends React.Component {
+class OptionsList extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(requestAuthorization(this.props.code));
-
-		//console.log(this.props.code);
 	}
 
 	render() {
@@ -21,7 +19,7 @@ class AuthorizedOptionsList extends React.Component {
 	}
 }
 
-AuthorizedOptionsList.propTypes = {
+OptionsList.propTypes = {
 	dispatch: PropTypes.func.isRequired
 }
 
@@ -37,4 +35,4 @@ function mapStateToProps(state, ownProps) {
 	};
 }
 
-export default connect(mapStateToProps)(AuthorizedOptionsList);
+export default connect(mapStateToProps)(OptionsList);

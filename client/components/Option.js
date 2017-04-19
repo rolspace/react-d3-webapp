@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Options extends React.Component {
+class Option extends React.Component {
 	render() {
 		return (
 			<div>This is temporary</div>
