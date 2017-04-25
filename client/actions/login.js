@@ -13,7 +13,7 @@ export function logIn(code) {
 
 		var body = jsonapi.authorizationSerializer.serialize({ code: code });
 
-		const authorized = /* await */fetch('http://localhost:4000/api/authorization/', {
+		const authorized = fetch('http://localhost:4000/api/authorization/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
