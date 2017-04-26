@@ -3,23 +3,22 @@
 import { REQUEST_LOGIN, RECEIVE_LOGIN } from '../actions/login';
 
 const initialState = {
-	authorized: false,
-	isFetching: false,
 	user: {
 		id: '',
-		name: ''
+		isFetching: false,
+		loggedIn: false
 	}
 }
 
-function authorization(state = initialState, action) {
+function login(state = initialState, action) {
 	switch (action.type) {
 		case REQUEST_LOGIN:
 			return Object.assign({}, state, { isFetching: true });
 		case RECEIVE_LOGIN:
-			return Object.assign({}, state, { authorized: action.payload, isFetching: false });
+			return Object.assign({}, state, { user: { isFetching: false, loggedIn: action.payload } });
 		default:
 			return state;
 	}
 }
 
-export default authorization;
+export default login;
