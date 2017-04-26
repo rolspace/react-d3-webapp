@@ -16,6 +16,10 @@ function authorization(state = initialState, action) {
 		case REQUEST_LOGIN:
 			return Object.assign({}, state, { isFetching: true });
 		case RECEIVE_LOGIN:
-			return Object.assign({}, state, { authorized: action.payload, isFetching: false })
+			return Object.assign({}, state, { authorized: action.payload, isFetching: false });
+		default:
+			return state;
 	}
 }
+
+export default authorization;

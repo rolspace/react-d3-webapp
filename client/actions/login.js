@@ -11,9 +11,10 @@ export function logIn(code) {
 	return (dispatch) => {
 		dispatch(requestLogIn);
 
-		var body = jsonapi.authorizationSerializer.serialize({ code: code });
+		let authorized = false;
+		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 
-		const authorized = fetch('http://localhost:4000/api/authorization/', {
+		fetch('http://localhost:4000/api/authorization/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -37,13 +38,12 @@ export function logIn(code) {
 					date.setDate(date.getDate() + 14);
 					document.cookie = `id=${users.id};expires=${(date.toUTCString())};path=/`;
 
-					return true;
+					authorized = true;
 				}
 			})
 		}).catch(error => {
 			console.log(error);
-
-			return false;
+			authorized = false;
 		});
 
 		dispatch(receiveLogIn(authorized));
