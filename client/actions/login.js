@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 
 import { createAction } from 'redux-actions';
 import jsonapi from '../core/jsonapi';
@@ -7,9 +7,9 @@ import 'whatwg-fetch';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 
-export function logIn(code) {
+export function login(code) {
 	return (dispatch) => {
-		dispatch(requestLogIn);
+		dispatch(requestLogin);
 
 		let authorized = false;
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
@@ -28,7 +28,6 @@ export function logIn(code) {
 				throw new Error(response.statusText);
 			}
 		}).then(json => {
-			console.log(json);
 			jsonapi.userDeserializer.deserialize(json, (error, users) => {
 				if (error) {
 					throw new Error(error);
@@ -42,14 +41,13 @@ export function logIn(code) {
 				}
 			})
 		}).catch(error => {
-			console.log(error);
 			authorized = false;
 		});
 
-		dispatch(receiveLogIn(authorized));
+		dispatch(receiveLogin(authorized));
 	};
 }
 
-const requestLogIn = createAction(REQUEST_LOGIN);
+const requestLogin = createAction(REQUEST_LOGIN);
 
-const receiveLogIn = createAction(RECEIVE_LOGIN);	
+const receiveLogin = createAction(RECEIVE_LOGIN);	
