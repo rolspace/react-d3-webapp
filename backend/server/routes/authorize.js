@@ -28,10 +28,10 @@ function postAuthorize(req, res) {
 					utils.logger.info(response);
 
 					if (error) {
-						res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error.' }));
+						res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 					}
 					else if (response.statusCode !== config.http.ok) {
-						res.status(response.statusCode).send(new jsonApi.Error({ detail: 'Connection to external provider failed.' }));
+						res.status(response.statusCode).send(new jsonApi.Error({ detail: 'Connection to external provider failed' }));
 					}
 					else {
 						body = JSON.parse(response.body);
@@ -44,7 +44,7 @@ function postAuthorize(req, res) {
 
 						user.save((error) => {
 							if (error) {
-								res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error.' }));
+								res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 							}
 							else {
 								res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
