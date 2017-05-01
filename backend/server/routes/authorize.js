@@ -11,6 +11,10 @@ function postAuthorize(req, res) {
 	else {
 		utils.logger.info(req.body);
 		jsonApi.authorizationDeserializer.deserialize(req.body, (error, authorization) => {
+			if (error) {
+				res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));			
+			}
+
 			var form = {
 				client_id: config.client.id,
 				client_secret: config.client.secret,
