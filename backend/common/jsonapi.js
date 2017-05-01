@@ -7,6 +7,6 @@ const userSerializer = new JSONAPISerializer('users', { attributes: [ ] });
 
 module.exports = {
 	authorizationDeserializer: authorizationDeserializer,
-	Error: JSONAPIError,
-	userSerializer: userSerializer
+	userSerializer: userSerializer,
+	Error: JSONAPIError
 };
