@@ -4,12 +4,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Option from '../components/Option';
-import { logIn } from '../actions/login';
+import { login } from '../actions/login';
 
 class OptionsList extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(logIn(this.props.code));
+		dispatch(login(this.props.code));
 	}
 
 	render() {
