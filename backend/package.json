@@ -18,7 +18,8 @@
     "eslint": "^3.17.0",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "sinon-stub-promise": "^4.0.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
