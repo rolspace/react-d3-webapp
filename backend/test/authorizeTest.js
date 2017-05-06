@@ -1,4 +1,5 @@
 const sinon = require('sinon');
+const request = require('request');
 const utils = require('../common/utils');
 const jsonApi = require('../common/jsonapi');
 const authorize = require('../server/routes/authorize');
@@ -52,6 +53,37 @@ describe('/POST authorize', () => {
 		
 		authorize.post(req, res);
 
+		promiseStub.restore();
+		sinon.assert.calledWith(res.status, 500);
+	});
+
+	it('returns a 500 http status if the OATH Token request fails', () => {
+		let req = {
+			body: {
+				"data": {
+					"type": "authorizations",
+					"id": "1",
+					"attributes": {
+						"code": "some-code"
+					}
+				}
+			}
+		};
+
+		let res = {
+			send: sinon.stub().returnsThis(),
+			status: sinon.stub().returnsThis()
+		};
+
+		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
+		promiseStub.resolves({ code : 'some-code' });
+
+		const requestStub = sinon.stub(request, 'post').yields('Some error', null, null);
+
+		authorize.post(req, res);
+
+		promiseStub.restore();
+		requestStub.restore();
 		sinon.assert.calledWith(res.status, 500);
 	});
 });
