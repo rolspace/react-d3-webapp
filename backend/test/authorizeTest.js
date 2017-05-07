@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const request = require('request');
 const utils = require('../common/utils');
 const jsonApi = require('../common/jsonapi');
+const User = require('../models/userModel');
 const authorize = require('../server/routes/authorize');
 const sinonStubPromise = require('sinon-stub-promise');
 
@@ -85,5 +86,69 @@ describe('/POST authorize', () => {
 		promiseStub.restore();
 		requestStub.restore();
 		sinon.assert.calledWith(res.status, 500);
+	});
+
+	it('returns a 200 http status if the OATH Token request is successful', () => {
+		let req = {
+			body: {
+				"data": {
+					"type": "authorizations",
+					"id": "1",
+					"attributes": {
+						"code": "some-code"
+					}
+				}
+			}
+		};
+
+		let res = {
+			send: sinon.stub().returnsThis(),
+			status: sinon.stub().returnsThis()
+		};
+
+		let oathBody = '{ "access_token": "some-token", "user": { "id": "some-id", "username": "some-name" } }';
+
+		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
+		promiseStub.resolves({ code : 'some-code' });
+
+		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
+		const saveStub = sinon.stub(User.prototype, "save").yields(null);
+
+		authorize.post(req, res);
+
+		promiseStub.restore();
+		requestStub.restore();
+		saveStub.restore();
+		sinon.assert.calledWith(res.status, 200);
+	});
+
+	it('returns the http status of the OATH Token request if it is not a 200 response', () => {
+		let req = {
+			body: {
+				"data": {
+					"type": "authorizations",
+					"id": "1",
+					"attributes": {
+						"code": "some-code"
+					}
+				}
+			}
+		};
+
+		let res = {
+			send: sinon.stub().returnsThis(),
+			status: sinon.stub().returnsThis()
+		};
+
+		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
+		promiseStub.resolves({ code : 'some-code' });
+
+		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 400 }, null);
+
+		authorize.post(req, res);
+
+		promiseStub.restore();
+		requestStub.restore();
+		sinon.assert.calledWith(res.status, 400);
 	});
 });
