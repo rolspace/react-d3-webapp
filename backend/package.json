@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node run.js",
     "eslint": "eslint . --ext .js",
-    "test": "mocha ./tests/**"
+    "test": "mocha ./test/**/*.js"
   },
   "repository": {
     "type": "git",
