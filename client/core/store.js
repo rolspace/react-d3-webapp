@@ -1,8 +1,8 @@
 /*eslint-disable no-unused-vars*/
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import authorization from '../reducers/login';
+import user from '../reducers/user';
 
-const store = createStore(authorization, applyMiddleware(thunkMiddleware));
+const store = createStore(user, applyMiddleware(thunkMiddleware));
 
 export default store;

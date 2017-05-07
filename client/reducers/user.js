@@ -10,7 +10,7 @@ const initialState = {
 	}
 }
 
-function login(state = initialState, action) {
+function user(state = initialState, action) {
 	switch (action.type) {
 		case REQUEST_LOGIN:
 			return Object.assign({}, state, { isFetching: true });
@@ -21,4 +21,4 @@ function login(state = initialState, action) {
 	}
 }
 
-export default login;
+export default user;
