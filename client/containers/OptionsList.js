@@ -23,7 +23,7 @@ OptionsList.propTypes = {
 	dispatch: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
+/*function mapStateToProps(state, ownProps) {
 	//Retrieve code from query string and
 	//request token from Instagram.
 
@@ -33,6 +33,7 @@ function mapStateToProps(state, ownProps) {
 	return {
 		authorized: state.authorized
 	};
-}
+}*/
 
-export default connect(mapStateToProps)(OptionsList);
+//export default connect(mapStateToProps)(OptionsList);
+export default connect()(OptionsList);
