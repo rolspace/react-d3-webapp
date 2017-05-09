@@ -3,15 +3,20 @@ const request = require('request');
 const utils = require('../common/utils');
 const jsonApi = require('../common/jsonapi');
 const User = require('../models/userModel');
-const authorize = require('../server/routes/authorization');
+const authorization = require('../server/routes/authorization');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
 
-describe('/POST authorization', () => {
+describe('/GET authorization', () => {
 	beforeEach(() => {
 		//stub logger to prevent console messages
 		loggerStub = sinon.stub(utils.logger, 'info', () => { });
+
+		res = {
+			send: sinon.stub().returnsThis(),
+			status: sinon.stub().returnsThis()
+		};
 	});
 
 	afterEach(() => {
@@ -19,14 +24,35 @@ describe('/POST authorization', () => {
 		loggerStub.restore();
 	});
 
-	it('returns a 422 http status if the request body or the code parameter is empty', () => {
+	it('returns a 422 http status if the request body is empty', () => {
 		let req = {};
-		let res = {
+
+		authorization.get(req, res);
+
+		sinon.assert.calledWith(res.status, 422);
+	});
+});
+
+describe('/POST authorization', () => {
+	beforeEach(() => {
+		//stub logger to prevent console messages
+		loggerStub = sinon.stub(utils.logger, 'info', () => { });
+
+		res = {
 			send: sinon.stub().returnsThis(),
 			status: sinon.stub().returnsThis()
 		};
+	});
 
-		authorize.post(req, res);
+	afterEach(() => {
+		//restore logger
+		loggerStub.restore();
+	});
+
+	it('returns a 422 http status if the request body is empty', () => {
+		let req = {};
+
+		authorization.post(req, res);
 
 		sinon.assert.calledWith(res.status, 422);
 	});
@@ -44,15 +70,10 @@ describe('/POST authorization', () => {
 			}
 		};
 
-		let res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 		promiseStub.rejects('some error');
 		
-		authorize.post(req, res);
+		authorization.post(req, res);
 
 		promiseStub.restore();
 		sinon.assert.calledWith(res.status, 500);
@@ -71,17 +92,12 @@ describe('/POST authorization', () => {
 			}
 		};
 
-		let res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 		promiseStub.resolves({ code : 'some-code' });
 
 		const requestStub = sinon.stub(request, 'post').yields('some error', null, null);
 
-		authorize.post(req, res);
+		authorization.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -101,11 +117,6 @@ describe('/POST authorization', () => {
 			}
 		};
 
-		let res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-
 		let oathBody = '{ "access_token": "some-token", "user": { "id": "some-id", "username": "some-name" } }';
 
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
@@ -114,7 +125,7 @@ describe('/POST authorization', () => {
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
 		const saveStub = sinon.stub(User.prototype, "save").yields(null);
 
-		authorize.post(req, res);
+		authorization.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -135,11 +146,6 @@ describe('/POST authorization', () => {
 			}
 		};
 
-		let res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-
 		let oathBody = '{ "access_token": "some-token", "user": { "id": "some-id", "username": "some-name" } }';
 
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
@@ -148,7 +154,7 @@ describe('/POST authorization', () => {
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
 		const saveStub = sinon.stub(User.prototype, "save").yields('some error');
 
-		authorize.post(req, res);
+		authorization.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -169,17 +175,12 @@ describe('/POST authorization', () => {
 			}
 		};
 
-		let res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 		promiseStub.resolves({ code : 'some-code' });
 
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 400 }, null);
 
-		authorize.post(req, res);
+		authorization.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
