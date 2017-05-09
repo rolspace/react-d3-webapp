@@ -2,6 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import jsonapi from '../core/jsonapi';
+import Cookies from 'js-cookie';
 import 'whatwg-fetch';
 
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
@@ -33,9 +34,7 @@ export function login(code) {
 					throw new Error(error);
 				}
 				else {
-					const date = new Date();
-					date.setDate(date.getDate() + 14);
-					document.cookie = `id=${users.id};expires=${(date.toUTCString())};path=/`;
+					Cookies.set('id', users.id, { expires: 14 });
 
 					authorized = true;
 				}
