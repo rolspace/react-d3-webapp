@@ -3,12 +3,12 @@ const request = require('request');
 const utils = require('../common/utils');
 const jsonApi = require('../common/jsonapi');
 const User = require('../models/userModel');
-const authorize = require('../server/routes/authorize');
+const authorize = require('../server/routes/authorization');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
 
-describe('/POST authorize', () => {
+describe('/POST authorization', () => {
 	beforeEach(() => {
 		//stub logger to prevent console messages
 		loggerStub = sinon.stub(utils.logger, 'info', () => { });

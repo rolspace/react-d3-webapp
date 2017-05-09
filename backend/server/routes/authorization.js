@@ -4,7 +4,7 @@ const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
 const UserModel = require('../../models/userModel');
 
-function postAuthorize(req, res) {
+function postAuthorization(req, res) {
 	if (!req.body) {
 		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request payload is empty' }));
 	}
@@ -58,5 +58,5 @@ function postAuthorize(req, res) {
 }
 
 module.exports = {
-	post: postAuthorize
+	post: postAuthorization
 };
