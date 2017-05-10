@@ -32,7 +32,7 @@ function postAuthorization(req, res) {
 						res.status(response.statusCode).send(new jsonApi.Error({ detail: 'Connection to external provider failed' }));
 					}
 					else {
-						body = JSON.parse(body);
+						body = JSON.parse(response.body);
 
 						const user = new UserModel({
 							id: body.user.id,
