@@ -4,9 +4,11 @@ const JSONAPIError = require('jsonapi-serializer').Error;
 
 const authorizationDeserializer = new JSONAPIDeserializer('authorizations');
 const userSerializer = new JSONAPISerializer('users', { attributes: [ ] });
+const userDeserializer = new JSONAPIDeserializer('users');
 
 module.exports = {
 	authorizationDeserializer: authorizationDeserializer,
 	userSerializer: userSerializer,
+	userDeserializer: userDeserializer,
 	Error: JSONAPIError
 };
