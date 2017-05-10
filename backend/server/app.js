@@ -4,6 +4,8 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
+const user = require('./routes/user');
 const authorization = require('./routes/authorization');
 
 const app = express();
@@ -15,6 +17,7 @@ function init() {
 	app.use(cors(config.cors));
 	
 	app.post('/api/authorization/', authorization.post);
+	app.get('/api/user/:id', user.get);
 	
 	app.use((req, res) => {
 		res.status(config.http.notFound).send({ 'message': 'Resource not found' });
