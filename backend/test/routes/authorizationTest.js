@@ -1,9 +1,9 @@
 const sinon = require('sinon');
 const request = require('request');
-const utils = require('../common/utils');
-const jsonApi = require('../common/jsonapi');
-const User = require('../models/userModel');
-const authorization = require('../server/routes/authorization');
+const utils = require('../../common/utils');
+const jsonApi = require('../../common/jsonapi');
+const userModel = require('../../models/userModel');
+const authorization = require('../../server/routes/authorization');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
@@ -127,7 +127,7 @@ describe('/POST authorization', () => {
 		promiseStub.resolves({ code : 'some-code' });
 
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
-		const saveStub = sinon.stub(User.prototype, "save").yields('some error');
+		const saveStub = sinon.stub(userModel.prototype, "save").yields('some error');
 
 		authorization.post(req, res);
 
