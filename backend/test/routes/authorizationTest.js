@@ -97,8 +97,8 @@ describe('/POST authorization', () => {
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 		promiseStub.resolves({ code : 'some-code' });
 
-		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
-		const saveStub = sinon.stub(User.prototype, "save").yields(null);
+		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200, body: oathBody }, oathBody);
+		const saveStub = sinon.stub(userModel.prototype, "save").yields(null);
 
 		authorization.post(req, res);
 
