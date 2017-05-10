@@ -8,31 +8,6 @@ const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
 
-describe('/GET authorization', () => {
-	beforeEach(() => {
-		//stub logger to prevent console messages
-		loggerStub = sinon.stub(utils.logger, 'info', () => { });
-
-		res = {
-			send: sinon.stub().returnsThis(),
-			status: sinon.stub().returnsThis()
-		};
-	});
-
-	afterEach(() => {
-		//restore logger
-		loggerStub.restore();
-	});
-
-	it('returns a 422 http status if the request body is empty', () => {
-		let req = {};
-
-		authorization.get(req, res);
-
-		sinon.assert.calledWith(res.status, 422);
-	});
-});
-
 describe('/POST authorization', () => {
 	beforeEach(() => {
 		//stub logger to prevent console messages
