@@ -9,9 +9,14 @@ function getUser(req, res) {
 		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The id parameter is empty' }));
 	}
 	else {
-		UserModel.find({ 'id': req.params.id  }).limit(1)
-		.then((user) => {
-			res.status(200).send();
+		UserModel.findOne({ 'id': req.params.id  })
+		.then((result) => {
+			const user = {
+				id: result.id,
+				username: result.username
+			};
+
+			res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
 		});
 	}
 }
@@ -42,5 +47,6 @@ function postUser(req, res) {
 }
 
 module.exports = {
-	get: getUser
+	get: getUser,
+	post: postUser
 };
