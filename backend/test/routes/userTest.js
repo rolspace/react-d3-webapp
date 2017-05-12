@@ -3,7 +3,7 @@ const request = require('request');
 const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
 const userModel = require('../../models/userModel');
-const user = require('../../server/routes/user');
+const userRoute = require('../../server/routes/user');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
@@ -27,7 +27,7 @@ describe('/GET user', () => {
 	it('returns a 422 http status if the id parameter is empty', () => {
 		let req = {};
 
-		user.get(req, res);
+		userRoute.get(req, res);
 
 		sinon.assert.calledWith(res.status, 422);
 	});
