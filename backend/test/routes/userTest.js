@@ -24,7 +24,7 @@ describe('/GET user', () => {
 		loggerStub.restore();
 	});
 
-	it('returns a 422 http status if the request parameter is empty', () => {
+	it('returns a 422 http status if the id parameter is empty', () => {
 		let req = {};
 
 		user.get(req, res);
