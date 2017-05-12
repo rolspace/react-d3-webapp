@@ -9,9 +9,12 @@ const sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
 
 describe('/POST authorization', () => {
+	let loggerInfoStub, loggerErrorStub, res;
+
 	beforeEach(() => {
 		//stub logger to prevent console messages
-		loggerStub = sinon.stub(utils.logger, 'info', () => { });
+		loggerInfoStub = sinon.stub(utils.logger, 'info', () => { });
+		loggerErrorStub = sinon.stub(utils.logger, 'error', () => { });
 
 		res = {
 			send: sinon.stub().returnsThis(),
@@ -21,7 +24,8 @@ describe('/POST authorization', () => {
 
 	afterEach(() => {
 		//restore logger
-		loggerStub.restore();
+		loggerInfoStub.restore();
+		loggerErrorStub.restore();
 	});
 
 	it('returns a 422 http status if the request body is empty', () => {
@@ -35,11 +39,11 @@ describe('/POST authorization', () => {
 	it('returns a 500 http status if the JSON API serialization throws an error', () => {
 		let req = {
 			body: {
-				"data": {
-					"type": "authorizations",
-					"id": "1",
-					"attributes": {
-						"code": "some-code"
+				'data': {
+					'type': 'authorizations',
+					'id': '1',
+					'attributes': {
+						'code': 'some-code'
 					}
 				}
 			}
@@ -57,11 +61,11 @@ describe('/POST authorization', () => {
 	it('returns a 500 http status if the OATH Token request fails', () => {
 		let req = {
 			body: {
-				"data": {
-					"type": "authorizations",
-					"id": "1",
-					"attributes": {
-						"code": "some-code"
+				'data': {
+					'type': 'authorizations',
+					'id': '1',
+					'attributes': {
+						'code': 'some-code'
 					}
 				}
 			}
@@ -82,11 +86,11 @@ describe('/POST authorization', () => {
 	it('returns a 200 http status if the OATH Token request is successful', () => {
 		let req = {
 			body: {
-				"data": {
-					"type": "authorizations",
-					"id": "1",
-					"attributes": {
-						"code": "some-code"
+				'data': {
+					'type': 'authorizations',
+					'id': '1',
+					'attributes': {
+						'code': 'some-code'
 					}
 				}
 			}
@@ -98,7 +102,7 @@ describe('/POST authorization', () => {
 		promiseStub.resolves({ code : 'some-code' });
 
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200, body: oathBody }, oathBody);
-		const saveStub = sinon.stub(userModel.prototype, "save").yields(null);
+		const saveStub = sinon.stub(userModel.prototype, 'save').yields(null);
 
 		authorizationRoute.post(req, res);
 
@@ -111,11 +115,11 @@ describe('/POST authorization', () => {
 	it('returns a 500 http status if the user save operation fails', () => {
 		let req = {
 			body: {
-				"data": {
-					"type": "authorizations",
-					"id": "1",
-					"attributes": {
-						"code": "some-code"
+				'data': {
+					'type': 'authorizations',
+					'id': '1',
+					'attributes': {
+						'code': 'some-code'
 					}
 				}
 			}
@@ -127,7 +131,7 @@ describe('/POST authorization', () => {
 		promiseStub.resolves({ code : 'some-code' });
 
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
-		const saveStub = sinon.stub(userModel.prototype, "save").yields('some error');
+		const saveStub = sinon.stub(userModel.prototype, 'save').yields('some error');
 
 		authorizationRoute.post(req, res);
 
@@ -140,11 +144,11 @@ describe('/POST authorization', () => {
 	it('returns the http status of the OATH Token request if it is not a 200 response', () => {
 		let req = {
 			body: {
-				"data": {
-					"type": "authorizations",
-					"id": "1",
-					"attributes": {
-						"code": "some-code"
+				'data': {
+					'type': 'authorizations',
+					'id': '1',
+					'attributes': {
+						'code': 'some-code'
 					}
 				}
 			}

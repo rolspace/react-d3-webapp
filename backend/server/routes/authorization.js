@@ -52,6 +52,7 @@ function postAuthorization(req, res) {
 				});
 		})
 		.catch((error) => {
+			utils.logger.error(error);
 			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 		});
 	}

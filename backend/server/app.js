@@ -30,9 +30,9 @@ function init() {
 
 function listen() {
 	const server = http.createServer(app);
-		server.listen(config.port, () => {
+	server.listen(config.port, () => {
 			//logger.info('Listening on port %s', config.port);
-		});
+	});
 }
 
 module.exports = {
