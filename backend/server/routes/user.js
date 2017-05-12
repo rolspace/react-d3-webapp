@@ -6,15 +6,37 @@ const UserModel = require('../../models/userModel');
 
 function getUser(req, res) {
 	if (!req.params) {
-		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request parameter is empty' }));
+		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The id parameter is empty' }));
 	}
 	else {
 		UserModel.find({ 'id': req.params.id  }).limit(1)
-		.then((result) => {
-				console.log(req.params.id);
-				console.log(result);
+		.then((user) => {
+			res.status(200).send();
+		});
+	}
+}
 
-				res.status(200).send();
+function postUser(req, res) {
+	if (!req.body) {
+		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request payload is empty' }));
+	}
+	else
+	{
+		body = JSON.parse(response.body);
+
+		const user = new UserModel({
+			id: body.user.id,
+			token: body.access_token,
+			username: body.user.username
+		});
+
+		user.save((error) => {
+			if (error) {
+				res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+			}
+			else {
+				res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
+			}
 		});
 	}
 }
