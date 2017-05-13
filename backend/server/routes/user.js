@@ -10,7 +10,7 @@ function getUser(req, res) {
 	}
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
-		.then((result) => {
+		.then(result => {
 			const user = {
 				id: result.id,
 				username: result.username
@@ -18,7 +18,7 @@ function getUser(req, res) {
 
 			res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
 		})
-		.catch((error) => {
+		.catch(error => {
 			res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found'}))
 		});
 	}
@@ -38,7 +38,7 @@ function postUser(req, res) {
 			username: body.user.username
 		});
 
-		user.save((error) => {
+		user.save(error => {
 			if (error) {
 				res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 			}
