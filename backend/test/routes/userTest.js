@@ -48,7 +48,29 @@ describe('/GET user', () => {
 		findOnePromiseStub.resolves(result);
 
 		userRoute.get(req, res);
+		findOnePromiseStub.restore();
 
 		sinon.assert.calledWith(res.status, 200);
+	});
+
+	it('returns a 500 http status if the user id does not exist', () => {
+		let req = {
+			params: {
+				id: 'some-id'
+			}
+		};
+
+		let result = {
+			id: 'some-id',
+			username: 'some username'
+		};
+
+		const findOnePromiseStub = sinon.stub(UserModel, 'findOne').returnsPromise();
+		findOnePromiseStub.rejects('Some error');
+
+		userRoute.get(req, res);
+		findOnePromiseStub.restore();
+
+		sinon.assert.calledWith(res.status, 404);
 	});
 });
