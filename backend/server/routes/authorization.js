@@ -1,17 +1,17 @@
 const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
-const jsonApi = require('../../common/jsonapi');
+const jsonapi = require('../../common/jsonapi');
 const UserModel = require('../../models/userModel');
 
 function postAuthorization(req, res) {
 	if (!req.body) {
-		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request payload is empty' }));
+		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
 	else {
 		utils.logger.info(req.body);
 
-		jsonApi.authorizationDeserializer.deserialize(req.body)
+		jsonapi.authorizationDeserializer.deserialize(req.body)
 		.then((authorization) => {
 			var form = {
 				client_id: config.client.id,
@@ -26,10 +26,10 @@ function postAuthorization(req, res) {
 					utils.logger.info(response);
 
 					if (error) {
-						res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+						res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 					}
 					else if (response.statusCode !== config.http.ok) {
-						res.status(response.statusCode).send(new jsonApi.Error({ detail: 'Connection to external provider failed' }));
+						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }));
 					}
 					else {
 						body = JSON.parse(response.body);
@@ -42,10 +42,10 @@ function postAuthorization(req, res) {
 
 						user.save((error) => {
 							if (error) {
-								res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+								res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 							}
 							else {
-								res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
+								res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: user.id }));
 							}
 						});
 					}
@@ -53,7 +53,7 @@ function postAuthorization(req, res) {
 		})
 		.catch((error) => {
 			utils.logger.error(error);
-			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 		});
 	}
 }
