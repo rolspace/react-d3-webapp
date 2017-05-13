@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { verify } from '../actions/login';
 
 class App extends React.Component {
+	componentDidMount() {
+		const { dispatch } = this.props;
+		dispatch(verify());
+	}
+
 	render() {
 		return (
 			<div>
@@ -12,7 +19,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	children: React.PropTypes.node.isRequired
+	children: React.PropTypes.node.isRequired,
+	dispatch: PropTypes.func.isRequired
 };
 
-export default App;
+export default connect()(App);
