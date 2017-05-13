@@ -6,15 +6,15 @@ import jsonapi from '../core/jsonapi';
 import Cookies from 'js-cookie';
 import 'whatwg-fetch';
 
-export const REQUEST_LOGIN = 'REQUEST_LOGIN';
-export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
-export const VERIFY_LOGIN = 'VERIFY_LOGIN';
+export const REQUEST_USERLOGIN = 'REQUEST_USERLOGIN';
+export const RECEIVE_USERLOGIN = 'RECEIVE_USERLOGIN';
+export const VERIFY_USERLOGIN = 'VERIFY_USERLOGIN';
 
-export function login(code) {
+export function loginUser(code) {
 	return (dispatch) => {
-		dispatch(requestLogin);
+		dispatch(requestUserLogin);
 
-		let authorized = false;
+		let login = false;
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 
 		fetch('http://localhost:4000/api/authorization/', {
@@ -38,18 +38,18 @@ export function login(code) {
 				else {
 					Cookies.set('id', users.id, { expires: 14 });
 
-					authorized = true;
+					login = true;
 				}
 			})
 		}).catch(error => {
-			authorized = false;
+			login = false;
 		});
 
-		dispatch(receiveLogin(authorized));
+		dispatch(receiveUserLogin(login));
 	};
 }
 
-export function verify() {
+export function verifyUser() {
 	return (dispatch) => {
 		const id = Cookies.get('id');
 
@@ -71,12 +71,12 @@ export function verify() {
 			})
 		}
 
-		dispatch(verifyLogin(false));
+		dispatch(verifyUserLogin(false));
 	};
 }
 
-const requestLogin = createAction(REQUEST_LOGIN);
+const requestUserLogin = createAction(REQUEST_USERLOGIN);
 
-const receiveLogin = createAction(RECEIVE_LOGIN);
+const receiveUserLogin = createAction(RECEIVE_USERLOGIN);
 
-const verifyLogin = createAction(VERIFY_LOGIN);
+const verifyUserLogin = createAction(VERIFY_USERLOGIN);

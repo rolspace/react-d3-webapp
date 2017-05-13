@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { verify } from '../actions/login';
+import { verifyUser } from '../actions/login';
 
 class App extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(verify());
+		dispatch(verifyUser());
 	}
 
 	render() {

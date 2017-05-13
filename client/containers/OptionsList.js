@@ -4,12 +4,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Option from '../components/Option';
-import { login } from '../actions/login';
+import { loginUser } from '../actions/login';
 
 class OptionsList extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(login(this.props.code));
+		dispatch(loginUser(this.props.code));
 	}
 
 	render() {
@@ -31,7 +31,7 @@ OptionsList.propTypes = {
 	//The token should be stored in the DB
 	
 	return {
-		authorized: state.authorized
+		login: state.user.login
 	};
 }*/
 
