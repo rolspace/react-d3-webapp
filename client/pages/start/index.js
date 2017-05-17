@@ -4,7 +4,7 @@ import OptionsList from '../../containers/OptionsList';
 class StartPage extends React.Component {	
 	render() {
 		return (
-			<div>
+			<div className="startpage">
 				This is the Start Page!
 				<OptionsList code={this.props.location.query.code} />
 			</div>

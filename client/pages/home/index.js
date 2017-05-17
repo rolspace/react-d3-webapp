@@ -4,12 +4,10 @@ import InstagramButton from '../../components/InstagramButton';
 class HomePage extends React.Component {
 	render() {
 		return (
-			<div>
-				<div>
-				This is the HomePage
+				<div className="homepage">
+					This is the HomePage
+					<InstagramButton text="Login" />
 				</div>
-				<InstagramButton text="Login" />
-			</div>
 		);
 	}
 }
