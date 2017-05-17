@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { loginUser } from '../actions/user';
 import Option from '../components/Option';
-import { loginUser } from '../actions/login';
 
 class OptionsList extends React.Component {
 	componentDidMount() {
@@ -14,7 +11,12 @@ class OptionsList extends React.Component {
 
 	render() {
 		return (
-			<div>The Option Component list should be here</div>
+			<div className="options">
+				<Option name="option1" />
+				<Option name="option2" />
+				<Option name="option3" />
+				<Option name="option4" />
+			</div>
 		);
 	}
 }
@@ -23,17 +25,4 @@ OptionsList.propTypes = {
 	dispatch: PropTypes.func.isRequired
 }
 
-/*function mapStateToProps(state, ownProps) {
-	//Retrieve code from query string and
-	//request token from Instagram.
-
-	//Create an "authorized" property to add to the state.
-	//The token should be stored in the DB
-	
-	return {
-		login: state.user.login
-	};
-}*/
-
-//export default connect(mapStateToProps)(OptionsList);
 export default connect()(OptionsList);
