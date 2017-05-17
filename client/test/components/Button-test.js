@@ -10,11 +10,11 @@ describe('Button component', function(){
 		expect(wrapper.find('button')).to.have.length(1);
 	});
 
-	it('should execute the provided function on a <button> click', function() {
-		const onButtonClick = sinon.spy();
-		const wrapper = mount(<Button text="text" onClick={onButtonClick} />);
+	it('should execute the "click" prop function', function() {
+		const onClick = sinon.spy();
+		const wrapper = mount(<Button text="text" click={onClick} />);
 
 		wrapper.find('button').simulate('click');
-		expect(onButtonClick.calledOnce).to.equal(true);
+		expect(onClick.calledOnce).to.equal(true);
 	});
 });
