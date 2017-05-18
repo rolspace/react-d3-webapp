@@ -4,9 +4,11 @@ import { loginUser } from '../actions/user';
 import Option from '../components/Option';
 
 class OptionsList extends React.Component {
-	componentDidMount() {
-		const { dispatch } = this.props;
-		dispatch(loginUser(this.props.code));
+	componentWillMount() {
+		if (this.props.code) {
+			const { dispatch } = this.props;
+			dispatch(loginUser(this.props.code));
+		}
 	}
 
 	render() {
@@ -19,10 +21,11 @@ class OptionsList extends React.Component {
 			</div>
 		);
 	}
-}
+}	
 
 OptionsList.propTypes = {
-	dispatch: PropTypes.func.isRequired
+	code: PropTypes.string,
+	dispatch: PropTypes.func.isRequired,
 }
 
 export default connect()(OptionsList);

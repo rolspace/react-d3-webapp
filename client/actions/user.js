@@ -42,6 +42,7 @@ export function loginUser(code) {
 				}
 				else {
 					Cookies.set('id', users.id, { expires: 14 });
+					Cookies.set('login', true, { expires: 1 });
 
 					user.id = users.id;
 					user.login = true;
@@ -57,27 +58,23 @@ export function loginUser(code) {
 }
 
 export function verifyUser() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(requestUser);
 
 		const id = Cookies.get('id');
+		const login = Cookies.get('login') ? true : false;
 		let user = {
 			fetching: false,
 			id: id,
-			login: false
+			login: login
 		};
 
-		if (id) {
-			fetch(`http://localhost:4000/api/user/${id}`)
-			.then(response => {
-				if (response.status === 200) {
-					return response.json();
-				}
-				else {
-					throw new Error(response.statusText);
-				}
-			})
-			.then(json => {
+		if (id && login) {
+			let response = await fetch(`http://localhost:4000/api/user/${id}`);
+
+			if (response.status === 200) {
+				let json = await response.json();
+
 				jsonapi.userDeserializer.deserialize(json)
 				.then(users => {
 					if (user.id === users.id) {
@@ -87,10 +84,7 @@ export function verifyUser() {
 						dispatch(receiveUser({user: user}));
 					}
 				});
-			})
-			.catch(error => {
-				console.log(error);
-			});
+			}
 		}
 	};
 }
