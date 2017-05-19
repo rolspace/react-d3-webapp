@@ -19,7 +19,7 @@ class OptionsList extends React.Component {
 				<Option name="option3" />
 				<Option name="option4" />
 			</div>
-		);
+		)
 	}
 }	
 

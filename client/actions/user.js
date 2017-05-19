@@ -18,7 +18,7 @@ export function loginUser(code) {
 			fetching: false,
 			id: '',
 			login: false
-		};
+		}
 		
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 
@@ -54,7 +54,7 @@ export function loginUser(code) {
 			user.login = false;
 			console.log(error);
 		});
-	};
+	}
 }
 
 export function verifyUser() {
@@ -63,11 +63,12 @@ export function verifyUser() {
 
 		const id = Cookies.get('id');
 		const login = Cookies.get('login') ? true : false;
+		
 		let user = {
 			fetching: false,
 			id: id,
 			login: login
-		};
+		}
 
 		if (id && login) {
 			let response = await fetch(`http://localhost:4000/api/user/${id}`);
@@ -86,7 +87,7 @@ export function verifyUser() {
 				});
 			}
 		}
-	};
+	}
 }
 
 const requestUserLogin = createAction(REQUEST_USERLOGIN);

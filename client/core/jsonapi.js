@@ -7,4 +7,4 @@ const userDeserializer = new JSONAPIDeserializer('users');
 module.exports = {
 	authorizationSerializer: authorizationSerializer,
 	userDeserializer: userDeserializer
-};
+}

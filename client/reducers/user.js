@@ -9,7 +9,7 @@ const initialState = {
 		id: '',
 		login: false
 	}
-};
+}
 
 function user(state = initialState, action) {
 	switch (action.type) {

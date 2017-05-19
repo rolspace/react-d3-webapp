@@ -7,12 +7,12 @@ class App extends React.Component {
 				Welcome to TunnelStats
 				{this.props.children}
 			</div>
-		);
+		)
 	}
 }
 
 App.propTypes = {
 	children: React.PropTypes.node.isRequired,
-};
+}
 
 export default App;

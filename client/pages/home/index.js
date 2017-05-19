@@ -8,7 +8,7 @@ class HomePage extends React.Component {
 					This is the HomePage
 					<InstagramButton text="Login" />
 				</div>
-		);
+		)
 	}
 }
 

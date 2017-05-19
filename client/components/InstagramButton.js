@@ -14,7 +14,7 @@ class InstagramButton extends React.Component {
 	render() {
 		return (
 			<Button text={this.props.text} click={this.logInUser} />
-		);
+		)
 	}
 }
 
