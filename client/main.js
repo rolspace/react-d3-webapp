@@ -7,6 +7,7 @@ import store from './core/store';
 import App from './components/App';
 import HomePage from './pages/home';
 import StartPage from './pages/start';
+import Authorization from './containers/Authorization';
 
 const container = document.getElementById('container');
 
@@ -15,7 +16,7 @@ ReactDom.render(
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute component={HomePage}/>
-				<Route path="/start" component={StartPage}/>
+				<Route path="/start" component={Authorization(StartPage)}/>
 			</Route>
 		</Router>
 	</Provider>,
