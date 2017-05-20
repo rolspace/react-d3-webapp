@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -6,9 +7,16 @@ import { verifyUser } from '../actions/user';
 
 const Authorization = (WrappedComponent) => {
 	return connect(mapStateToProps)(class AuthorizationComponent extends React.Component {
-		componentWillMount() {
-			const { dispatch } = this.props;
-			dispatch(verifyUser());
+		componentDidMount() {
+			if (!this.props.location.query.code) {
+				const { dispatch } = this.props;
+				dispatch(verifyUser());
+			}
+		}
+
+		componentWillReceiveProps(nextProps) {
+			console.log(this.props.user);
+			console.log(nextProps.user);
 		}
 
 		render() {

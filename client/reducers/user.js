@@ -18,7 +18,7 @@ function user(state = initialState, action) {
 		case RECEIVE_USERLOGIN:
 			return Object.assign({}, state, action.payload);
 		case REQUEST_USER:
-			return Object.assign({}, state, { user: { fetching: true }});
+			return Object.assign({}, state, action.payload);
 		case RECEIVE_USER:
 			return Object.assign({}, state, action.payload);
 		default:

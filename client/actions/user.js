@@ -51,41 +51,50 @@ export function loginUser(code) {
 				}
 			})
 		}).catch(error => {
-			user.login = false;
 			console.log(error);
+
+			dispatch(receiveUserLogin({user: user}));
 		});
 	}
 }
 
 export function verifyUser() {
 	return async (dispatch) => {
-		dispatch(requestUser);
-
-		const id = Cookies.get('id');
-		const login = Cookies.get('login') ? true : false;
-		
 		let user = {
 			fetching: false,
-			id: id,
-			login: login
+			id: '',
+			login: false
 		}
 
-		if (id && login) {
-			let response = await fetch(`http://localhost:4000/api/user/${id}`);
+		user.fetching = true;
 
-			if (response.status === 200) {
-				let json = await response.json();
+		dispatch(requestUser({ user: user }));
 
-				jsonapi.userDeserializer.deserialize(json)
-				.then(users => {
-					if (user.id === users.id) {
-						user.id = users.id
+		try {
+			const id = Cookies.get('id');
+			const login = Cookies.get('login') ? true : false;
+			
+			if (id && login) {
+				let response = await fetch(`http://localhost:4000/api/user/${id}`);
+
+				if (response.status === 200) {
+					let json = await response.json();
+
+					jsonapi.userDeserializer.deserialize(json)
+					.then(users => {
+						user.id = users.id;
+						user.fetching = false;
 						user.login = true;
 
-						dispatch(receiveUser({user: user}));
-					}
-				});
+						dispatch(receiveUser({user: user}));<
+					});
+				}
 			}
+		}
+		catch (error) {
+			console.log(error);
+
+			dispatch(receiveUser({user: user}));
 		}
 	}
 }

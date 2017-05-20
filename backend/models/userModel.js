@@ -13,17 +13,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function(callback) {
 	let user = this;
-
-	bcrypt.genSalt(10, (err, salt) => {
-		if (err) return callback(err);
-
-		bcrypt.hash(user.id, salt, (err, hash) => {
-			if (err) return callback(err);
-
-			user.id = hash;
-			callback();
-		});
-	});
+	callback();
 });
 
 module.exports = db.model('User', userSchema, 'users');
