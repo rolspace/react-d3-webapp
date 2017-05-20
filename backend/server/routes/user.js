@@ -19,6 +19,7 @@ function getUser(req, res) {
 			res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
 		})
 		.catch(error => {
+			utils.logger.info(error);
 			res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found'}))
 		});
 	}

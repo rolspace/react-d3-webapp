@@ -60,41 +60,37 @@ export function loginUser(code) {
 
 export function verifyUser() {
 	return async (dispatch) => {
-		let user = {
-			fetching: false,
-			id: '',
-			login: false
-		}
+		const defaultUser = { fetching: true, id: '', login: false }
 
-		user.fetching = true;
-
-		dispatch(requestUser({ user: user }));
+		dispatch(requestUser({ user: defaultUser }));
 
 		try {
 			const id = Cookies.get('id');
-			const login = Cookies.get('login') ? true : false;
+			let login = Cookies.get('login');
+			login = (login == 'true');
 			
-			if (id && login) {
+			if (id && !login) {
 				let response = await fetch(`http://localhost:4000/api/user/${id}`);
 
 				if (response.status === 200) {
 					let json = await response.json();
 
 					jsonapi.userDeserializer.deserialize(json)
-					.then(users => {
-						user.id = users.id;
-						user.fetching = false;
-						user.login = true;
+					.then(user => {
+						Cookies.set('login', true, { expires: 1 });
 
-						dispatch(receiveUser({user: user}));<
+						dispatch(receiveUser({user: { fetching: false, id: user.id, login: true }}));
 					});
 				}
+			}
+			else if (id && login === true) {
+				dispatch(receiveUser({user: { fetching: false, id: id, login: login }}));
 			}
 		}
 		catch (error) {
 			console.log(error);
 
-			dispatch(receiveUser({user: user}));
+			dispatch(receiveUser({user: defaultUser }));
 		}
 	}
 }
