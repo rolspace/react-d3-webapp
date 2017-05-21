@@ -42,7 +42,7 @@ export function loginUser(code) {
 				}
 				else {
 					Cookies.set('id', users.id, { expires: 14 });
-					Cookies.set('login', true, { expires: 1 });
+					Cookies.set('login', true);
 
 					user.id = users.id;
 					user.login = true;
@@ -77,7 +77,7 @@ export function verifyUser() {
 
 					jsonapi.userDeserializer.deserialize(json)
 					.then(user => {
-						Cookies.set('login', true, { expires: 1 });
+						Cookies.set('login', true);
 
 						dispatch(receiveUser({user: { fetching: false, id: user.id, login: true }}));
 					});
