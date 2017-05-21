@@ -15,6 +15,7 @@ const Authorization = (WrappedComponent) => {
 		}
 
 		componentWillReceiveProps(nextProps) {
+			//Ideally a redirect should happen here
 			console.log(this.props.user);
 			console.log(nextProps.user);
 		}
