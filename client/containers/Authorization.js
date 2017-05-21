@@ -20,7 +20,7 @@ const Authorization = (WrappedComponent) => {
 		}
 
 		render() {
-			if (this.props.location.query.code || (this.props.user && this.props.user.login)) {
+			if ((this.props.user && this.props.user.login) || this.props.location.query.code) {
 				return <WrappedComponent {...this.props} />
 			}
 			else {
