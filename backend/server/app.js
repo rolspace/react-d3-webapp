@@ -1,9 +1,11 @@
-const db = require('./db');
 const config = require('config');
+const utils = require('../common/utils');
+
 const http = require('http');
+const db = require('./db');
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const user = require('./routes/user');
 const authorization = require('./routes/authorization');
@@ -31,7 +33,7 @@ function init() {
 function listen() {
 	const server = http.createServer(app);
 	server.listen(config.port, () => {
-			//logger.info('Listening on port %s', config.port);
+			utils.logger.info('Listening on port %s', config.port);
 	});
 }
 
