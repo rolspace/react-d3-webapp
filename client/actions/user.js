@@ -22,7 +22,7 @@ export function loginUser(code) {
 		
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 
-		fetch('http://localhost:4000/api/authorization/', {
+		fetch('http://localhost:4000/api/auth/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

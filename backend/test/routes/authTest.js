@@ -3,7 +3,7 @@ const request = require('request');
 const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
 const UserModel = require('../../models/userModel');
-const authorizationRoute = require('../../server/routes/authorization');
+const authRoute = require('../../server/routes/auth');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);
@@ -31,7 +31,7 @@ describe('/POST authorization', () => {
 	it('returns a 422 http status if the request body is empty', () => {
 		let req = {};
 
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		sinon.assert.calledWith(res.status, 422);
 	});
@@ -52,7 +52,7 @@ describe('/POST authorization', () => {
 		const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 		promiseStub.rejects('some error');
 		
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		promiseStub.restore();
 		sinon.assert.calledWith(res.status, 500);
@@ -76,7 +76,7 @@ describe('/POST authorization', () => {
 
 		const requestStub = sinon.stub(request, 'post').yields('some error', null, null);
 
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -104,7 +104,7 @@ describe('/POST authorization', () => {
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200, body: oathBody }, oathBody);
 		const saveStub = sinon.stub(UserModel.prototype, 'save').yields(null);
 
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -133,7 +133,7 @@ describe('/POST authorization', () => {
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 200 }, oathBody);
 		const saveStub = sinon.stub(UserModel.prototype, 'save').yields('some error');
 
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
@@ -159,7 +159,7 @@ describe('/POST authorization', () => {
 
 		const requestStub = sinon.stub(request, 'post').yields(null, { statusCode: 400 }, null);
 
-		authorizationRoute.post(req, res);
+		authRoute.post(req, res);
 
 		promiseStub.restore();
 		requestStub.restore();
