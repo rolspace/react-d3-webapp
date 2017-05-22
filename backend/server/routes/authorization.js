@@ -9,8 +9,6 @@ function postAuthorization(req, res) {
 		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
 	else {
-		utils.logger.info(req.body);
-
 		jsonapi.authorizationDeserializer.deserialize(req.body)
 		.then((authorization) => {
 			var form = {
@@ -23,12 +21,13 @@ function postAuthorization(req, res) {
 
 			request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },
 				function(error, response, body) {
-					utils.logger.info(response);
-
 					if (error) {
+						utils.logger.error(error);
+						utils.logger.error(response);
 						res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 					}
 					else if (response.statusCode !== config.http.ok) {
+						utils.logger.error(response);
 						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }));
 					}
 					else {
@@ -42,9 +41,11 @@ function postAuthorization(req, res) {
 
 						user.save((error) => {
 							if (error) {
+								utils.logger.error(error);
 								res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 							}
 							else {
+								utils.logger.info(user);
 								res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: user.id }));
 							}
 						});
