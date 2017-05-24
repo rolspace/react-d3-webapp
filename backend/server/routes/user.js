@@ -11,15 +11,21 @@ function getUser(req, res) {
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
 		.then(result => {
-			const user = {
-				id: result.id,
-				username: result.username
-			};
+			if (result) {
+				const user = {
+					id: result.id,
+					username: result.username
+				};
 
-			res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
+				utils.logger.info(result);
+				res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
+			}
+			else {
+				throw new Error('User not found');
+			}
 		})
 		.catch(error => {
-			utils.logger.info(error);
+			utils.logger.error(error);
 			res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found'}))
 		});
 	}
@@ -41,9 +47,11 @@ function postUser(req, res) {
 
 		user.save(error => {
 			if (error) {
+				utils.logger.error(error);
 				res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 			}
 			else {
+				utils.logger.info(user);
 				res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
 			}
 		});
