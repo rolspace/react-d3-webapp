@@ -15,7 +15,7 @@ describe('InstagramButton component', function() {
 		expect(wrapper.find('button')).to.have.length(1);
 	});
 
-	it('should execute the logInUser method on <button> click', function() {
+	it('should execute the logInUser method on <Button> click', function() {
 		const logInUser = sinon.spy(InstagramButton.prototype, 'logInUser');
 		const wrapper = mount(<InstagramButton text="text" />);
 		wrapper.find('button').simulate('click');
