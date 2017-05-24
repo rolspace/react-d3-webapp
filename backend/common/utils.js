@@ -1,7 +1,7 @@
 const bunyan = require('bunyan');
 
 const logger = bunyan.createLogger({
-	name: 'expressjskit'
+	name: 'tunnelstats'
 });
 
 module.exports = {
