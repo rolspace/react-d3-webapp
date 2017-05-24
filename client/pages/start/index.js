@@ -7,9 +7,14 @@ class StartPage extends React.Component {
 			<div className="startpage">
 				This is the Start Page!
 				<OptionsList code={this.props.location.query.code} />
+				{this.props.children}
 			</div>
 		)
 	}
+}
+
+StartPage.propTypes = {
+	children: React.PropTypes.node,
 }
 
 export default StartPage;

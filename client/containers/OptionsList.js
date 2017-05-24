@@ -2,7 +2,6 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-//import { browserHistory } from 'react-router';
 import { loginUser } from '../actions/user';
 import Option from '../components/Option';
 
