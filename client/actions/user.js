@@ -82,6 +82,9 @@ export function verifyUser() {
 						dispatch(receiveUser({user: { fetching: false, id: user.id, login: true }}));
 					});
 				}
+				else if (response.status !== 200) {
+					dispatch(receiveUser({user: { fetching: false, id: '', login: false }}))
+				}
 			}
 			else if (id && login === true) {
 				dispatch(receiveUser({user: { fetching: false, id: id, login: login }}));
