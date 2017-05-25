@@ -1,11 +1,12 @@
 import React from 'react';
+import RecentMediaGraph from '../../containers/graphs/RecentMediaGraph'
 
 class RecentMedia extends React.Component {
 	render() {
 		return (
 			<div>
 				<h3>Recent Media graph</h3>
-				<div>This is where the graph will be shown</div>
+				<RecentMediaGraph />
 			</div>
 		)
 	}
