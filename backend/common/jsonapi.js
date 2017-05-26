@@ -12,3 +12,7 @@ module.exports = {
 	userDeserializer: userDeserializer,
 	Error: JSONAPIError
 };
+
+//Create a separate properties for each serializer/deserializer
+//and pass a new reference on the export.
+//Create a single function to serialize/deserialize receive an object parameter.
