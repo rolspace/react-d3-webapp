@@ -19,7 +19,7 @@ const config = {
 	context: __dirname,
 	// The entry point for the bundle
 	entry: [
-	/* The main entry point of your JavaScript application */
+		/* The main entry point of your JavaScript application */
 		'whatwg-fetch',
 		'./main.js',
 	],
@@ -61,13 +61,13 @@ const config = {
 			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
 			'process.env.CLIENT_ID': '"4cd22e4d9e0a469a889ef29b94669b8c"',
 			__DEV__: isDebug,
-		}),
+		})
 	],
 
 	// Options affecting the normal modules
 	module: {
 		rules: [
-		{
+			{
 				test: /\.jsx?$/,
 				enforce: 'pre',
 				loader: 'eslint-loader',
