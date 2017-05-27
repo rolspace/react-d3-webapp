@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
 	render() {
@@ -12,7 +13,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	children: React.PropTypes.node.isRequired,
+	children: PropTypes.node.isRequired,
 }
 
 export default App;

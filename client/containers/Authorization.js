@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { verifyUser } from '../actions/user';

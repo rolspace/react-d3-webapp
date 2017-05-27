@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 class InstagramButton extends React.Component {
@@ -20,7 +21,7 @@ class InstagramButton extends React.Component {
 }
 
 InstagramButton.propTypes = {
-	text: React.PropTypes.string.isRequired
+	text: PropTypes.string.isRequired
 }
 
 export default InstagramButton;

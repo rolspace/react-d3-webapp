@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/user';
 import Option from '../components/Option';

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import OptionsList from '../../containers/OptionsList';
 
 class StartPage extends React.Component {
@@ -14,7 +15,7 @@ class StartPage extends React.Component {
 }
 
 StartPage.propTypes = {
-	children: React.PropTypes.node,
+	children: PropTypes.node,
 }
 
 export default StartPage;
