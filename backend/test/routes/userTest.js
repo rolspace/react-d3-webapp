@@ -9,10 +9,12 @@ const sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
 
 describe('User Route', () => {
-	describe('/GET user', () => {
-		beforeEach(() => {
+	let res, loggerStubInfo, loggerStubError;
+
+	beforeEach(() => {
 			//stub logger to prevent console messages
-			loggerStub = sinon.stub(utils.logger, 'info', () => { });
+			loggerStubInfo = sinon.stub(utils.logger, 'info', () => { });
+			loggerStubError = sinon.stub(utils.logger, 'error', () => { });
 
 			res = {
 				send: sinon.stub().returnsThis(),
@@ -20,12 +22,14 @@ describe('User Route', () => {
 			};
 		})
 
-		afterEach(() => {
+	afterEach(() => {
 			//restore logger
-			loggerStub.restore();
+			loggerStubInfo.restore();
+			loggerStubError.restore();
 		})
 
-		it('returns a 422 http status if the id parameter is empty', () => {
+	describe('/GET user', () => {
+		it('returns a 422 http status when the id parameter is empty', () => {
 			let req = {};
 
 			userRoute.get(req, res);
@@ -33,7 +37,7 @@ describe('User Route', () => {
 			sinon.assert.calledWith(res.status, 422);
 		})
 
-		it('returns a 200 http status if the user id exists', () => {
+		it('returns a 200 http status when the user exists', () => {
 			let req = {
 				params: {
 					id: 'some-id'
@@ -54,7 +58,7 @@ describe('User Route', () => {
 			sinon.assert.calledWith(res.status, 200);
 		})
 
-		it('returns a 500 http status if the user id does not exist', () => {
+		it('returns a 500 http status when the user does not exist', () => {
 			let req = {
 				params: {
 					id: 'some-id'

@@ -5,28 +5,28 @@ const jsonApi = require('../../common/jsonapi');
 const UserModel = require('../../models/userModel');
 
 function getUser(req, res) {
-	if (!req.params) {
+	if (!req.params || !req.params.id) {
 		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The id parameter is empty' }));
 	}
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
-		.then(result => {
-			if (result) {
+		.then(data => {
+			if (data) {
 				const user = {
-					id: result.id,
-					username: result.username
+					id: data.id,
+					username: data.username
 				};
 
-				utils.logger.info(result);
+				utils.logger.info(data);
 				res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
 			}
 			else {
-				throw new Error('User not found');
+				res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found' }))
 			}
 		})
 		.catch(error => {
 			utils.logger.error(error);
-			res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found'}))
+			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 		});
 	}
 }

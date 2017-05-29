@@ -1,6 +1,6 @@
 {
 	"db": {
-		"connection": "mongodb://localhost/expressjskit",
+		"connection": "mongodb://localhost/tunnelstats",
 		"error": "error",
 		"open": "open"
 	},
