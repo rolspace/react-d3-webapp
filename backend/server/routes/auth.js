@@ -2,7 +2,7 @@ const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonapi = require('../../common/jsonapi');
-const UserModel = require('../../models/userModel');
+const UserModel = require('../../models/UserModel');
 
 function postAuthorization(req, res) {
 	if (!req.body) {

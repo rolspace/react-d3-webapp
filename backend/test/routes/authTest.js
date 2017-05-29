@@ -2,8 +2,8 @@ const sinon = require('sinon');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
-const UserModel = require('../../models/userModel');
 const authRoute = require('../../server/routes/auth');
+const UserModel = require('../../models/UserModel');
 const sinonStubPromise = require('sinon-stub-promise');
 
 sinonStubPromise(sinon);

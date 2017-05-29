@@ -2,7 +2,7 @@ const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
-const UserModel = require('../../models/userModel');
+const UserModel = require('../../models/UserModel');
 
 function getUser(req, res) {
 	if (!req.params || !req.params.id) {
