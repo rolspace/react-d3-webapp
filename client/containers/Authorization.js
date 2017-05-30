@@ -1,15 +1,24 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import querystring from  '../core/querystring';
 import { verifyUser } from '../actions/user';
 
 const Authorization = (WrappedComponent) => {
 	return connect(mapStateToProps)(class AuthorizationComponent extends React.Component {
+		constructor(props) {
+			super(props);
+			
+			const qs = querystring.parse(this.props.location.search)
+			this.state = { code: qs.code };
+		}
+
 		componentDidMount() {
-			if (!this.props.location.query.code) {
+			if (!this.state.code) {
 				const { dispatch } = this.props;
 				dispatch(verifyUser());
 			}
@@ -23,8 +32,8 @@ const Authorization = (WrappedComponent) => {
 		}
 
 		render() {
-			if ((this.props.user && this.props.user.login) || this.props.location.query.code) {
-				return <WrappedComponent {...this.props} />
+			if ((this.props.user && this.props.user.login) || this.state.code) {
+				return <WrappedComponent {...this.props} code={this.state.code} />
 			}
 			else {
 				return null;
