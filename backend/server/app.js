@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const user = require('./routes/user');
+const user = require('./routes/users');
 const auth = require('./routes/auth');
 
 const app = express();
@@ -18,7 +18,7 @@ function init() {
 	app.use(bodyParser.json())
 	app.use(cors(config.cors));
 	
-	app.get('/api/user/:id', user.get);
+	app.get('/api/users/:id', user.get);
 	app.post('/api/auth/', auth.post);
 	
 	app.use((req, res) => {

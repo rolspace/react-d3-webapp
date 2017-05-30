@@ -70,7 +70,7 @@ export function verifyUser() {
 			login = (login == 'true');
 			
 			if (id && !login) {
-				let response = await fetch(`http://localhost:4000/api/user/${id}`);
+				let response = await fetch(`http://localhost:4000/api/users/${id}`);
 
 				if (response.status === 200) {
 					let json = await response.json();

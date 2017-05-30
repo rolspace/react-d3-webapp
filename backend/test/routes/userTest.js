@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonApi = require('../../common/jsonapi');
-const userRoute = require('../../server/routes/user');
+const usersRoute = require('../../server/routes/users');
 const UserModel = require('../../models/UserModel');
 const sinonStubPromise = require('sinon-stub-promise');
 
@@ -32,7 +32,7 @@ describe('User Route', () => {
 		it('returns a 422 http status when the id parameter is empty', () => {
 			let req = {};
 
-			userRoute.get(req, res);
+			usersRoute.get(req, res);
 
 			sinon.assert.calledWith(res.status, 422);
 		})
@@ -52,7 +52,7 @@ describe('User Route', () => {
 			const findOnePromiseStub = sinon.stub(UserModel, 'findOne').returnsPromise();
 			findOnePromiseStub.resolves(result);
 
-			userRoute.get(req, res);
+			usersRoute.get(req, res);
 			findOnePromiseStub.restore();
 
 			sinon.assert.calledWith(res.status, 200);
@@ -73,7 +73,7 @@ describe('User Route', () => {
 			const findOnePromiseStub = sinon.stub(UserModel, 'findOne').returnsPromise();
 			findOnePromiseStub.rejects('Some error');
 
-			userRoute.get(req, res);
+			usersRoute.get(req, res);
 			findOnePromiseStub.restore();
 
 			sinon.assert.calledWith(res.status, 404);
