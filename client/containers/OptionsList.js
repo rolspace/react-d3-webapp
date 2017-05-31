@@ -26,7 +26,6 @@ class OptionsList extends React.Component {
 			)
 		}
 		else {
-			//Redirect here
 			return null;
 		}
 	}

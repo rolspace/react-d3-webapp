@@ -4,7 +4,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import querystring from  '../core/querystring';
 import { verifyUser } from '../actions/user';
 
@@ -24,18 +23,19 @@ const Authorization = (WrappedComponent) => {
 			}
 		}
 
-		componentWillReceiveProps(nextProps) {
-			const stoppedFetching = this.props.user.fetching && !nextProps.user.fetching;
-			if (stoppedFetching && !nextProps.user.login) {
-				browserHistory.push('/');
-			}
-		}
+		//componentWillReceiveProps(nextProps) {
+			//const stoppedFetching = this.props.user.fetching && !nextProps.user.fetching;
+			// if (stoppedFetching && !nextProps.user.login) {
+			// 	browserHistory.push('/');
+			// }
+		//}
 
 		render() {
 			if ((this.props.user && this.props.user.login) || this.state.code) {
 				return <WrappedComponent {...this.props} code={this.state.code} />
 			}
 			else {
+				//Redirect here
 				return null;
 			}
 		}
