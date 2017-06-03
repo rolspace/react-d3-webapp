@@ -1,8 +1,8 @@
-import queryString from 'query-string';
+import qs from 'query-string';
 
-const parse = (qs) => {
-	if (qs) {
-		return queryString.parse(qs);
+const parse = (value) => {
+	if (value) {
+		return qs.parse(value);
 	}
 
 	return {};

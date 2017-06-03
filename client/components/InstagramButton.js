@@ -13,7 +13,6 @@ class InstagramButton extends React.Component {
 	}
 
 	render() {
-		//This button should be displayed based on the user status
 		return (
 			<Button text={this.props.text} click={this.logInUser} />
 		)

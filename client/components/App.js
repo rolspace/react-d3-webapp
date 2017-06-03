@@ -1,19 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import store from '../core/store';
+import HomePage from '../pages/home';
+import StartPage from '../pages/start';
+import PrivateRoute from '../containers/PrivateRoute';
 
 class App extends React.Component {
 	render() {
 		return (
-			<div className="app">
-				Welcome to TunnelStats
-				{this.props.children}
-			</div>
+			<Provider store={store}>
+				<Router>
+					<div>
+						<Route exact path="/" component={HomePage} />
+						<PrivateRoute path='/start' component={StartPage} />
+					</div>
+				</Router>
+			</Provider>
 		)
 	}
-}
-
-App.propTypes = {
-	children: PropTypes.node.isRequired,
 }
 
 export default App;
