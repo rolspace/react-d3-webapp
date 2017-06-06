@@ -4,26 +4,53 @@
 import React from 'react';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 import querystring from '../core/querystring';
-import Auth from '../core/authenticate';
+import auth from '../core/authenticate';
 
-const PrivateRoute = withRouter(({ component: Component, location }) => {
-	if (location.search)
-	{
-		const qs = querystring.parse(location.search);
-		const { code } = qs;
-
-		const auth = new Auth();
-		const isAuthenticated = auth.login(code);
-
-		//dispatch action to store user and to create session cookie
-
-		return (<Route render={() => (
-			isAuthenticated ? (<Component />) : (<Redirect to={{ pathname: '/' }} />)
-		)} />);
+class PrivateRoute extends React.Component {
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			auth: false,
+			loading: false
+		};
 	}
-	else {
-		return (<Route render={() => <Redirect to={{ pathname: '/' }} /> } />)
+
+	componentWillMount() {
+		if (this.props.location.search) {
+
+			this.setState({ loading: true });
+			const qsObject = querystring.parse(this.props.location.search);
+			const { code } = qsObject;
+
+			auth.login(code)
+			.then(response => {
+				this.setState({
+					auth: response.auth,
+					loading: false
+				})
+
+				//dispatch the loginUser action
+			})
+			.catch(error => {
+				this.setState({
+					loading: false
+				});
+			});
+		}
 	}
-})
+
+	render() {
+		if (this.state.loading) {
+			return <div>Loading...</div>;
+		}
+		else if (!this.state.loading && this.state.auth) {
+			return <Route render={() => <this.props.component /> } />;
+		}
+		else {
+			return <Route render={() => <Redirect to={{ pathname: '/' }} /> } />;
+		}
+	}
+}
 
 export default withRouter(PrivateRoute);

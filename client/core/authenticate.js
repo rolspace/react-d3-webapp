@@ -2,43 +2,40 @@
 /* eslint-disable no-unused-vars */
 
 import jsonapi from '../core/jsonapi';
-//import Cookies from 'js-cookie';
 import 'whatwg-fetch';
 
-const auth = function() {
-	return {
-		login: async function(code) {
-			const body = jsonapi.authorizationSerializer.serialize({ code: code });
-			if (code) {
-				let response = await fetch('http://localhost:4000/api/auth/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(body)
-				});
-				if (response.status === 200) {
-					let json = await response.json();
-					jsonapi.userDeserializer.deserialize(json, (error, users) => {
-						if (error) {
-							throw new Error(error);
-						}
-						else {
-							return true;
-						}
-					});
-				}
-				else
-				{
-					return false;
-				}
+async function login(code) {
+	const body = jsonapi.authorizationSerializer.serialize({ code: code });
+	if (code) {
+		try {
+			let response = await fetch('http://localhost:4000/api/auth/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(body)
+			});
+			if (response.status === 200) {
+				const json = await response.json();
+				const users = await jsonapi.userDeserializer.deserialize(json);
+				
+				return {
+					auth: true,
+					id: users.id
+				};
 			}
-		},
-		user: {
-			id: '',
-			token: ''
+
+			throw new Error('Authorization service failed to validate');
+		}
+		catch (error) {
+			return {
+				auth: false,
+				id: ''
+			};
 		}
 	}
 }
 
-module.exports = auth;
+module.exports = {
+	login: login
+};

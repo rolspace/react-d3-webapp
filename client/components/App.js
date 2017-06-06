@@ -12,7 +12,7 @@ class App extends React.Component {
 			<Provider store={store}>
 				<Router>
 					<div>
-						<Route exact path="/" component={HomePage} />
+						<Route exact path='/' component={HomePage} />
 						<PrivateRoute path='/start' component={StartPage} />
 					</div>
 				</Router>
