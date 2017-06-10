@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import store from '../core/store';
 import HomePage from '../pages/home';
 import StartPage from '../pages/start';
@@ -12,8 +12,10 @@ class App extends React.Component {
 			<Provider store={store}>
 				<Router>
 					<div>
-						<Route exact path='/' component={HomePage} />
-						<PrivateRoute path='/start' component={StartPage} />
+						<Switch>
+							<Route exact path='/' component={HomePage} />
+							<PrivateRoute path='/start' component={StartPage} />
+						</Switch>
 					</div>
 				</Router>
 			</Provider>

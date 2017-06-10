@@ -1,8 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 
 import React from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
+import { getUser, loginUser } from '../actions/user'; 
 import querystring from '../core/querystring';
 import auth from '../core/authenticate';
 
@@ -12,39 +14,45 @@ class PrivateRoute extends React.Component {
 		
 		this.state = {
 			auth: false,
-			loading: false
+			loading: true
 		};
 	}
 
-	componentWillMount() {
-		if (this.props.location.search) {
+	componentWillReceiveProps(nextProps) {
+		if (this.state.loading && !nextProps.loading) {
+			this.setState({ auth: nextProps.auth, loading: nextProps.loading });
+		}
+	}
 
-			this.setState({ loading: true });
+	componentWillMount() {
+		const { dispatch } = this.props;
+
+		if (this.props.location.search) {
 			const qsObject = querystring.parse(this.props.location.search);
 			const { code } = qsObject;
 
 			auth.login(code)
 			.then(response => {
-				this.setState({
-					auth: response.auth,
-					loading: false
-				})
-
-				//dispatch the loginUser action
+				dispatch(loginUser(response));
 			})
 			.catch(error => {
+				console.log(error);
+
 				this.setState({
 					loading: false
 				});
 			});
 		}
+		else {
+			dispatch(getUser());
+		}
 	}
 
 	render() {
-		if (this.state.loading) {
+		if (this.props.loading) {
 			return <div>Loading...</div>;
 		}
-		else if (!this.state.loading && this.state.auth) {
+		else if (!this.props.loading && this.props.auth) {
 			return <Route render={() => <this.props.component /> } />;
 		}
 		else {
@@ -53,4 +61,17 @@ class PrivateRoute extends React.Component {
 	}
 }
 
-export default withRouter(PrivateRoute);
+PrivateRoute.propTypes = {
+	auth: PropTypes.bool,
+	dispatch: PropTypes.func.isRequired,
+	loading: PropTypes.bool
+}
+
+const mapStateToProps = (state) => {
+	return {
+		auth: state.user.auth,
+		loading: state.user.loading
+	}
+}
+
+export default withRouter(connect(mapStateToProps)(PrivateRoute));

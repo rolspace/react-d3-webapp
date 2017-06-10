@@ -1,26 +1,23 @@
 /*eslint-disable no-unused-vars*/
 
-import { REQUEST_USERLOGIN, RECEIVE_USERLOGIN,
-	REQUEST_USER, RECEIVE_USER } from '../actions/user';
+import { USER_GET, USER_LOADING, USER_LOGIN } from '../actions/user';
 
 const initialState = {
 	user: {
-		fetching: false,
+		auth: false,
 		id: '',
-		login: false
+		loading: true
 	}
 }
 
 function user(state = initialState, action) {
 	switch (action.type) {
-		case REQUEST_USERLOGIN:
-			return Object.assign({}, state, { user: { fetching: true }});
-		case RECEIVE_USERLOGIN:
-			return Object.assign({}, state, action.payload);
-		case REQUEST_USER:
-			return Object.assign({}, state, action.payload);
-		case RECEIVE_USER:
-			return Object.assign({}, state, action.payload);
+		case USER_GET:
+			return Object.assign({}, state, { user: action.payload });
+		case USER_LOADING:
+			return Object.assign({}, state, { user: action.payload });
+		case USER_LOGIN:
+			return Object.assign({}, state, { user: action.payload });
 		default:
 			return state;
 	}
