@@ -19,7 +19,7 @@ function init() {
 	app.use(cors(config.cors));
 	
 	app.get('/api/users/:id', user.get);
-	app.post('/api/auth/', auth.post);
+	app.post('/api/auth/', auth.post, user.post);
 	
 	app.use((req, res) => {
 		res.status(config.http.notFound).send({ 'message': 'Resource not found' });

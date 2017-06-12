@@ -37,7 +37,8 @@ function postUser(req, res) {
 	}
 	else
 	{
-		body = JSON.parse(response.body);
+		utils.logger.info(res.body);
+		body = JSON.parse(res.body);
 
 		const user = new UserModel({
 			id: body.user.id,
@@ -45,15 +46,32 @@ function postUser(req, res) {
 			username: body.user.username
 		});
 
-		user.save(error => {
-			if (error) {
-				utils.logger.error(error);
-				res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+		UserModel.findOne({ 'id': body.user.id  })
+		.then(data => {
+			let id = '';
+			if (data) {
+				id = data._id;
+				delete data._id;
+
+				data.token = body.access_token;
+				utils.logger.info(`Existing user: ${data}`);
 			}
 			else {
-				utils.logger.info(user);
-				res.status(config.http.ok).send(jsonApi.userSerializer.serialize({ id: user.id }));
+				id = user._id;
+				data = user;
+				utils.logger.info(`New user: ${data}`)
 			}
+
+			UserModel.update({ _id: id }, data, { upsert: true, setDefaultsOnInsert: true })
+			.then(result => {
+				utils.logger.info(result);
+
+				res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: data.id }));
+			});
+		})
+		.catch(error => {
+			utils.logger.error(error);
+			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
 		});
 	}
 }

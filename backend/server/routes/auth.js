@@ -4,7 +4,7 @@ const utils = require('../../common/utils');
 const jsonapi = require('../../common/jsonapi');
 const UserModel = require('../../models/UserModel');
 
-function postAuthorization(req, res) {
+function postAuthorization(req, res, next) {
 	if (!req.body) {
 		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
@@ -31,24 +31,26 @@ function postAuthorization(req, res) {
 						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }));
 					}
 					else {
-						body = JSON.parse(response.body);
+						res.body = response.body;
+						next();
+						// body = JSON.parse(response.body);
 
-						const user = new UserModel({
-							id: body.user.id,
-							token: body.access_token,
-							username: body.user.username
-						});
+						// const user = new UserModel({
+						// 	id: body.user.id,
+						// 	token: body.access_token,
+						// 	username: body.user.username
+						// });
 
-						user.save((error) => {
-							if (error) {
-								utils.logger.error(error);
-								res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
-							}
-							else {
-								utils.logger.info(user);
-								res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: user.id }));
-							}
-						});
+						// user.save((error) => {
+						// 	if (error) {
+						// 		utils.logger.error(error);
+						// 		res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
+						// 	}
+						// 	else {
+						// 		utils.logger.info(user);
+						// 		res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: user.id }));
+						// 	}
+						// });
 					}
 				});
 		})
