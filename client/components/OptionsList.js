@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-
 import React from 'react';
-import Option from '../components/Option';
+import Option from './Option';
 
 class OptionsList extends React.Component {
 	render() {

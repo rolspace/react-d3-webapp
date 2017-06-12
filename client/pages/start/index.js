@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom'; 
 import RecentMedia from '../recent';
-import OptionsList from '../../containers/OptionsList';
+import OptionsList from '../../components/OptionsList';
 
 class StartPage extends React.Component {
 	render() {
