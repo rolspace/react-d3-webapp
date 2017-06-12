@@ -8,9 +8,6 @@ class OptionsList extends React.Component {
 		return (
 			<div className="options">
 				<Option name="option1" />
-				<Option name="option2" />
-				<Option name="option3" />
-				<Option name="option4" />
 			</div>
 		)
 	}
