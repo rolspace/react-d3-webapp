@@ -1,12 +1,11 @@
 const config = require('config');
-const request = require('request');
 const utils = require('../../common/utils');
-const jsonApi = require('../../common/jsonapi');
+const jsonapi = require('../../common/jsonapi');
 const UserModel = require('../../models/UserModel');
 
 function getUser(req, res) {
 	if (!req.params || !req.params.id) {
-		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The id parameter is empty' }));
+		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The id parameter is empty' }));
 	}
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
@@ -18,22 +17,22 @@ function getUser(req, res) {
 				};
 
 				utils.logger.info(data);
-				res.status(config.http.ok).send(jsonApi.userSerializer.serialize(user));
+				res.status(config.http.ok).send(jsonapi.userSerializer.serialize(user));
 			}
 			else {
-				res.status(config.http.notFound).send(new jsonApi.Error({ detail: 'User not found' }))
+				res.status(config.http.notFound).send(new jsonapi.Error({ detail: 'User not found' }))
 			}
 		})
 		.catch(error => {
 			utils.logger.error(error);
-			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 		});
 	}
 }
 
 function postUser(req, res) {
 	if (!req.body) {
-		res.status(config.http.unprocessable).send(new jsonApi.Error({ detail: 'The request payload is empty' }));
+		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
 	else
 	{
@@ -54,6 +53,7 @@ function postUser(req, res) {
 				delete data._id;
 
 				data.token = body.access_token;
+				data.token_date = Date.now();
 				utils.logger.info(`Existing user: ${data}`);
 			}
 			else {
@@ -67,11 +67,14 @@ function postUser(req, res) {
 				utils.logger.info(result);
 
 				res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: data.id }));
+			})
+			.catch(error => {
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
 			utils.logger.error(error);
-			res.status(config.http.internalError).send(new jsonApi.Error({ detail: 'Internal server error' }));
+			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 		});
 	}
 }
