@@ -37,7 +37,7 @@ function postUser(req, res) {
 	else
 	{
 		utils.logger.info(res.body);
-		body = JSON.parse(res.body);
+		const body = JSON.parse(res.body);
 
 		const user = new UserModel({
 			id: body.user.id,

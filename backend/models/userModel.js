@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const db = require('../server/db');
 
@@ -9,11 +8,6 @@ const userSchema = mongoose.Schema({
 	'token': { type: String, required: true },
 	'token_date': { type: Date, default: Date.now }
 	
-});
-
-userSchema.pre('save', function(callback) {
-	let user = this;
-	callback();
 });
 
 module.exports = db.model('User', userSchema, 'users');

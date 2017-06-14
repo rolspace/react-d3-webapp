@@ -32,7 +32,7 @@ function init() {
 function listen() {
 	const server = http.createServer(app);
 	server.listen(config.port, () => {
-			utils.logger.info('Listening on port %s', config.port);
+		utils.logger.info('Listening on port %s', config.port);
 	});
 }
 

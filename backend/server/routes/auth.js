@@ -2,7 +2,6 @@ const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonapi = require('../../common/jsonapi');
-const UserModel = require('../../models/UserModel');
 
 function postAuthorization(req, res, next) {
 	if (!req.body) {
@@ -20,7 +19,7 @@ function postAuthorization(req, res, next) {
 			}
 
 			request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },
-				function(error, response, body) {
+				function(error, response) {
 					if (error) {
 						utils.logger.error(error);
 						utils.logger.error(response);
@@ -33,24 +32,6 @@ function postAuthorization(req, res, next) {
 					else {
 						res.body = response.body;
 						next();
-						// body = JSON.parse(response.body);
-
-						// const user = new UserModel({
-						// 	id: body.user.id,
-						// 	token: body.access_token,
-						// 	username: body.user.username
-						// });
-
-						// user.save((error) => {
-						// 	if (error) {
-						// 		utils.logger.error(error);
-						// 		res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
-						// 	}
-						// 	else {
-						// 		utils.logger.info(user);
-						// 		res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: user.id }));
-						// 	}
-						// });
 					}
 				});
 		})
