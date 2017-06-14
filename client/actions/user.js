@@ -36,9 +36,8 @@ export const loadingUser = createAction(USER_LOADING, () => {
 });
 
 export const loginUser = createAction(USER_LOGIN, (user) => {
-	Cookies.set('id', user.id);
-
 	if (user.id) {
+		Cookies.set('id', user.id);
 		user.auth = true;
 	}
 
