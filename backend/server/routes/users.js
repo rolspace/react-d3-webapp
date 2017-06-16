@@ -5,26 +5,29 @@ const UserModel = require('../../models/UserModel');
 
 function getUser(req, res) {
 	if (!req.params || !req.params.id) {
+		utils.logger.error(`POST User, error, params empty: ${req}`);
 		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The id parameter is empty' }));
 	}
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
 		.then(data => {
 			if (data) {
+				utils.logger.info(`GET User, user found: ${data}`);
+
 				const user = {
 					id: data.id,
 					username: data.username
 				};
-
-				utils.logger.info(data);
+				
 				res.status(config.http.ok).send(jsonapi.userSerializer.serialize(user));
 			}
 			else {
+				utils.logger.info(`GET User, user not found: ${req}`)
 				res.status(config.http.notFound).send(new jsonapi.Error({ detail: 'User not found' }))
 			}
 		})
 		.catch(error => {
-			utils.logger.error(error);
+			utils.logger.error(`GET User, general error: ${error}`);
 			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 		});
 	}
@@ -32,6 +35,7 @@ function getUser(req, res) {
 
 function postUser(req, res) {
 	if (!req.body) {
+		utils.logger.error(`POST User, error, payload empty: ${req}`);
 		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
 	else
@@ -47,6 +51,8 @@ function postUser(req, res) {
 
 		UserModel.findOne({ 'id': body.user.id  })
 		.then(data => {
+			utils.logger.info(`POST User, user found: ${data}`);
+
 			let id = '';
 			if (data) {
 				id = data._id;
@@ -54,17 +60,19 @@ function postUser(req, res) {
 
 				data.token = body.access_token;
 				data.token_date = Date.now();
-				utils.logger.info(`Existing user: ${data}`);
+				
 			}
 			else {
+				utils.logger.info(`POST User, new user: ${data}`)
+
 				id = user._id;
 				data = user;
-				utils.logger.info(`New user: ${data}`)
+				
 			}
 
 			UserModel.update({ _id: id }, data, { upsert: true, setDefaultsOnInsert: true })
 			.then(result => {
-				utils.logger.info(result);
+				utils.logger.info(`POST User, update result: ${result}`);
 
 				res.status(config.http.ok).send(jsonapi.userSerializer.serialize({ id: data.id }));
 			})
@@ -73,7 +81,7 @@ function postUser(req, res) {
 			});
 		})
 		.catch(error => {
-			utils.logger.error(error);
+			utils.logger.error(`POST User, general error: ${error}`);
 			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
 		});
 	}
