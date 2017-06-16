@@ -9,6 +9,7 @@ const cors = require('cors');
 
 const user = require('./routes/users');
 const auth = require('./routes/auth');
+const recent = require('./routes/recentmedia');
 
 const app = express();
 
@@ -19,6 +20,7 @@ function init() {
 	app.use(cors(config.cors));
 	
 	app.get('/api/users/:id', user.get);
+	app.get('/api/recent/:id', recent.get);
 	app.post('/api/auth/', auth.post, user.post);
 	
 	app.use((req, res) => {
