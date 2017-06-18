@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
-import jsonapi from '../core/jsonapi';
+import jsonapi from '../common/jsonapi';
 import 'whatwg-fetch';
 
 async function login(code) {

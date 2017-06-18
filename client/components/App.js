@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import store from '../core/store';
+import store from '../common/store';
 import HomePage from '../pages/home';
 import StartPage from '../pages/start';
 import PrivateRoute from '../containers/PrivateRoute';

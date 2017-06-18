@@ -5,8 +5,8 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 import { getUser, loginUser } from '../actions/user'; 
-import querystring from '../core/querystring';
-import auth from '../core/authenticate';
+import querystring from '../common/querystring';
+import auth from '../common/authenticate';
 
 class PrivateRoute extends React.Component {
 	constructor(props) {
