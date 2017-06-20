@@ -6,24 +6,8 @@ import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 import { getUser, loginUser } from '../actions/user'; 
 import querystring from '../common/querystring';
-import auth from '../common/authenticate';
 
 class PrivateRoute extends React.Component {
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			auth: false,
-			loading: true
-		};
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.state.loading && !nextProps.loading) {
-			this.setState({ auth: nextProps.auth, loading: nextProps.loading });
-		}
-	}
-
 	componentWillMount() {
 		const { dispatch } = this.props;
 
@@ -31,17 +15,7 @@ class PrivateRoute extends React.Component {
 			const qsObject = querystring.parse(this.props.location.search);
 			const { code } = qsObject;
 
-			auth.login(code)
-			.then(response => {
-				dispatch(loginUser(response));
-			})
-			.catch(error => {
-				console.log(error);
-
-				this.setState({
-					loading: false
-				});
-			});
+			dispatch(loginUser(code));
 		}
 		else {
 			dispatch(getUser());
@@ -49,10 +23,10 @@ class PrivateRoute extends React.Component {
 	}
 
 	render() {
-		if (this.props.loading) {
+		if (this.props.status !== 'COMPLETE') {
 			return <div>Loading...</div>;
 		}
-		else if (!this.props.loading && this.props.auth) {
+		else if (this.props.status === 'COMPLETE' && this.props.login) {
 			return <Route render={() => <this.props.component /> } />;
 		}
 		else {
@@ -62,15 +36,15 @@ class PrivateRoute extends React.Component {
 }
 
 PrivateRoute.propTypes = {
-	auth: PropTypes.bool,
 	dispatch: PropTypes.func.isRequired,
-	loading: PropTypes.bool
+	login: PropTypes.bool,
+	status: PropTypes.string
 }
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.user.auth,
-		loading: state.user.loading
+		login: state.user.login,
+		status: state.user.status
 	}
 }
 

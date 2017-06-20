@@ -1,46 +1,70 @@
-/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 
 import { createAction } from 'redux-actions';
 import Cookies from 'js-cookie';
 import 'whatwg-fetch';
+import jsonapi from '../common/jsonapi';
 
-export const USER_GET = 'USER_GET';
-export const USER_LOADING = 'USER_LOADING';
-export const USER_LOGIN = 'USER_LOGIN';
+export const USER_FETCH = 'USER_FETCH';
+export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
+export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
 
-export const getUser = createAction(USER_GET, () => {
-	const id = Cookies.get('id');
+export function getUser() {
+	return (dispatch) => {
+		dispatch(fetchUser());
 
-	if (id) {
-		return {
-			auth: true,
-			id: id,
-			loading: false
-		};
+		const id = Cookies.get('id');
+		if (id) {
+			dispatch(fetchUserSuccess({
+				id: id,
+				login: true
+			}));
+		}
+		else {
+			dispatch(fetchUserFailure());
+		}
 	}
-	else {
-		return {
-			auth: false,
-			id: '',
-			loading: false
-		};
+}
+
+export function loginUser(code) {
+	return (dispatch) => {
+		dispatch(fetchUser);
+
+		const body = jsonapi.authorizationSerializer.serialize({ code: code });
+		if (code) {
+			fetch('http://localhost:4000/api/auth/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(body)
+			})
+			.then(response => {
+				if (response.status === 200) {
+					return response.json();
+				}
+				else {
+					dispatch(fetchUserFailure());
+				}
+			})
+			.then(json => {
+				return jsonapi.userDeserializer.deserialize(json);
+			})
+			.then(result => {
+				Cookies.set('id', result.id);
+				
+				dispatch(fetchUserSuccess({
+					id: result.id,
+					login: true
+				}));
+			})
+			.catch(error => {
+				dispatch(fetchUserFailure());
+			});
+		}
 	}
-});
+}
 
-export const loadingUser = createAction(USER_LOADING, () => {
-	return {
-		auth: false,
-		id: '',
-		loading: true	
-	};
-});
-
-export const loginUser = createAction(USER_LOGIN, (user) => {
-	if (user.id) {
-		Cookies.set('id', user.id);
-		user.auth = true;
-	}
-
-	user.loading = false;
-	return user;
-});
+const fetchUser = createAction(USER_FETCH);
+const fetchUserSuccess = createAction(USER_FETCH_SUCCESS);
+const fetchUserFailure = createAction(USER_FETCH_FAILURE);

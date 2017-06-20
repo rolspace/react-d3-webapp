@@ -2,8 +2,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import thunkMiddleware from 'redux-thunk';
-import user from '../reducers/user';
+import tunnelstats from '../reducers';
 
-const store = createStore(user, applyMiddleware(promiseMiddleware, thunkMiddleware));
+const store = createStore(tunnelstats, applyMiddleware(promiseMiddleware, thunkMiddleware));
 
 export default store;
