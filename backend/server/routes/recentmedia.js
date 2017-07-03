@@ -26,7 +26,7 @@ function getRecentMedia(req, res) {
 				rp.get(options)
 				.then(json => {
 					utils.logger.info(json);
-					res.status(config.http.ok).send(json);
+					res.status(config.http.ok).send(jsonapi.media.serialize(json.data));
 				})
 				.catch(error => {
 					throw new Error(error);

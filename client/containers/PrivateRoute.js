@@ -4,7 +4,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
-import { getUser, loginUser } from '../actions/user'; 
+import { getUser, loginUser } from '../actions/user';
 import querystring from '../common/querystring';
 
 class PrivateRoute extends React.Component {

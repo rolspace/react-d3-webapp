@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import user from './user';
+import recentMedia from './media';
 
-const tunnelstats = combineReducers({
-	user
+const reducer = combineReducers({
+	user,
+	recentMedia
 });
 
-export default tunnelstats;
+export default reducer;

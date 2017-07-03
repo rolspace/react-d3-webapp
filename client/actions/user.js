@@ -50,11 +50,11 @@ export function loginUser(code) {
 			.then(json => {
 				return jsonapi.userDeserializer.deserialize(json);
 			})
-			.then(result => {
-				Cookies.set('id', result.id);
+			.then(data => {
+				Cookies.set('id', data.id);
 				
 				dispatch(fetchUserSuccess({
-					id: result.id,
+					id: data.id,
 					login: true
 				}));
 			})
