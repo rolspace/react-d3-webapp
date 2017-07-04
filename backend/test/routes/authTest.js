@@ -29,7 +29,7 @@ describe('Auth Route', () => {
 			loggerErrorStub.restore();
 		});
 
-		it('should respond with a 422 http status when the request body is empty', () => {
+		it('responds with a 422 http status code if the request body is empty', () => {
 			let req = {};
 
 			authRoute.post(req, res);
@@ -37,7 +37,7 @@ describe('Auth Route', () => {
 			sinon.assert.calledWith(res.status, 422);
 		});
 
-		it('should respond with a 500 http status when the JSON API serialization throws an error', () => {
+		it('responds with a 500 http status code if the JSON API serialization throws an error', () => {
 			let req = {
 				body: {
 					'data': {
@@ -59,7 +59,7 @@ describe('Auth Route', () => {
 			sinon.assert.calledWith(res.status, 500);
 		});
 
-		it('should respond with a 500 http status when the OATH Token request fails', () => {
+		it('responds with a 500 http status code if the OATH Token request fails', () => {
 			let req = {
 				body: {
 					'data': {
@@ -84,7 +84,7 @@ describe('Auth Route', () => {
 			sinon.assert.calledWith(res.status, 500);
 		});
 
-		it('should respond with a 200 http status when the OATH Token request is successful', () => {
+		it('responds with a 200 http status code if the OATH Token request is successful', () => {
 			let req = {
 				body: {
 					'data': {
@@ -113,7 +113,7 @@ describe('Auth Route', () => {
 			sinon.assert.calledWith(res.status, 200);
 		});
 
-		it('should respond with a 500 http status when the user save operation fails', () => {
+		it('responds with a 500 http status code of the user save operation fails', () => {
 			let req = {
 				body: {
 					'data': {
@@ -142,7 +142,7 @@ describe('Auth Route', () => {
 			sinon.assert.calledWith(res.status, 500);
 		});
 
-		it('should respond with the same http status of the OATH Token request when it returns a 200 response', () => {
+		it('responds with the same http status code of the OATH Token request if it returns a 200 response', () => {
 			let req = {
 				body: {
 					'data': {

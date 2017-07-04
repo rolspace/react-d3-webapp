@@ -27,7 +27,7 @@ describe('User Route', () => {
 	})
 
 	describe('/GET user', () => {
-		it('returns a 422 http status when the id parameter is empty', () => {
+		it('responds with a 422 http status code if the id parameter is empty', () => {
 			let req = {};
 
 			usersRoute.get(req, res);
@@ -35,7 +35,7 @@ describe('User Route', () => {
 			sinon.assert.calledWith(res.status, 422);
 		})
 
-		it('returns a 200 http status when the user exists', () => {
+		it('responds with a 200 http status code if the user exists', () => {
 			let req = {
 				params: {
 					id: 'some-id'
@@ -56,7 +56,7 @@ describe('User Route', () => {
 			sinon.assert.calledWith(res.status, 200);
 		})
 
-		it('returns a 500 http status when the user does not exist', () => {
+		it('responds with a 500 http status code if the user does not exist', () => {
 			let req = {
 				params: {
 					id: 'some-id'
