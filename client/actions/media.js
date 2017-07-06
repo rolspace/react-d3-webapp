@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 
 import { createAction } from 'redux-actions';
 import 'whatwg-fetch';
@@ -23,6 +24,7 @@ export function getRecentMedia(id) {
 			return jsonapi.media.deserialize(json);
 		})
 		.then(data => {
+			console.log(data);
 			dispatch(fetchRecentMediaSuccess(data));
 		})
 		.catch(error => {
