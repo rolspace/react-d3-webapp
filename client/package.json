@@ -58,6 +58,7 @@
     "jsdom": "^9.8.3",
     "mocha": "^3.4.2",
     "react-addons-test-utils": "^15.5.1",
+    "react-router-test-context": "^0.1.0",
     "sinon": "^2.3.1",
     "sinon-chai": "^2.10.0",
     "webpack": "^2.6.1",
