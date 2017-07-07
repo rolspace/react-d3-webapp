@@ -10,7 +10,7 @@ describe('Button component', function(){
 		expect(wrapper.find('button')).to.have.length(1);
 	});
 
-	it('should execute the "click" prop function', function() {
+	it('should call the function passed in as a prop, when the click event is fired', function() {
 		const onClick = sinon.spy();
 		const wrapper = mount(<Button text="text" click={onClick} />);
 
