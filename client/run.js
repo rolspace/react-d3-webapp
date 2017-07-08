@@ -76,5 +76,10 @@ tasks.set('development', () => {
 	}));
 });
 
+tasks.set('production', () => {
+	return Promise.resolve()
+	.then(() => console.log('Production task running'))
+});
+
 // Execute the specified task or default one. E.g.: node run build
-run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'development' /* default */);
+run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'development');
