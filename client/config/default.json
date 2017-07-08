@@ -1,0 +1,12 @@
+{
+	"apiclient": {
+		"client_id": "someclientid",
+		"redirect_path": "/start"
+	},
+	"express": {
+		"port": 3000
+	},
+	"http": {
+		"notFound": 404
+	}
+}

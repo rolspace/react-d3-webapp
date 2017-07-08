@@ -2,6 +2,7 @@
 
 const del = require('del');
 const webpack = require('webpack');
+const express = require('./server/app');
 
 // The collection of automation tasks ('clean', 'build', 'publish', etc.)
 const tasks = new Map();
@@ -38,8 +39,6 @@ tasks.set('build', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'));
-    //.then(() => run('html'))
-    //.then(() => run('sitemap'));
 });
 
 // Build website and launch it in a browser for testing (default)
@@ -78,7 +77,12 @@ tasks.set('development', () => {
 
 tasks.set('production', () => {
 	return Promise.resolve()
-	.then(() => console.log('Production task running'))
+	.then(() => run('clean'))
+	.then(() => run('bundle'))
+	.then(() => { 
+		console.log('Production task running');
+		express.init();
+	});
 });
 
 // Execute the specified task or default one. E.g.: node run build
