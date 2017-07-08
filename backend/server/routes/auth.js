@@ -11,11 +11,11 @@ function postAuthorization(req, res, next) {
 		jsonapi.authorizationDeserializer.deserialize(req.body)
 		.then((authorization) => {
 			var form = {
-				client_id: config.client.id,
-				client_secret: config.client.secret,
+				client_id: config.apiclient.id,
+				client_secret: config.apiclient.secret,
 				code: authorization.code,
 				grant_type: 'authorization_code',
-				redirect_uri: config.client.redirect_uri
+				redirect_uri: config.apiclient.redirect_uri
 			}
 
 			request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },

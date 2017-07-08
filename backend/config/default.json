@@ -1,18 +1,21 @@
 {
+	"apiclient": {
+		"id": "someid",
+		"redirect_uri": "http://localhost:3000/start/",
+		"secret": "somesecret"
+	},
 	"db": {
 		"connection": "mongodb://localhost/tunnelstats",
 		"error": "error",
 		"open": "open"
 	},
-	"client": {
-		"id": "some id",
-		"redirect_uri": "http://someuri/",
-		"secret": "some secret"
-	},
 	"cors": {
 		"origin": "http://localhost:3000",
 		"optionsSuccessStatus": 200,
 		"preflightContinue": false
+	},
+	"express": {
+		"port": 4000
 	},
 	"http": {
 		"badRequest": 400,
@@ -20,6 +23,5 @@
 		"notFound": 404,
 		"ok": 200,
 		"unprocessable": 422
-	},
-	"port": 4000
+	}
 }
