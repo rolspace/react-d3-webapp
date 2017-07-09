@@ -21,7 +21,7 @@ export function getRecentMedia(id) {
 			}
 		})
 		.then(json => {
-			return jsonapi.media.deserialize(json);
+			return jsonapi.deserialize(json);
 		})
 		.then(data => {
 			console.log(data);

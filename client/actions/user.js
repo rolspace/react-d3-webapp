@@ -48,7 +48,7 @@ export function loginUser(code) {
 				}
 			})
 			.then(json => {
-				return jsonapi.userDeserializer.deserialize(json);
+				return jsonapi.deserialize(json);
 			})
 			.then(data => {
 				Cookies.set('id', data.id);

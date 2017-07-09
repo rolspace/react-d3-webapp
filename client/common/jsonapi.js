@@ -5,14 +5,15 @@ const JSONAPIDeserializer = require('jsonapi-serializer').Deserializer;
 
 const authorizationSerializer = new JSONAPISerializer('authorizations', { attributes: [ 'code' ] });
 const jsonApiDeserializer = new JSONAPIDeserializer({ keyForAttribute: 'camelCase' });
-const userDeserializer = new JSONAPIDeserializer('users');
+//const userDeserializer = new JSONAPIDeserializer('users');
 
-const media = {
-	deserialize: (json) => jsonApiDeserializer.deserialize(json)
-}
+// const media = {
+// 	deserialize: (json) => jsonApiDeserializer.deserialize(json)
+// }
+
+const deserialize = (json) => jsonApiDeserializer.deserialize(json)
 
 module.exports = {
 	authorizationSerializer: authorizationSerializer,
-	media: media,
-	userDeserializer: userDeserializer
+	deserialize: deserialize
 }
