@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 
 import { expect } from 'chai'
-import { shallow } from 'enzyme'
-import { fetchUser, fetchUserSuccess, fetchUserFailure } from '../../actions/user'
-import { USER_FETCH, USER_FETCH_FAILURE, USER_FETCH_SUCCESS } from '../../actions/user'
+import { fetchUser } from '../../actions/user'
+import { USER_FETCH } from '../../actions/user'
 
 describe('User Actions', () => {
 	it('should create an action to fetch the user', () => {
