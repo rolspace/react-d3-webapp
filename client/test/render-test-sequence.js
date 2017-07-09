@@ -1,7 +1,7 @@
 import { render, unmountComponentAtNode } from 'react-dom'
 import React from 'react'
-import { Route, Link, MemoryRouter } from 'react-router-dom'
-import { Simulate } from 'react-addons-test-utils'
+import PropTypes from 'prop-types'
+import { Route, MemoryRouter } from 'react-router-dom'
 
 // a way to render any part of your app inside a MemoryRouter
 // you pass it a list of steps to execute when the location
@@ -9,53 +9,56 @@ import { Simulate } from 'react-addons-test-utils'
 // `match` and `location`, and `history` so you can control
 // the flow and make assertions.
 export const renderTestSequence = ({
-  initialEntries,
-  initialIndex,
-  subject: Subject,
-  steps
+	initialEntries,
+	initialIndex,
+	subject: Subject,
+	steps
 }) => {
-  const div = document.createElement('div')
+	const div = document.createElement('div')
 
-  class Assert extends React.Component {
+	class Assert extends React.Component {
+		componentDidMount() {
+			this.assert()
+		}
 
-    componentDidMount() {
-      this.assert()
-    }
+		componentDidUpdate() {
+			this.assert()
+		}
 
-    componentDidUpdate() {
-      this.assert()
-    }
+		assert() {
+			const nextStep = steps.shift()
+			if (nextStep) {
+				nextStep({ ...this.props, div })
+			} else {
+				unmountComponentAtNode(div)
+			}
+		}
 
-    assert() {
-      const nextStep = steps.shift()
-      if (nextStep) {
-        nextStep({ ...this.props, div })
-      } else {
-        unmountComponentAtNode(div)
-      }
-    }
+		render() {
+			return this.props.children
+		}
+	}
 
-    render() {
-      return this.props.children
-    }
-  }
+	Assert.propTypes = {
+		children: PropTypes.array
+	}
 
-  class Test extends React.Component {
-    render() {
-      return (
-        <MemoryRouter
-          initialIndex={initialIndex}
-          initialEntries={initialEntries}
-        >
-          <Route render={(props) => (
-            <Assert {...props}>
-              <Subject/>
-            </Assert>
-          )}/>
-        </MemoryRouter>
-      )
-    }
-  }
+	class Test extends React.Component {
+		render() {
+			return (
+				<MemoryRouter
+				initialIndex={initialIndex}
+				initialEntries={initialEntries}
+				>
+				<Route render={(props) => (
+					<Assert {...props}>
+					<Subject/>
+					</Assert>
+					)}/>
+				</MemoryRouter>
+			)
+		}
+	}
 
-  render(<Test/>, div)
+	render(<Test/>, div)
 }
