@@ -1,5 +1,5 @@
 import React from 'react';
-import RecentMediaGraph from '../../containers/graphs/RecentMediaGraph'
+import RecentMediaGraph from '../../containers/RecentMediaGraph'
 
 class RecentMedia extends React.Component {
 	render() {

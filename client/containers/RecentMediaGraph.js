@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import { getRecentMedia } from '../../actions/media'; 
+import { getRecentMedia } from '../actions/media'; 
 
 class RecentMediaGraph extends React.Component {
 	constructor(props) {
