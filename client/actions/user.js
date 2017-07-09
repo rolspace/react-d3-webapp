@@ -65,6 +65,6 @@ export function loginUser(code) {
 	}
 }
 
-const fetchUser = createAction(USER_FETCH);
-const fetchUserSuccess = createAction(USER_FETCH_SUCCESS);
-const fetchUserFailure = createAction(USER_FETCH_FAILURE);
+export const fetchUser = createAction(USER_FETCH);
+export const fetchUserSuccess = createAction(USER_FETCH_SUCCESS);
+export const fetchUserFailure = createAction(USER_FETCH_FAILURE);
