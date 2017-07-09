@@ -8,7 +8,7 @@ function postAuthorization(req, res, next) {
 		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
 	}
 	else {
-		jsonapi.authorizationDeserializer.deserialize(req.body)
+		jsonapi.deserialize(req.body)
 		.then((authorization) => {
 			var form = {
 				client_id: config.apiclient.id,
