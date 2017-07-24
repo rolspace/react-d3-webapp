@@ -9,18 +9,19 @@
   },
   "scripts": {
     "build": "node run build",
-    "eslint": "eslint actions common components containers pages reducers test main.js run.js webpack.config.js",
-    "test": "mocha ./test/setup.js ./test/**/*-test.js",
     "development": "node run development --no-hmr",
-    "production": "node run production"
+    "production": "node run production",
+    "eslint": "eslint actions common components containers pages reducers test main.js run.js webpack.config.js",
+    "test": "mocha ./test/setup.js ./test/**/*-test.js"
   },
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/rolspace/tunnelstats"
   },
   "dependencies": {
-    "config": "^1.26.1",
     "d3": "^4.9.1",
+    "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.3",
     "express": "^4.15.3",
     "js-cookie": "^2.1.4",
     "jsonapi-serializer": "^3.5.3",

@@ -10,7 +10,6 @@ describe('User Route', () => {
 	let res, loggerStubInfo, loggerStubError;
 
 	beforeEach(() => {
-		//stub logger to prevent console messages
 		loggerStubInfo = sinon.stub(utils.logger, 'info', () => { });
 		loggerStubError = sinon.stub(utils.logger, 'error', () => { });
 

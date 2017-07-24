@@ -13,7 +13,6 @@ describe('Auth Route', () => {
 		let loggerInfoStub, loggerErrorStub, res;
 
 		beforeEach(() => {
-			//stub logger to prevent console messages
 			loggerInfoStub = sinon.stub(utils.logger, 'info', () => { });
 			loggerErrorStub = sinon.stub(utils.logger, 'error', () => { });
 
@@ -52,7 +51,7 @@ describe('Auth Route', () => {
 
 			const promiseStub = sinon.stub(jsonApi.authorizationDeserializer, 'deserialize').returnsPromise();
 			promiseStub.rejects('some error');
-			
+
 			authRoute.post(req, res);
 
 			promiseStub.restore();

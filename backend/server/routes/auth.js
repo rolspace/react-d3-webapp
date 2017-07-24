@@ -1,47 +1,46 @@
-const config = require('config');
 const request = require('request');
 const utils = require('../../common/utils');
 const jsonapi = require('../../common/jsonapi');
+const HttpStatus = require('../../common/constants').http;
 
 function postAuthorization(req, res, next) {
 	if (!req.body) {
-		res.status(config.http.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
+		res.status(HttpStatus.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }))
 	}
 	else {
 		jsonapi.deserialize(req.body)
 		.then((authorization) => {
 			var form = {
-				client_id: config.apiclient.id,
-				client_secret: config.apiclient.secret,
+				client_id: process.env.INSTAGRAM_CLIENTID,
+				client_secret: process.env.INSTAGRAM_SECRET,
 				code: authorization.code,
 				grant_type: 'authorization_code',
-				redirect_uri: config.apiclient.redirect_uri
+				redirect_uri: process.env.INSTAGRAM_REDIRECT
 			}
 
-			request.post({ url: 'https://api.instagram.com/oauth/access_token', form: form },
+			request.post({ url: `${process.env.INSTAGRAM_API}`, form: form },
 				function(error, response) {
 					if (error) {
-						utils.logger.error(error);
-						utils.logger.error(response);
-						res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
+						utils.logger.error(`${error}: ${response}`)
+						res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }))
 					}
-					else if (response.statusCode !== config.http.ok) {
-						utils.logger.error(response);
-						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }));
+					else if (response.statusCode !== HttpStatus.ok) {
+						utils.logger.error(response)
+						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }))
 					}
 					else {
 						res.body = response.body;
-						next();
+						next()
 					}
-				});
+				})
 		})
 		.catch((error) => {
-			utils.logger.error(error);
-			res.status(config.http.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
-		});
+			utils.logger.error(error)
+			res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }))
+		})
 	}
 }
 
 module.exports = {
 	post: postAuthorization
-};
+}

@@ -4,7 +4,6 @@ const del = require('del');
 const webpack = require('webpack');
 const express = require('./server/app');
 
-// The collection of automation tasks ('clean', 'build', 'publish', etc.)
 const tasks = new Map();
 
 function run(task) {
@@ -15,7 +14,6 @@ function run(task) {
 	}, err => console.error(err.stack));
 }
 
-// Clean up the output directory
 tasks.set('clean', () => del(['public/dist/*', '!public/dist/.git'], { dot: true }));
 
 // Bundle JavaScript, CSS and image files with Webpack
@@ -49,7 +47,7 @@ tasks.set('development', () => {
 		const bs = require('browser-sync').create();
 		const webpackConfig = require('./webpack.config');
 		const compiler = webpack(webpackConfig);
-		
+
 		const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
 			publicPath: webpackConfig.output.publicPath,
 			stats: webpackConfig.stats,
@@ -79,7 +77,7 @@ tasks.set('production', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
-	.then(() => { 
+	.then(() => {
 		console.log('Production task running');
 		express.init();
 	});
