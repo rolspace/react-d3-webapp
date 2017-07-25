@@ -1,25 +1,25 @@
-const utils = require('../../common/utils');
-const jsonapi = require('../../common/jsonapi');
-const HttpStatus = require('../../common/constants').http;
-const UserModel = require('../../models/UserModel');
+const utils = require('../../common/utils')
+const jsonapi = require('../../common/jsonapi')
+const HttpStatus = require('../../common/constants').http
+const UserModel = require('../../models/UserModel')
 
 function getUser(req, res) {
 	if (!req.params || !req.params.id) {
-		utils.logger.error(`POST User, error, params empty: ${req}`);
-		res.status(HttpStatus.unprocessable).send(new jsonapi.Error({ detail: 'The id parameter is empty' }));
+		utils.logger.error(`POST User, error, params empty: ${req}`)
+		res.status(HttpStatus.unprocessable).send(new jsonapi.Error({ detail: 'The id parameter is empty' }))
 	}
 	else {
 		UserModel.findOne({ 'id': req.params.id  })
 		.then(data => {
 			if (data) {
-				utils.logger.info(`GET User, user found: ${data}`);
+				utils.logger.info(`GET User, user found: ${data}`)
 
 				const user = {
 					id: data.id,
 					username: data.username
 				};
 
-				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize(user));
+				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize(user))
 			}
 			else {
 				utils.logger.info(`GET User, user not found: ${req}`)
@@ -27,40 +27,39 @@ function getUser(req, res) {
 			}
 		})
 		.catch(error => {
-			utils.logger.error(`GET User, general error: ${error}`);
-			res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
-		});
+			utils.logger.error(`GET User, general error: ${error}`)
+			res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }))
+		})
 	}
 }
 
 function postUser(req, res) {
 	if (!req.body) {
-		utils.logger.error(`POST User, error, payload empty: ${req}`);
-		res.status(HttpStatus.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }));
+		utils.logger.error(`POST User, error, payload empty: ${req}`)
+		res.status(HttpStatus.unprocessable).send(new jsonapi.Error({ detail: 'The request payload is empty' }))
 	}
 	else
 	{
-		utils.logger.info(res.body);
-		const body = JSON.parse(res.body);
+		utils.logger.info(res.body)
+		const body = JSON.parse(res.body)
 
 		const user = new UserModel({
 			id: body.user.id,
 			token: body.access_token,
 			username: body.user.username
-		});
+		})
 
 		UserModel.findOne({ 'id': body.user.id  })
 		.then(data => {
-			utils.logger.info(`POST User, user found: ${data}`);
+			utils.logger.info(`POST User, user found: ${data}`)
 
-			let id = '';
+			let id = ''
 			if (data) {
-				id = data._id;
-				delete data._id;
+				id = data._id
+				delete data._id
 
-				data.token = body.access_token;
-				data.token_date = Date.now();
-
+				data.token = body.access_token
+				data.token_date = Date.now()
 			}
 			else {
 				utils.logger.info(`POST User, new user: ${data}`)
@@ -71,22 +70,21 @@ function postUser(req, res) {
 
 			UserModel.update({ _id: id }, data, { upsert: true, setDefaultsOnInsert: true })
 			.then(result => {
-				utils.logger.info(`POST User, update result: ${result}`);
-
-				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize({ id: data.id }));
+				utils.logger.info(`POST User, update result: ${result}`)
+				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize({ id: data.id }))
 			})
 			.catch(error => {
-				throw new Error(error);
-			});
+				throw new Error(error)
+			})
 		})
 		.catch(error => {
-			utils.logger.error(`POST User, general error: ${error}`);
-			res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }));
-		});
+			utils.logger.error(`POST User, general error: ${error}`)
+			res.status(HttpStatus.internalError).send(new jsonapi.Error({ detail: 'Internal server error' }))
+		})
 	}
 }
 
 module.exports = {
 	get: getUser,
 	post: postUser
-};
+}

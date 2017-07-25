@@ -1,7 +1,7 @@
-const request = require('request');
-const utils = require('../../common/utils');
-const jsonapi = require('../../common/jsonapi');
-const HttpStatus = require('../../common/constants').http;
+const request = require('request')
+const utils = require('../../common/utils')
+const jsonapi = require('../../common/jsonapi')
+const HttpStatus = require('../../common/constants').http
 
 function postAuthorization(req, res, next) {
 	if (!req.body) {
@@ -29,7 +29,7 @@ function postAuthorization(req, res, next) {
 						res.status(response.statusCode).send(new jsonapi.Error({ detail: 'Connection to external provider failed' }))
 					}
 					else {
-						res.body = response.body;
+						res.body = response.body
 						next()
 					}
 				})
