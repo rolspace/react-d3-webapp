@@ -1,26 +1,30 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import store from '../common/store';
-import HomePage from '../pages/home';
-import StartPage from '../pages/start';
-import PrivateRoute from '../containers/PrivateRoute';
+import React from 'react'
+import Toolbar from 'material-ui/Toolbar'
+import AppBar from 'material-ui/AppBar'
+import Grid from 'material-ui/Grid'
+import AppRouter from './AppRouter'
 
 class App extends React.Component {
 	render() {
+		const style = {
+			paddingTop: '80px'
+		}
+
 		return (
-			<Provider store={store}>
-				<Router>
-					<div>
-						<Switch>
-							<Route exact path='/' component={HomePage} />
-							<PrivateRoute path='/start' component={StartPage} />
-						</Switch>
-					</div>
-				</Router>
-			</Provider>
+			<div>
+				<AppBar>
+					<Toolbar>
+						TunnelStats
+					</Toolbar>
+				</AppBar>
+				<Grid container style={style}>
+					<Grid item xs={12}>
+							<AppRouter />
+					</Grid>
+				</Grid>
+			</div>
 		)
 	}
 }
 
-export default App;
+export default App

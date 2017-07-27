@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-const config = require('config');
 const path = require('path');
 const http = require('http');
 const express = require('express');
