@@ -1,15 +1,15 @@
 import React from 'react';
-import RecentMediaGraph from '../../containers/RecentMediaGraph'
+import RecentMedia from '../../containers/RecentMedia'
 
-class RecentMedia extends React.Component {
+class RecentMediaPage extends React.Component {
 	render() {
 		return (
 			<div>
 				<h3>Recent Media graph</h3>
-				<RecentMediaGraph />
+				<RecentMedia />
 			</div>
 		)
 	}
 }
 
-export default RecentMedia;
+export default RecentMediaPage;

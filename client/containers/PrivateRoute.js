@@ -3,9 +3,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { getUser, loginUser } from '../actions/user';
 import querystring from '../common/querystring';
+import PrivatePage from '../components/PrivatePage';
 
 class PrivateRoute extends React.Component {
 	componentWillMount() {
@@ -23,19 +24,12 @@ class PrivateRoute extends React.Component {
 	}
 
 	render() {
-		if (this.props.status !== 'COMPLETE') {
-			return <div>Loading...</div>;
-		}
-		else if (this.props.status === 'COMPLETE' && this.props.login) {
-			return <Route render={() => <this.props.component /> } />;
-		}
-		else {
-			return <Route render={() => <Redirect to={{ pathname: '/' }} /> } />;
-		}
+		return <PrivatePage component={this.props.component} login={this.props.login} status={this.props.status} />
 	}
 }
 
 PrivateRoute.propTypes = {
+	component: PropTypes.func,
 	dispatch: PropTypes.func.isRequired,
 	login: PropTypes.bool,
 	status: PropTypes.string

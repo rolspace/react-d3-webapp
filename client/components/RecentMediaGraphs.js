@@ -1,16 +1,14 @@
 /* eslint-disable no-unused-vars */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as d3 from 'd3';
-import { getRecentMedia } from '../actions/media'; 
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as d3 from 'd3'
 
-class RecentMediaGraph extends React.Component {
+class RecentMediaGraphs extends React.Component {
 	constructor(props) {
 		super(props);
-		
-		this.renderChart = this.renderChart.bind(this);
+
+		//this.renderChart = this.renderChart.bind(this);
 	}
 
 	renderChart() {
@@ -43,16 +41,14 @@ class RecentMediaGraph extends React.Component {
 			.attr('height', d => height - y(d.likes.count));
 	}
 
-	componentDidMount() {
-		const { dispatch } = this.props;
-		dispatch(getRecentMedia(this.props.user.id));
+	componentDidUpdate() {
+		this.renderChart()
 	}
 
 	render() {
-		if (typeof this.props.media !== undefined && this.props.media.length > 0) {
-			this.renderChart();
-		}
-
+		// if (typeof this.props.media !== undefined && this.props.media.length > 0) {
+		// 	this.renderChart();
+		// }
 		return (
 			<div>
 				<svg ref={ node => this.node = node} style={{border:'1px solid'}} width={800} height={500}>
@@ -62,17 +58,9 @@ class RecentMediaGraph extends React.Component {
 	}
 }
 
-RecentMediaGraph.propTypes = {
-	dispatch: PropTypes.func.isRequired,
+RecentMediaGraphs.propTypes = {
 	media: PropTypes.array,
 	user: PropTypes.object
 }
 
-const mapStateToProps = (state) => {
-	return {
-		user: state.user,
-		media: state.recentMedia.data
-	}
-}
-
-export default connect(mapStateToProps)(RecentMediaGraph);
+export default RecentMediaGraphs;
