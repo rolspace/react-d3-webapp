@@ -8,7 +8,7 @@ class RecentMediaGraphs extends React.Component {
 	constructor(props) {
 		super(props);
 
-		//this.renderChart = this.renderChart.bind(this);
+		this.renderChart = this.renderChart.bind(this);
 	}
 
 	renderChart() {

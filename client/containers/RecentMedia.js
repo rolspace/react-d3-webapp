@@ -17,10 +17,6 @@ class RecentMedia extends React.Component {
 	}
 
 	render() {
-		// if (typeof this.props.media !== undefined && this.props.media.length > 0) {
-		// 	this.renderChart();
-		// }
-
 		return <RecentMediaGraphs media={this.props.media} />
 	}
 }
