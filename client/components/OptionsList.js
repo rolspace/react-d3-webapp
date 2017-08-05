@@ -1,7 +1,7 @@
 import React from 'react';
 import Option from './Option';
 
-class OptionsList extends React.Component {
+class GraphList extends React.Component {
 	render() {
 		return (
 			<div className="options">
@@ -11,4 +11,4 @@ class OptionsList extends React.Component {
 	}
 }
 
-export default OptionsList;
+export default GraphList;
