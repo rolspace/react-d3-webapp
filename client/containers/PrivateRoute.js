@@ -13,8 +13,8 @@ class PrivateRoute extends React.Component {
 		const { dispatch } = this.props;
 
 		if (this.props.location.search) {
-			const qsObject = querystring.parse(this.props.location.search);
-			const { code } = qsObject;
+			const params = querystring.parse(this.props.location.search);
+			const { code } = params;
 
 			dispatch(loginUser(code));
 		}
