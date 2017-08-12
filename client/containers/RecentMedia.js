@@ -1,24 +1,26 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getRecentMedia } from '../actions/media'
-import RecentMediaGraphs from '../components/RecentMediaGraphs'
 
-class RecentMedia extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+const RecentMedia = (Graph) => {
+	return connect(mapStateToProps)(class RecentMediaContainer extends React.Component {
+		constructor(props) {
+			super(props)
+		}
 
-	componentDidMount() {
-		const { dispatch } = this.props;
-		dispatch(getRecentMedia(this.props.user.id));
-	}
+		componentDidMount() {
+			const { dispatch } = this.props;
+			dispatch(getRecentMedia(this.props.user.id))
+		}
 
-	render() {
-		return <RecentMediaGraphs media={this.props.media} />
-	}
+		render() {
+			return <Graph media={this.props.media} />
+		}
+	})
 }
 
 RecentMedia.propTypes = {
@@ -34,4 +36,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(RecentMedia);
+export default RecentMedia
