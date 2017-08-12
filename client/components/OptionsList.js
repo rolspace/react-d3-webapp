@@ -4,7 +4,7 @@ import Option from './Option';
 class GraphList extends React.Component {
 	render() {
 		return (
-			<div className="options">
+			<div className="graph-list">
 				<Option name="option1" />
 			</div>
 		)
