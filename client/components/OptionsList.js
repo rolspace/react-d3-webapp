@@ -1,11 +1,11 @@
 import React from 'react';
-import Option from './Option';
 
 class GraphList extends React.Component {
 	render() {
 		return (
 			<div className="graph-list">
-				<Option name="option1" />
+				<Link to="/start/likes">Recent Likes</Link>
+				<Link to="/start/comments">Recent Comments</Link>
 			</div>
 		)
 	}
