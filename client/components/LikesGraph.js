@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 
-class RecentMediaGraphs extends React.Component {
+class LikesGraph extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -58,9 +58,9 @@ class RecentMediaGraphs extends React.Component {
 	}
 }
 
-RecentMediaGraphs.propTypes = {
+LikesGraph.propTypes = {
 	media: PropTypes.array,
 	user: PropTypes.object
 }
 
-export default RecentMediaGraphs;
+export default LikesGraph;
