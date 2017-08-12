@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 class GraphList extends React.Component {
 	render() {
@@ -11,4 +12,4 @@ class GraphList extends React.Component {
 	}
 }
 
-export default GraphList;
+export default GraphList
