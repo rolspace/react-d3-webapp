@@ -7,7 +7,7 @@ const types = {
 	users: 'users'
 }
 
-const mediaSerializer = new JSONAPISerializer('media', { attributes: [ 'created_time', 'likes' ] })
+const mediaSerializer = new JSONAPISerializer('media', { attributes: [ 'created_time', 'comments', 'likes' ] })
 const userSerializer = new JSONAPISerializer('users', { attributes: [ 'username' ] })
 
 const media = {
