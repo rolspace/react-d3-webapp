@@ -46,9 +46,6 @@ class LikesGraph extends React.Component {
 	}
 
 	render() {
-		// if (typeof this.props.media !== undefined && this.props.media.length > 0) {
-		// 	this.renderChart();
-		// }
 		return (
 			<div>
 				<svg ref={ node => this.node = node} style={{border:'1px solid'}} width={800} height={500}>
