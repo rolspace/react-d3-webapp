@@ -1,8 +1,8 @@
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
 const jsonapi = require('../../common/jsonapi')
-const HttpStatus = require('../../common/constants').http
 const UserModel = require('../../models/UserModel')
+const HttpStatus = require('../../common/constants').http
 
 function getRecentMedia(req, res) {
 	if (!req.params || !req.params.id) {
@@ -26,8 +26,7 @@ function getRecentMedia(req, res) {
 				rp.get(options)
 				.then(json => {
 					utils.logger.info(json);
-					res.status(HttpStatus.ok).send(jsonapi.media.serialize(json.data))
-					//res.status(HttpStatus.ok).send(jsonapi.serialize(jsonapi.types.media, json.data))
+					res.status(HttpStatus.ok).send(jsonapi.serialize(jsonapi.types.media, json.data))
 				})
 				.catch(error => {
 					throw new Error(error);

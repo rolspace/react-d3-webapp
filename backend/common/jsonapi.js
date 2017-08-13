@@ -10,10 +10,6 @@ const types = {
 const mediaSerializer = new JSONAPISerializer('media', { attributes: [ 'created_time', 'comments', 'likes' ] })
 const userSerializer = new JSONAPISerializer('users', { attributes: [ 'username' ] })
 
-const media = {
-	serialize: (data) => mediaSerializer.serialize(data)
-}
-
 const serialize = (type, data) => {
 	let serializer;
 	switch (type) {
@@ -36,7 +32,6 @@ const deserialize = (json) => jsonApiDeserializer.deserialize(json)
 module.exports = {
 	deserialize: deserialize,
 	Error: JSONAPIError,
-	media: media,
 	serialize: serialize,
-	userSerializer: userSerializer,
+	types: types
 };

@@ -1,7 +1,7 @@
 const utils = require('../../common/utils')
 const jsonapi = require('../../common/jsonapi')
-const HttpStatus = require('../../common/constants').http
 const UserModel = require('../../models/UserModel')
+const HttpStatus = require('../../common/constants').http
 
 function getUser(req, res) {
 	if (!req.params || !req.params.id) {
@@ -19,7 +19,7 @@ function getUser(req, res) {
 					username: data.username
 				};
 
-				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize(user))
+				res.status(HttpStatus.ok).send(jsonapi.serialize(jsonapi.types.users, user))
 			}
 			else {
 				utils.logger.info(`GET User, user not found: ${req}`)
@@ -71,7 +71,7 @@ function postUser(req, res) {
 			UserModel.update({ _id: id }, data, { upsert: true, setDefaultsOnInsert: true })
 			.then(result => {
 				utils.logger.info(`POST User, update result: ${result}`)
-				res.status(HttpStatus.ok).send(jsonapi.userSerializer.serialize({ id: data.id }))
+				res.status(HttpStatus.ok).send(jsonapi.serialize(jsonapi.types.users, { id: data.id }))
 			})
 			.catch(error => {
 				throw new Error(error)
