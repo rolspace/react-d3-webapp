@@ -2,9 +2,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import BarChart from '../common/barchart'
+import { createBarGraph } from '../common/graphs'
 
-class CommentsGraph extends React.Component {
+class BarGraph extends React.Component {
 	constructor(props) {
 		super(props)
 		this.renderChart = this.renderChart.bind(this)
@@ -13,13 +13,13 @@ class CommentsGraph extends React.Component {
 	renderChart() {
 		const node = this.node;
 
-		const barchart = {
-			data: this.props.media,
-			xAxis: 'createdTime',
-			yAxis: 'comments.count'
+		const graph = {
+			data: this.props.data,
+			xAxis: this.props.xAxis,
+			yAxis: this.props.yAxis
 		}
 
-		BarChart.create(node, barchart, 800, 500)
+		createBarGraph(node, graph, 800, 500)
 	}
 
 	componentDidUpdate() {
@@ -36,9 +36,10 @@ class CommentsGraph extends React.Component {
 	}
 }
 
-CommentsGraph.propTypes = {
-	media: PropTypes.array,
-	user: PropTypes.object
+BarGraph.propTypes = {
+	data: PropTypes.array,
+	xAxis: PropTypes.string,
+	yAxis: PropTypes.string
 }
 
-export default CommentsGraph
+export default BarGraph

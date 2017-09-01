@@ -1,9 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import RecentMedia from '../../containers/RecentMedia'
-import LikesGraph from '../../components/LikesGraph'
-import CommentsGraph from '../../components/CommentsGraph'
 import GraphList from '../../components/GraphList'
+import BarGraph from '../../components/BarGraph'
 
 class StartPage extends React.Component {
 	render() {
@@ -11,8 +10,8 @@ class StartPage extends React.Component {
 			<div className="startpage">
 				This is the Start Page!
 				<GraphList />
-				<Route path="/start/likes" component={RecentMedia(LikesGraph)} />
-				<Route path="/start/comments" component={RecentMedia(CommentsGraph)} />
+				<Route path="/start/likes" component={RecentMedia(BarGraph, 'createdTime', 'likes.count')} />
+				<Route path="/start/comments" component={RecentMedia(BarGraph, 'createdTime', 'comments.count')} />
 			</div>
 		)
 	}

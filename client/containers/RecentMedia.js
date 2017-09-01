@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getRecentMedia } from '../actions/media'
 
-const RecentMedia = (Graph) => {
+const RecentMedia = (Graph, xAxis, yAxis) => {
 	return connect(mapStateToProps)(class RecentMediaContainer extends React.Component {
 		constructor(props) {
 			super(props)
@@ -18,7 +18,7 @@ const RecentMedia = (Graph) => {
 		}
 
 		render() {
-			return <Graph media={this.props.media} />
+			return <Graph data={this.props.media} xAxis={xAxis} yAxis={yAxis} />
 		}
 	})
 }
