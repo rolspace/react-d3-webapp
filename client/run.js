@@ -40,7 +40,7 @@ tasks.set('build', () => {
 });
 
 // Build website and launch it in a browser for testing (default)
-tasks.set('development', () => {
+tasks.set('dev', () => {
 	let count = 0;
 	global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
 	return run('clean').then(() => new Promise(resolve => {
@@ -73,7 +73,7 @@ tasks.set('development', () => {
 	}));
 });
 
-tasks.set('production', () => {
+tasks.set('prod', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
@@ -84,4 +84,4 @@ tasks.set('production', () => {
 });
 
 // Execute the specified task or default one. E.g.: node run build
-run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'development');
+run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'dev');

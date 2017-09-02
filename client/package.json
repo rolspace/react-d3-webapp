@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "node run build",
-    "development": "node run development --no-hmr",
-    "production": "node run production",
+    "dev": "node run dev --no-hmr",
+    "prod": "node run prod",
     "eslint": "eslint actions common components containers pages reducers test main.js run.js webpack.config.js",
     "test": "mocha ./test/setup.js ./test/**/*-test.js"
   },
