@@ -5,30 +5,34 @@ import Cookies from 'js-cookie';
 import 'whatwg-fetch';
 import jsonapi from '../common/jsonapi';
 
-export const USER_FETCH = 'USER_FETCH';
-export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
-export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
+export const USER_FETCHING = 'USER_FETCHING';
+export const USER_GET_SUCCESS = 'USER_GET_SUCCESS';
+export const USER_GET_FAILURE = 'USER_GET_FAILURE';
+
+export const USER_AUTHENTICATING = 'USER_AUTHENTICATING';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 
 export function getUser() {
 	return (dispatch) => {
-		dispatch(fetchUser());
+		dispatch(fetchingUser());
 
 		const id = Cookies.get('id');
 		if (id) {
-			dispatch(fetchUserSuccess({
+			dispatch(getUserSuccess({
 				id: id,
 				login: true
 			}));
 		}
 		else {
-			dispatch(fetchUserFailure());
+			dispatch(getUserFailure());
 		}
 	}
 }
 
 export function loginUser(code) {
 	return (dispatch) => {
-		dispatch(fetchUser);
+		dispatch(authenticatingUser);
 
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 		if (code) {
@@ -44,7 +48,7 @@ export function loginUser(code) {
 					return response.json();
 				}
 				else {
-					dispatch(fetchUserFailure());
+					dispatch(loginUserFailure());
 				}
 			})
 			.then(json => {
@@ -52,19 +56,23 @@ export function loginUser(code) {
 			})
 			.then(data => {
 				Cookies.set('id', data.id);
-				
-				dispatch(fetchUserSuccess({
+
+				dispatch(loginUserSuccess({
 					id: data.id,
 					login: true
 				}));
 			})
 			.catch(error => {
-				dispatch(fetchUserFailure());
+				dispatch(loginUserFailure());
 			});
 		}
 	}
 }
 
-export const fetchUser = createAction(USER_FETCH);
-export const fetchUserSuccess = createAction(USER_FETCH_SUCCESS);
-export const fetchUserFailure = createAction(USER_FETCH_FAILURE);
+export const fetchingUser = createAction(USER_FETCHING);
+export const getUserSuccess = createAction(USER_GET_SUCCESS);
+export const getUserFailure = createAction(USER_GET_FAILURE);
+
+export const authenticatingUser = createAction(USER_AUTHENTICATING);
+export const loginUserSuccess = createAction(USER_LOGIN_SUCCESS);
+export const loginUserFailure = createAction(USER_LOGIN_FAILURE);

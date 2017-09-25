@@ -9,7 +9,7 @@ import querystring from '../common/querystring';
 import PrivatePage from '../components/PrivatePage';
 
 class PrivateRoute extends React.Component {
-	componentWillMount() {
+	componentDidMount() {
 		const { dispatch } = this.props;
 
 		if (this.props.location.search) {
