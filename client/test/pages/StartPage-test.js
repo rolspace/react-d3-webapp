@@ -6,7 +6,7 @@ import RecentMedia from '../../containers/RecentMedia'
 import GraphList from '../../components/GraphList'
 import BarGraph from '../../components/BarGraph'
 
-describe('StartPage Component', function() {
+describe('Components: StartPage component', function() {
 	it('renders one <GraphList> Component', () => {
 		const wrapper = shallow(<StartPage/>)
 		expect(wrapper.find(GraphList)).to.have.length(1)

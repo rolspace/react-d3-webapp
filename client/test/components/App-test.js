@@ -5,7 +5,7 @@ import App from '../../components/App'
 import AppRouter from '../../components/AppRouter'
 import AppBar from 'material-ui/AppBar'
 
-describe('Components: App Component', () => {
+describe('Components: App component', () => {
 	it('renders one <AppBar> component', () => {
 		const wrapper = shallow(<App />)
 		expect(wrapper.find(AppBar)).to.have.length(1)

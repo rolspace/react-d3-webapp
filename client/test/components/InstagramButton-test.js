@@ -9,14 +9,14 @@ import InstagramButton from '../../components/InstagramButton'
 
 chai.use(sinonChai)
 
-describe('InstagramButton component', function() {
+describe('Components: InstagramButton component', function() {
 	it('renders one <Button> Component', function() {
 		const wrapper = shallow(<InstagramButton text="text" />)
 
 		expect(wrapper.find(Button)).to.have.length(1)
 	})
 
-	it('calls the logInUser function when the click event is fired', function() {
+	it('executes the logInUser function when the click event is fired', function() {
 		const logInUserSpy = sinon.spy(InstagramButton.prototype, 'logInUser')
 		const wrapper = mount(<InstagramButton text="text" />)
 

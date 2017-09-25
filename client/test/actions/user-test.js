@@ -4,8 +4,8 @@ import { expect } from 'chai'
 import { fetchUser } from '../../actions/user'
 import { USER_FETCH } from '../../actions/user'
 
-describe('Actions: User', () => {
-	it('should create an action to fetch the user', () => {
+describe('Actions: User action', () => {
+	it('creates an action to fetch the user', () => {
 		const text = 'Fetch user'
 		const expectedAction = {
 			type: USER_FETCH,

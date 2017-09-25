@@ -4,13 +4,13 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import Button from '../../components/Button'
 
-describe('Components: Button Component', () => {
+describe('Components: Button component', () => {
 	it('renders one <button> element', function() {
 		const wrapper = shallow(<Button text="text" />)
 		expect(wrapper.find('button')).to.have.length(1)
 	});
 
-	it('calls the function passed in as a prop when the click event is fired', () => {
+	it('executes the function passed in the "click" prop when the click event is fired', () => {
 		const onClickSpy = sinon.spy();
 		const wrapper = mount(<Button text="text" click={onClickSpy} />)
 
