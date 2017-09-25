@@ -18,13 +18,16 @@ describe('Components: InstagramButton component', function() {
 
 	it('executes the logInUser function when the click event is fired', function() {
 		const logInUserSpy = sinon.spy(InstagramButton.prototype, 'logInUser')
+		const replaceStub = sinon.stub(window.location, 'replace').callsFake((value) => { })
+
 		const wrapper = mount(<InstagramButton text="text" />)
 
-		wrapper.find('button').simulate('click')
+		wrapper.find('Button').simulate('click')
 
 		expect(logInUserSpy).to.have.property('callCount', 1)
 		//expect(logInUserSpy.calledOnce).to.equal(true)
 
-	logInUserSpy.restore()
+		logInUserSpy.restore()
+		replaceStub.restore()
 	})
 })
