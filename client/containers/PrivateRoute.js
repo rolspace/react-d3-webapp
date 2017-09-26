@@ -29,8 +29,8 @@ class PrivateRoute extends React.Component {
 }
 
 PrivateRoute.propTypes = {
-	component: PropTypes.func,
-	dispatch: PropTypes.func.isRequired,
+	component: PropTypes.func.isRequired,
+	dispatch: PropTypes.func,
 	login: PropTypes.bool,
 	status: PropTypes.string
 }

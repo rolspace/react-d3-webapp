@@ -24,15 +24,15 @@ const RecentMedia = (Graph, xAxis, yAxis) => {
 }
 
 RecentMedia.propTypes = {
-	dispatch: PropTypes.func.isRequired,
+	dispatch: PropTypes.func,
 	media: PropTypes.array,
 	user: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.user,
-		media: state.recentMedia.data
+		media: state.recentMedia.data,
+		user: state.user
 	}
 }
 

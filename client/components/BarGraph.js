@@ -37,9 +37,9 @@ class BarGraph extends React.Component {
 }
 
 BarGraph.propTypes = {
-	data: PropTypes.array,
-	xAxis: PropTypes.string,
-	yAxis: PropTypes.string
+	data: PropTypes.array.isRequired,
+	xAxis: PropTypes.string.isRequired,
+	yAxis: PropTypes.string.isRequired
 }
 
 export default BarGraph
