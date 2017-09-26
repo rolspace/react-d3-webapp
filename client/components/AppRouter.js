@@ -1,5 +1,4 @@
 import React from 'react'
-import { PropTypes } from 'prop-types'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HomePage from '../pages/home'
 import StartPage from '../pages/start'
@@ -16,11 +15,6 @@ class AppRouter extends React.Component {
 			</Router>
 		)
 	}
-}
-
-AppRouter.propTypes = {
-	component: PropTypes.func,
-	path: PropTypes.string
 }
 
 export default AppRouter
