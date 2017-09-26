@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node run build",
     "dev": "node run dev --no-hmr",
-    "prod": "node run prod",
+    "pro": "node run pro",
     "eslint": "eslint actions common components containers pages reducers test main.js run.js webpack.config.js",
     "test": "mocha ./test/setup.js ./test/**/*-test.js"
   },

@@ -73,7 +73,7 @@ tasks.set('dev', () => {
 	}));
 });
 
-tasks.set('prod', () => {
+tasks.set('pro', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
