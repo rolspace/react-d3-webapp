@@ -4,7 +4,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getUser, loginUser } from '../actions/user';
+import { getUser, authenticateUser } from '../actions/user';
 import querystring from '../common/querystring';
 import PrivatePage from '../components/PrivatePage';
 
@@ -16,7 +16,7 @@ class PrivateRoute extends React.Component {
 			const params = querystring.parse(this.props.location.search);
 			const { code } = params;
 
-			dispatch(loginUser(code));
+			dispatch(authenticateUser(code));
 		}
 		else {
 			dispatch(getUser());
@@ -24,21 +24,19 @@ class PrivateRoute extends React.Component {
 	}
 
 	render() {
-		return <PrivatePage component={this.props.component} login={this.props.login} status={this.props.status} />
+		return <PrivatePage component={this.props.component} user={this.props.user} />
 	}
 }
 
 PrivateRoute.propTypes = {
 	component: PropTypes.func.isRequired,
 	dispatch: PropTypes.func,
-	login: PropTypes.bool,
-	status: PropTypes.string
+	user: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
 	return {
-		login: state.user.login,
-		status: state.user.status
+		user: state.user
 	}
 }
 

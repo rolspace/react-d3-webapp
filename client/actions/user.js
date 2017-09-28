@@ -5,34 +5,34 @@ import Cookies from 'js-cookie';
 import 'whatwg-fetch';
 import jsonapi from '../common/jsonapi';
 
-export const USER_FETCHING = 'USER_FETCHING';
-export const USER_GET_SUCCESS = 'USER_GET_SUCCESS';
-export const USER_GET_FAILURE = 'USER_GET_FAILURE';
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
 
-export const USER_AUTHENTICATING = 'USER_AUTHENTICATING';
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
-export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 
 export function getUser() {
 	return (dispatch) => {
-		dispatch(fetchingUser());
+		dispatch(fetchUser());
 
 		const id = Cookies.get('id');
 		if (id) {
-			dispatch(getUserSuccess({
+			dispatch(fetchUserSuccess({
 				id: id,
 				login: true
 			}));
 		}
 		else {
-			dispatch(getUserFailure());
+			dispatch(fetchUserFailure());
 		}
 	}
 }
 
-export function loginUser(code) {
+export function authenticateUser(code) {
 	return (dispatch) => {
-		dispatch(authenticatingUser);
+		dispatch(loginUser);
 
 		const body = jsonapi.authorizationSerializer.serialize({ code: code });
 		if (code) {
@@ -69,10 +69,10 @@ export function loginUser(code) {
 	}
 }
 
-export const fetchingUser = createAction(USER_FETCHING);
-export const getUserSuccess = createAction(USER_GET_SUCCESS);
-export const getUserFailure = createAction(USER_GET_FAILURE);
+export const fetchUser = createAction(FETCH_USER);
+export const fetchUserSuccess = createAction(FETCH_USER_SUCCESS);
+export const fetchUserFailure = createAction(FETCH_USER_FAILURE);
 
-export const authenticatingUser = createAction(USER_AUTHENTICATING);
-export const loginUserSuccess = createAction(USER_LOGIN_SUCCESS);
-export const loginUserFailure = createAction(USER_LOGIN_FAILURE);
+export const loginUser = createAction(LOGIN_USER);
+export const loginUserSuccess = createAction(LOGIN_USER_SUCCESS);
+export const loginUserFailure = createAction(LOGIN_USER_FAILURE);

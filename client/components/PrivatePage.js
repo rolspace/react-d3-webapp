@@ -4,25 +4,29 @@ import { Redirect, Route } from 'react-router-dom'
 
 class PrivatePage extends React.Component {
 	render() {
-		if (this.props.status === '' || this.props.status === 'PENDING') {
+		if (this.props.user.isComplete) {
+			if (this.props.user.login) {
+				return <Route render={() => <this.props.component /> } />
+			}
+			else if (this.props.user.error) {
+				return <div>An error has occurred</div>
+			}
+			else {
+				return <Route render={() => <Redirect to={{ pathname: '/' }} /> } />
+			}
+		}
+		else if (this.props.user.isFetching) {
 			return <div>Loading...</div>
 		}
-		else if (this.props.status === 'ERROR') {
-			return <div>An error has occurred</div>
-		}
-		else if (this.props.status === 'SUCCESS' && this.props.login) {
-			return <Route render={() => <this.props.component /> } />
-		}
 		else {
-			return <Route render={() => <Redirect to={{ pathname: '/' }} /> } />
+			return <div></div>
 		}
 	}
 }
 
 PrivatePage.propTypes = {
 	component: PropTypes.func.isRequired,
-	login: PropTypes.bool.isRequired,
-	status: PropTypes.string.isRequired
+	user: PropTypes.object
 }
 
 export default PrivatePage

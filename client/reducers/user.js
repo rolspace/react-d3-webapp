@@ -1,30 +1,37 @@
 /*eslint-disable no-unused-vars*/
 
-import { USER_FETCHING, USER_GET_FAILURE, USER_GET_SUCCESS,
-	USER_AUTHENTICATING, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE } from '../actions/user';
+import { FETCH_USER, FETCH_USER_FAILURE, FETCH_USER_SUCCESS,
+	LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } from '../actions/user';
 
 const initialState = {
 	id: '',
-	login: false,
-	status: ''
+	isComplete: false,
+	isFetching: false,
+	login: '',
+	error: null
 }
 
 const user = (state = initialState, action) => {
 	switch (action.type) {
-		case USER_AUTHENTICATING:
-		case USER_FETCHING:
+		case LOGIN_USER:
+		case FETCH_USER:
 			return Object.assign({}, state, {
-				status: 'PENDING'
+				isComplete: false,
+				isFetching: true
 			});
-		case USER_LOGIN_FAILURE:
-		case USER_GET_FAILURE:
+		case LOGIN_USER_FAILURE:
+		case FETCH_USER_FAILURE:
 			return Object.assign({}, state, {
-				status: 'ERROR'
+				isComplete: true,
+				isFetching: false,
+				error: 'some error'
 			});
-		case USER_LOGIN_SUCCESS:
-		case USER_GET_SUCCESS:
+		case LOGIN_USER_SUCCESS:
+		case FETCH_USER_SUCCESS:
 			return Object.assign({}, state, {
 				id: action.payload.id,
+				isComplete: true,
+				isFetching: false,
 				login: action.payload.login,
 				status: 'SUCCESS'
 			});
