@@ -5,11 +5,11 @@ import { createAction } from 'redux-actions';
 import 'whatwg-fetch';
 import jsonapi from '../common/jsonapi';
 
-export const RECENT_MEDIA_FETCH = 'RECENT_MEDIA_FETCH';
-export const RECENT_MEDIA_FETCH_SUCCESS = 'RECENT_MEDIA_FETCH_SUCCESS';
-export const RECENT_MEDIA_FETCH_FAILURE = 'RECENT_MEDIA_FETCH_FAILURE';
+export const FETCH_MEDIA = 'FETCH_MEDIA';
+export const FETCH_MEDIA_SUCCESS = 'FETCH_MEDIA_SUCCESS';
+export const FETCH_MEDIA_FAILURE = 'FETCH_MEDIA_FAILURE';
 
-export function getRecentMedia(id) {
+export function getMedia(id) {
 	return (dispatch) => {
 		fetch(`http://localhost:4000/api/recent/${id}`)
 		.then(response => {
@@ -17,7 +17,7 @@ export function getRecentMedia(id) {
 				return response.json();
 			}
 			else {
-				dispatch(fetchRecentMediaFailure());
+				dispatch(fetchMediaFailure());
 			}
 		})
 		.then(json => {
@@ -25,14 +25,14 @@ export function getRecentMedia(id) {
 		})
 		.then(data => {
 			console.log(data);
-			dispatch(fetchRecentMediaSuccess(data));
+			dispatch(fetchMediaSuccess(data));
 		})
 		.catch(error => {
-			dispatch(fetchRecentMediaFailure());
+			dispatch(fetchMediaFailure());
 		});
 	}
 }
 
-const fetchRecentMedia = createAction(RECENT_MEDIA_FETCH);
-const fetchRecentMediaSuccess = createAction(RECENT_MEDIA_FETCH_SUCCESS);
-const fetchRecentMediaFailure = createAction(RECENT_MEDIA_FETCH_FAILURE);
+const fetchMedia = createAction(FETCH_MEDIA);
+const fetchMediaSuccess = createAction(FETCH_MEDIA_SUCCESS);
+const fetchMediaFailure = createAction(FETCH_MEDIA_FAILURE);

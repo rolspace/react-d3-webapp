@@ -1,24 +1,30 @@
-import { RECENT_MEDIA_FETCH, RECENT_MEDIA_FETCH_FAILURE, RECENT_MEDIA_FETCH_SUCCESS } from '../actions/media';
+import { FETCH_MEDIA, FETCH_MEDIA_FAILURE, FETCH_MEDIA_SUCCESS } from '../actions/media';
 
 const initialState = {
 	data: [],
-	status: 'PENDING'
+	error: null,
+	isComplete: false,
+	isFetching: false
 }
 
 const recentMedia = (state = initialState, action) => {
 	switch (action.type) {
-		case RECENT_MEDIA_FETCH:
+		case FETCH_MEDIA:
 			return Object.assign({}, state, {
-				status: 'FETCHING' 
+				isComplete: false,
+				isFetching: true
 			});
-		case RECENT_MEDIA_FETCH_FAILURE:
+		case FETCH_MEDIA_FAILURE:
 			return Object.assign({}, state, {
-				status: 'COMPLETE'
+				error: 'some error',
+				isComplete: true,
+				isFetching: false,
 			});
-		case RECENT_MEDIA_FETCH_SUCCESS:
+		case FETCH_MEDIA_SUCCESS:
 			return Object.assign({}, state, {
 				data: action.payload,
-				status: 'COMPLETE'
+				isComplete: true,
+				isFetching: false
 			});
 		default:
 			return state;

@@ -4,7 +4,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getRecentMedia } from '../actions/media'
+import { getMedia } from '../actions/media'
 
 const RecentMedia = (Graph, xAxis, yAxis) => {
 	return connect(mapStateToProps)(class RecentMediaContainer extends React.Component {
@@ -14,7 +14,7 @@ const RecentMedia = (Graph, xAxis, yAxis) => {
 
 		componentDidMount() {
 			const { dispatch } = this.props;
-			dispatch(getRecentMedia(this.props.user.id))
+			dispatch(getMedia(this.props.user.id))
 		}
 
 		render() {
