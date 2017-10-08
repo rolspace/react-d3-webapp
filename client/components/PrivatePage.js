@@ -5,7 +5,7 @@ import { Redirect, Route } from 'react-router-dom'
 class PrivatePage extends React.Component {
 	render() {
 		if (this.props.user.isComplete) {
-			if (this.props.user.login) {
+			if (this.props.user.isLoggedin) {
 				return <Route render={() => <this.props.component /> } />
 			}
 			else if (this.props.user.error) {

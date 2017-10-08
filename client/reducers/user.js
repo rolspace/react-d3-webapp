@@ -7,7 +7,7 @@ const initialState = {
 	id: '',
 	isComplete: false,
 	isFetching: false,
-	login: '',
+	isLoggedin: false,
 	error: null
 }
 
@@ -32,7 +32,7 @@ const user = (state = initialState, action) => {
 				id: action.payload.id,
 				isComplete: true,
 				isFetching: false,
-				login: action.payload.login,
+				isLoggedin: action.payload.login,
 				status: 'SUCCESS'
 			});
 		default:
