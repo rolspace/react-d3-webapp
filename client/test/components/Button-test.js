@@ -6,7 +6,9 @@ import Button from '../../components/Button'
 
 describe('Components: Button component', () => {
 	it('renders one <button> element', function() {
-		const wrapper = shallow(<Button text="text" />)
+		const onClickSpy = sinon.spy();
+		const wrapper = mount(<Button text="text" click={onClickSpy} />)
+		
 		expect(wrapper.find('button')).to.have.length(1)
 	});
 
