@@ -18,7 +18,7 @@ const RecentMedia = (Graph, xAxis, yAxis) => {
 		}
 
 		render() {
-			return <Graph data={this.props.media} xAxis={xAxis} yAxis={yAxis} />
+			return <Graph data={this.props.items} xAxis={xAxis} yAxis={yAxis} />
 		}
 	})
 }
@@ -31,7 +31,7 @@ RecentMedia.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		media: state.recentMedia.data,
+		items: state.recentMedia.items,
 		user: state.user
 	}
 }
