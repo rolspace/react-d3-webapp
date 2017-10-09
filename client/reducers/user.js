@@ -5,9 +5,9 @@ import { FETCH_USER, FETCH_USER_FAILURE, FETCH_USER_SUCCESS,
 
 const initialState = {
 	id: '',
+	loggedIn: false,
 	isComplete: false,
 	isFetching: false,
-	isLoggedin: false,
 	error: null
 }
 
@@ -32,7 +32,7 @@ const user = (state = initialState, action) => {
 				id: action.payload.id,
 				isComplete: true,
 				isFetching: false,
-				isLoggedin: action.payload.login,
+				loggedIn: action.payload.login,
 				status: 'SUCCESS'
 			});
 		default:
