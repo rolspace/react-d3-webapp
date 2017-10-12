@@ -6,12 +6,12 @@ import 'whatwg-fetch';
 import jsonapi from '../common/jsonapi';
 
 export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USER_ERROR = 'FETCH_USER_ERROR';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
 
 export const LOGIN_USER = 'LOGIN_USER';
+export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
-export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 
 export function getUser() {
 	return (dispatch) => {
@@ -25,7 +25,7 @@ export function getUser() {
 			}));
 		}
 		else {
-			dispatch(fetchUserFailure());
+			dispatch(fetchUserError());
 		}
 	}
 }
@@ -48,7 +48,7 @@ export function authenticateUser(code) {
 					return response.json();
 				}
 				else {
-					dispatch(loginUserFailure());
+					dispatch(loginUserError());
 				}
 			})
 			.then(json => {
@@ -63,16 +63,16 @@ export function authenticateUser(code) {
 				}));
 			})
 			.catch(error => {
-				dispatch(loginUserFailure());
+				dispatch(loginUserError());
 			});
 		}
 	}
 }
 
-export const fetchUser = createAction(FETCH_USER);
-export const fetchUserSuccess = createAction(FETCH_USER_SUCCESS);
-export const fetchUserFailure = createAction(FETCH_USER_FAILURE);
+const fetchUser = createAction(FETCH_USER);
+const fetchUserError = createAction(FETCH_USER_ERROR);
+const fetchUserSuccess = createAction(FETCH_USER_SUCCESS);
 
-export const loginUser = createAction(LOGIN_USER);
-export const loginUserSuccess = createAction(LOGIN_USER_SUCCESS);
-export const loginUserFailure = createAction(LOGIN_USER_FAILURE);
+const loginUser = createAction(LOGIN_USER);
+const loginUserError = createAction(LOGIN_USER_ERROR);
+const loginUserSuccess = createAction(LOGIN_USER_SUCCESS);

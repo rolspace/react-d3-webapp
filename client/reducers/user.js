@@ -1,7 +1,7 @@
 /*eslint-disable no-unused-vars*/
 
-import { FETCH_USER, FETCH_USER_FAILURE, FETCH_USER_SUCCESS,
-	LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } from '../actions/user';
+import { FETCH_USER, FETCH_USER_ERROR, FETCH_USER_SUCCESS,
+	LOGIN_USER, LOGIN_USER_ERROR, LOGIN_USER_SUCCESS } from '../actions/user';
 
 const initialState = {
 	id: '',
@@ -19,8 +19,8 @@ const user = (state = initialState, action) => {
 				isComplete: false,
 				isFetching: true
 			});
-		case LOGIN_USER_FAILURE:
-		case FETCH_USER_FAILURE:
+		case LOGIN_USER_ERROR:
+		case FETCH_USER_ERROR:
 			return Object.assign({}, state, {
 				isComplete: true,
 				isFetching: false,
