@@ -16,4 +16,6 @@ global.navigator = {
 	userAgent: 'node.js'
 };
 
+global.fetch = function() {}
+
 documentRef = document;
