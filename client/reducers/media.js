@@ -1,4 +1,4 @@
-import { FETCH_MEDIA, FETCH_MEDIA_FAILURE, FETCH_MEDIA_SUCCESS } from '../actions/media';
+import { FETCH_MEDIA, FETCH_MEDIA_ERROR, FETCH_MEDIA_SUCCESS } from '../actions/media';
 
 const initialState = {
 	items: [],
@@ -14,7 +14,7 @@ const recentMedia = (state = initialState, action) => {
 				isComplete: false,
 				isFetching: true
 			});
-		case FETCH_MEDIA_FAILURE:
+		case FETCH_MEDIA_ERROR:
 			return Object.assign({}, state, {
 				error: 'some error',
 				isComplete: true,

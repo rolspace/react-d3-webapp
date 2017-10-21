@@ -1,38 +1,39 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-import { createAction } from 'redux-actions';
-import 'whatwg-fetch';
-import jsonapi from '../common/jsonapi';
+import { createAction } from 'redux-actions'
+import 'whatwg-fetch'
+import jsonapi from '../common/jsonapi'
 
-export const FETCH_MEDIA = 'FETCH_MEDIA';
-export const FETCH_MEDIA_SUCCESS = 'FETCH_MEDIA_SUCCESS';
-export const FETCH_MEDIA_FAILURE = 'FETCH_MEDIA_FAILURE';
+export const FETCH_MEDIA = 'FETCH_MEDIA'
+export const FETCH_MEDIA_ERROR = 'FETCH_MEDIA_ERROR'
+export const FETCH_MEDIA_SUCCESS = 'FETCH_MEDIA_SUCCESS'
 
 export function getMedia(id) {
 	return (dispatch) => {
 		fetch(`http://localhost:4000/api/recent/${id}`)
 		.then(response => {
 			if (response.status === 200) {
-				return response.json();
+				return response.json()
 			}
 			else {
-				dispatch(fetchMediaFailure());
+				dispatch(fetchMediaError())
 			}
 		})
 		.then(json => {
-			return jsonapi.deserialize(json);
+			return jsonapi.deserialize(json)
 		})
 		.then(data => {
-			console.log(data);
-			dispatch(fetchMediaSuccess(data));
+			console.log(dispatch)
+			dispatch(fetchMediaSuccess(data))
+			console.log(dispatch)
 		})
 		.catch(error => {
-			dispatch(fetchMediaFailure());
+			dispatch(fetchMediaError())
 		});
 	}
 }
 
-const fetchMedia = createAction(FETCH_MEDIA);
-const fetchMediaSuccess = createAction(FETCH_MEDIA_SUCCESS);
-const fetchMediaFailure = createAction(FETCH_MEDIA_FAILURE);
+const fetchMedia = createAction(FETCH_MEDIA)
+const fetchMediaError = createAction(FETCH_MEDIA_ERROR)
+const fetchMediaSuccess = createAction(FETCH_MEDIA_SUCCESS)
