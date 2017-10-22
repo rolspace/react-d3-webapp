@@ -11,7 +11,8 @@ export const FETCH_MEDIA_SUCCESS = 'FETCH_MEDIA_SUCCESS'
 
 export function getMedia(id) {
 	return (dispatch) => {
-		fetch(`http://localhost:4000/api/recent/${id}`)
+		dispatch(fetchMedia())
+		return fetch(`http://localhost:4000/api/recent/${id}`)
 		.then(response => {
 			if (response.status === 200) {
 				return response.json()
@@ -24,9 +25,7 @@ export function getMedia(id) {
 			return jsonapi.deserialize(json)
 		})
 		.then(data => {
-			console.log(dispatch)
 			dispatch(fetchMediaSuccess(data))
-			console.log(dispatch)
 		})
 		.catch(error => {
 			dispatch(fetchMediaError())
