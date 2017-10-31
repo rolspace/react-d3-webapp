@@ -32,11 +32,11 @@ export function getUser() {
 
 export function authenticateUser(code) {
 	return (dispatch) => {
-		dispatch(loginUser)
+		dispatch(loginUser())
 
 		const body = jsonapi.authorizationSerializer.serialize({ code: code })
 		if (code) {
-			fetch('http://localhost:4000/api/auth/', {
+			return fetch('http://localhost:4000/api/auth/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -65,6 +65,9 @@ export function authenticateUser(code) {
 			.catch(error => {
 				dispatch(loginUserError())
 			})
+		}
+		else {
+			dispatch(loginUserError())
 		}
 	}
 }
