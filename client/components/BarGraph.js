@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { loadBarGraph } from '../common/graphs'
+import { createBarGraph } from '../common/graphs'
 
 class BarGraph extends React.Component {
 	constructor(props) {
@@ -19,7 +19,7 @@ class BarGraph extends React.Component {
 			yAxis: this.props.yAxis
 		}
 
-		loadBarGraph(node, graph, 800, 500)
+		createBarGraph(node, graph, 800, 500)
 	}
 
 	componentDidUpdate() {

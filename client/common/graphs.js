@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import _ from 'lodash'
 
-export function loadBarGraph(node, barchart, containerWidth, containerHeight) {
+export function createBarGraph(node, barchart, containerWidth, containerHeight) {
 	const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 	const width = containerWidth - margins.right - margins.left
 	const height = containerHeight - margins.top - margins.bottom
