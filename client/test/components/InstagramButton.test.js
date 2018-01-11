@@ -25,7 +25,6 @@ describe('Components: InstagramButton component', function() {
 		wrapper.find('Button').simulate('click')
 
 		expect(logInUserSpy).to.have.property('callCount', 1)
-		//expect(logInUserSpy.calledOnce).to.equal(true)
 
 		logInUserSpy.restore()
 		replaceStub.restore()
