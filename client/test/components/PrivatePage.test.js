@@ -9,9 +9,11 @@ import StartPage from '../../pages/start'
 import PrivatePage from '../../components/PrivatePage'
 
 describe('Components: PrivatePage component', () => {
-  it('renders one <div> element when the user.error prop is true', () => {
+  it('renders one <div> element when the user.error prop is not null', () => {
     const user = {
-      error: true,
+      error: {
+        message: 'An error happened'
+      },
       isComplete: true
     }
 
@@ -30,10 +32,10 @@ describe('Components: PrivatePage component', () => {
     expect(wrapper.find('div')).to.have.length(1)
   })
 
-  it('renders a Route Component when the user.loggedIn prop is true', () => {
+  it('renders a Route Component when the user.isLoggedIn prop is true', () => {
     const user = {
       isComplete: true,
-      loggedIn: true
+      isLoggedIn: true
     }
 
     const wrapper = shallow(<PrivatePage component={ StartPage } user={ user } />)
@@ -41,10 +43,10 @@ describe('Components: PrivatePage component', () => {
     expect(wrapper.find(Route)).to.have.length(1)
   })
 
-  it('renders a Route Component when the user.loggedIn prop is false', () => {
+  it('renders a Route Component when the user.isLoggedIn prop is false', () => {
     const user = {
       isComplete: true,
-      loggedIn: false
+      isLoggedIn: false
     }
 
     const wrapper = shallow(<PrivatePage component={ StartPage } user={ user } />)
