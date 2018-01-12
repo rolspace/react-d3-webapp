@@ -22,7 +22,7 @@ export function getMedia(id) {
 			}
 		})
 		.then(json => {
-			return jsonapi.deserialize(json)
+			return jsonapi.deserializer(json)
 		})
 		.then(data => {
 			dispatch(fetchMediaSuccess(data))

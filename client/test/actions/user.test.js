@@ -44,7 +44,7 @@ describe('Actions: User actions', () => {
 		const user = { type: 'users', id: '40815882' }
 
 		const responseStub = { _bodyText: JSON.stringify(user), status: 200, json: () => JSON.stringify(user) }
-		const jsonapiStub = sinon.stub(jsonapi, 'deserialize').returns(user)
+		const jsonapiStub = sinon.stub(jsonapi, 'deserializer').returns(user)
 		const fetchStub = sinon.stub(global, 'fetch').resolves(responseStub)
 
 		const store = mockStore({ user: {} })

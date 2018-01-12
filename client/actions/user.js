@@ -52,7 +52,7 @@ export function authenticateUser(code) {
 				}
 			})
 			.then(json => {
-				return jsonapi.deserialize(json)
+				return jsonapi.deserializer(json)
 			})
 			.then(data => {
 				Cookies.set('id', data.id)

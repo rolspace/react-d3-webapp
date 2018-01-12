@@ -25,7 +25,7 @@ describe('Actions: Media actions', () => {
 			}]
 
 		const responseStub = { _bodyText: JSON.stringify(items), status: 200, json: () => JSON.stringify(items) }
-		const jsonapiStub = sinon.stub(jsonapi, 'deserialize').returns(items)
+		const jsonapiStub = sinon.stub(jsonapi, 'deserializer').returns(items)
 		const fetchStub = sinon.stub(global, 'fetch').resolves(responseStub)
 
 		const store = mockStore({ media: {} })
