@@ -32,8 +32,7 @@ const user = (state = initialState, action) => {
 				id: action.payload.id,
 				isComplete: true,
 				isFetching: false,
-				isLoggedIn: action.payload.login,
-				status: 'SUCCESS'
+				isLoggedIn: action.payload.login
 			});
 		default:
 			return state;
