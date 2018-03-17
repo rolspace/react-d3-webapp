@@ -15,8 +15,13 @@ const query = `{\n
             }\n
             edges {\n
               node {\n
+                additions\n
+                deletions\n
+                changedFiles\n
                 author {\n
-                  date\n
+                  user {\n
+                    login\n
+                  }\n
                 }\n
               }\n
             }\n
