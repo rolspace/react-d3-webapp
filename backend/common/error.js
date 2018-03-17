@@ -1,5 +1,5 @@
 function Error(options) {
-  this.details = options.details
+  this.detail = options.detail
   this.status = options.status
 }
 

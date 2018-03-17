@@ -1,7 +1,6 @@
 const rp = require('request-promise-native')
-const jsonapi = require('../../common/jsonapi')
-const Error = require('../../common/error')
 const utils = require('../../common/utils')
+const Error = require('../../common/error')
 const HttpStatus = require('../../common/constants').http
 
 const query = `{\n
@@ -30,7 +29,7 @@ const query = `{\n
 
 function getCommits(req, res) {
 	if (!req.params || !req.params.repo) {
-		utils.logger.error(`repository.getCommits() error, params empty: ${req}`)
+		utils.logger.error({ error: `repository.getCommits() error, params empty: ${req}`, request: req })
 
     const errorResponse = new Error({
       detail: 'The request body has no repo parameter',
@@ -55,7 +54,7 @@ function getCommits(req, res) {
 
     rp.post(options)
     .then(json => {
-      utils.logger.info(json);
+      utils.logger.info({ payload: json, request: req });
 
       let commits = {
         type: 'commit',
@@ -64,13 +63,13 @@ function getCommits(req, res) {
       res.status(HttpStatus.ok).send(commits)
     })
     .catch(error => {
-      utils.logger.info(req);
+      utils.logger.info({ error: error, request: req });
 
       const errorResponse = new Error({
         detail: 'Internal server error',
         status: HttpStatus.internalError
       })
-      res.status(errorResponse.status).end(errorResponse)
+      res.status(errorResponse.status).send(errorResponse)
     })
 	}
 }

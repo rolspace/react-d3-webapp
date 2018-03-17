@@ -1,4 +1,3 @@
-const db = require('./db');
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
