@@ -5,8 +5,9 @@ class GraphList extends React.Component {
 	render() {
 		return (
 			<div className="graph-list">
-				<Link to="/start/likes">Recent Likes</Link>
-				<Link to="/start/comments">Recent Comments</Link>
+				<ul>
+					<li><Link to="/graphs/repo-additions-deletions">Repository Addtions/Deletions</Link></li>
+				</ul>
 			</div>
 		)
 	}

@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import HomePage from '../pages/home'
-import StartPage from '../pages/start'
-import PrivateRoute from '../containers/PrivateRoute'
+import GroupedBarGraph from './GroupedBarGraph'
+import RepoAdditionsDeletions from '../containers/RepoAdditionsDeletions'
+import HomePage from '../pages/Homepage'
 
 class AppRouter extends React.Component {
 	render() {
@@ -10,7 +10,7 @@ class AppRouter extends React.Component {
 			<Router>
 				<Switch>
 					<Route exact path='/' component={HomePage} />
-					<PrivateRoute path='/start' component={StartPage} />
+					<Route path='/graphs/repo-additions-deletions' component={RepoAdditionsDeletions(GroupedBarGraph, 'label', 'count')} />
         </Switch>
 			</Router>
 		)

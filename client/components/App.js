@@ -14,7 +14,7 @@ class App extends React.Component {
 			<div>
 				<AppBar>
 					<Toolbar>
-						TunnelStats
+						React D3 WebApp
 					</Toolbar>
 				</AppBar>
 				<Grid container style={style}>

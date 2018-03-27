@@ -2,9 +2,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createBarGraph } from '../common/graphs'
+import { groupedBarGraph } from '../common/graphs'
 
-class BarGraph extends React.Component {
+class GroupedBarGraph extends React.Component {
 	constructor(props) {
 		super(props)
 		this.renderChart = this.renderChart.bind(this)
@@ -19,7 +19,7 @@ class BarGraph extends React.Component {
 			yAxis: this.props.yAxis
 		}
 
-		createBarGraph(node, graph, 800, 500)
+		groupedBarGraph(node, graph, 800, 500)
 	}
 
 	componentDidUpdate() {
@@ -36,10 +36,10 @@ class BarGraph extends React.Component {
 	}
 }
 
-BarGraph.propTypes = {
+GroupedBarGraph.propTypes = {
 	data: PropTypes.array.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }
 
-export default BarGraph
+export default GroupedBarGraph

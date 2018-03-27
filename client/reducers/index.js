@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import user from './user';
-import recentMedia from './media';
+import repo from './repo';
 
 const reducer = combineReducers({
-	user,
-	recentMedia
+	repo
 });
 
 export default reducer;
