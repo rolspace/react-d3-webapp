@@ -19,7 +19,7 @@ const RepoAdditionsDeletions = (Graph, xAxis, yAxis) => {
 		}
 
 		render() {
-			return <Graph data={this.props.commits} xAxis={xAxis} yAxis={yAxis} />
+			return <Graph data={this.props.repo} xAxis={xAxis} yAxis={yAxis} />
 		}
 	})
 }
@@ -31,7 +31,7 @@ RepoAdditionsDeletions.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		commits: state.repo.data.additions
+		repo: state.repo.data
 	}
 }
 

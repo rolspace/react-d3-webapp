@@ -37,7 +37,7 @@ class GroupedBarGraph extends React.Component {
 }
 
 GroupedBarGraph.propTypes = {
-	data: PropTypes.array.isRequired,
+	data: PropTypes.object.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }
