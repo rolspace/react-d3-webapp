@@ -5,7 +5,6 @@ class Homepage extends React.Component {
 	render() {
 		return (
 				<div className="homepage">
-					This is the Homepage
 					<GraphList />
 				</div>
 		)
