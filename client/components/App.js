@@ -23,8 +23,8 @@ const App = (props) => {
 					<Typography variant="title" color="inherit">React D3 WebApp</Typography>
 				</Toolbar>
 			</AppBar>
-			<Grid container className={classes.container} justify='center'>
-				<Grid item xs={12} sm={6}>
+			<Grid container className={classes.container}>
+				<Grid item xs={12} sm={12}>
 					<AppRouter />
 				</Grid>
 			</Grid>
