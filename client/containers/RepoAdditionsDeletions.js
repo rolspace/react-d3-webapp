@@ -1,27 +1,26 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getRepoCommits } from '../actions/repo'
 
-const RepoAdditionsDeletions = (Graph, xAxis, yAxis) => {
-	return connect(mapStateToProps)(class RepoAdditionsDeletionsContainer extends React.Component {
-		constructor(props) {
-			super(props)
-		}
+class RepoAdditionsDeletions extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 
-		componentDidMount() {
-			const { dispatch } = this.props;
-			dispatch(getRepoCommits())
-		}
+	componentDidMount() {
+		const { dispatch } = this.props
+		dispatch(getRepoCommits())
+	}
 
-		render() {
-			return <Graph data={this.props.repo} xAxis={xAxis} yAxis={yAxis} />
-		}
-	})
+	render() {
+		const Graph = this.props.graph
+		const { options } = this.props
+
+		return <Graph data={this.props.repo} xAxis={options.xAxis} yAxis={options.yAxis} />
+	}
 }
 
 RepoAdditionsDeletions.propTypes = {
@@ -35,4 +34,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default RepoAdditionsDeletions
+export default connect(mapStateToProps)(RepoAdditionsDeletions)
