@@ -7,26 +7,45 @@ import Button from 'material-ui/Button';
 class OwnerRepoForm extends React.Component {
 	constructor(props) {
 		super(props)
-		this.handleClick = this.handleClick.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
+		this.handleChange = this.handleChange.bind(this)
+
+		this.state = {
+			owner: '',
+			repo: ''
+		}
 	}
 
-	handleClick(e) {
-		this.props.onFormSubmit(e)
+	handleChange(event) {
+		const name = event.target.name
+		const value = event.target.value
+
+		this.setState({
+			[name]: value
+		})
+	}
+
+	handleSubmit(event) {
+		event.preventDefault()
+
+		this.props.onFormSubmit(this.state.owner, this.state.repo)
 	}
 
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
 				<Grid container>
 					<Grid item xs={4} sm={5}>
-						<TextField id="with-placeholder" label="Owner" margin="normal" fullWidth={true} />
+						<TextField id='with-placeholder' name='owner' value={this.state.owner}
+							label='Owner' margin='normal' fullWidth={true} onChange={this.handleChange} />
 					</Grid>
 					<Grid item xs={1}></Grid>
 					<Grid item xs={4} sm={5}>
-						<TextField id="with-placeholder" label="Repository" margin="normal" fullWidth={true} />
+						<TextField id='with-placeholder' name='repo' value={this.state.repo}
+							label='Repository' margin='normal' fullWidth={true} onChange={this.handleChange} />
 					</Grid>
 					<Grid item xs={3} sm={1}>
-						<Button size="small" variant="raised" onClick={this.handleClick}>GO</Button>
+						<Button size='small' variant='raised' type='submit'>GO</Button>
 					</Grid>
 				</Grid>
 			</form>

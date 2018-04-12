@@ -11,8 +11,9 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 			this.onFormSubmit = this.onFormSubmit.bind(this)
 		}
 
-		onFormSubmit() {
-			console.log('clicked')
+		onFormSubmit(owner, repo) {
+			console.log(owner)
+			console.log(repo)
 		}
 
 		render() {
