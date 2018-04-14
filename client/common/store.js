@@ -1,9 +1,10 @@
 /*eslint-disable no-unused-vars*/
-import { createStore, applyMiddleware } from 'redux';
-import promiseMiddleware from 'redux-promise';
-import thunkMiddleware from 'redux-thunk';
-import reducer from '../reducers';
 
-const store = createStore(reducer, applyMiddleware(promiseMiddleware, thunkMiddleware));
+import { createStore, applyMiddleware } from 'redux'
+import promiseMiddleware from 'redux-promise'
+import thunkMiddleware from 'redux-thunk'
+import reducer from '../reducers'
 
-export default store;
+const store = createStore(reducer, applyMiddleware(promiseMiddleware, thunkMiddleware))
+
+export default store

@@ -1,4 +1,4 @@
-import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS } from '../actions/repo';
+import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS } from '../actions/repo'
 
 const initialState = {
 	data: {
@@ -18,13 +18,13 @@ const repo = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				isComplete: false,
 				isFetching: true
-			});
+			})
 		case FETCH_REPO_ERROR:
 			return Object.assign({}, state, {
 				error: 'some error',
 				isComplete: true,
 				isFetching: false,
-			});
+			})
 		case FETCH_REPO_SUCCESS:
 			return Object.assign({}, state, {
 				data: {
@@ -35,7 +35,7 @@ const repo = (state = initialState, action) => {
 				},
 				isComplete: true,
 				isFetching: false
-			});
+			})
 		case UPDATE_REPO_SUCCESS:
 			return Object.assign({}, state, {
 				data: {
@@ -46,7 +46,7 @@ const repo = (state = initialState, action) => {
 				}
 			})
 		default:
-			return state;
+			return state
 	}
 }
 
@@ -95,4 +95,4 @@ function assignToGroup(group, property, value) {
 	return group
 }
 
-export default repo;
+export default repo

@@ -1,11 +1,11 @@
-import qs from 'query-string';
+import qs from 'query-string'
 
 const parse = (value) => {
 	if (value) {
-		return qs.parse(value);
+		return qs.parse(value)
 	}
 
-	return {};
+	return {}
 }
 
 module.exports = {

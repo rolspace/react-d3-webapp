@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button';
+import Button from 'material-ui/Button'
 
 class OwnerRepoForm extends React.Component {
 	constructor(props) {

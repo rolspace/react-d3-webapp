@@ -31,7 +31,7 @@ export function getRepoCommits(owner, repo) {
 		})
 		.catch(error => {
 			dispatch(fetchRepoError(error))
-		});
+		})
 	}
 }
 

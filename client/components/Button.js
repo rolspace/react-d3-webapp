@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Button extends React.Component {
 	render() {
@@ -14,4 +14,4 @@ Button.propTypes = {
 	text: PropTypes.string.isRequired
 }
 
-export default Button;
+export default Button

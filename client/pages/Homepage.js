@@ -1,5 +1,5 @@
-import React from 'react';
-import GraphList from '../components/GraphList';
+import React from 'react'
+import GraphList from '../components/GraphList'
 
 class Homepage extends React.Component {
 	render() {
@@ -11,4 +11,4 @@ class Homepage extends React.Component {
 	}
 }
 
-export default Homepage;
+export default Homepage

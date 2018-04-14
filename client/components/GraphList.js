@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
 import ButtonBase from 'material-ui/ButtonBase'
 import Typography from 'material-ui/Typography'
-import Card, { CardContent } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card'
 
 const GraphList = () => {
 	return (
