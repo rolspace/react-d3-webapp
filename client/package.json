@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "node run build",
-    "dev": "node run dev --no-hmr",
-    "pro": "node run pro",
+    "dev": "concurrently \"node run dev --no-hmr\" \"cd ../backend && npm run dev\"",
+    "pro": "concurrently \"node run pro\" \"cd ../backend && npm run dev\"",
     "eslint": "eslint actions common components containers pages reducers test main.js run.js webpack.config.js",
     "test": "mocha ./test/setup.js ./test/**/*.test.js"
   },
@@ -19,6 +19,7 @@
     "url": "https://bitbucket.org/rolspace/tunnelstats"
   },
   "dependencies": {
+    "concurrently": "^3.5.1",
     "d3": "^4.9.1",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.3",
