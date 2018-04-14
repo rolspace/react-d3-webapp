@@ -9,7 +9,7 @@ export const UPDATE_REPO_SUCCESS = 'UPDATE_REPO_SUCCESS'
 export function getRepoCommits(owner, repo) {
 	return (dispatch) => {
 		dispatch(fetchRepo())
-		return fetch(`http://localhost:4000/api/repository/commits/${owner}/${repo}/`)
+		return fetch(`http://localhost:9000/api/repository/commits/${owner}/${repo}/`)
 		.then(response => {
 			if (response.status === 200) {
 				return response.json()
