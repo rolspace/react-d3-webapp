@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-
 import { createAction } from 'redux-actions'
 import 'whatwg-fetch'
 
@@ -33,7 +30,7 @@ export function getRepoCommits(owner, repo) {
 			dispatch(fetchRepoSuccess(payload))
 		})
 		.catch(error => {
-			dispatch(fetchRepoError())
+			dispatch(fetchRepoError(error))
 		});
 	}
 }
