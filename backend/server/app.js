@@ -19,12 +19,14 @@ function init() {
 		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' });
 	});
 
-	app.set('port', process.env.PORT);
+	const port = process.env.PORT || 9000
+
+	app.set('port', port);
 
 	const server = http.createServer(app);
 
-	server.listen(process.env.PORT, () => {
-		utils.logger.info('Listening on port %s', process.env.PORT);
+	server.listen(port, () => {
+		utils.logger.info('Listening on port %s', port);
 	});
 }
 

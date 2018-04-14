@@ -17,11 +17,13 @@ function init() {
 		res.status(config.http.notFound).send({ 'message': 'Resource not found' })
 	})
 
-	app.set('port', config.port)
+	const port = process.env.PORT || 8000
+
+	app.set('port', port)
 
 	const server = http.createServer(app)
-	server.listen(config.express.port, () => {
-		console.log('Listening on port %s', config.express.port)
+	server.listen(port, () => {
+		console.log('Listening on port %s', port)
 	})
 }
 
