@@ -13,7 +13,7 @@ function init() {
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors));
 
-	app.get('/api/repository/commits/:repo', repository.getCommits);
+	app.get('/api/repository/commits/:owner/:repo', repository.getCommits);
 
 	app.use((req, res) => {
 		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' });

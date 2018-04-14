@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { getRepoCommits } from '../actions/repo'
 
 class RepoAdditionsDeletions extends React.Component {
@@ -10,16 +11,34 @@ class RepoAdditionsDeletions extends React.Component {
 		super(props)
 	}
 
+	shouldComponentUpdate(nextProps) {
+		if (_.isEqual(this.props.data, nextProps.data)) {
+			return false
+		}
+
+		return true
+	}
+
+	componentDidUpdate(prevProps) {
+		if (!_.isEqual(this.props.data, prevProps.data)) {
+			const { dispatch } = this.props
+			const { owner } = this.props.data
+			const { repo } = this.props.data
+			dispatch(getRepoCommits(owner, repo))
+		}
+	}
+
 	componentDidMount() {
 		const { dispatch } = this.props
-		dispatch(getRepoCommits())
+		const { owner } = this.props.data
+		const { repo } = this.props.data
+		dispatch(getRepoCommits(owner, repo))
 	}
 
 	render() {
 		const Graph = this.props.graph
-		const { options } = this.props
 
-		return <Graph data={this.props.repo} xAxis={options.xAxis} yAxis={options.yAxis} />
+		return <Graph data={this.props.data} {...this.props.options} />
 	}
 }
 
@@ -30,7 +49,7 @@ RepoAdditionsDeletions.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		repo: state.repo.data
+		data: state.repo.data
 	}
 }
 

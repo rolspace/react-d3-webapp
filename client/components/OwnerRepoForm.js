@@ -11,8 +11,8 @@ class OwnerRepoForm extends React.Component {
 		this.handleChange = this.handleChange.bind(this)
 
 		this.state = {
-			owner: '',
-			repo: ''
+			owner: this.props.owner,
+			repo: this.props.repo
 		}
 	}
 
@@ -54,7 +54,9 @@ class OwnerRepoForm extends React.Component {
 }
 
 OwnerRepoForm.propTypes = {
-	onFormSubmit: PropTypes.func.isRequired
+	onFormSubmit: PropTypes.func.isRequired,
+	owner: PropTypes.string.isRequired,
+	repo: PropTypes.string.isRequired
 }
 
 export default OwnerRepoForm

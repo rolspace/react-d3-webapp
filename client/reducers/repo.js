@@ -1,7 +1,9 @@
-import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS } from '../actions/repo';
+import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS } from '../actions/repo';
 
 const initialState = {
 	data: {
+		repo: 'react',
+		owner: 'facebook',
 		additions: [],
 		deletions: []
 	},
@@ -25,34 +27,46 @@ const repo = (state = initialState, action) => {
 			});
 		case FETCH_REPO_SUCCESS:
 			return Object.assign({}, state, {
-				data: transform(action.payload.data),
+				data: {
+					owner: action.payload.owner,
+					repo: action.payload.repo,
+					additions: groupData(action.payload.data, 'additions'),
+					deletions: groupData(action.payload.data, 'deletions')
+				},
 				isComplete: true,
 				isFetching: false
 			});
+		case UPDATE_REPO_SUCCESS:
+			return Object.assign({}, state, {
+				data: {
+					owner: action.payload.owner,
+					repo: action.payload.repo,
+					additions: [],
+					deletions: []
+				}
+			})
 		default:
 			return state;
 	}
 }
 
-function transform(commits) {
-	const ranges = {
-		additions: initRanges([], 50),
-		deletions: initRanges([], 50)
-	}
+function groupData(commits, type) {
+	const group = initGroup([], 50)
 
 	if (commits && commits.length) {
 		const grouping = commits.reduce((accumulator, value) => {
-			accumulator = assignToRange(accumulator, 'additions', value)
-			accumulator = assignToRange(accumulator, 'deletions', value)
+			accumulator = assignToGroup(accumulator, type, value)
 
 			return accumulator
-		}, ranges)
+		}, group)
 
 		return grouping
 	}
+
+	return group
 }
 
-function initRanges(array, step) {
+function initGroup(array, step) {
 	let i = -1;
 
 	while (i < 200) {
@@ -71,14 +85,14 @@ function initRanges(array, step) {
 	return array
 }
 
-function assignToRange(object, property, value) {
-	let found = object[property].find((element) => element.min < value.node[property] && element.max > value.node[property])
+function assignToGroup(group, property, value) {
+	let found = group.find((element) => element.min < value.node[property] && element.max > value.node[property])
 
 	if (found) {
 		found.count++
 	}
 
-	return object
+	return group
 }
 
 export default repo;

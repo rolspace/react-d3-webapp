@@ -4,7 +4,7 @@ const Error = require('../../common/error')
 const HttpStatus = require('../../common/constants').http
 
 const query = `{\n
-  repository(name: \"react\", owner: \"facebook\") {\n
+  repository(name: \"%REPO%\", owner: \"%OWNER%\") {\n
     ref(qualifiedName: \"master\") {\n
       target {\n
         ... on Commit {\n
@@ -52,7 +52,7 @@ function getCommits(req, res) {
 			},
 			method: 'POST',
 			body: {
-				'query': query
+				'query': query.replace('%REPO%', req.params.repo).replace('%OWNER%', req.params.owner)
 			},
 			json: true
 		}
