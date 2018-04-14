@@ -1,21 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Toolbar from 'material-ui/Toolbar'
 import AppBar from 'material-ui/AppBar'
 import Grid from 'material-ui/Grid'
 import AppRouter from './AppRouter'
 
-const styles = {
-	container: {
-		paddingTop: '80px'
-	}
-}
 
-const App = (props) => {
-	const { classes } = props
-
+const App = () => {
 	return (
 		<div>
 			<AppBar>
@@ -23,7 +14,7 @@ const App = (props) => {
 					<Typography variant="title" color="inherit">React D3 WebApp</Typography>
 				</Toolbar>
 			</AppBar>
-			<Grid container className={classes.container}>
+			<Grid container>
 				<Grid item xs={12} sm={12}>
 					<AppRouter />
 				</Grid>
@@ -32,8 +23,4 @@ const App = (props) => {
 	)
 }
 
-App.propTypes = {
-	classes: PropTypes.object.isRequired
-}
-
-export default withStyles(styles)(App)
+export default App

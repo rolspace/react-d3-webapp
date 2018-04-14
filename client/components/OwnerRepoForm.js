@@ -1,8 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+
+const styles = {
+	container: {
+		paddingTop: '60px'
+	}
+}
 
 class OwnerRepoForm extends React.Component {
 	constructor(props) {
@@ -32,9 +39,11 @@ class OwnerRepoForm extends React.Component {
 	}
 
 	render() {
+		const { classes } = this.props
+
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<Grid container>
+				<Grid container className={classes.container}>
 					<Grid item xs={4} sm={5}>
 						<TextField id='with-placeholder' name='owner' value={this.state.owner}
 							label='Owner' margin='normal' fullWidth={true} onChange={this.handleChange} />
@@ -54,9 +63,10 @@ class OwnerRepoForm extends React.Component {
 }
 
 OwnerRepoForm.propTypes = {
+	classes: PropTypes.object.isRequired,
 	onFormSubmit: PropTypes.func.isRequired,
 	owner: PropTypes.string.isRequired,
 	repo: PropTypes.string.isRequired
 }
 
-export default OwnerRepoForm
+export default withStyles(styles)(OwnerRepoForm)
