@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { getRepoCommits } from '../actions/repo'
+import { getRepoCommits, updateRepo } from '../actions/repo'
 
 class RepoAdditionsDeletions extends React.Component {
 	constructor(props) {
@@ -12,15 +12,15 @@ class RepoAdditionsDeletions extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		if (_.isEqual(this.props.data, nextProps.data)) {
-			return false
+		if (!_.isEqual(this.props.data, nextProps.data)) {
+			return true
 		}
 
-		return true
+		return false
 	}
 
-	componentDidUpdate(prevProps) {
-		if (!_.isEqual(this.props.data, prevProps.data)) {
+	componentDidUpdate() {
+		if (!this.props.data.lastId && ! this.props.data.lastDate) {
 			const { dispatch } = this.props
 			const { owner } = this.props.data
 			const { repo } = this.props.data
@@ -32,7 +32,7 @@ class RepoAdditionsDeletions extends React.Component {
 		const { dispatch } = this.props
 		const { owner } = this.props.data
 		const { repo } = this.props.data
-		dispatch(getRepoCommits(owner, repo))
+		dispatch(updateRepo(owner || 'facebook', repo || 'react'))
 	}
 
 	render() {

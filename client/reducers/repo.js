@@ -2,8 +2,10 @@ import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS }
 
 const initialState = {
 	data: {
-		repo: 'react',
-		owner: 'facebook',
+		owner: '',
+		repo: '',
+		lastId: '',
+		lastDate: '',
 		additions: [],
 		deletions: []
 	},
@@ -30,6 +32,8 @@ const repo = (state = initialState, action) => {
 				data: {
 					owner: action.payload.owner,
 					repo: action.payload.repo,
+					lastId: action.payload.data.length ? action.payload.data[0].node.oid : '',
+					lastDate: action.payload.data.length ? action.payload.data[0].node.pushedDate : '',
 					additions: groupData(action.payload.data, 'additions'),
 					deletions: groupData(action.payload.data, 'deletions')
 				},
@@ -41,6 +45,8 @@ const repo = (state = initialState, action) => {
 				data: {
 					owner: action.payload.owner,
 					repo: action.payload.repo,
+					lastId: '',
+					lastDate: '',
 					additions: [],
 					deletions: []
 				}
@@ -68,7 +74,6 @@ function groupData(commits, type) {
 
 function initGroup(array, step) {
 	let i = -1;
-
 	while (i < 200) {
 		let range = {
 			min: i + 1,
@@ -87,7 +92,6 @@ function initGroup(array, step) {
 
 function assignToGroup(group, property, value) {
 	let found = group.find((element) => element.min < value.node[property] && element.max > value.node[property])
-
 	if (found) {
 		found.count++
 	}
