@@ -6,16 +6,16 @@ export function groupedBarGraph(node, barchart, containerWidth, containerHeight)
 	const width = containerWidth - margins.right - margins.left
 	const height = containerHeight - margins.top - margins.bottom
 
-	const xDomain1 = barchart.data.additions.map(d => _.get(d, barchart.xAxis))
-	const xDomain2 = barchart.data.deletions.map(d => _.get(d, barchart.xAxis))
-	const y1Max = d3.max(barchart.data.additions, d => _.get(d, barchart.yAxis))
-	const y2Max = d3.max(barchart.data.deletions, d => _.get(d, barchart.yAxis))
+	const xDomain1 = barchart.data.linesAdded.map(d => _.get(d, barchart.xAxis))
+	const xDomain2 = barchart.data.linesDeleted.map(d => _.get(d, barchart.xAxis))
+	const y1Max = d3.max(barchart.data.linesAdded, d => _.get(d, barchart.yAxis))
+	const y2Max = d3.max(barchart.data.linesDeleted, d => _.get(d, barchart.yAxis))
 
 	const x1 = d3.scaleBand().domain(xDomain1).rangeRound([0, width]).padding(0.1)
 	const x2 = d3.scaleBand().domain(xDomain2).rangeRound([0, width]).padding(0.1)
 	const y = d3.scaleLinear().domain([0, d3.max([y1Max, y2Max])]).rangeRound([height, 0])
 
-	if (barchart.data.additions.length && barchart.data.deletions.length) {
+	if (barchart.data.linesAdded.length && barchart.data.linesDeleted.length) {
 		const topG = d3.select(node).append('g')
 			.attr('transform', `translate(${margins.top}, ${margins.left})`)
 
@@ -26,7 +26,7 @@ export function groupedBarGraph(node, barchart, containerWidth, containerHeight)
 		topG.append('g').attr('class', 'axis axis--y')
 			.call(d3.axisLeft(y).ticks(9))
 
-		topG.selectAll('bar').data(barchart.data.additions)
+		topG.selectAll('bar').data(barchart.data.linesAdded)
 			.enter().append('rect')
 			.style('fill', 'blue')
 			.attr('x', d => x1(_.get(d, barchart.xAxis)))
@@ -34,7 +34,7 @@ export function groupedBarGraph(node, barchart, containerWidth, containerHeight)
 			.attr('y', d => y(_.get(d, barchart.yAxis)))
 			.attr('height', d => height - y(_.get(d, barchart.yAxis)));
 
-		topG.selectAll('bar').data(barchart.data.deletions)
+		topG.selectAll('bar').data(barchart.data.linesDeleted)
 			.enter().append('rect')
 			.style('fill', 'green')
 			.attr('x', d => x2(_.get(d, barchart.xAxis)) + x2.bandwidth()/2)

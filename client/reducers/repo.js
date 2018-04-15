@@ -6,8 +6,8 @@ const initialState = {
 		repo: '',
 		lastId: '',
 		lastDate: '',
-		additions: [],
-		deletions: []
+		linesAdded: [],
+		linesDeleted: []
 	},
 	isComplete: false,
 	isFetching: false,
@@ -27,19 +27,21 @@ const repo = (state = initialState, action) => {
 				isComplete: true,
 				isFetching: false,
 			})
-		case FETCH_REPO_SUCCESS:
+		case FETCH_REPO_SUCCESS: {
+			const data = action.payload.data
 			return Object.assign({}, state, {
 				data: {
 					owner: action.payload.owner,
 					repo: action.payload.repo,
-					lastId: action.payload.data.length ? action.payload.data[0].node.oid : '',
-					lastDate: action.payload.data.length ? action.payload.data[0].node.pushedDate : '',
-					additions: groupData(action.payload.data, 'additions'),
-					deletions: groupData(action.payload.data, 'deletions')
+					lastId: data.length ? data[0].node.oid : '',
+					lastDate: data.length ? data[0].node.pushedDate : '',
+					linesAdded: groupData(data, 'additions'),
+					linesDeleted: groupData(data, 'deletions')
 				},
 				isComplete: true,
 				isFetching: false
 			})
+		}
 		case UPDATE_REPO_SUCCESS:
 			return Object.assign({}, state, {
 				data: {
@@ -47,8 +49,8 @@ const repo = (state = initialState, action) => {
 					repo: action.payload.repo,
 					lastId: '',
 					lastDate: '',
-					additions: [],
-					deletions: []
+					linesAdded: [],
+					linesDeleted: []
 				}
 			})
 		default:
