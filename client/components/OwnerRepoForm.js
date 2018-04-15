@@ -21,8 +21,8 @@ class OwnerRepoForm extends React.Component {
 		this.handleChange = this.handleChange.bind(this)
 
 		this.state = {
-			owner: this.props.owner,
-			repo: this.props.repo
+			owner: this.props.owner || 'facebook',
+			repo: this.props.repo || 'react'
 		}
 	}
 
