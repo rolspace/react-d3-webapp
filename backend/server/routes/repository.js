@@ -18,6 +18,8 @@ const query = `{\n
                 additions\n
                 deletions\n
                 changedFiles\n
+                pushedDate\n
+                oid\n
                 author {\n
                   user {\n
                     login\n
