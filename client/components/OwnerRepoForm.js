@@ -8,6 +8,9 @@ import Button from 'material-ui/Button'
 const styles = {
 	container: {
 		paddingTop: '60px'
+	},
+	formButton: {
+		lineHeight: '72px'
 	}
 }
 
@@ -53,7 +56,7 @@ class OwnerRepoForm extends React.Component {
 						<TextField id='with-placeholder' name='repo' value={this.state.repo}
 							label='Repository' margin='normal' fullWidth={true} onChange={this.handleChange} />
 					</Grid>
-					<Grid item xs={3} sm={1}>
+					<Grid item xs={3} sm={1} className={classes.formButton}>
 						<Button size='small' variant='raised' type='submit'>GO</Button>
 					</Grid>
 				</Grid>
