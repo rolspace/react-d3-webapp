@@ -23,7 +23,7 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 			return (
 				<div>
 					<OwnerRepoForm onFormSubmit={this.onFormSubmit} owner={this.props.repo.data.owner} name={this.props.repo.data.name} />
-					<ContainerComponent graph={GraphComponent} options={options} {...this.props.repo} />
+					<ContainerComponent graph={GraphComponent} options={options} />
 				</div>
 			)
 		}
