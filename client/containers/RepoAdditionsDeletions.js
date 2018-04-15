@@ -23,16 +23,16 @@ class RepoAdditionsDeletions extends React.Component {
 		if (!this.props.data.lastId && ! this.props.data.lastDate) {
 			const { dispatch } = this.props
 			const { owner } = this.props.data
-			const { repo } = this.props.data
-			dispatch(getRepoCommits(owner, repo))
+			const { name } = this.props.data
+			dispatch(getRepoCommits(owner, name))
 		}
 	}
 
 	componentDidMount() {
 		const { dispatch } = this.props
 		const { owner } = this.props.data
-		const { repo } = this.props.data
-		dispatch(updateRepo(owner || 'facebook', repo || 'react'))
+		const { name } = this.props.data
+		dispatch(updateRepo(owner || 'facebook', name || 'react'))
 	}
 
 	render() {

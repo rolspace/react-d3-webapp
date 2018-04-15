@@ -14,15 +14,15 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 			this.onFormSubmit = this.onFormSubmit.bind(this)
 		}
 
-		onFormSubmit(ownerValue, repoValue) {
+		onFormSubmit(ownerValue, nameValue) {
 			const { dispatch } = this.props
-			dispatch(updateRepo(ownerValue, repoValue))
+			dispatch(updateRepo(ownerValue, nameValue))
 		}
 
 		render() {
 			return (
 				<div>
-					<OwnerRepoForm onFormSubmit={this.onFormSubmit} owner={this.props.repo.data.owner} repo={this.props.repo.data.repo} />
+					<OwnerRepoForm onFormSubmit={this.onFormSubmit} owner={this.props.repo.data.owner} name={this.props.repo.data.name} />
 					<ContainerComponent graph={GraphComponent} options={options} {...this.props.repo} />
 				</div>
 			)

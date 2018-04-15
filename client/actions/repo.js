@@ -6,10 +6,10 @@ export const FETCH_REPO_ERROR = 'FETCH_REPO_ERROR'
 export const FETCH_REPO_SUCCESS = 'FETCH_REPO_SUCCESS'
 export const UPDATE_REPO_SUCCESS = 'UPDATE_REPO_SUCCESS'
 
-export function getRepoCommits(owner, repo) {
+export function getRepoCommits(owner, name) {
 	return (dispatch) => {
 		dispatch(fetchRepo())
-		return fetch(`http://localhost:9000/api/repository/commits/${owner}/${repo}/`)
+		return fetch(`http://localhost:9000/api/repository/commits/${owner}/${name}/`)
 		.then(response => {
 			if (response.status === 200) {
 				return response.json()
@@ -24,7 +24,7 @@ export function getRepoCommits(owner, repo) {
 		.then(result => {
 			const payload = {
 				owner: owner,
-				repo: repo,
+				name: name,
 				data: result.data
 			}
 			dispatch(fetchRepoSuccess(payload))
@@ -35,11 +35,11 @@ export function getRepoCommits(owner, repo) {
 	}
 }
 
-export function updateRepo(owner, repo) {
+export function updateRepo(owner, name) {
 	return (dispatch) => {
 		const payload = {
 			owner: owner,
-			repo: repo
+			name: name
 		}
 
 		dispatch(updateRepoSuccess(payload))

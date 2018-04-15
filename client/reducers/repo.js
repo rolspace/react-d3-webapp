@@ -3,7 +3,7 @@ import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS }
 const initialState = {
 	data: {
 		owner: '',
-		repo: '',
+		name: '',
 		lastId: '',
 		lastDate: '',
 		linesAdded: [],
@@ -32,7 +32,7 @@ const repo = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				data: {
 					owner: action.payload.owner,
-					repo: action.payload.repo,
+					name: action.payload.name,
 					lastId: data.length ? data[0].node.oid : '',
 					lastDate: data.length ? data[0].node.pushedDate : '',
 					linesAdded: groupData(data, 'additions'),
@@ -46,7 +46,7 @@ const repo = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				data: {
 					owner: action.payload.owner,
-					repo: action.payload.repo,
+					name: action.payload.name,
 					lastId: '',
 					lastDate: '',
 					linesAdded: [],

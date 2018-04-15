@@ -22,7 +22,7 @@ class OwnerRepoForm extends React.Component {
 
 		this.state = {
 			owner: this.props.owner || 'facebook',
-			repo: this.props.repo || 'react'
+			name: this.props.name || 'react'
 		}
 	}
 
@@ -38,7 +38,7 @@ class OwnerRepoForm extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		this.props.onFormSubmit(this.state.owner, this.state.repo)
+		this.props.onFormSubmit(this.state.owner, this.state.name)
 	}
 
 	render() {
@@ -53,7 +53,7 @@ class OwnerRepoForm extends React.Component {
 					</Grid>
 					<Grid item xs={1}></Grid>
 					<Grid item xs={4} sm={5}>
-						<TextField id='with-placeholder' name='repo' value={this.state.repo}
+						<TextField id='with-placeholder' name='name' value={this.state.name}
 							label='Repository' margin='normal' fullWidth={true} onChange={this.handleChange} />
 					</Grid>
 					<Grid item xs={3} sm={1} className={classes.formButton}>
@@ -69,7 +69,7 @@ OwnerRepoForm.propTypes = {
 	classes: PropTypes.object.isRequired,
 	onFormSubmit: PropTypes.func.isRequired,
 	owner: PropTypes.string.isRequired,
-	repo: PropTypes.string.isRequired
+	name: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(OwnerRepoForm)
