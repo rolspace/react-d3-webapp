@@ -12,7 +12,7 @@ class RepoAdditionsDeletions extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		if (!_.isEqual(this.props.data, nextProps.data)) {
+		if (!_.isEqual(this.props.repo.data, nextProps.repo.data)) {
 			return true
 		}
 
@@ -20,25 +20,25 @@ class RepoAdditionsDeletions extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (!this.props.data.lastId && ! this.props.data.lastDate) {
+		if (!this.props.repo.data.lastId && !this.props.repo.data.lastDate) {
 			const { dispatch } = this.props
-			const { owner } = this.props.data
-			const { name } = this.props.data
+			const { owner } = this.props.repo.data
+			const { name } = this.props.repo.data
 			dispatch(getRepoCommits(owner, name))
 		}
 	}
 
 	componentDidMount() {
 		const { dispatch } = this.props
-		const { owner } = this.props.data
-		const { name } = this.props.data
+		const { owner } = this.props.repo.data
+		const { name } = this.props.repo.data
 		dispatch(updateRepo(owner || 'facebook', name || 'react'))
 	}
 
 	render() {
 		const Graph = this.props.graph
 
-		return <Graph data={this.props.data} {...this.props.options} />
+		return <Graph data={this.props.repo.data} {...this.props.options} />
 	}
 }
 
@@ -49,7 +49,7 @@ RepoAdditionsDeletions.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		data: state.repo.data
+		repo: state.repo
 	}
 }
 
