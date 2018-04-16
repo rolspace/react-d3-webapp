@@ -9,6 +9,11 @@ import { groupedBarGraph } from '../common/graphs'
 const styles = {
 	container: {
 		overflowX: 'scroll'
+	},
+	svg: {
+		height: '75vh',
+		minWidth: '700px',
+		width: '100%'
 	}
 }
 
@@ -41,7 +46,7 @@ class GroupedBarGraph extends React.Component {
 			<div>
 				<Grid container className={classes.container}>
 					<Grid item xs={12}>
-						<svg ref={node => this.node = node} viewBox='0 0 800 500' style={{border:'1px solid', minWidth:'700px'}}></svg>
+						<svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
 					</Grid>
 				</Grid>
 			</div>
