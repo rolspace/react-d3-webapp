@@ -9,8 +9,9 @@ const styles = {
 	container: {
 		paddingTop: '60px'
 	},
-	formButton: {
-		lineHeight: '72px'
+	buttonContainer: {
+		lineHeight: '72px',
+		textAlign: 'center'
 	}
 }
 
@@ -56,7 +57,7 @@ class OwnerRepoForm extends React.Component {
 						<TextField id='with-placeholder' name='name' value={this.state.name}
 							label='Repository' margin='normal' fullWidth={true} onChange={this.handleChange} />
 					</Grid>
-					<Grid item xs={3} sm={1} className={classes.formButton}>
+					<Grid item xs={3} sm={1} className={classes.buttonContainer}>
 						<Button size='small' variant='raised' type='submit'>GO</Button>
 					</Grid>
 				</Grid>
