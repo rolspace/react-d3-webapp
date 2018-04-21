@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Toolbar from 'material-ui/Toolbar'
@@ -14,36 +15,36 @@ const styles = theme => ({
 			paddingRight: '80px'
 		}
 	},
-	anchor: {
+	bar_anchor: {
 		color: 'white',
 		textDecoration: 'none'
+	},
+	bar_anchor_reset: {
+		color: 'inherit',
+		textDecoration: 'inherit'
 	}
 })
-
-//temporary
-const anchorStyle = {
-	color: 'inherit',
-	textDecoration: 'inherit'
-}
 
 const App = (props) => {
 	const { classes } = props
 
 	return (
-		<div>
-			<AppBar>
-				<Toolbar>
-					<Typography variant="title" className={classes.anchor}>
-						<a href="/" style={anchorStyle}>React D3 WebApp</a>
-					</Typography>
-				</Toolbar>
-			</AppBar>
-			<Grid container className={classes.container}>
-				<Grid item xs={12} sm={12}>
-					<AppRouter />
+		<Router>
+			<div>
+				<AppBar>
+					<Toolbar>
+						<Typography variant="title" className={classes.bar_anchor}>
+							<Link className={classes.bar_anchor_reset} to="/">React D3 WebApp</Link>
+						</Typography>
+					</Toolbar>
+				</AppBar>
+				<Grid container className={classes.container}>
+					<Grid item xs={12} sm={12}>
+						<AppRouter />
+					</Grid>
 				</Grid>
-			</Grid>
-		</div>
+			</div>
+		</Router>
 	)
 }
 
