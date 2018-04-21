@@ -30,14 +30,14 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 	})
 }
 
-GraphPage.propTypes = {
-	repo: PropTypes.object.isRequired
-}
-
 const mapStateToProps = (state) => {
 	return {
 		repo: state.repo
 	}
+}
+
+GraphPage.propTypes = {
+	repo: PropTypes.object.isRequired
 }
 
 export default GraphPage
