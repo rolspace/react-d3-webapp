@@ -1,48 +1,59 @@
 import * as d3 from 'd3'
 import _ from 'lodash'
 
-export function groupedBarGraph(node, barchart, containerWidth, containerHeight) {
-	const margins = { top: 40, right: 40, bottom: 40, left: 40 }
-	const width = containerWidth - margins.right - margins.left
-	const height = containerHeight - margins.top - margins.bottom
+const margins = { top: 40, right: 40, bottom: 40, left: 40 }
+const colors = ['blue', 'green']
 
-	const xDomain1 = barchart.data.linesAdded.map(d => _.get(d, barchart.xAxis))
-	const xDomain2 = barchart.data.linesDeleted.map(d => _.get(d, barchart.xAxis))
-	const y1Max = d3.max(barchart.data.linesAdded, d => _.get(d, barchart.yAxis))
-	const y2Max = d3.max(barchart.data.linesDeleted, d => _.get(d, barchart.yAxis))
+class GroupedBarGraphRenderer {
+	constructor(node, data) {
+		this.node = node
+		this.innerNode = d3.select(this.node).append('g')
 
-	const x1 = d3.scaleBand().domain(xDomain1).rangeRound([0, width]).padding(0.1)
-	const x2 = d3.scaleBand().domain(xDomain2).rangeRound([0, width]).padding(0.1)
-	const y = d3.scaleLinear().domain([0, d3.max([y1Max, y2Max])]).rangeRound([height, 0])
+		this.sets = data.sets
+		this.xAxis = data.xAxis
+		this.yAxis = data.yAxis
+		this.width = 	data.width - margins.right - margins.left
+		this.height = 	data.height - margins.top - margins.bottom
 
-	if (barchart.data.linesAdded.length && barchart.data.linesDeleted.length) {
-		const topG = d3.select(node).append('g')
-			.attr('transform', `translate(${margins.top}, ${margins.left})`)
+		this.xScales = this.sets.map(set => {
+			const domain = set.map(d => _.get(d, this.xAxis))
+			return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(0.1)
+		})
 
-		topG.append('g').attr('class', 'axis axis--x')
-			.attr('transform', `translate(0, ${height})`)
-			.call(d3.axisBottom(x1))
+		const yMax = this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis)))
+		this.yScale = d3.scaleLinear().domain([0, d3.max(yMax)]).rangeRound([this.height, 0])
 
-		topG.append('g').attr('class', 'axis axis--y')
-			.call(d3.axisLeft(y).ticks(9))
-
-		topG.selectAll('bar').data(barchart.data.linesAdded)
-			.enter().append('rect')
-			.style('fill', 'blue')
-			.attr('x', d => x1(_.get(d, barchart.xAxis)))
-			.attr('width', x1.bandwidth()/2)
-			.attr('y', d => y(_.get(d, barchart.yAxis)))
-			.attr('height', d => height - y(_.get(d, barchart.yAxis)));
-
-		topG.selectAll('bar').data(barchart.data.linesDeleted)
-			.enter().append('rect')
-			.style('fill', 'green')
-			.attr('x', d => x2(_.get(d, barchart.xAxis)) + x2.bandwidth()/2)
-			.attr('width', x2.bandwidth()/2)
-			.attr('y', d => y(_.get(d, barchart.yAxis)))
-			.attr('height', d => height - y(_.get(d, barchart.yAxis)));
+		this.renderGraph = this.renderGraph.bind(this)
+		this.renderSet = this.renderSet.bind(this)
 	}
-	else {
-		d3.select(node).selectAll('*').remove()
+
+	renderSet(set, index) {
+		this.innerNode.selectAll('bar').data(set)
+			.enter().append('rect')
+			.style('fill', colors[index])
+			.attr('x', d => this.xScales[index](_.get(d, this.xAxis)) + (index !== 0 ? this.xScales[index].bandwidth()/2 : 0))
+			.attr('width', this.xScales[index].bandwidth()/2)
+			.attr('y', d => this.yScale(_.get(d, this.yAxis)))
+			.attr('height', d => this.height - this.yScale(_.get(d, this.yAxis)))
+	}
+
+	renderGraph() {
+		if (this.sets.map(set => set.lenght)) {
+			this.innerNode.attr('transform', `translate(${margins.top}, ${margins.left})`)
+
+			this.innerNode.append('g').attr('class', 'axis axis--x')
+				.attr('transform', `translate(0, ${this.height})`)
+				.call(d3.axisBottom(this.xScales[0]))
+
+			this.innerNode.append('g').attr('class', 'axis axis--y')
+				.call(d3.axisLeft(this.yScale).ticks(9))
+
+			this.sets.forEach(this.renderSet)
+		}
+		else {
+			d3.select(this.node).selectAll('*').remove()
+		}
 	}
 }
+
+export default GroupedBarGraphRenderer
