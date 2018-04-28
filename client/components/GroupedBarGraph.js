@@ -39,9 +39,7 @@ class GroupedBarGraph extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (this.props.data.linesAdded.length && this.props.data.linesDeleted.length) {
-			this.renderGraph()
-		}
+		this.renderGraph()
 	}
 
 	render() {

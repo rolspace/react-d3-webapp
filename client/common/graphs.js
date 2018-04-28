@@ -14,17 +14,18 @@ class GroupedBarGraphRenderer {
 		this.yAxis = data.yAxis
 		this.width = 	data.width - margins.right - margins.left
 		this.height = 	data.height - margins.top - margins.bottom
-
-		this.xScales = this.sets.map(set => {
-			const domain = set.map(d => _.get(d, this.xAxis))
-			return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(0.1)
-		})
-
-		const yMax = this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis)))
-		this.yScale = d3.scaleLinear().domain([0, d3.max(yMax)]).rangeRound([this.height, 0])
-
 		this.renderGraph = this.renderGraph.bind(this)
 		this.renderSet = this.renderSet.bind(this)
+
+		if (this.sets.every(set => set.length)) {
+			this.xScales = this.sets.map(set => {
+				const domain = set.map(d => _.get(d, this.xAxis))
+				return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(0.1)
+			})
+
+			const yMax = this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis)))
+			this.yScale = d3.scaleLinear().domain([0, d3.max(yMax)]).rangeRound([this.height, 0])
+		}
 	}
 
 	renderSet(set, index) {
@@ -38,7 +39,10 @@ class GroupedBarGraphRenderer {
 	}
 
 	renderGraph() {
-		if (this.sets.map(set => set.lenght)) {
+		if (this.sets.every(set => !set.length)) {
+			d3.select(this.node).selectAll('*').remove()
+		}
+		else {
 			this.innerNode.attr('transform', `translate(${margins.top}, ${margins.left})`)
 
 			this.innerNode.append('g').attr('class', 'axis axis--x')
@@ -49,9 +53,6 @@ class GroupedBarGraphRenderer {
 				.call(d3.axisLeft(this.yScale).ticks(9))
 
 			this.sets.forEach(this.renderSet)
-		}
-		else {
-			d3.select(this.node).selectAll('*').remove()
 		}
 	}
 }
