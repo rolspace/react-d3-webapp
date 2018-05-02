@@ -3,6 +3,7 @@
   "version": "0.5.0",
   "author": "Rolando Ramos",
   "description": "",
+  "license": "MIT",
   "main": "run.js",
   "engines": {
     "node": ">=6.9.0"
