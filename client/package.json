@@ -35,6 +35,9 @@
     "browser-sync": "^2.18.12",
     "chai": "^4.0.0",
     "cheerio": "^0.22.0",
+    "concurrently": "^3.5.1",
+    "del": "^3.0.0",
+    "dotenv-webpack": "^1.5.3",
     "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-loader": "^1.7.1",
@@ -53,10 +56,8 @@
     "webpack-hot-middleware": "^2.13.2"
   },
   "dependencies": {
-    "concurrently": "^3.5.1",
     "d3": "^4.9.1",
     "dotenv": "^4.0.0",
-    "dotenv-webpack": "^1.5.3",
     "express": "^4.15.3",
     "js-cookie": "^2.1.4",
     "jsonapi-serializer": "^3.5.3",
