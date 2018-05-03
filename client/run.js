@@ -39,7 +39,7 @@ tasks.set('build', () => {
 	.then(() => run('bundle'))
 })
 
-// Build website and launch it in a browser for testing (default)
+// Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', () => {
 	let count = 0
 	global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
@@ -73,6 +73,7 @@ tasks.set('dev', () => {
 	}))
 })
 
+// Build website and start the Express server
 tasks.set('pro', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
