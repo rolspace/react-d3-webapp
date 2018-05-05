@@ -1,6 +1,5 @@
 client/*
 !client/public/
 !client/server/
-!client/.env
 !client/run-live.js
 !client/package.json
