@@ -1,6 +1,6 @@
 # Compiled output
-public/dist
-public/index.html
+client/public/dist
+client/public/index.html
 
 # Logs
 logs
