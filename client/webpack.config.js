@@ -46,7 +46,7 @@ const config = {
 
 	plugins: [
 		new Dotenv({
-			path: './.env'
+			path: isDebug ? './.env' : './.env-live'
 		}),
 		new webpack.LoaderOptionsPlugin({
 			debug: isDebug
