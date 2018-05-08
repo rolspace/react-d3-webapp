@@ -1,0 +1,6 @@
+FROM node:9.11.1
+WORKDIR /app
+COPY backend/ .
+RUN npm install --only=production
+EXPOSE 9000
+ENTRYPOINT ["node", "run-live"]
