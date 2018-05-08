@@ -1,0 +1,32 @@
+version: "3.6"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "80:80"
+    networks:
+      - reactd3appnet
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  reactd3appclient:
+    image: reactd3appclient
+    networks:
+      - reactd3appnet
+    environment:
+      - VIRTUAL_HOST=reactd3client
+
+  reactd3appserver:
+    image: reactd3appserver
+    networks:
+      - reactd3appnet
+    environment:
+      - CLIENT_DOMAIN=http://reactd3client
+      - GITHUB_TOKEN=somevalidgithubtoken
+      - GITHUB_USER=someuser
+      - VIRTUAL_HOST=reactd3server
+
+networks:
+  reactd3appnet:
+    driver: bridge
