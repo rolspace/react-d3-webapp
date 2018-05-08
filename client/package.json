@@ -29,7 +29,7 @@
     "babel-plugin-transform-regenerator": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "babel-runtime": "^6.20.0",
@@ -80,7 +80,7 @@
   "babel": {
     "presets": [
       "react",
-      "es2015"
+      "env"
     ],
     "plugins": [
       "transform-async-functions",
