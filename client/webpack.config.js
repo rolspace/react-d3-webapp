@@ -28,8 +28,6 @@ const config = {
 		sourcePrefix: '  ',
 	},
 
-	// Developer tool to enhance debugging, source maps
-	// http://webpack.github.io/docs/configuration.html#devtool
 	devtool: isDebug ? 'source-map' : false,
 
 	stats: {
