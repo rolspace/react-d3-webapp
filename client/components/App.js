@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { hot } from 'react-hot-loader'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
@@ -52,4 +53,4 @@ App.propTypes = {
 	classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(App)
+export default hot(module)(withStyles(styles)(App))
