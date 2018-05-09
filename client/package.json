@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "run.js",
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=8.9.0"
   },
   "scripts": {
     "build": "node run build",
@@ -57,25 +57,25 @@
     "webpack-hot-middleware": "^2.22.1"
   },
   "dependencies": {
-    "d3": "^4.9.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.15.3",
-    "js-cookie": "^2.1.4",
+    "d3": "^5.3.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "js-cookie": "^2.2.0",
     "jsonapi-serializer": "^3.5.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "material-ui": "^1.0.0-beta.38",
-    "prop-types": "^15.5.10",
-    "query-string": "^4.3.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "react-router-dom": "^4.1.1",
-    "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0",
-    "redux-actions": "^2.0.3",
+    "prop-types": "^15.6.1",
+    "query-string": "^6.1.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.3.2",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.4"
   },
   "babel": {
     "presets": [
