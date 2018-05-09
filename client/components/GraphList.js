@@ -46,7 +46,7 @@ const GraphList = (props) => {
 					</Link>
 				</ButtonBase>
 			</GridListTile>
-      <GridListTile>
+			<GridListTile>
 				<ButtonBase className={classes.card_button}>
 					<Link className={classes.card_anchor} to="/">
 						<Card>

@@ -10,28 +10,28 @@ export function getRepoCommits(owner, name) {
 	return (dispatch) => {
 		dispatch(fetchRepo())
 		return fetch(`${process.env.BACKEND_DOMAIN}/api/repository/commits/${owner}/${name}/`)
-		.then(response => {
-			if (response.status === 200) {
-				return response.json()
-			}
-			else {
-				dispatch(fetchRepoError())
-			}
-		})
-		.then(json => {
-			return json
-		})
-		.then(result => {
-			const payload = {
-				owner: owner,
-				name: name,
-				data: result.data
-			}
-			dispatch(fetchRepoSuccess(payload))
-		})
-		.catch(error => {
-			dispatch(fetchRepoError(error))
-		})
+			.then(response => {
+				if (response.status === 200) {
+					return response.json()
+				}
+				else {
+					dispatch(fetchRepoError())
+				}
+			})
+			.then(json => {
+				return json
+			})
+			.then(result => {
+				const payload = {
+					owner: owner,
+					name: name,
+					data: result.data
+				}
+				dispatch(fetchRepoSuccess(payload))
+			})
+			.catch(error => {
+				dispatch(fetchRepoError(error))
+			})
 	}
 }
 
