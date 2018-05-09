@@ -18,6 +18,7 @@ const config = {
   mode: 'none',
 	context: __dirname,
 	entry: [
+		'webpack-hot-middleware/client',
 		'whatwg-fetch',
 		'./main.js',
 	],
@@ -50,6 +51,7 @@ const config = {
 		new webpack.LoaderOptionsPlugin({
 			debug: isDebug
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
@@ -110,14 +112,6 @@ const config = {
 if (!isDebug) {
 	config.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: isVerbose } }));
 	config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-}
-
-// Hot Module Replacement (HMR) + React Hot Reload
-if (isDebug && useHMR) {
-	babelConfig.plugins.unshift('react-hot-loader/babel');
-	config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client');
-	config.plugins.push(new webpack.HotModuleReplacementPlugin());
-	config.plugins.push(new webpack.NoErrorsPlugin());
 }
 
 module.exports = config;
