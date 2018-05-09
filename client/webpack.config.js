@@ -15,6 +15,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
 });
 
 const config = {
+  mode: 'none',
 	context: __dirname,
 	entry: [
 		'whatwg-fetch',
