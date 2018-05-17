@@ -1,7 +1,7 @@
 const bunyan = require('bunyan')
 
 const logger = bunyan.createLogger({
-	name: 'tunnelstats'
+	name: 'react-d3-server'
 })
 
 module.exports = {
