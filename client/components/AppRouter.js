@@ -2,8 +2,8 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import GroupedBarGraph from './GroupedBarGraph'
 import RepoAdditionsDeletions from '../containers/RepoAdditionsDeletions'
-import HomePage from '../pages/Homepage'
-import GraphPage from '../pages/GraphPage'
+import Homepage from '../pages/Homepage'
+import Graphpage from '../pages/GraphPage'
 
 const groupedBarGraphOptions = {
 	xAxis: 'label',
@@ -14,8 +14,8 @@ class AppRouter extends React.Component {
 	render() {
 		return (
 			<Switch>
-				<Route exact path='/' component={HomePage} />
-				<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepoAdditionsDeletions, GroupedBarGraph, groupedBarGraphOptions)} />
+				<Route exact path='/' component={Homepage} />
+				<Route path='/graphs/repo-additions-deletions' component={Graphpage(RepoAdditionsDeletions, GroupedBarGraph, groupedBarGraphOptions)} />
 			</Switch>
 		)
 	}
