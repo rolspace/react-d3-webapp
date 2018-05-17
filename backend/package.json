@@ -17,22 +17,20 @@
     "url": "https://bitbucket.org/rolspace/tunnelstats"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.17.0",
-    "mocha": "^3.2.0",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "mocha": "^5.1.1",
+    "sinon": "^5.0.7",
+    "sinon-chai": "^3.0.0",
     "sinon-stub-promise": "^4.0.0"
   },
   "dependencies": {
-    "bcrypt": "^1.0.2",
-    "body-parser": "^1.17.0",
+    "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.15.0",
-    "jsonapi-serializer": "^3.5.2",
-    "request": "^2.81.0",
-    "request-promise-native": "^1.0.4"
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "request": "^2.86.0",
+    "request-promise-native": "^1.0.5"
   }
 }
