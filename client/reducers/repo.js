@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS } from '../actions/repo'
 
 const initialState = {
@@ -6,6 +8,7 @@ const initialState = {
 		name: '',
 		lastId: '',
 		lastDate: '',
+		changedFiles: [],
 		linesAdded: [],
 		linesDeleted: []
 	},
@@ -35,8 +38,9 @@ const repo = (state = initialState, action) => {
 					name: action.payload.name,
 					lastId: data.length ? data[0].node.oid : '',
 					lastDate: data.length ? data[0].node.pushedDate : '',
-					linesAdded: groupData(data, 'additions'),
-					linesDeleted: groupData(data, 'deletions')
+					changedFiles: groupData(data, 1, 'changedFiles'),
+					linesAdded: groupData(data, 50, 'additions'),
+					linesDeleted: groupData(data, 50, 'deletions')
 				},
 				isComplete: true,
 				isFetching: false
@@ -49,6 +53,7 @@ const repo = (state = initialState, action) => {
 					name: action.payload.name,
 					lastId: '',
 					lastDate: '',
+					changedFiles: [],
 					linesAdded: [],
 					linesDeleted: []
 				}
@@ -58,8 +63,15 @@ const repo = (state = initialState, action) => {
 	}
 }
 
-function groupData(commits, type) {
-	const group = initGroup([], 50)
+function groupData(commits, step, type) {
+	const max = commits.reduce((accumulator, value) => {
+		console.log(Math.max(accumulator, value.node[type]))
+		return Math.max(accumulator, value.node[type])
+	}, 0)
+
+	const correctedStep = (max / step) > 10 ? Math.trunc(max / 10) : step
+
+	const group = initGroup([], correctedStep, max)
 
 	if (commits && commits.length) {
 		const grouping = commits.reduce((accumulator, value) => {
@@ -74,9 +86,9 @@ function groupData(commits, type) {
 	return group
 }
 
-function initGroup(array, step) {
+function initGroup(array, step, max) {
 	let i = -1;
-	while (i < 200) {
+	while (i < max) {
 		let range = {
 			min: i + 1,
 			max: i + step,
@@ -92,8 +104,8 @@ function initGroup(array, step) {
 	return array
 }
 
-function assignToGroup(group, property, value) {
-	let found = group.find((element) => element.min < value.node[property] && element.max > value.node[property])
+function assignToGroup(group, type, value) {
+	let found = group.find((element) => element.min < value.node[type] && element.max > value.node[type])
 	if (found) {
 		found.count++
 	}

@@ -37,7 +37,7 @@ const GraphList = (props) => {
 			</GridListTile>
 			<GridListTile>
 				<ButtonBase className={classes.card_button}>
-					<Link className={classes.card_anchor} to="/">
+					<Link className={classes.card_anchor} to="/graphs/repo-files">
 						<Card>
 							<CardContent>
 								<Typography align='left' variant='subheading' component='h5'>Graph #2</Typography>
