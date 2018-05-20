@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { getRepoCommits, updateRepo } from '../actions/repo'
+import { getRepo, updateRepo } from '../actions/repo'
 
 class RepoAdditionsDeletions extends React.Component {
 	constructor(props) {
@@ -24,7 +24,7 @@ class RepoAdditionsDeletions extends React.Component {
 			const { dispatch } = this.props
 			const { owner } = this.props.repo.data
 			const { name } = this.props.repo.data
-			dispatch(getRepoCommits(owner, name))
+			dispatch(getRepo(owner, name))
 		}
 	}
 
