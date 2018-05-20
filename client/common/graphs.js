@@ -10,6 +10,7 @@ class GroupedBarGraphRenderer {
 		this.innerNode = d3.select(this.node).append('g')
 
 		this.sets = data.sets
+		this.setCount = data.sets.length
 		this.xAxis = data.xAxis
 		this.yAxis = data.yAxis
 		this.width = 	data.width - margins.right - margins.left
@@ -33,7 +34,7 @@ class GroupedBarGraphRenderer {
 			.enter().append('rect')
 			.style('fill', colors[index])
 			.attr('x', d => this.xScales[index](_.get(d, this.xAxis)) + (index !== 0 ? this.xScales[index].bandwidth()/2 : 0))
-			.attr('width', this.xScales[index].bandwidth()/2)
+			.attr('width', this.setCount > 1 ? this.xScales[index].bandwidth()/2 : this.xScales[index].bandwidth())
 			.attr('y', d => this.yScale(_.get(d, this.yAxis)))
 			.attr('height', d => this.height - this.yScale(_.get(d, this.yAxis)))
 	}
