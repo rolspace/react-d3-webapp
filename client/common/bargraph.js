@@ -4,7 +4,7 @@ import _ from 'lodash'
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 const colors = ['blue', 'green']
 
-class GroupedBarGraphRenderer {
+class BarGraphRenderer {
 	constructor(node, data) {
 		this.node = node
 		this.innerNode = d3.select(this.node).append('g')
@@ -58,4 +58,4 @@ class GroupedBarGraphRenderer {
 	}
 }
 
-export default GroupedBarGraphRenderer
+export default BarGraphRenderer

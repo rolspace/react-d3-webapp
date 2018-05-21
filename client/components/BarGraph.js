@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
-import GroupedBarGraphRenderer from '../common/graphs'
+import graphRenderer from '../common/bargraph'
 
 const styles = {
 	container: {
@@ -38,7 +38,7 @@ class BarGraph extends React.Component {
 			yAxis: this.props.yAxis
 		}
 
-		const renderer = new GroupedBarGraphRenderer(node, graphData)
+		const renderer = new graphRenderer(node, graphData)
 		renderer.renderGraph()
 	}
 
