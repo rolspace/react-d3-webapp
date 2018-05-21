@@ -10,7 +10,7 @@ const styles = {
 	}
 }
 
-const Homepage = (props) => {
+const HomePage = (props) => {
 	const { classes } = props
 
 	return (
@@ -22,8 +22,8 @@ const Homepage = (props) => {
 	)
 }
 
-Homepage.propTypes = {
+HomePage.propTypes = {
 	classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Homepage)
+export default withStyles(styles)(HomePage)

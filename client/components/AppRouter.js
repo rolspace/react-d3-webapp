@@ -3,20 +3,28 @@ import { Switch, Route } from 'react-router-dom'
 import RepoChangedFiles from './RepoChangedFiles'
 import GroupedBarGraph from './GroupedBarGraph'
 import RepoAdditionsDeletions from '../containers/RepoAdditionsDeletions'
-import Homepage from '../pages/Homepage'
-import Graphpage from '../pages/GraphPage'
+import HomePage from '../pages/HomePage'
+import GraphPage from '../pages/GraphPage'
 
-const groupedBarGraphOptions = {
+const options = {
 	xAxis: 'label',
 	yAxis: 'count'
 }
 
+const addsDeletesOptions = Object.assign(options, {
+	sets: ['linesAdded', 'linesDeleted']
+})
+
+const changedFilesOptions = Object.assign(options, {
+	sets: ['changedFiles']
+})
+
 const AppRouter = () => {
 	return (
 		<Switch>
-			<Route exact path='/' component={Homepage} />
-			<Route path='/graphs/repo-additions-deletions' component={Graphpage(RepoAdditionsDeletions, GroupedBarGraph, groupedBarGraphOptions)} />
-			<Route path='/graphs/repo-files' component={Graphpage(RepoAdditionsDeletions, RepoChangedFiles, groupedBarGraphOptions)} />
+			<Route exact path='/' component={HomePage} />
+			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepoAdditionsDeletions, GroupedBarGraph, addsDeletesOptions)} />
+			<Route path='/graphs/repo-files' component={GraphPage(RepoAdditionsDeletions, RepoChangedFiles, changedFilesOptions)} />
 		</Switch>
 	)
 }

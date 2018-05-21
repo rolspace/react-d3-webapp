@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { updateRepo } from '../actions/repo'
 import OwnerRepoForm from '../components/OwnerRepoForm'
 
-const Graphpage = (ContainerComponent, GraphComponent, options) => {
+const GraphPage = (ContainerComponent, GraphComponent, options) => {
 	return connect(mapStateToProps)(class GraphpageContainer extends React.Component {
 		constructor(props) {
 			super(props)
@@ -36,8 +36,8 @@ const mapStateToProps = (state) => {
 	}
 }
 
-Graphpage.propTypes = {
+GraphPage.propTypes = {
 	repo: PropTypes.object.isRequired
 }
 
-export default Graphpage
+export default GraphPage
