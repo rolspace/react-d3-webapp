@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { getRepo, updateRepo } from '../actions/repo'
 
-class RepoAdditionsDeletions extends React.Component {
+class RepoCommits extends React.Component {
 	constructor(props) {
 		super(props)
 	}
@@ -42,7 +42,7 @@ class RepoAdditionsDeletions extends React.Component {
 	}
 }
 
-RepoAdditionsDeletions.propTypes = {
+RepoCommits.propTypes = {
 	dispatch: PropTypes.func,
 	commits: PropTypes.array
 }
@@ -53,4 +53,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(RepoAdditionsDeletions)
+export default connect(mapStateToProps)(RepoCommits)
