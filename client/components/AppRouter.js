@@ -11,16 +11,14 @@ const groupedBarGraphOptions = {
 	yAxis: 'count'
 }
 
-class AppRouter extends React.Component {
-	render() {
-		return (
-			<Switch>
-				<Route exact path='/' component={Homepage} />
-				<Route path='/graphs/repo-additions-deletions' component={Graphpage(RepoAdditionsDeletions, GroupedBarGraph, groupedBarGraphOptions)} />
-				<Route path='/graphs/repo-files' component={Graphpage(RepoAdditionsDeletions, RepoChangedFiles, groupedBarGraphOptions)} />
-			</Switch>
-		)
-	}
+const AppRouter = () => {
+	return (
+		<Switch>
+			<Route exact path='/' component={Homepage} />
+			<Route path='/graphs/repo-additions-deletions' component={Graphpage(RepoAdditionsDeletions, GroupedBarGraph, groupedBarGraphOptions)} />
+			<Route path='/graphs/repo-files' component={Graphpage(RepoAdditionsDeletions, RepoChangedFiles, groupedBarGraphOptions)} />
+		</Switch>
+	)
 }
 
 export default AppRouter
