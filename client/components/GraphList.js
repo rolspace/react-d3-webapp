@@ -29,7 +29,7 @@ const GraphList = (props) => {
 						<Card>
 							<CardContent className={classes.card_content}>
 								<Typography align='left' variant='subheading' component='h5'>Additions vs. Deletions</Typography>
-								<Typography align='left' variant='caption'>Groups the commits based on the number of lines that have been added or deleted</Typography>
+								<Typography align='left' variant='caption'>Groups commits based on the number of lines that have been added or deleted</Typography>
 							</CardContent>
 						</Card>
 					</Link>
@@ -40,7 +40,8 @@ const GraphList = (props) => {
 					<Link className={classes.card_anchor} to="/graphs/repo-files">
 						<Card>
 							<CardContent>
-								<Typography align='left' variant='subheading' component='h5'>Graph #2</Typography>
+								<Typography align='left' variant='subheading' component='h5'>Changed Files</Typography>
+                <Typography align='left' variant='caption'>Groups commits based on the number of files that have been modified</Typography>
 							</CardContent>
 						</Card>
 					</Link>
