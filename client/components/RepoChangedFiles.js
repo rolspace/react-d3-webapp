@@ -1,67 +1,25 @@
-/* eslint-disable no-unused-vars */
-
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import Grid from 'material-ui/Grid'
-import GroupedBarGraphRenderer from '../common/graphs'
-
-const styles = {
-	container: {
-		overflowX: 'scroll'
-	},
-	svg: {
-		height: '75vh',
-		minWidth: '700px',
-		width: '100%'
-	}
-}
+import BarGraph from './BarGraph'
 
 class RepoChangedFiles extends React.Component {
 	constructor(props) {
 		super(props)
-		this.renderGraph = this.renderGraph.bind(this)
-	}
-
-	renderGraph() {
-		const node = this.node;
-
-		const graphData = {
-			sets: [ this.props.data.changedFiles],
-			height: 500,
-			width: 800,
-			xAxis: this.props.xAxis,
-			yAxis: this.props.yAxis
-		}
-
-		const renderer = new GroupedBarGraphRenderer(node, graphData)
-		renderer.renderGraph()
-	}
-
-	componentDidUpdate() {
-		this.renderGraph()
 	}
 
 	render() {
-		const { classes } = this.props
+		const data = [this.props.data['changedFiles']]
 
 		return (
-			<div>
-				<Grid container className={classes.container}>
-					<Grid item xs={12}>
-						<svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
-					</Grid>
-				</Grid>
-			</div>
+			<BarGraph data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} />
 		)
 	}
 }
 
 RepoChangedFiles.propTypes = {
-	classes: PropTypes.object.isRequired,
 	data: PropTypes.object.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(RepoChangedFiles)
+export default RepoChangedFiles
