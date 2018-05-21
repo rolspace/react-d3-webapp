@@ -23,6 +23,10 @@ class GroupedBarGraph extends React.Component {
 		this.renderGraph = this.renderGraph.bind(this)
 	}
 
+	componentDidUpdate() {
+		this.renderGraph()
+	}
+
 	renderGraph() {
 		const node = this.node;
 
@@ -36,10 +40,6 @@ class GroupedBarGraph extends React.Component {
 
 		const renderer = new GroupedBarGraphRenderer(node, graphData)
 		renderer.renderGraph()
-	}
-
-	componentDidUpdate() {
-		this.renderGraph()
 	}
 
 	render() {
