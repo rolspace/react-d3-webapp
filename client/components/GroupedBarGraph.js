@@ -2,66 +2,27 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
-import GroupedBarGraphRenderer from '../common/graphs'
+import BarGraph from './BarGraph'
 
-const styles = {
-	container: {
-		overflowX: 'scroll'
-	},
-	svg: {
-		height: '75vh',
-		minWidth: '700px',
-		width: '100%'
-	}
-}
-
-class GroupedBarGraph extends React.Component {
+class BarGraphAddsDeletes extends React.Component {
 	constructor(props) {
 		super(props)
-		this.renderGraph = this.renderGraph.bind(this)
-	}
-
-	componentDidUpdate() {
-		this.renderGraph()
-	}
-
-	renderGraph() {
-		const node = this.node;
-
-		const graphData = {
-			sets: [ this.props.data.linesAdded, this.props.data.linesDeleted],
-			height: 500,
-			width: 800,
-			xAxis: this.props.xAxis,
-			yAxis: this.props.yAxis
-		}
-
-		const renderer = new GroupedBarGraphRenderer(node, graphData)
-		renderer.renderGraph()
 	}
 
 	render() {
-		const { classes } = this.props
+		const data = [this.props.data['linesAdded'], this.props.data['linesDeleted']]
 
 		return (
-			<div>
-				<Grid container className={classes.container}>
-					<Grid item xs={12}>
-						<svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
-					</Grid>
-				</Grid>
-			</div>
+			<BarGraph data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} />
 		)
 	}
 }
 
-GroupedBarGraph.propTypes = {
-	classes: PropTypes.object.isRequired,
+BarGraphAddsDeletes.propTypes = {
 	data: PropTypes.object.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(GroupedBarGraph)
+export default BarGraphAddsDeletes

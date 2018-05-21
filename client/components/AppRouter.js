@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import RepoChangedFiles from './RepoChangedFiles'
+//import RepoChangedFiles from './RepoChangedFiles'
 import GroupedBarGraph from './GroupedBarGraph'
 import RepoAdditionsDeletions from '../containers/RepoAdditionsDeletions'
 import HomePage from '../pages/HomePage'
@@ -11,20 +11,12 @@ const options = {
 	yAxis: 'count'
 }
 
-const addsDeletesOptions = Object.assign(options, {
-	sets: ['linesAdded', 'linesDeleted']
-})
-
-const changedFilesOptions = Object.assign(options, {
-	sets: ['changedFiles']
-})
-
 const AppRouter = () => {
 	return (
 		<Switch>
 			<Route exact path='/' component={HomePage} />
-			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepoAdditionsDeletions, GroupedBarGraph, addsDeletesOptions)} />
-			<Route path='/graphs/repo-files' component={GraphPage(RepoAdditionsDeletions, RepoChangedFiles, changedFilesOptions)} />
+			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepoAdditionsDeletions, GroupedBarGraph, options)} />
+			{ /*<Route path='/graphs/repo-files' component={GraphPage(RepoAdditionsDeletions, BarGraph, options)} />*/ }
 		</Switch>
 	)
 }
