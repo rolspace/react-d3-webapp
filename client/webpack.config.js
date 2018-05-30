@@ -5,13 +5,11 @@ const Dotenv = require('dotenv-webpack');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 
-const isDebug = global.DEBUG === false ? false : !process.argv.includes('production');
+const isDev = process.env.NODE_ENV === 'development';
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 
-const useHMR = !!global.HMR;
 const babelConfig = Object.assign({}, pkg.babel, {
-	babelrc: false,
-	cacheDirectory: useHMR,
+	babelrc: false
 });
 
 const config = {
@@ -25,16 +23,16 @@ const config = {
 	output: {
 		path: path.resolve(__dirname, './public/dist'),
 		publicPath: '/dist/',
-		filename: isDebug ? '[name].js' : '[name].js',
-		chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
+		filename: isDev ? '[name].js' : '[name].js',
+		chunkFilename: isDev ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
 		sourcePrefix: '  ',
 	},
 
-	devtool: isDebug ? 'source-map' : false,
+	devtool: isDev ? 'source-map' : false,
 
 	stats: {
 		colors: true,
-		reasons: isDebug,
+		reasons: isDev,
 		hash: isVerbose,
 		version: isVerbose,
 		timings: true,
@@ -46,17 +44,17 @@ const config = {
 
 	plugins: [
 		new Dotenv({
-			path: isDebug ? './.env' : './.env-live'
+			path: isDev ? './.env' : './.env-live'
 		}),
 		new webpack.LoaderOptionsPlugin({
-			debug: isDebug
+			debug: isDev
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-			__DEV__: isDebug,
+			'process.env.NODE_ENV': isDev ? '"development"' : '"production"',
+			__DEV__: isDev,
 		})
 	],
 
@@ -96,10 +94,10 @@ const config = {
 				use: [
 					'style-loader',
 					`css-loader?${JSON.stringify({
-						sourceMap: isDebug,
+						sourceMap: isDev,
 						modules: true,
-						localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-						minimize: !isDebug,
+						localIdentName: isDev ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+						minimize: !isDev,
 					})}`,
 					'postcss-loader',
 				],
@@ -109,7 +107,7 @@ const config = {
 };
 
 // Optimize the bundle in release (production) mode
-if (!isDebug) {
+if (!isDev) {
 	config.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: isVerbose } }));
 	config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }

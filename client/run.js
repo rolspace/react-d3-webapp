@@ -32,8 +32,7 @@ tasks.set('bundle', () => {
 })
 
 // Build website into a distributable format
-tasks.set('build', () => {
-	global.DEBUG = process.argv.includes('--debug') || false
+tasks.set('build', () => {	
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
@@ -41,8 +40,9 @@ tasks.set('build', () => {
 
 // Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', () => {
+	process.env.NODE_ENV = 'development'
+
 	let count = 0
-	global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
 	return run('clean').then(() => new Promise(resolve => {
 		const bs = require('browser-sync').create()
 		const webpackConfig = require('./webpack.config')
@@ -74,12 +74,13 @@ tasks.set('dev', () => {
 })
 
 // Build website and start the Express server
-tasks.set('pro', () => {
+tasks.set('live', () => {
+	process.env.NODE_ENV = 'production'
+
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
 	.then(() => {
-		console.log('Production task running')
 		express.init()
 	})
 })
