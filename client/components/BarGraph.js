@@ -35,7 +35,9 @@ class BarGraph extends React.Component {
 			height: 500,
 			width: 800,
 			xAxis: this.props.xAxis,
-			yAxis: this.props.yAxis
+			xAxisLabel: this.props.xAxisLabel,
+			yAxis: this.props.yAxis,
+			yAxisLabel: this.props.yAxisLabel
 		}
 
 		const renderer = new graphRenderer(node, graphData)
@@ -61,7 +63,9 @@ BarGraph.propTypes = {
 	classes: PropTypes.object.isRequired,
 	data: PropTypes.array.isRequired,
 	xAxis: PropTypes.string.isRequired,
-	yAxis: PropTypes.string.isRequired
+	xAxisLabel: PropTypes.string.isRequired,
+	yAxis: PropTypes.string.isRequired,
+	yAxisLabel: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(BarGraph)

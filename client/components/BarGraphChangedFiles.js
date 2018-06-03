@@ -2,6 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import BarGraph from './BarGraph'
 
+const labels = {
+	xAxisLabel: 'Changed files',
+	yAxisLabel: 'Number of commits'
+}
+
 class RepoChangedFiles extends React.Component {
 	constructor(props) {
 		super(props)
@@ -11,7 +16,7 @@ class RepoChangedFiles extends React.Component {
 		const data = [this.props.data['changedFiles']]
 
 		return (
-			<BarGraph data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} />
+			<BarGraph data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
 		)
 	}
 }
