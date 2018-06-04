@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { changeScreen } from '../actions/ui'
 import { getRepo } from '../actions/repo'
 
 class RepoCommits extends React.Component {
@@ -11,12 +12,15 @@ class RepoCommits extends React.Component {
 	}
 
 	componentDidMount() {
+		const { dispatch } = this.props
+
 		if (!this.props.repo.data.lastId) {
-			const { dispatch } = this.props
 			const owner = this.props.repo.data.owner || 'facebook'
 			const name = this.props.repo.data.name || 'react'
 			dispatch(getRepo(owner, name))
 		}
+
+		dispatch(changeScreen({ screen: this.props.ui.graph }))
 	}
 
 	render() {
@@ -27,13 +31,14 @@ class RepoCommits extends React.Component {
 }
 
 RepoCommits.propTypes = {
-	dispatch: PropTypes.func,
-	commits: PropTypes.array
+	dispatch: PropTypes.func.isRequired,
+	repo: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {
 	return {
-		repo: state.repo
+		repo: state.repo,
+		ui: state.ui
 	}
 }
 
