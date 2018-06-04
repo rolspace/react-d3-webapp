@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Group from '../common/group'
-import { FETCH_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATE_REPO_SUCCESS } from '../actions/repo'
+import { FETCHING_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATING_REPO, UPDATE_REPO_SUCCESS } from '../actions/repo'
 
 const initialState = {
 	data: {
@@ -20,7 +20,7 @@ const initialState = {
 
 const repo = (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_REPO:
+		case FETCHING_REPO:
 			return Object.assign({}, state, {
 				isComplete: false,
 				isFetching: true
@@ -48,16 +48,29 @@ const repo = (state = initialState, action) => {
 				isFetching: false
 			})
 		}
+		case UPDATING_REPO: {
+			return Object.assign({}, state, {
+				data: {
+					owner: '',
+					name: '',
+					lastId: state.data.lastId,
+					lastDate: state.data.lastDate,
+					changedFiles: state.data.changedFiles,
+					linesAdded: state.data.linesAdded,
+					linesDeleted: state.data.linesDeleted
+				}
+			})
+		}
 		case UPDATE_REPO_SUCCESS:
 			return Object.assign({}, state, {
 				data: {
 					owner: action.payload.owner,
 					name: action.payload.name,
-					lastId: '',
-					lastDate: '',
-					changedFiles: [],
-					linesAdded: [],
-					linesDeleted: []
+					lastId: state.data.lastId,
+					lastDate: state.data.lastDate,
+					changedFiles: state.data.changedFiles,
+					linesAdded: state.data.linesAdded,
+					linesDeleted: state.data.linesDeleted
 				}
 			})
 		default:
