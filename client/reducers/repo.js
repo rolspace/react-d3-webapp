@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+import _ from 'lodash'
 import Group from '../common/group'
 import { FETCHING_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATING_REPO, UPDATE_REPO_SUCCESS } from '../actions/repo'
 
@@ -21,12 +22,12 @@ const initialState = {
 const repo = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCHING_REPO:
-			return Object.assign({}, state, {
+			return _.merge({}, state, {
 				isComplete: false,
 				isFetching: true
 			})
 		case FETCH_REPO_ERROR:
-			return Object.assign({}, state, {
+			return _.merge({}, state, {
 				error: 'some error',
 				isComplete: true,
 				isFetching: false,
@@ -34,7 +35,7 @@ const repo = (state = initialState, action) => {
 		case FETCH_REPO_SUCCESS: {
 			const group = new Group()
 			const data = action.payload.data
-			return Object.assign({}, state, {
+			return _.merge({}, state, {
 				data: {
 					owner: action.payload.owner,
 					name: action.payload.name,
@@ -49,28 +50,18 @@ const repo = (state = initialState, action) => {
 			})
 		}
 		case UPDATING_REPO: {
-			return Object.assign({}, state, {
+			return _.merge({}, state, {
 				data: {
 					owner: '',
-					name: '',
-					lastId: state.data.lastId,
-					lastDate: state.data.lastDate,
-					changedFiles: state.data.changedFiles,
-					linesAdded: state.data.linesAdded,
-					linesDeleted: state.data.linesDeleted
+					name: ''
 				}
 			})
 		}
 		case UPDATE_REPO_SUCCESS:
-			return Object.assign({}, state, {
+			return _.merge({}, state, {
 				data: {
 					owner: action.payload.owner,
-					name: action.payload.name,
-					lastId: state.data.lastId,
-					lastDate: state.data.lastDate,
-					changedFiles: state.data.changedFiles,
-					linesAdded: state.data.linesAdded,
-					linesDeleted: state.data.linesDeleted
+					name: action.payload.name
 				}
 			})
 		default:
