@@ -50,12 +50,7 @@ const repo = (state = initialState, action) => {
 			})
 		}
 		case UPDATING_REPO: {
-			return _.merge({}, state, {
-				data: {
-					owner: '',
-					name: ''
-				}
-			})
+			return initialState
 		}
 		case UPDATE_REPO_SUCCESS:
 			return _.merge({}, state, {

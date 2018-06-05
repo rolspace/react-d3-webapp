@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { changeScreen } from '../actions/ui'
 import { getRepo } from '../actions/repo'
@@ -9,6 +10,27 @@ import { getRepo } from '../actions/repo'
 class RepoCommits extends React.Component {
 	constructor(props) {
 		super(props)
+	}
+
+	shouldComponentUpdate(nextProps) {
+		if (!_.isEqual(this.props.repo.data, nextProps.repo.data)) {
+			return true
+		}
+
+		if (this.props.ui.screen !== nextProps.ui.screen) {
+			return true
+		}
+
+		return false
+	}
+
+	componentDidUpdate() {
+		const { dispatch } = this.props
+
+		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
+			const { owner, name } = this.props.repo.data
+			dispatch(getRepo(owner, name))
+		}
 	}
 
 	componentDidMount() {
@@ -20,7 +42,7 @@ class RepoCommits extends React.Component {
 			dispatch(getRepo(owner, name))
 		}
 
-		dispatch(changeScreen({ screen: this.props.ui.graph }))
+		dispatch(changeScreen({ screen: this.props.graph }))
 	}
 
 	render() {
