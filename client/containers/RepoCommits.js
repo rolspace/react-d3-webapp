@@ -13,7 +13,7 @@ class RepoCommits extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		if (!_.isEqual(this.props.repo.data, nextProps.repo.data)) {
+		if (!_.isEqual(this.props.repo, nextProps.repo)) {
 			return true
 		}
 
