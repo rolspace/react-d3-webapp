@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
+import { CircularProgress} from 'material-ui/Progress'
 import Grid from 'material-ui/Grid'
 import graphRenderer from '../common/bargraph'
 
@@ -51,7 +52,9 @@ class BarGraph extends React.Component {
 			<div>
 				<Grid container className={classes.container}>
 					<Grid item xs={12}>
-						<svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
+						{this.props.loading ?
+							<CircularProgress /> : <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
+						}
 					</Grid>
 				</Grid>
 			</div>
@@ -62,6 +65,7 @@ class BarGraph extends React.Component {
 BarGraph.propTypes = {
 	classes: PropTypes.object.isRequired,
 	data: PropTypes.array.isRequired,
+	loading: PropTypes.bool.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	xAxisLabel: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired,
