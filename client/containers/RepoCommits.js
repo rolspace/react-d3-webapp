@@ -42,7 +42,7 @@ class RepoCommits extends React.Component {
 			dispatch(getRepo(owner, name))
 		}
 
-		dispatch(changeScreen({ screen: this.props.graph }))
+		dispatch(changeScreen({ screen: this.props.graph.name }))
 	}
 
 	render() {
