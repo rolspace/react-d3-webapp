@@ -13,10 +13,10 @@ class BarGraphAddsDeletes extends React.Component {
 	}
 
 	render() {
-		const data = [this.props.data['linesAdded'], this.props.data['linesDeleted']]
+		const sets = [this.props.data['linesAdded'], this.props.data['linesDeleted']]
 
 		return (
-			<BarGraph loading={this.props.loading} data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
+			<BarGraph loading={this.props.loading} sets={sets} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
 		)
 	}
 }

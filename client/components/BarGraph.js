@@ -32,7 +32,7 @@ class BarGraph extends React.Component {
 		const node = this.node;
 
 		const graphData = {
-			sets: this.props.data,
+			sets: this.props.sets,
 			height: 500,
 			width: 800,
 			xAxis: this.props.xAxis,
@@ -64,7 +64,7 @@ class BarGraph extends React.Component {
 
 BarGraph.propTypes = {
 	classes: PropTypes.object.isRequired,
-	data: PropTypes.array.isRequired,
+	sets: PropTypes.array.isRequired,
 	loading: PropTypes.bool.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	xAxisLabel: PropTypes.string.isRequired,

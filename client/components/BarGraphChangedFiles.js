@@ -13,10 +13,10 @@ class RepoChangedFiles extends React.Component {
 	}
 
 	render() {
-		const data = [this.props.data['changedFiles']]
+		const sets = [this.props.data['changedFiles']]
 
 		return (
-			<BarGraph loading={this.props.loading} data={data} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
+			<BarGraph loading={this.props.loading} sets={sets} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
 		)
 	}
 }
