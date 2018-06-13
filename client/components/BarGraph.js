@@ -8,8 +8,14 @@ import Grid from 'material-ui/Grid'
 import graphRenderer from '../common/bargraph'
 
 const styles = {
+	circle: {
+		r: 5
+	},
 	container: {
 		overflowX: 'scroll'
+	},
+	root: {
+		width: '100%'
 	},
 	svg: {
 		height: '75vh',
@@ -53,7 +59,7 @@ class BarGraph extends React.Component {
 				<Grid container className={classes.container}>
 					<Grid item xs={12}>
 						{this.props.loading ?
-							<CircularProgress /> : <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
+							<CircularProgress size='100%' thickness={1} classes={{svg: classes.svg, circleIndeterminate: classes.circle}} /> : <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
 						}
 					</Grid>
 				</Grid>
