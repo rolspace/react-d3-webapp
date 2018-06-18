@@ -36,7 +36,7 @@ class RepoCommits extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props
 
-		if (!this.props.repo.data.lastId) {
+		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
 			const owner = this.props.repo.data.owner || 'facebook'
 			const name = this.props.repo.data.name || 'react'
 			dispatch(getRepo(owner, name))
