@@ -2,21 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import BarGraph from './BarGraph'
 
-const labels = {
-	xAxisLabel: 'Lines of code',
-	yAxisLabel: 'Number of commits'
-}
-
 class BarGraphAddsDeletes extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
 	render() {
-		const sets = [this.props.data['linesAdded'], this.props.data['linesDeleted']]
+		const data = {
+			isLoading: this.props.loading,
+			sets: [this.props.data['linesAdded'], this.props.data['linesDeleted']],
+			xAxis: this.props.xAxis,
+			yAxis: this.props.yAxis,
+			xAxisLabel: 'Lines of code',
+			yAxisLabel: 'Number of commits'
+		}
 
 		return (
-			<BarGraph loading={this.props.loading} sets={sets} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
+			<BarGraph data={data} />
 		)
 	}
 }

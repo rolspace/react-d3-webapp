@@ -37,17 +37,17 @@ class BarGraph extends React.Component {
 	renderGraph() {
 		const node = this.node;
 
-		const graphData = {
-			sets: this.props.sets,
+		const data = {
+			sets: this.props.data.sets,
+			xAxis: this.props.data.xAxis,
+			yAxis: this.props.data.yAxis,
+			xAxisLabel: this.props.data.xAxisLabel,
+			yAxisLabel: this.props.data.yAxisLabel,
 			height: 500,
-			width: 800,
-			xAxis: this.props.xAxis,
-			xAxisLabel: this.props.xAxisLabel,
-			yAxis: this.props.yAxis,
-			yAxisLabel: this.props.yAxisLabel
+			width: 800
 		}
 
-		const renderer = new graphRenderer(node, graphData)
+		const renderer = new graphRenderer(node, data)
 		renderer.renderGraph()
 	}
 
@@ -58,7 +58,7 @@ class BarGraph extends React.Component {
 			<div>
 				<Grid container className={classes.container}>
 					<Grid item xs={12}>
-						{this.props.loading ?
+						{this.props.data.isLoading ?
 							<CircularProgress size='100%' thickness={1} classes={{svg: classes.svg, circleIndeterminate: classes.circle}} /> : <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
 						}
 					</Grid>
@@ -70,12 +70,7 @@ class BarGraph extends React.Component {
 
 BarGraph.propTypes = {
 	classes: PropTypes.object.isRequired,
-	sets: PropTypes.array.isRequired,
-	loading: PropTypes.bool.isRequired,
-	xAxis: PropTypes.string.isRequired,
-	xAxisLabel: PropTypes.string.isRequired,
-	yAxis: PropTypes.string.isRequired,
-	yAxisLabel: PropTypes.string.isRequired
+	data: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(BarGraph)

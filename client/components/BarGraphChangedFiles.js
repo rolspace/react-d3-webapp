@@ -2,21 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import BarGraph from './BarGraph'
 
-const labels = {
-	xAxisLabel: 'Changed files',
-	yAxisLabel: 'Number of commits'
-}
-
 class RepoChangedFiles extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
 	render() {
-		const sets = [this.props.data['changedFiles']]
+		const data = {
+			isLoading: this.props.loading,
+			sets: [this.props.data['changedFiles']],
+			xAxis: this.props.xAxis,
+			yAxis: this.props.yAxis,
+			xAxisLabel: 'Changed files',
+			yAxisLabel: 'Number of commits'
+		}
 
 		return (
-			<BarGraph loading={this.props.loading} sets={sets} xAxis={this.props.xAxis} yAxis={this.props.yAxis} {...labels} />
+			<BarGraph data={data} />
 		)
 	}
 }
