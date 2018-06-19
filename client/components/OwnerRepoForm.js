@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import { updateRepo } from '../actions/repo'
 
 const styles = {
 	container: {
@@ -39,7 +41,8 @@ class OwnerRepoForm extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		this.props.onFormSubmit(this.state.owner, this.state.name)
+		const { dispatch } = this.props
+		dispatch(updateRepo(this.state.owner, this.state.name))
 	}
 
 	render() {
@@ -68,9 +71,16 @@ class OwnerRepoForm extends React.Component {
 
 OwnerRepoForm.propTypes = {
 	classes: PropTypes.object.isRequired,
-	onFormSubmit: PropTypes.func.isRequired,
-	owner: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired
+	dispatch: PropTypes.func.isRequired,
+	name: PropTypes.string.isRequired,
+	owner: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(OwnerRepoForm)
+const mapStateToProps = (state) => {
+	return {
+		name: state.repo.data.name,
+		owner: state.repo.data.owner
+	}
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(OwnerRepoForm))
