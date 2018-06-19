@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import _ from 'lodash'
 import Group from '../common/group'
 import { FETCHING_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATING_REPO, UPDATE_REPO_SUCCESS } from '../actions/repo'
