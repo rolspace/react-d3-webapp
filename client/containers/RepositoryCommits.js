@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { changeScreen } from '../actions/ui'
 import { getRepo } from '../actions/repo'
 
-class RepoCommits extends React.Component {
+class RepositoryCommits extends React.Component {
 	constructor(props) {
 		super(props)
 	}
@@ -54,7 +54,7 @@ class RepoCommits extends React.Component {
 	}
 }
 
-RepoCommits.propTypes = {
+RepositoryCommits.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 	repo: PropTypes.object.isRequired
 }
@@ -66,4 +66,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(RepoCommits)
+export default connect(mapStateToProps)(RepositoryCommits)

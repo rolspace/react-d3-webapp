@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
-import RepoCommits from '../containers/RepoCommits'
+import RepositoryCommits from '../containers/RepositoryCommits'
 import HomePage from '../pages/HomePage'
 import GraphPage from '../pages/GraphPage'
 
@@ -15,8 +15,8 @@ const AppRouter = () => {
 	return (
 		<Switch>
 			<Route exact path='/' component={HomePage} />
-			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepoCommits, BarGraphAddsDeletes, options)} />
-			<Route path='/graphs/repo-files' component={GraphPage(RepoCommits, BarGraphChangedFiles, options)} />
+			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepositoryCommits, BarGraphAddsDeletes, options)} />
+			<Route path='/graphs/repo-files' component={GraphPage(RepositoryCommits, BarGraphChangedFiles, options)} />
 		</Switch>
 	)
 }
