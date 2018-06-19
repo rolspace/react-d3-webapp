@@ -1,5 +1,5 @@
 import React from 'react'
-import OwnerRepoForm from '../components/OwnerRepoForm'
+import OwnerRepoForm from '../containers/OwnerRepoForm'
 
 const GraphPage = (ContainerComponent, GraphComponent, options) => {
 	return class GraphPageContainer extends React.Component {
