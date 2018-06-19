@@ -17,7 +17,7 @@ const styles = {
 	}
 }
 
-class OwnerRepoForm extends React.Component {
+class RepositoryForm extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -69,7 +69,7 @@ class OwnerRepoForm extends React.Component {
 	}
 }
 
-OwnerRepoForm.propTypes = {
+RepositoryForm.propTypes = {
 	classes: PropTypes.object.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
@@ -83,4 +83,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(OwnerRepoForm))
+export default connect(mapStateToProps)(withStyles(styles)(RepositoryForm))
