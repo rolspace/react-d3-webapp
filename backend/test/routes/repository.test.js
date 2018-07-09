@@ -1,62 +1,73 @@
+const chai = require('chai')
 const sinon = require('sinon')
+const sinonChai = require('sinon-chai')
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
 const repository = require('../../server/routes/repository')
-const sinonStubPromise = require('sinon-stub-promise')
 
-sinonStubPromise(sinon);
+const expect = chai.expect
+chai.use(sinonChai)
 
-describe('repository module', () => {
-  beforeEach(() => {
-    loggerStubInfo = sinon.stub(utils.logger, 'info', () => { })
-    loggerStubError = sinon.stub(utils.logger, 'error', () => { })
+let res, rpStub
+
+describe('repository module', function() {
+  beforeEach(function() {
+    loggerStubInfo = sinon.stub(utils.logger, 'info').callsFake(() => { })
+    loggerStubError = sinon.stub(utils.logger, 'error').callsFake(() => { })
 
     res = {
       send: sinon.stub().returnsThis(),
       status: sinon.stub().returnsThis()
-    };
+    }
   })
 
-  afterEach(() => {
+  afterEach(function() {
     loggerStubInfo.restore()
     loggerStubError.restore()
+
+    res = {}
   })
 
-  it('creates an HTTP 200 response if there a valid response', () => {
-    let req = {
-      params: { repo: 'test' }
+  it('creates an HTTP 200 response if there a valid response', async function() {
+    const req = {
+      params: { name: 'test', owner: 'test' }
     }
 
-    const rpStub = sinon.stub(rp, 'post').returnsPromise()
-    rpStub.resolves('correct data')
+    const data = { data: { repository: { ref: { target: { history: { edges: [] }}}}}}
+    rpStub =  sinon.stub(rp, 'post').resolves(data)
 
-    repository.getCommits(req, res)
-
+    await repository.getCommits(req, res)
     rpStub.restore()
 
-    sinon.assert.calledWith(res.status, 200)
+    expect(res.send).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledWith(200)
   })
 
-  it('creates an HTTP 422 response if the repo parameter is not in the request body', () => {
-    let req = {}
-
-    repository.getCommits(req, res)
-
-    sinon.assert.calledWith(res.status, 422)
-  })
-
-  it('creates an HTTP 500 response if there an error retrieving the external data', () => {
-    let req = {
-      params: { repo: 'test' }
+  it('creates an HTTP 422 response if the name parameter is not in the request body', async function() {
+    const req = {
+      params: { owner: 'test' }
     }
 
-    const rpStub = sinon.stub(rp, 'post').returnsPromise()
-    rpStub.rejects('some error')
+    await repository.getCommits(req, res)
 
-    repository.getCommits(req, res)
+    expect(res.send).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledWith(422)
+  })
 
+  it('creates an HTTP 500 response if there an error retrieving the external data', async function() {
+    const req = {
+      params: { name: 'test1', owner: 'test1' }
+    }
+
+    rpStub = sinon.stub(rp, 'post').rejects('some error')
+
+    await repository.getCommits(req, res)
     rpStub.restore()
 
-    sinon.assert.calledWith(res.status, 500)
+    expect(res.send).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledOnce
+    expect(res.status).to.have.been.calledWith(500)
   })
 })

@@ -4,7 +4,7 @@ const Error = require('../../common/error')
 const HttpStatus = require('../../common/constants').http
 
 const query = `{\n
-  repository(name: \"%REPO%\", owner: \"%OWNER%\") {\n
+  repository(name: \"%NAME%\", owner: \"%OWNER%\") {\n
     ref(qualifiedName: \"master\") {\n
       target {\n
         ... on Commit {\n
@@ -35,11 +35,11 @@ const query = `{\n
 }`
 
 function getCommits(req, res) {
-	if (!req.params || !req.params.repo) {
-		utils.logger.error({ error: `repository.getCommits() error, params empty: ${req}`, request: req })
+	if (!req.params.owner || !req.params.name) {
+		utils.logger.error({ error: `repository.getCommits() error, parameter ${!req.params.owner ? `owner` : `name`} does not exist`, request: req })
 
     const errorResponse = new Error({
-      detail: 'The request body has no repo parameter',
+      detail: `The request has no ${!req.params.owner ? `owner` : `name`} parameter`,
       status: HttpStatus.unprocessable
     })
 
@@ -54,7 +54,7 @@ function getCommits(req, res) {
 			},
 			method: 'POST',
 			body: {
-				'query': query.replace('%REPO%', req.params.repo).replace('%OWNER%', req.params.owner)
+				'query': query.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner)
 			},
 			json: true
 		}
@@ -63,10 +63,11 @@ function getCommits(req, res) {
     .then(json => {
       utils.logger.info({ payload: json, request: req });
 
-      let commits = {
+      const commits = {
         type: 'commit',
         data: json.data.repository.ref.target.history.edges
       }
+
       res.status(HttpStatus.ok).send(commits)
     })
     .catch(error => {
@@ -76,7 +77,8 @@ function getCommits(req, res) {
         detail: 'Internal server error',
         status: HttpStatus.internalError
       })
-      res.status(errorResponse.status).send(errorResponse)
+      console.log('res.status rejected')
+      res.status(HttpStatus.internalError).send(errorResponse)
     })
 	}
 }
