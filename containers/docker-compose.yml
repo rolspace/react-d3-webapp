@@ -17,15 +17,15 @@ services:
     environment:
       - VIRTUAL_HOST=reactd3client
 
-  reactd3appserver:
-    image: reactd3appserver
+  reactd3appbackend:
+    image: reactd3appbackend
     networks:
       - reactd3appnet
     environment:
       - CLIENT_DOMAIN=http://reactd3client
       - GITHUB_TOKEN=somevalidgithubtoken
       - GITHUB_USER=someuser
-      - VIRTUAL_HOST=reactd3server
+      - VIRTUAL_HOST=reactd3backend
 
 networks:
   reactd3appnet:
