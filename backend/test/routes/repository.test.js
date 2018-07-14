@@ -56,6 +56,7 @@ describe('repository module', function() {
     expect(res.status).to.have.been.calledWith(422)
   })
 
+  //TODO: this test fails for some reason I do not quite understand. I will need to revisit this to find a solution.
   it('creates an HTTP 500 response if there an error retrieving the external data', async function() {
     const req = {
       params: { name: 'test1', owner: 'test1' }
