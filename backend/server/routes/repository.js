@@ -61,7 +61,7 @@ function getCommits(req, res) {
 
     rp.post(options)
     .then(json => {
-      utils.logger.info({ payload: json, request: req });
+      utils.logger.info({ payload: json, request: req })
 
       const commits = {
         type: 'commit',
@@ -71,7 +71,7 @@ function getCommits(req, res) {
       res.status(HttpStatus.ok).send(commits)
     })
     .catch(error => {
-      utils.logger.info({ error: error, request: req });
+      utils.logger.info({ error: error, request: req })
 
       const errorResponse = new Error({
         detail: 'Internal server error',
