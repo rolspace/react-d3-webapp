@@ -1,0 +1,30 @@
+{
+  repository(name: "%NAME%", owner: "%OWNER%") {
+    ref(qualifiedName: "master") {
+      target {
+        ... on Commit {
+          id
+          history(first: 100) {
+            pageInfo {
+              hasNextPage
+            }
+            edges {
+              node {
+                additions
+                deletions
+                changedFiles
+                pushedDate
+                oid
+                author {
+                  user {
+                    login
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

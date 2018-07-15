@@ -6,10 +6,13 @@ const utils = require('../common/utils')
 const constants = require('../common/constants')
 const repository = require('./routes/repository')
 
+const queries = require('../common/queries')
+
 const app = express()
 const HttpStatus = constants.http
 
 function init() {
+	queries.loadAll()
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 
