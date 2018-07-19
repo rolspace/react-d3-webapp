@@ -12,7 +12,7 @@ const app = express()
 const HttpStatus = constants.http
 
 function init() {
-	queries.loadAll()
+	queries.initializeQueries()
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 

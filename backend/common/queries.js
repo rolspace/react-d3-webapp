@@ -6,7 +6,7 @@ const getQuery = (name) => {
   return queries.find((query) => name === query.name)
 }
 
-const loadAll = () => {
+const initializeQueries = () => {
   fs.readdir('queries', (err, files) => {
     if (err) {
       console.log(err)
@@ -33,5 +33,5 @@ const loadAll = () => {
 
 module.exports = {
   getQuery,
-  loadAll
+  initializeQueries
 }
