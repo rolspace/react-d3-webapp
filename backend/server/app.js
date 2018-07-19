@@ -9,6 +9,7 @@ const repository = require('./routes/repository')
 const queries = require('../common/queries')
 
 const app = express()
+const logger = utils.logger
 const HttpStatus = constants.http
 
 function init() {
@@ -29,7 +30,7 @@ function init() {
 	const server = http.createServer(app)
 
 	server.listen(port, () => {
-		utils.logger.info('Listening on port %s', port)
+		logger.info('Listening on port %s', port)
 	})
 }
 
