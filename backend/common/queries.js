@@ -22,7 +22,7 @@ const loadQueries = () => {
         readStream.on('data', (chunk) => {
           data.push(chunk)
         })
-        readStream.on('end', (chunk) => {
+        readStream.on('end', () => {
           queries.push({
             name: file,
             data: Buffer.concat(data).toString()

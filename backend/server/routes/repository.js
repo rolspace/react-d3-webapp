@@ -21,9 +21,9 @@ const getCommits = (req, res) => {
 	}
 
 	if (!req.params.owner || !req.params.name) {
-		logger.error({ message: `repository.getCommits() error: parameter ${!req.params.owner ? `owner` : `name`} does not exist`, request: req })
+		logger.error({ message: `repository.getCommits() error: parameter ${!req.params.owner ? 'owner' : 'name'} does not exist`, request: req })
     const errorResponse = new Error({
-      detail: `No value for the ${!req.params.owner ? `owner` : `name`} parameter`,
+      detail: `No value for the ${!req.params.owner ? 'owner' : 'name'} parameter`,
       status: HttpStatus.unprocessable
     })
 
