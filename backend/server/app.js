@@ -30,7 +30,7 @@ const init = () => {
 	const server = http.createServer(app)
 
 	server.listen(port, () => {
-		logger.info('Listening on port %s', port)
+		logger.info('app.init() info: Server started and listening on port %s', port)
 	})
 }
 

@@ -4,23 +4,26 @@ const Error = require('../../common/error')
 const HttpStatus = require('../../common/constants').http
 
 const queries = require('../../common/queries')
+const logger = utils.logger
 
 const getCommits = (req, res) => {
 	let query = queries.getQuery('repo-commits')
 
 	if (!query) {
-		res.status(HttpStatus.internalError).send({
+		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
+		const errorResponse = new Error({
 			detail: 'Internal server error',
 			status: HttpStatus.internalError
 		})
+
+		res.status(errorResponse.status).send(errorResponse)
 		return
 	}
 
 	if (!req.params.owner || !req.params.name) {
-		utils.logger.error({ error: `repository.getCommits() error, parameter ${!req.params.owner ? `owner` : `name`} does not exist`, request: req })
-
+		logger.error({ message: `repository.getCommits() error: parameter ${!req.params.owner ? `owner` : `name`} does not exist`, request: req })
     const errorResponse = new Error({
-      detail: `The request has no ${!req.params.owner ? `owner` : `name`} parameter`,
+      detail: `No value for the ${!req.params.owner ? `owner` : `name`} parameter`,
       status: HttpStatus.unprocessable
     })
 
@@ -43,7 +46,7 @@ const getCommits = (req, res) => {
 
   rp.post(options)
   .then(json => {
-    utils.logger.info({ payload: json, request: req })
+    logger.info({ message: 'repository.getCommits() info: Github request successful', payload: json, request: req })
 
     const commits = {
       type: 'commit',
@@ -53,7 +56,7 @@ const getCommits = (req, res) => {
     res.status(HttpStatus.ok).send(commits)
   })
   .catch(error => {
-    utils.logger.info({ error: error, request: req })
+    logger.error({ message: 'repository.getCommits() error: Github request unsuccessful', error: error, request: req })
 
     const errorResponse = new Error({
       detail: 'Internal server error',

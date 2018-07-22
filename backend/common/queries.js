@@ -1,5 +1,7 @@
 const fs = require('fs')
+const utils = require('./utils')
 
+const logger = utils.logger
 const queries = []
 
 const getQuery = (name) => {
@@ -7,9 +9,9 @@ const getQuery = (name) => {
 }
 
 const loadQueries = () => {
-  fs.readdir('queries', (err, files) => {
-    if (err) {
-      console.log(err)
+  fs.readdir('queries', (error, files) => {
+    if (error) {
+      logger.error({ message: 'Could not read queries directory', error: error })
     }
 
     if (files && files.length > 0) {
@@ -25,6 +27,9 @@ const loadQueries = () => {
             name: file,
             data: Buffer.concat(data).toString()
           })
+        })
+        readStream.on('error', (error) => {
+          logger.error({ message: `Could not read stream from 'queries/${file}'`, error: error })
         })
       })
     }
