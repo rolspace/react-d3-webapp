@@ -13,7 +13,7 @@ const logger = utils.logger
 const HttpStatus = constants.http
 
 function init() {
-	queries.initializeQueries()
+	queries.loadQueries()
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 
