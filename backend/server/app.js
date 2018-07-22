@@ -12,7 +12,7 @@ const app = express()
 const logger = utils.logger
 const HttpStatus = constants.http
 
-function init() {
+const init = () => {
 	queries.loadQueries()
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
@@ -35,5 +35,5 @@ function init() {
 }
 
 module.exports = {
-	init: init
+	init
 }

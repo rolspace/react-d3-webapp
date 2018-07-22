@@ -5,7 +5,7 @@ const HttpStatus = require('../../common/constants').http
 
 const queries = require('../../common/queries')
 
-function getCommits(req, res) {
+const getCommits = (req, res) => {
 	let query = queries.getQuery('repo-commits')
 
 	if (!query) {
@@ -65,5 +65,5 @@ function getCommits(req, res) {
 }
 
 module.exports = {
-	getCommits: getCommits
+	getCommits
 }

@@ -29,7 +29,7 @@ const largeGroup = [
 	{ min: 1500, max: 10000, count:0, label: '1500+' }
 ]
 
-function assignToGroup(group, property, value) {
+const assignToGroup = (group, property, value) => {
 	let found = group.find((range) => range.min <= value.node[property] && range.max >= value.node[property])
 
 	if (found) {
@@ -39,7 +39,7 @@ function assignToGroup(group, property, value) {
 	return group
 }
 
-function createGroup(collection, property, groupType) {
+const createGroup = (collection, property, groupType) => {
 	const initialGroup = _.cloneDeep(groupType == Groups.SMALL ? [...smallGroup] : [...largeGroup])
 
 	if (collection && collection.length) {

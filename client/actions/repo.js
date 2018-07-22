@@ -7,7 +7,7 @@ export const FETCH_REPO_SUCCESS = 'FETCH_REPO_SUCCESS'
 export const UPDATING_REPO = 'UPDATING_REPO'
 export const UPDATE_REPO_SUCCESS = 'UPDATE_REPO_SUCCESS'
 
-export function getRepo(owner, name) {
+export const getRepo = (owner, name) => {
 	return (dispatch) => {
 		dispatch(fetchingRepo())
 		return fetch(`${process.env.BACKEND_DOMAIN}/api/repository/commits/${owner}/${name}/`)
@@ -36,7 +36,7 @@ export function getRepo(owner, name) {
 	}
 }
 
-export function updateRepo(owner, name) {
+export const updateRepo = (owner, name) => {
 	return (dispatch) => {
 		dispatch(updatingRepo())
 
