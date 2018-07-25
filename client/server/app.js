@@ -6,7 +6,7 @@ const express = require('express')
 
 const app = express()
 
-const init() {
+const init = () => {
 	app.use(express.static(path.join(process.cwd() + '/public')))
 
 	app.get('*', function (req, res) {
