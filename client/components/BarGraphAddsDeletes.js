@@ -9,7 +9,7 @@ class BarGraphAddsDeletes extends React.Component {
 
 	render() {
 		const data = {
-			isLoading: this.props.loading,
+			isLoading: this.props.isLoading,
 			sets: [this.props.data['linesAdded'], this.props.data['linesDeleted']],
 			xAxis: this.props.xAxis,
 			yAxis: this.props.yAxis,
@@ -25,7 +25,7 @@ class BarGraphAddsDeletes extends React.Component {
 
 BarGraphAddsDeletes.propTypes = {
 	data: PropTypes.object.isRequired,
-	loading: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }

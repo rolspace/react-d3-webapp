@@ -53,9 +53,9 @@ class RepositoryCommits extends React.Component {
 	render() {
 		const Graph = this.props.graph
 		const error = this.props.repo.error
-		const loading = this.props.repo.isFetching && !this.props.repo.isComplete
+		const isLoading = this.props.repo.isFetching && !this.props.repo.isComplete
 
-		return <Graph data={this.props.repo.data} {...this.props.options} loading={loading} error={error} />
+		return <Graph data={this.props.repo.data} {...this.props.options} isLoading={isLoading} error={error} />
 	}
 }
 

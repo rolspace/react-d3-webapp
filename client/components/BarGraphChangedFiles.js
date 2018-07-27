@@ -9,7 +9,7 @@ class RepoChangedFiles extends React.Component {
 
 	render() {
 		const data = {
-			isLoading: this.props.loading,
+			isLoading: this.props.isLoading,
 			sets: [this.props.data['changedFiles']],
 			xAxis: this.props.xAxis,
 			yAxis: this.props.yAxis,
@@ -25,7 +25,7 @@ class RepoChangedFiles extends React.Component {
 
 RepoChangedFiles.propTypes = {
 	data: PropTypes.object.isRequired,
-	loading: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired,
 	xAxis: PropTypes.string.isRequired,
 	yAxis: PropTypes.string.isRequired
 }
