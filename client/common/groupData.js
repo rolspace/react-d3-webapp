@@ -54,7 +54,7 @@ const createGroup = (collection, property, groupType) => {
 	return initialGroup
 }
 
-class Group {
+class GroupData {
 	createSmallGroup(collection, property) {
 		const group = createGroup(collection, property, Groups.SMALL)
 		return group
@@ -66,4 +66,4 @@ class Group {
 	}
 }
 
-export default Group
+export default GroupData

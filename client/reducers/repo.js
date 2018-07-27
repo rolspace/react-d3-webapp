@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import Group from '../common/group'
+import GroupData from '../common/groupData'
 import { FETCHING_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS, UPDATING_REPO, UPDATE_REPO_SUCCESS } from '../actions/repo'
 
 const initialState = {
@@ -31,7 +31,7 @@ const repo = (state = initialState, action) => {
 				isFetching: false,
 			})
 		case FETCH_REPO_SUCCESS: {
-			const group = new Group()
+			const groupData = new GroupData()
 			const data = action.payload.data
 			return _.merge({}, state, {
 				data: {
@@ -39,9 +39,9 @@ const repo = (state = initialState, action) => {
 					name: action.payload.name,
 					lastId: data.length ? data[0].node.oid : '',
 					lastDate: data.length ? data[0].node.pushedDate : '',
-					changedFiles: group.createSmallGroup(data, 'changedFiles'),
-					linesAdded: group.createLargeGroup(data, 'additions'),
-					linesDeleted: group.createLargeGroup(data, 'deletions')
+					changedFiles: groupData.createSmallGroup(data, 'changedFiles'),
+					linesAdded: groupData.createLargeGroup(data, 'additions'),
+					linesDeleted: groupData.createLargeGroup(data, 'deletions')
 				},
 				isComplete: true,
 				isFetching: false
