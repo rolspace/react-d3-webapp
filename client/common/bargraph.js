@@ -18,8 +18,8 @@ class BarGraphRenderer {
 		this.yAxis = data.yAxis
 		this.xAxisLabel = data.xAxisLabel
 		this.yAxisLabel = data.yAxisLabel
-		this.width = 	data.width - margins.right - margins.left
-		this.height = 	data.height - margins.top - margins.bottom
+		this.width = data.width - margins.right - margins.left
+		this.height = data.height - margins.top - margins.bottom
 		this.renderGraph = this.renderGraph.bind(this)
 		this.renderSet = this.renderSet.bind(this)
 
@@ -56,15 +56,15 @@ class BarGraphRenderer {
 				.call(d3.axisBottom(this.xScales[0]))
 
 			this.innerNode.append('text')
-       .attr('transform', `translate(${this.width / 2},${this.height + xLabelMargin})`)
-       .style('text-anchor', 'middle')
-       .text(this.xAxisLabel);
+				.attr('transform', `translate(${this.width / 2},${this.height + xLabelMargin})`)
+				.style('text-anchor', 'middle')
+				.text(this.xAxisLabel);
 
 			this.innerNode.append('g').attr('class', 'axis axis--y')
 				.call(d3.axisLeft(this.yScale).ticks(9))
 
-      this.innerNode.append('text')
-        .attr('transform', 'rotate(-90)')
+			this.innerNode.append('text')
+				.attr('transform', 'rotate(-90)')
 				.attr('x', 0 - this.height/2)
 				.attr('y', 0 - yLabelMargin)
 				.attr('dy', '1em')
