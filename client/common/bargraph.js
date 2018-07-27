@@ -24,9 +24,11 @@ class BarGraphRenderer {
 		this.renderSet = this.renderSet.bind(this)
 
 		if (this.sets.every(set => set.length)) {
+			const xAxisPadding = this.setCount > 1 ? 0.2 : 0.4
+
 			this.xScales = this.sets.map(set => {
 				const domain = set.map(d => _.get(d, this.xAxis))
-				return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(0.1)
+				return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(xAxisPadding)
 			})
 
 			const yMax = this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis)))
