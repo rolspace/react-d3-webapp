@@ -45,6 +45,11 @@ class RepositoryCommits extends React.Component {
 		dispatch(changeScreen({ screen: this.props.graph.name }))
 	}
 
+	componentWillUnmount() {
+		const { dispatch } = this.props
+		dispatch(changeScreen({ screen: '' }))
+	}
+
 	render() {
 		const Graph = this.props.graph
 		const error = this.props.repo.error
