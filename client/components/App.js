@@ -35,7 +35,7 @@ const App = (props) => {
 				<AppBar>
 					<Toolbar>
 						<Typography variant="title" className={classes.bar_anchor}>
-							<Link className={classes.bar_anchor_reset} to="/">React D3 WebApp</Link>
+							<Link className={classes.bar_anchor_reset} to="/">GH Repository Data & Charts</Link>
 						</Typography>
 					</Toolbar>
 				</AppBar>
