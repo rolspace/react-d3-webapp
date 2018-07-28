@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import _ from 'lodash'
 
-const colors = ['blue', 'green']
+const colors = ['#00bcd4', 'green']
 const xLabelMargin = 35
 const yLabelMargin = 50
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
@@ -39,7 +39,7 @@ class BarGraphRenderer {
 	renderSet(set, index) {
 		this.innerNode.selectAll('bar').data(set)
 			.enter().append('rect')
-			.style('fill', colors[index])
+			.style('fill', colors[index]).style('stroke-width', 1).style('stroke', '#000')
 			.attr('x', d => this.xScales[index](_.get(d, this.xAxis)) + (index !== 0 ? this.xScales[index].bandwidth()/2 : 0))
 			.attr('width', this.setCount > 1 ? this.xScales[index].bandwidth()/2 : this.xScales[index].bandwidth())
 			.attr('y', d => this.yScale(_.get(d, this.yAxis)))
