@@ -3,11 +3,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import { CircularProgress} from 'material-ui/Progress'
 import Grid from 'material-ui/Grid'
+import { CircularProgress} from 'material-ui/Progress'
 import graphRenderer from '../common/bargraph'
 
-const styles = {
+const styles = (theme) => ({
 	circle: {
 		r: 5
 	},
@@ -18,11 +18,12 @@ const styles = {
 		width: '100%'
 	},
 	svg: {
+		fontFamily: theme.typography.fontFamily,
 		height: '75vh',
 		minWidth: '700px',
 		width: '100%'
 	}
-}
+})
 
 class BarGraph extends React.Component {
 	constructor(props) {
@@ -59,7 +60,9 @@ class BarGraph extends React.Component {
 				<Grid container className={classes.container}>
 					<Grid item xs={12}>
 						{this.props.data.isLoading ?
-							<CircularProgress size='100%' thickness={1} classes={{svg: classes.svg, circleIndeterminate: classes.circle}} /> : <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
+							<CircularProgress size='100%' thickness={1} classes={{svg: classes.svg, circleIndeterminate: classes.circle}} />
+							:
+							<svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
 						}
 					</Grid>
 				</Grid>
