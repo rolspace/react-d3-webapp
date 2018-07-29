@@ -1,5 +1,10 @@
+/*eslint-disable no-console*/
+
 import * as d3 from 'd3'
+import d3tip from 'd3-tip'
 import _ from 'lodash'
+
+d3.tip = d3tip
 
 const colors = ['#00bcd4', 'green']
 const xLabelMargin = 35
@@ -34,7 +39,11 @@ class BarGraphRenderer {
 			const yTrueMax = yMax % 10 === 0 ? yMax : yMax + (10 - (yMax % 10))
 			this.yScale = d3.scaleLinear().domain([0, yTrueMax]).rangeRound([this.height, 0])
 
-			this.yScale = d3.scaleLinear().domain([0, yMax]).rangeRound([this.height, 0])
+			this.tip = d3.tip().attr('class', 'd3-tip').offset([-10, 0])
+				.style('color', '#fff').style('background-color', '#455a64').style('font-size', '0.813rem')
+				.style('padding', '5px').style('border', '1px solid #000')
+				.html((d) => `Commits: ${d.count}`)
+			this.innerNode.call(this.tip)
 		}
 	}
 
@@ -46,6 +55,8 @@ class BarGraphRenderer {
 			.attr('width', this.setCount > 1 ? this.xScales[index].bandwidth()/2 : this.xScales[index].bandwidth())
 			.attr('y', d => this.yScale(_.get(d, this.yAxis)))
 			.attr('height', d => this.height - this.yScale(_.get(d, this.yAxis)))
+			.on('mouseover', this.tip.show)
+			.on('mouseout', this.tip.hide)
 	}
 
 	renderGraph() {
