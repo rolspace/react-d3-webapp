@@ -60,6 +60,7 @@ class BarGraphRenderer {
 			this.innerNode.append('text')
 				.attr('transform', `translate(${this.width / 2},${this.height + xLabelMargin})`)
 				.style('text-anchor', 'middle')
+				.style('font-size', '0.813rem')
 				.text(this.xAxisLabel);
 
 			this.innerNode.append('g').attr('class', 'axis axis--y')
@@ -71,6 +72,7 @@ class BarGraphRenderer {
 				.attr('y', 0 - yLabelMargin)
 				.attr('dy', '1em')
 				.style('text-anchor', 'middle')
+				.style('font-size', '0.813rem')
 				.text(this.yAxisLabel)
 
 			this.sets.forEach(this.renderSet)
