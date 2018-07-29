@@ -31,8 +31,10 @@ class BarGraphRenderer {
 				return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(xAxisPadding)
 			})
 
-			const yMax = this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis)))
-			this.yScale = d3.scaleLinear().domain([0, d3.max(yMax)]).rangeRound([this.height, 0])
+			let yMax = Math.max(...this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis))))
+			yMax = yMax % 10 === 0 ? yMax : yMax + (10 - (yMax % 10))
+
+			this.yScale = d3.scaleLinear().domain([0, yMax]).rangeRound([this.height, 0])
 		}
 	}
 
