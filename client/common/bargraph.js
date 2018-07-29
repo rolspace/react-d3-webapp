@@ -6,7 +6,6 @@ const xLabelMargin = 35
 const yLabelMargin = 50
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 
-
 class BarGraphRenderer {
 	constructor(node, data) {
 		this.node = node
@@ -14,16 +13,17 @@ class BarGraphRenderer {
 
 		this.sets = data.sets
 		this.setCount = data.sets.length
-		this.xAxis = data.xAxis
-		this.yAxis = data.yAxis
-		this.xAxisLabel = data.xAxisLabel
-		this.yAxisLabel = data.yAxisLabel
-		this.width = data.width - margins.right - margins.left
-		this.height = data.height - margins.top - margins.bottom
-		this.renderGraph = this.renderGraph.bind(this)
-		this.renderSet = this.renderSet.bind(this)
 
-		if (this.sets.every(set => set.length)) {
+		if (this.setCount > 0) {
+			this.xAxis = data.xAxis
+			this.yAxis = data.yAxis
+			this.xAxisLabel = data.xAxisLabel
+			this.yAxisLabel = data.yAxisLabel
+			this.width = data.width - margins.right - margins.left
+			this.height = data.height - margins.top - margins.bottom
+			this.renderGraph = this.renderGraph.bind(this)
+			this.renderSet = this.renderSet.bind(this)
+
 			const xAxisPadding = this.setCount > 1 ? 0.2 : 0.4
 
 			this.xScales = this.sets.map(set => {
@@ -61,20 +61,16 @@ class BarGraphRenderer {
 
 			this.innerNode.append('text')
 				.attr('transform', `translate(${this.width / 2},${this.height + xLabelMargin})`)
-				.style('text-anchor', 'middle')
-				.style('font-size', '0.813rem')
+				.style('text-anchor', 'middle').style('font-size', '0.813rem')
 				.text(this.xAxisLabel);
 
 			this.innerNode.append('g').attr('class', 'axis axis--y')
 				.call(d3.axisLeft(this.yScale).ticks(9))
 
 			this.innerNode.append('text')
-				.attr('transform', 'rotate(-90)')
-				.attr('x', 0 - this.height/2)
-				.attr('y', 0 - yLabelMargin)
-				.attr('dy', '1em')
-				.style('text-anchor', 'middle')
-				.style('font-size', '0.813rem')
+				.attr('transform', 'rotate(-90)').attr('x', 0 - this.height/2)
+				.attr('y', 0 - yLabelMargin).attr('dy', '1em')
+				.style('text-anchor', 'middle').style('font-size', '0.813rem')
 				.text(this.yAxisLabel)
 
 			this.sets.forEach(this.renderSet)
