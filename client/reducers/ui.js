@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import _ from 'lodash'
 import { CHANGE_SCREEN } from '../actions/ui'
 
