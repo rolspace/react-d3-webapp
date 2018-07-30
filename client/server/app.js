@@ -14,7 +14,7 @@ const init = () => {
 	})
 
 	app.use((req, res) => {
-		res.status(config.http.notFound).send({ 'message': 'Resource not found' })
+		res.status(404).send({ 'message': 'Resource not found' })
 	})
 
 	const port = process.env.PORT || 8000
