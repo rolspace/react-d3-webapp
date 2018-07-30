@@ -13,8 +13,8 @@ class BarGraphAddsDeletes extends React.Component {
 			sets: [this.props.data['linesAdded'], this.props.data['linesDeleted']],
 			xAxis: this.props.xAxis,
 			yAxis: this.props.yAxis,
-			xAxisLabel: 'Lines of code',
-			yAxisLabel: 'Number of commits'
+			xAxisLabel: 'Code Lines',
+			yAxisLabel: 'Total Commits'
 		}
 
 		return (

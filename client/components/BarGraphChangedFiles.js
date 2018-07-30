@@ -13,8 +13,8 @@ class RepoChangedFiles extends React.Component {
 			sets: [this.props.data['changedFiles']],
 			xAxis: this.props.xAxis,
 			yAxis: this.props.yAxis,
-			xAxisLabel: 'Changed files',
-			yAxisLabel: 'Number of commits'
+			xAxisLabel: 'Changed Files',
+			yAxisLabel: 'Total Commits'
 		}
 
 		return (

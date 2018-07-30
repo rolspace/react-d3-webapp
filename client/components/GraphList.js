@@ -8,8 +8,8 @@ const GraphList = () => {
 			<GridListTile>
 				<CustomCard
 					to='/graphs/repo-additions-deletions'
-					title='Additions vs. Deletions'
-					description='Groups commits based on the number of lines that have been added or deleted' />
+					title='Adds vs. Deletes'
+					description='Groups commits based on the total lines of code that have been added or deleted' />
 			</GridListTile>
 			<GridListTile>
 				<CustomCard
@@ -21,13 +21,13 @@ const GraphList = () => {
 				<CustomCard
 					to='/'
 					title='Graph #3'
-					description='' />
+					description='Pending' />
 			</GridListTile>
 			<GridListTile>
 				<CustomCard
 					to='/'
 					title='Graph #4'
-					description='' />
+					description='Pending' />
 			</GridListTile>
 		</GridList>
 	)
