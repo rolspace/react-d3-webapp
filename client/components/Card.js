@@ -3,10 +3,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { withStyles } from 'material-ui/styles'
-import ButtonBase from 'material-ui/ButtonBase'
-import Typography from 'material-ui/Typography'
-import Card, { CardContent } from 'material-ui/Card'
+import { withStyles } from '@material-ui/core/styles'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const styles = {
     card: {

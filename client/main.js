@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import store from './common/store'
 import App from './components/App'
 

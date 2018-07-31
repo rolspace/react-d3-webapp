@@ -1,5 +1,6 @@
 import React from 'react'
-import GridList, { GridListTile } from 'material-ui/GridList'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
 import CustomCard from './Card'
 
 const GraphList = () => {
