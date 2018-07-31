@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import Grid from '@material-ui/core/Grid'
 import MenuIcon from '@material-ui/icons/Menu'
+import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
 const styles = theme => ({
@@ -28,30 +29,48 @@ const styles = theme => ({
 	}
 })
 
-const App = (props) => {
-	const { classes } = props
+class App extends React.Component {
+	constructor(props) {
+		super(props)
 
-	return (
-		<Router>
-			<div>
-				<AppBar>
-					<Toolbar>
-						<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-							<MenuIcon />
-						</IconButton>
-						<Typography variant="title" className={classes.bar_anchor}>
-							<Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
-						</Typography>
-					</Toolbar>
-				</AppBar>
-				<Grid container className={classes.container}>
-					<Grid item xs={12} sm={12}>
-						<AppRouter />
+		this.handleDrawer = this.handleDrawer.bind(this)
+		this.state = {
+			menuOpen: false
+		}
+	}
+
+	handleDrawer() {
+		this.setState({
+			menuOpen: !this.state.menuOpen
+		})
+	}
+
+	render() {
+		const { classes } = this.props
+
+		return (
+			<Router>
+				<div>
+					<AppBar>
+						<Toolbar>
+							<IconButton onClick={this.handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
+								<MenuIcon />
+							</IconButton>
+							<Typography variant="title" className={classes.bar_anchor}>
+								<Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
+							</Typography>
+						</Toolbar>
+					</AppBar>
+					<AppDrawer open={this.state.menuOpen} onClose={this.handleDrawer} />
+					<Grid container className={classes.container}>
+						<Grid item xs={12} sm={12}>
+							<AppRouter />
+						</Grid>
 					</Grid>
-				</Grid>
-			</div>
-		</Router>
-	)
+				</div>
+			</Router>
+		)
+	}
 }
 
 App.propTypes = {
