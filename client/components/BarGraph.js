@@ -33,6 +33,10 @@ class BarGraph extends React.Component {
 		this.renderGraph()
 	}
 
+	componentDidMount() {
+		this.renderGraph()
+	}
+
 	renderGraph() {
 		const node = this.node;
 
