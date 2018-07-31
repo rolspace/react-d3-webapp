@@ -11,7 +11,7 @@ import Card, { CardContent } from 'material-ui/Card'
 const styles = {
     card: {
         '&:hover': {
-            boxShadow: '0px 1px 1px 0px #718792, 0px 2px 2px 0px #718792, 0px 3px 1px -2px #718792'
+            backgroundColor: '#eee'
         },
         '&:hover h5': {
             textDecoration: 'underline'
