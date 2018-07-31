@@ -3,4 +3,4 @@ WORKDIR /app
 COPY backend/ .
 RUN npm install --only=production
 EXPOSE 9000
-ENTRYPOINT ["node", "run-live"]
+ENTRYPOINT ["node", "run-pro"]

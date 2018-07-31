@@ -3,4 +3,4 @@ WORKDIR /app
 COPY client/ .
 RUN npm install --only=production
 EXPOSE 8000
-ENTRYPOINT ["node", "run-live"]
+ENTRYPOINT ["node", "run-pro"]

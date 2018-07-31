@@ -74,7 +74,7 @@ tasks.set('dev', () => {
 })
 
 // Build website and start the Express server
-tasks.set('live', () => {
+tasks.set('pro', () => {
 	process.env.NODE_ENV = 'production'
 
 	return Promise.resolve()
