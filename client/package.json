@@ -86,7 +86,10 @@
     ]
   },
   "jest": {
-    "setupFiles": ["./test/setup.js"],
-    "testEnvironment": "node"
+    "setupFiles": [
+      "./test/setup.js"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost"
   }
 }
