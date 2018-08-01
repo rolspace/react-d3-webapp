@@ -1,6 +1,6 @@
 module.exports = {
   cors: {
-    origin: process.env.CLIENT_DOMAIN,
+    origin: process.env.CLIENT_URL,
     optionsSuccessStatus: 200,
     preflightContinue: false
   },

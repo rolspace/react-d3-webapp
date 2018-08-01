@@ -22,7 +22,7 @@ services:
     networks:
       - reactd3appnet
     environment:
-      - CLIENT_DOMAIN=http://reactd3client
+      - CLIENT_URL=http://reactd3client
       - GITHUB_TOKEN=somevalidgithubtoken
       - GITHUB_USER=someuser
       - VIRTUAL_HOST=reactd3backend

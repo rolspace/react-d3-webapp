@@ -10,7 +10,7 @@ export const UPDATE_REPO_SUCCESS = 'UPDATE_REPO_SUCCESS'
 export const getRepo = (owner, name) => {
 	return (dispatch) => {
 		dispatch(fetchingRepo())
-		return fetch(`${process.env.BACKEND_DOMAIN}/api/repository/commits/${owner}/${name}/`)
+		return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`)
     .then(response => {
       if (response.status === 200) {
         return response.json()
