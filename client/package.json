@@ -11,9 +11,9 @@
   "scripts": {
     "build": "node run build",
     "dev": "concurrently \"node run dev\" \"cd ../backend && npm run dev\"",
-    "test": "mocha ./test/setup.js ./test/**/*.test.js"
     "pro": "node run pro",
     "lint": "eslint actions common components containers pages reducers main.js run.js webpack.config.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -84,5 +84,9 @@
       "transform-regenerator",
       "transform-object-rest-spread"
     ]
+  },
+  "jest": {
+    "setupFiles": ["./test/setup.js"],
+    "testEnvironment": "node"
   }
 }
