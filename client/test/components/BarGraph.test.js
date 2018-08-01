@@ -1,11 +1,18 @@
 import React from 'react'
-import { expect } from 'chai'
-import { shallow } from 'enzyme'
+import renderer from 'react-test-renderer'
 import BarGraph from '../../components/BarGraph'
 
 describe('Components: BarGraph component', () => {
-  it('renders one <svg> element', () => {
-    const wrapper = shallow(<BarGraph data={[]} xAxis='' yAxis='' />)
-    expect(wrapper.find('svg')).to.have.length(1)
+  it('renders correctly', () => {
+    const data = {
+      sets: [],
+      xAxis: 'xAxis',
+			yAxis: 'yAxis',
+			xAxisLabel: 'xAxisLabel',
+			yAxisLabel: 'yAxisLabel'
+    }
+
+    const tree = renderer.create(<BarGraph data={data} />).toJSON()
+    expect(tree).toMatchSnapshot()
   })
 })

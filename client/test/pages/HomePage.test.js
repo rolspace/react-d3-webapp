@@ -1,12 +1,13 @@
-import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import HomePage from '../../pages/home';
-import InstagramButton from '../../components/InstagramButton';
+import React from 'react'
+import { shallow } from 'enzyme'
+import { HomePage } from '../../pages/HomePage'
+import GraphList from '../../components/GraphList';
 
 describe('Components: HomePage component', function() {
-	it('renders one <InstagramButton> Component', function() {
-		const wrapper = shallow(<HomePage />);
-		expect(wrapper.find(InstagramButton)).to.have.length(1);
-	});
-});
+	it('renders correctly', function() {
+		const classes = {}
+
+		const component = shallow(<HomePage classes={classes} />)
+		expect(component.find(GraphList).length).toBe(1)
+	})
+})

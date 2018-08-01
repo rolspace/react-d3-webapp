@@ -1,18 +1,21 @@
 import React from 'react'
-import { expect } from 'chai'
 import { shallow } from 'enzyme'
-import App from '../../components/App'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { AppBar, Toolbar } from '../../node_modules/@material-ui/core'
+import { App as App } from '../../components/App'
 import AppRouter from '../../components/AppRouter'
-import AppBar from 'material-ui/AppBar'
+import AppDrawer from '../../components/AppDrawer'
 
 describe('Components: App component', () => {
-	it('renders one <AppBar> component', () => {
-		const wrapper = shallow(<App />)
-		expect(wrapper.find(AppBar)).to.have.length(1)
-	})
+	test('renders correctly', () => {
+		const classes = {}
 
-	it('renders one <AppRouter> component', () => {
-		const wrapper = shallow(<App />)
-		expect(wrapper.find(AppRouter)).to.have.length(1)
+		const component = shallow(<App classes={classes} />)
+
+		expect(component.find(Router).length).toBe(1)
+		expect(component.find(AppBar).length).toBe(1)
+		expect(component.find(Toolbar).length).toBe(1)
+		expect(component.find(AppRouter).length).toBe(1)
+		expect(component.find(AppDrawer).length).toBe(1)
 	})
 })
