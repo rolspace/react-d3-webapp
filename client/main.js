@@ -41,8 +41,8 @@ const container = document.getElementById('container')
 
 render(
 	<Provider store={store}>
-		<MuiThemeProvider theme={theme}>
-			<App />
-		</MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
 	</Provider>, container
 )

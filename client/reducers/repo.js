@@ -20,16 +20,16 @@ const initialState = {
 const repo = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCHING_REPO:
-			return _.merge({}, state, {
-				isComplete: false,
-				isFetching: true
-			})
+      return _.merge({}, state, {
+        isComplete: false,
+        isFetching: true
+      })
 		case FETCH_REPO_ERROR:
-			return _.merge({}, state, {
-				error: 'some error',
-				isComplete: true,
-				isFetching: false,
-			})
+      return _.merge({}, state, {
+        error: 'some error',
+        isComplete: true,
+        isFetching: false,
+      })
 		case FETCH_REPO_SUCCESS: {
 			const groupData = new GroupData()
 			const data = action.payload.data
@@ -51,14 +51,14 @@ const repo = (state = initialState, action) => {
 			return initialState
 		}
 		case UPDATE_REPO_SUCCESS:
-			return _.merge({}, state, {
-				data: {
-					owner: action.payload.owner,
-					name: action.payload.name
-				}
-			})
+      return _.merge({}, state, {
+        data: {
+          owner: action.payload.owner,
+          name: action.payload.name
+        }
+      })
 		default:
-			return state
+      return state
 	}
 }
 

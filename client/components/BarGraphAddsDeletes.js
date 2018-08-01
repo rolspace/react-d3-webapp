@@ -6,7 +6,7 @@ class BarGraphAddsDeletes extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-
+  
 	render() {
 		const data = {
 			isLoading: this.props.isLoading,
@@ -16,7 +16,7 @@ class BarGraphAddsDeletes extends React.Component {
 			xAxisLabel: 'Code Lines',
 			yAxisLabel: 'Total Commits'
 		}
-
+    
 		return (
 			<BarGraph data={data} />
 		)

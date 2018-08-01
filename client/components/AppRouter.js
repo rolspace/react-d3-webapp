@@ -14,9 +14,9 @@ const options = {
 const AppRouter = () => {
 	return (
 		<Switch>
-			<Route exact path='/' component={HomePage} />
-			<Route path='/graphs/repo-additions-deletions' component={GraphPage(RepositoryCommits, BarGraphAddsDeletes, options)} />
-			<Route path='/graphs/repo-files' component={GraphPage(RepositoryCommits, BarGraphChangedFiles, options)} />
+      <Route exact path='/' component={HomePage} />
+      <Route path='/graphs/repo-additions-deletions' component={GraphPage(RepositoryCommits, BarGraphAddsDeletes, options)} />
+      <Route path='/graphs/repo-files' component={GraphPage(RepositoryCommits, BarGraphChangedFiles, options)} />
 		</Switch>
 	)
 }

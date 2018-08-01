@@ -6,12 +6,12 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 		constructor(props) {
 			super(props)
 		}
-
+    
 		render() {
 			return (
 				<div>
-					<RepositoryForm />
-					<ContainerComponent graph={GraphComponent} options={options} />
+          <RepositoryForm />
+          <ContainerComponent graph={GraphComponent} options={options} />
 				</div>
 			)
 		}

@@ -16,19 +16,19 @@ const init = () => {
 	queries.loadQueries()
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
-
+	
 	app.get('/api/repository/commits/:owner/:name', repository.getCommits)
-
+	
 	app.use((req, res) => {
 		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' })
 	})
-
+	
 	const port = process.env.PORT || 9000
-
+	
 	app.set('port', port)
-
+	
 	const server = http.createServer(app)
-
+	
 	server.listen(port, () => {
 		logger.info('app.init() info: Server started and listening on port %s', port)
 	})

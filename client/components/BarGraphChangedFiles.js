@@ -6,7 +6,7 @@ class RepoChangedFiles extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-
+  
 	render() {
 		const data = {
 			isLoading: this.props.isLoading,
@@ -16,7 +16,7 @@ class RepoChangedFiles extends React.Component {
 			xAxisLabel: 'Changed Files',
 			yAxisLabel: 'Total Commits'
 		}
-
+    
 		return (
 			<BarGraph data={data} />
 		)

@@ -27,9 +27,9 @@ const config = {
 		chunkFilename: isDev ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
 		sourcePrefix: '  ',
 	},
-
+  
 	devtool: isDev ? 'source-map' : false,
-
+  
 	stats: {
 		colors: true,
 		reasons: isDev,
@@ -41,7 +41,7 @@ const config = {
 		cached: isVerbose,
 		cachedAssets: isVerbose,
 	},
-
+  
 	plugins: [
 		new Dotenv({
 			path: isDev ? './.env' : './.env-live'
@@ -57,7 +57,7 @@ const config = {
 			__DEV__: isDev,
 		})
 	],
-
+  
 	module: {
 		rules: [
 			{

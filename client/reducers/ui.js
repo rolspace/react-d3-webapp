@@ -8,11 +8,11 @@ const initialState = {
 const ui = (state = initialState, action) => {
 	switch (action.type) {
 		case CHANGE_SCREEN:
-			return _.merge({}, state, {
-				screen: action.payload.screen
-			})
+      return _.merge({}, state, {
+        screen: action.payload.screen
+      })
 		default:
-			return state
+      return state
 	}
 }
 

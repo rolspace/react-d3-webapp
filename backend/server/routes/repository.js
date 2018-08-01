@@ -15,27 +15,27 @@ const getCommits = (req, res) => {
 			detail: 'Internal server error',
 			status: HttpStatus.internalError
 		})
-
+		
 		res.status(errorResponse.status).send(errorResponse)
 		return
 	}
-
+	
 	if (!req.params.owner || !req.params.name) {
 		logger.error({ message: `repository.getCommits() error: parameter ${!req.params.owner ? 'owner' : 'name'} does not exist`, request: req })
-    const errorResponse = new Error({
-      detail: `No value for the ${!req.params.owner ? 'owner' : 'name'} parameter`,
-      status: HttpStatus.unprocessable
-    })
-
+		const errorResponse = new Error({
+			detail: `No value for the ${!req.params.owner ? 'owner' : 'name'} parameter`,
+			status: HttpStatus.unprocessable
+		})
+		
 		res.status(errorResponse.status).send(errorResponse)
 		return
 	}
-
+	
 	const options = {
 		uri: 'https://api.github.com/graphql',
 		headers: {
 			'Authorization': `bearer ${process.env.GITHUB_TOKEN}`,
-      'User-Agent': `${process.env.GITHUB_USER}`
+			'User-Agent': `${process.env.GITHUB_USER}`
 		},
 		method: 'POST',
 		body: {
@@ -43,28 +43,28 @@ const getCommits = (req, res) => {
 		},
 		json: true
 	}
-
-  rp.post(options)
-  .then(json => {
-    logger.info({ message: 'repository.getCommits() info: Github request successful', payload: json, request: req })
-
-    const commits = {
-      type: 'commit',
-      data: json.data.repository.ref.target.history.edges
-    }
-
-    res.status(HttpStatus.ok).send(commits)
-  })
-  .catch(error => {
-    logger.error({ message: 'repository.getCommits() error: Github request unsuccessful', error: error, request: req })
-
-    const errorResponse = new Error({
-      detail: 'Internal server error',
-      status: HttpStatus.internalError
-    })
-
-    res.status(HttpStatus.internalError).send(errorResponse)
-  })
+	
+	rp.post(options)
+	.then(json => {
+		logger.info({ message: 'repository.getCommits() info: Github request successful', payload: json, request: req })
+		
+		const commits = {
+			type: 'commit',
+			data: json.data.repository.ref.target.history.edges
+		}
+		
+		res.status(HttpStatus.ok).send(commits)
+	})
+	.catch(error => {
+		logger.error({ message: 'repository.getCommits() error: Github request unsuccessful', error: error, request: req })
+		
+		const errorResponse = new Error({
+			detail: 'Internal server error',
+			status: HttpStatus.internalError
+		})
+		
+		res.status(HttpStatus.internalError).send(errorResponse)
+	})
 }
 
 module.exports = {

@@ -31,26 +31,26 @@ const largeGroup = [
 
 const assignToGroup = (group, property, value) => {
 	let found = group.find((range) => range.min <= value.node[property] && range.max >= value.node[property])
-
+  
 	if (found) {
 		found.count++
 	}
-
+  
 	return group
 }
 
 const createGroup = (collection, property, groupType) => {
 	const initialGroup = _.cloneDeep(groupType == Groups.SMALL ? [...smallGroup] : [...largeGroup])
-
+  
 	if (collection && collection.length) {
 		const updatedGroup = collection.reduce((group, value) => {
 			group = assignToGroup(group, property, value)
 			return group
 		}, initialGroup)
-
+    
 		return updatedGroup
 	}
-
+  
 	return initialGroup
 }
 
@@ -59,7 +59,7 @@ class GroupData {
 		const group = createGroup(collection, property, Groups.SMALL)
 		return group
 	}
-
+  
 	createLargeGroup(collection, property) {
 		const group = createGroup(collection, property, Groups.LARGE)
 		return group

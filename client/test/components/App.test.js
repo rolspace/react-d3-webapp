@@ -9,9 +9,9 @@ import AppDrawer from '../../components/AppDrawer'
 describe('Components: App component', () => {
 	test('renders correctly', () => {
 		const classes = {}
-
+		
 		const component = shallow(<App classes={classes} />)
-
+		
 		expect(component.find(Router).length).toBe(1)
 		expect(component.find(AppBar).length).toBe(1)
 		expect(component.find(Toolbar).length).toBe(1)

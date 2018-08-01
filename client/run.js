@@ -41,18 +41,18 @@ tasks.set('build', () => {
 // Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', () => {
 	process.env.NODE_ENV = 'development'
-
+  
 	let count = 0
 	return run('clean').then(() => new Promise(resolve => {
 		const bs = require('browser-sync').create()
 		const webpackConfig = require('./webpack.config')
 		const compiler = webpack(webpackConfig)
-
+    
 		const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
 			publicPath: webpackConfig.output.publicPath,
 			stats: webpackConfig.stats,
 		})
-
+    
 		compiler.plugin('done', () => {
 			// Launch Browsersync after the initial bundling is complete
 			if (++count === 1) {
@@ -76,7 +76,7 @@ tasks.set('dev', () => {
 // Build website and start the Express server
 tasks.set('pro', () => {
 	process.env.NODE_ENV = 'production'
-
+  
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))

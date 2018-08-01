@@ -11,50 +11,50 @@ class RepositoryCommits extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-
+  
 	shouldComponentUpdate(nextProps) {
 		if (!_.isEqual(this.props.repo, nextProps.repo)) {
 			return true
 		}
-
+    
 		if (this.props.ui.screen !== nextProps.ui.screen) {
 			return true
 		}
-
+    
 		return false
 	}
-
+  
 	componentDidUpdate() {
 		const { dispatch } = this.props
-
+    
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
 			const { owner, name } = this.props.repo.data
 			dispatch(getRepo(owner, name))
 		}
 	}
-
+  
 	componentDidMount() {
 		const { dispatch } = this.props
-
+    
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
 			const owner = this.props.repo.data.owner || 'facebook'
 			const name = this.props.repo.data.name || 'react'
 			dispatch(getRepo(owner, name))
 		}
-
+    
 		dispatch(changeScreen({ screen: this.props.graph.name }))
 	}
-
+  
 	componentWillUnmount() {
 		const { dispatch } = this.props
 		dispatch(changeScreen({ screen: '' }))
 	}
-
+  
 	render() {
 		const Graph = this.props.graph
 		const error = this.props.repo.error
 		const isLoading = this.props.repo.isFetching && !this.props.repo.isComplete
-
+    
 		return <Graph data={this.props.repo.data} {...this.props.options} isLoading={isLoading} error={error} />
 	}
 }

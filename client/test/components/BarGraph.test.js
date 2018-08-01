@@ -11,7 +11,7 @@ describe('Components: BarGraph component', () => {
 			xAxisLabel: 'xAxisLabel',
 			yAxisLabel: 'yAxisLabel'
     }
-
+    
     const tree = renderer.create(<BarGraph data={data} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
