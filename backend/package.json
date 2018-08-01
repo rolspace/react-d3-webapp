@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "node run.js",
-    "eslint": "eslint . --ext .js",
+    "lint": "eslint . --ext .js",
     "test": "mocha ./test/**/*.test.js"
   },
   "repository": {
