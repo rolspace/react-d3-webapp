@@ -7,6 +7,19 @@ const queries = require('../../common/queries')
 const logger = utils.logger
 
 const getCommits = (req, res) => {
+	// if (req.params.name === 'react') {
+	// 	const reactData = require('../../examples/react.json')
+	// 	res.status(HttpStatus.ok).send(reactData)
+	// 	return
+	// }
+	// else if (req.params.name === 'depstime') {
+	// 	const depsData = require('../../examples/depstime.json')
+	// 	res.status(HttpStatus.ok).send(depsData)
+	// 	return
+	// }
+	
+	const query = queries.getQuery('repo-commits')
+	
 	if (!query) {
 		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
 		const errorResponse = new Error({
