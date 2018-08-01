@@ -77,4 +77,6 @@ App.propTypes = {
 	classes: PropTypes.object.isRequired
 }
 
+export { App }
+
 export default hot(module)(withStyles(styles)(App))
