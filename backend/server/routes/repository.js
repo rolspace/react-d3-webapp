@@ -7,8 +7,6 @@ const queries = require('../../common/queries')
 const logger = utils.logger
 
 const getCommits = (req, res) => {
-	let query = queries.getQuery('repo-commits')
-
 	if (!query) {
 		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
 		const errorResponse = new Error({
