@@ -26,4 +26,6 @@ HomePage.propTypes = {
 	classes: PropTypes.object.isRequired
 }
 
+export { HomePage }
+
 export default withStyles(styles)(HomePage)
