@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import { updateRepo } from '../actions/repo'
+import { changeRepo } from '../actions/repo'
 
 const styles = {
 	container: {
@@ -42,7 +42,7 @@ class RepositoryForm extends React.Component {
 		event.preventDefault()
     
 		const { dispatch } = this.props
-		dispatch(updateRepo(this.state.owner, this.state.name))
+		dispatch(changeRepo(this.state.owner, this.state.name))
 	}
   
 	render() {

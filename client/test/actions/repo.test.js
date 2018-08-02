@@ -1,14 +1,14 @@
 import 'whatwg-fetch'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
-import { getRepo } from '../../actions/repo'
-import { FETCHING_REPO, FETCH_REPO_ERROR, FETCH_REPO_SUCCESS } from '../../actions/repo'
+import { fetchRepository } from '../../actions/repo'
+import { FETCHING_REPOSITORY, FETCH_REPOSITORY_ERROR, FETCH_REPOSITORY_SUCCESS } from '../../actions/repo'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
 describe('Actions: repo actions', () => {
-  test('getRepo dispatches a FETCHING_REPO action and a FETCH_REPO_SUCCESS action if it is successful', () => {
+  test('getRepo dispatches a FETCHING_REPOSITORY action and a FETCH_REPOSITORY_SUCCESS action if it is successful', () => {
     const data = {
       type: 'commit',
       data: [{
@@ -39,39 +39,38 @@ describe('Actions: repo actions', () => {
           }
         }
       }
-    ]
-  }
+    ]}
   
-  const response = { status: 200, json: () => Promise.resolve(data) }
-  global.fetch = jest.fn().mockImplementation(() => Promise.resolve(response))
-  
-  const store = mockStore({ repo: {} })
-  
-  return store.dispatch(getRepo('owner', 'name')).then(() => {
-    expect(store.getActions()).toEqual([
-      { type: FETCHING_REPO },
-      {
-        type: FETCH_REPO_SUCCESS,
-        payload: {
-          owner: 'owner',
-          name: 'name',
-          data: data.data
+    const response = { status: 200, json: () => Promise.resolve(data) }
+    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(response))
+    
+    const store = mockStore({ repo: {} })
+    
+    return store.dispatch(fetchRepository('owner', 'name')).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: FETCHING_REPOSITORY },
+        {
+          type: FETCH_REPOSITORY_SUCCESS,
+          payload: {
+            owner: 'owner',
+            name: 'name',
+            data: data.data
+          }
         }
-      }
-    ])
+      ])
+    })
   })
-})
 
-test('getRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', () => {
-  global.fetch = jest.fn().mockImplementation(() => Promise.reject('some error'))
-  
-  const store = mockStore({ repo: {} })
-  
-  return store.dispatch(getRepo('owner', 'name')).then(() => {
-    expect(store.getActions()).toEqual([
-      { type: FETCHING_REPO },
-      { type: FETCH_REPO_ERROR, payload: 'some error' }
-    ])
+  test('getRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', () => {
+    global.fetch = jest.fn().mockImplementation(() => Promise.reject('some error'))
+    
+    const store = mockStore({ repo: {} })
+    
+    return store.dispatch(fetchRepository('owner', 'name')).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: FETCHING_REPOSITORY },
+        { type: FETCH_REPOSITORY_ERROR, payload: 'some error' }
+      ])
+    })
   })
-})
 })

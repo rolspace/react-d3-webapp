@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { changeScreen } from '../actions/ui'
-import { getRepo } from '../actions/repo'
+import { fetchRepository } from '../actions/repo'
 
 class RepositoryCommits extends React.Component {
 	constructor(props) {
@@ -29,7 +29,7 @@ class RepositoryCommits extends React.Component {
     
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
 			const { owner, name } = this.props.repo.data
-			dispatch(getRepo(owner, name))
+			dispatch(fetchRepository(owner, name))
 		}
 	}
   
@@ -39,7 +39,7 @@ class RepositoryCommits extends React.Component {
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
 			const owner = this.props.repo.data.owner || 'facebook'
 			const name = this.props.repo.data.name || 'react'
-			dispatch(getRepo(owner, name))
+			dispatch(fetchRepository(owner, name))
 		}
     
 		dispatch(changeScreen({ screen: this.props.graph.name }))

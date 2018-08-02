@@ -1,22 +1,22 @@
 import { createAction } from 'redux-actions'
 import 'whatwg-fetch'
 
-export const FETCHING_REPO = 'FETCHING_REPO'
-export const FETCH_REPO_ERROR = 'FETCH_REPO_ERROR'
-export const FETCH_REPO_SUCCESS = 'FETCH_REPO_SUCCESS'
-export const UPDATING_REPO = 'UPDATING_REPO'
-export const UPDATE_REPO_SUCCESS = 'UPDATE_REPO_SUCCESS'
+export const FETCHING_REPOSITORY = 'FETCHING_REPOSITORY'
+export const FETCH_REPOSITORY_ERROR = 'FETCH_REPOSITORY_ERROR'
+export const FETCH_REPOSITORY_SUCCESS = 'FETCH_REPOSITORY_SUCCESS'
+export const CHANGING_REPOSITORY = 'CHANGING_REPOSITORY'
+export const CHANGE_REPOSITORY_SUCCESS = 'CHANGE_REPOSITORY_SUCCESS'
 
-export const getRepo = (owner, name) => {
+export const fetchRepository = (owner, name) => {
 	return (dispatch) => {
-		dispatch(fetchingRepo())
+		dispatch(fetchingRepository())
 		return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`)
     .then(response => {
       if (response.status === 200) {
         return response.json()
       }
       else {
-        dispatch(fetchRepoError())
+        dispatch(fetchRepositoryError())
       }
     })
     .then(json => {
@@ -28,29 +28,29 @@ export const getRepo = (owner, name) => {
         name: name,
         data: result.data
       }
-      dispatch(fetchRepoSuccess(payload))
+      dispatch(fetchRepositorySuccess(payload))
     })
     .catch(error => {
-      dispatch(fetchRepoError(error))
+      dispatch(fetchRepositoryError(error))
     })
 	}
 }
 
-export const updateRepo = (owner, name) => {
+export const changeRepo = (owner, name) => {
 	return (dispatch) => {
-		dispatch(updatingRepo())
+		dispatch(changingRepo())
     
 		const payload = {
 			owner: owner,
 			name: name
 		}
     
-		dispatch(updateRepoSuccess(payload))
+		dispatch(changeRepoSuccess(payload))
 	}
 }
 
-const fetchingRepo = createAction(FETCHING_REPO)
-const fetchRepoError = createAction(FETCH_REPO_ERROR)
-const fetchRepoSuccess = createAction(FETCH_REPO_SUCCESS)
-const updatingRepo = createAction(UPDATING_REPO)
-const updateRepoSuccess = createAction(UPDATE_REPO_SUCCESS)
+const fetchingRepository = createAction(FETCHING_REPOSITORY)
+const fetchRepositoryError = createAction(FETCH_REPOSITORY_ERROR)
+const fetchRepositorySuccess = createAction(FETCH_REPOSITORY_SUCCESS)
+const changingRepo = createAction(CHANGING_REPOSITORY)
+const changeRepoSuccess = createAction(CHANGE_REPOSITORY_SUCCESS)

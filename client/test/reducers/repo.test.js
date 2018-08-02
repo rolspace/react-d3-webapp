@@ -1,7 +1,7 @@
 import repoReducer from '../../reducers/repo'
 
 describe('Reducers: repo reducer', () => {
-  it('returns the initial state if no action is executed', () => {
+  test('returns the initial state if no action is executed', () => {
     expect(repoReducer(undefined, {})).toEqual({
       data: {
         owner: '',
@@ -18,7 +18,7 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  it('returns the correct object when the FETCH_REPO_SUCCESS action is executed', () => {
+  test('returns the correct object when the FETCH_REPOSITORY_SUCCESS action is executed', () => {
     const payload = {
       owner: 'owner',
       name: 'name',
@@ -54,7 +54,7 @@ describe('Reducers: repo reducer', () => {
       ]
     }
     
-    expect(repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload })).toEqual({
+    expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_SUCCESS', payload: payload })).toEqual({
       data: {
         owner: 'owner',
         name: 'name',
@@ -100,8 +100,8 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  it('returns the correct object when the FETCHING_REPO action is executed', () => {
-    expect(repoReducer(undefined, { type: 'FETCHING_REPO' })).toEqual({
+  test('returns the correct object when the FETCHING_REPOSITORY action is executed', () => {
+    expect(repoReducer(undefined, { type: 'FETCHING_REPOSITORY' })).toEqual({
       data: {
         owner: '',
         name: '',
@@ -117,8 +117,8 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  it('returns the correct object when the FETCH_REPO_ERROR action is executed', () => {
-    expect(repoReducer(undefined, { type: 'FETCH_REPO_ERROR' })).toEqual({
+  test('returns the correct object when the FETCH_REPOSITORY_ERROR action is executed', () => {
+    expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_ERROR' })).toEqual({
       data: {
         owner: '',
         name: '',
