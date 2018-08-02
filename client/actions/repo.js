@@ -1,11 +1,12 @@
-import { createAction } from 'redux-actions'
 import 'whatwg-fetch'
+import { createAction } from 'redux-actions'
+import * as types from './repoTypes'
 
-export const FETCHING_REPOSITORY = 'FETCHING_REPOSITORY'
-export const FETCH_REPOSITORY_ERROR = 'FETCH_REPOSITORY_ERROR'
-export const FETCH_REPOSITORY_SUCCESS = 'FETCH_REPOSITORY_SUCCESS'
-export const CHANGING_REPOSITORY = 'CHANGING_REPOSITORY'
-export const CHANGE_REPOSITORY_SUCCESS = 'CHANGE_REPOSITORY_SUCCESS'
+// export const FETCHING_REPOSITORY = 'FETCHING_REPOSITORY'
+// export const FETCH_REPOSITORY_ERROR = 'FETCH_REPOSITORY_ERROR'
+// export const FETCH_REPOSITORY_SUCCESS = 'FETCH_REPOSITORY_SUCCESS'
+// export const CHANGING_REPOSITORY = 'CHANGING_REPOSITORY'
+// export const CHANGE_REPOSITORY_SUCCESS = 'CHANGE_REPOSITORY_SUCCESS'
 
 export const fetchRepository = (owner, name) => {
 	return (dispatch) => {
@@ -49,8 +50,8 @@ export const changeRepo = (owner, name) => {
 	}
 }
 
-const fetchingRepository = createAction(FETCHING_REPOSITORY)
-const fetchRepositoryError = createAction(FETCH_REPOSITORY_ERROR)
-const fetchRepositorySuccess = createAction(FETCH_REPOSITORY_SUCCESS)
-const changingRepo = createAction(CHANGING_REPOSITORY)
-const changeRepoSuccess = createAction(CHANGE_REPOSITORY_SUCCESS)
+const fetchingRepository = createAction(types.FETCHING_REPOSITORY)
+const fetchRepositoryError = createAction(types.FETCH_REPOSITORY_ERROR)
+const fetchRepositorySuccess = createAction(types.FETCH_REPOSITORY_SUCCESS)
+const changingRepo = createAction(types.CHANGING_REPOSITORY)
+const changeRepoSuccess = createAction(types.CHANGE_REPOSITORY_SUCCESS)

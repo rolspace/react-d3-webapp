@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import GroupData from '../common/groupData'
-import { FETCHING_REPOSITORY, FETCH_REPOSITORY_ERROR, FETCH_REPOSITORY_SUCCESS, CHANGING_REPOSITORY, CHANGE_REPOSITORY_SUCCESS } from '../actions/repo'
+import * as types from '../actions/repoTypes'
 
 const initialState = {
 	data: {
@@ -19,18 +19,18 @@ const initialState = {
 
 const repo = (state = initialState, action) => {
 	switch (action.type) {
-		case FETCHING_REPOSITORY:
+		case types.FETCHING_REPOSITORY:
       return _.merge({}, state, {
         isComplete: false,
         isFetching: true
       })
-		case FETCH_REPOSITORY_ERROR:
+		case types.FETCH_REPOSITORY_ERROR:
       return _.merge({}, state, {
         error: 'some error',
         isComplete: true,
         isFetching: false,
       })
-		case FETCH_REPOSITORY_SUCCESS: {
+		case types.FETCH_REPOSITORY_SUCCESS: {
 			const groupData = new GroupData()
 			const data = action.payload.data
 			
@@ -48,10 +48,10 @@ const repo = (state = initialState, action) => {
 				isFetching: false
 			})
 		}
-		case CHANGING_REPOSITORY: {
+		case types.CHANGING_REPOSITORY: {
 			return initialState
 		}
-		case CHANGE_REPOSITORY_SUCCESS:
+		case types.CHANGE_REPOSITORY_SUCCESS:
       return _.merge({}, state, {
         data: {
           owner: action.payload.owner,
