@@ -3,15 +3,13 @@ import repoReducer from '../../reducers/repo'
 describe('Reducers: repo reducer', () => {
   test('returns the initial state if no action is executed', () => {
     expect(repoReducer(undefined, {})).toEqual({
-      data: {
-        owner: '',
-        name: '',
-        lastId: '',
-        lastDate: '',
+      commits: {
         changedFiles: [],
         linesAdded: [],
         linesDeleted: []
       },
+      owner: '',
+      name: '',
       isComplete: false,
       isFetching: false,
       error: null
@@ -55,11 +53,7 @@ describe('Reducers: repo reducer', () => {
     }
     
     expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_SUCCESS', payload: payload })).toEqual({
-      data: {
-        owner: 'owner',
-        name: 'name',
-        lastId: 'abc1ea0cd96c81467c574b134349eafc30f945d0d',
-        lastDate: '2018-07-25T21:22:54Z',
+      commits: {
         changedFiles: [
           { min: 1, max: 1, count: 1, label: '1' },
           { min: 2, max: 2, count: 0, label: '2' },
@@ -94,6 +88,8 @@ describe('Reducers: repo reducer', () => {
           { min: 1500, max: 10000, count:0, label: '1500+' }
         ]
       },
+      owner: 'owner',
+      name: 'name',
       isComplete: true,
       isFetching: false,
       error: null
@@ -102,15 +98,13 @@ describe('Reducers: repo reducer', () => {
   
   test('returns the correct object when the FETCHING_REPOSITORY action is executed', () => {
     expect(repoReducer(undefined, { type: 'FETCHING_REPOSITORY' })).toEqual({
-      data: {
-        owner: '',
-        name: '',
-        lastId: '',
-        lastDate: '',
+      commits: {
         changedFiles: [],
         linesAdded: [],
         linesDeleted: []
       },
+      owner: '',
+      name: '',
       isComplete: false,
       isFetching: true,
       error: null
@@ -119,15 +113,13 @@ describe('Reducers: repo reducer', () => {
   
   test('returns the correct object when the FETCH_REPOSITORY_ERROR action is executed', () => {
     expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_ERROR' })).toEqual({
-      data: {
-        owner: '',
-        name: '',
-        lastId: '',
-        lastDate: '',
+      commits: {
         changedFiles: [],
         linesAdded: [],
         linesDeleted: []
       },
+      owner: '',
+      name: '',
       isComplete: true,
       isFetching: false,
       error: 'some error'

@@ -28,7 +28,7 @@ class RepositoryCommits extends React.Component {
 		const { dispatch } = this.props
     
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
-			const { owner, name } = this.props.repo.data
+			const { owner, name } = this.props.repo
 			dispatch(fetchRepository(owner, name))
 		}
 	}
@@ -37,8 +37,8 @@ class RepositoryCommits extends React.Component {
 		const { dispatch } = this.props
     
 		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
-			const owner = this.props.repo.data.owner || 'facebook'
-			const name = this.props.repo.data.name || 'react'
+			const owner = this.props.repo.owner || 'facebook'
+			const name = this.props.repo.name || 'react'
 			dispatch(fetchRepository(owner, name))
 		}
     
@@ -55,7 +55,7 @@ class RepositoryCommits extends React.Component {
 		const error = this.props.repo.error
 		const isLoading = this.props.repo.isFetching && !this.props.repo.isComplete
     
-		return <Graph data={this.props.repo.data} {...this.props.options} isLoading={isLoading} error={error} />
+		return <Graph data={this.props.repo.commits} {...this.props.options} isLoading={isLoading} error={error} />
 	}
 }
 

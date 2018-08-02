@@ -3,15 +3,13 @@ import GroupData from '../common/groupData'
 import * as types from '../actions/repoTypes'
 
 const initialState = {
-	data: {
-		owner: '',
-		name: '',
-		lastId: '',
-		lastDate: '',
+	commits: {
 		changedFiles: [],
 		linesAdded: [],
 		linesDeleted: []
 	},
+	owner: '',
+	name: '',
 	isComplete: false,
 	isFetching: false,
 	error: null
@@ -35,15 +33,13 @@ const repo = (state = initialState, action) => {
 			const data = action.payload.data
 			
 			return _.merge({}, state, {
-				data: {
-					owner: action.payload.owner,
-					name: action.payload.name,
-					lastId: data.length ? data[0].node.oid : '',
-					lastDate: data.length ? data[0].node.pushedDate : '',
+				commits: {
 					changedFiles: groupData.createSmallGroup(data, 'changedFiles'),
 					linesAdded: groupData.createLargeGroup(data, 'additions'),
 					linesDeleted: groupData.createLargeGroup(data, 'deletions')
 				},
+				owner: action.payload.owner,
+				name: action.payload.name,
 				isComplete: true,
 				isFetching: false
 			})
@@ -53,10 +49,8 @@ const repo = (state = initialState, action) => {
 		}
 		case types.CHANGE_REPOSITORY_SUCCESS:
       return _.merge({}, state, {
-        data: {
-          owner: action.payload.owner,
-          name: action.payload.name
-        }
+				owner: action.payload.owner,
+				name: action.payload.name
       })
 		default:
       return state

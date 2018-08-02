@@ -78,8 +78,8 @@ RepositoryForm.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		name: state.repo.data.name,
-		owner: state.repo.data.owner
+		name: state.repo.name,
+		owner: state.repo.owner
 	}
 }
 
