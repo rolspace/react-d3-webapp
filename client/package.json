@@ -87,7 +87,7 @@
   },
   "jest": {
     "setupFiles": [
-      "./test/setup.js"
+      "./tests/setup.js"
     ],
     "testEnvironment": "jsdom",
     "testURL": "http://localhost"
