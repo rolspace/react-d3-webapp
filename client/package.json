@@ -61,6 +61,7 @@
     "express": "^4.16.3",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
+    "query-string": "^6.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.1.3",
