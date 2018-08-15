@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -51,11 +50,11 @@ class RepositoryCommits extends React.Component {
 	}
   
 	render() {
-		const Graph = this.props.graph
+		const GraphComponent = this.props.graphComponent
 		const error = this.props.repo.error
 		const isLoading = this.props.repo.isFetching && !this.props.repo.isComplete
     
-		return <Graph data={this.props.repo.commits} {...this.props.options} isLoading={isLoading} error={error} />
+		return <GraphComponent data={this.props.repo.commits} {...this.props.options} isLoading={isLoading} error={error} />
 	}
 }
 
