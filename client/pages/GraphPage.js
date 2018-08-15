@@ -1,7 +1,7 @@
 import React from 'react'
 import RepositoryForm from '../containers/RepositoryForm'
 
-const GraphPage = (ContainerComponent, GraphComponent, options) => {
+const GraphPage = (DatasourceComponent, GraphComponent, options) => {
 	return class GraphPageContainer extends React.Component {
 		constructor(props) {
 			super(props)
@@ -11,7 +11,7 @@ const GraphPage = (ContainerComponent, GraphComponent, options) => {
 			return (
 				<div>
           <RepositoryForm />
-          <ContainerComponent graph={GraphComponent} options={options} />
+          <DatasourceComponent graphComponent={GraphComponent} options={options} />
 				</div>
 			)
 		}
