@@ -1,6 +1,6 @@
-const Error = (options) => {
-  this.detail = options.detail
+function AppError(options) {
+  this.message = options.message
   this.status = options.status
 }
 
-module.exports = Error
+module.exports = AppError

@@ -1,9 +1,9 @@
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
-const Error = require('../../common/error')
 const HttpStatus = require('../../common/constants').http
 
 const queries = require('../../common/queries')
+const AppError = require('../../common/error')
 const logger = utils.logger
 
 const getCommits = (req, res) => {
@@ -22,24 +22,23 @@ const getCommits = (req, res) => {
 	
 	if (!query) {
 		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
-		const errorResponse = new Error({
-			detail: 'Internal server error',
-			status: HttpStatus.internalError
+		const appError = new AppError({
+			message: 'Internal server error',
+			status: httpStatus.internalError
 		})
 		
-		res.status(errorResponse.status).send(errorResponse)
-		return
+		return res.status(appError.status).send(appError)
 	}
-	
-	if (!req.params.owner || !req.params.name) {
-		logger.error({ message: `repository.getCommits() error: parameter ${!req.params.owner ? 'owner' : 'name'} does not exist`, request: req })
-		const errorResponse = new Error({
-			detail: `No value for the ${!req.params.owner ? 'owner' : 'name'} parameter`,
-			status: HttpStatus.unprocessable
+
+	const { owner, name } = req.params
+	if (!owner || !name) {
+		logger.error({ message: `repository.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
+		const appError = new AppError({
+			message: `The ${!owner ? 'owner' : 'name'} parameter is empty`,
+			status: httpStatus.unprocessable
 		})
 		
-		res.status(errorResponse.status).send(errorResponse)
-		return
+		return res.status(appError.status).send(appError)
 	}
 	
 	const options = {
@@ -69,12 +68,12 @@ const getCommits = (req, res) => {
 	.catch(error => {
 		logger.error({ message: 'repository.getCommits() error: Github request unsuccessful', error: error, request: req })
 		
-		const errorResponse = new Error({
-			detail: 'Internal server error',
-			status: HttpStatus.internalError
+		const appError = new AppError({
+			message: 'Internal server error',
+			status: httpStatus.internalError
 		})
 		
-		res.status(HttpStatus.internalError).send(errorResponse)
+		res.status(appError.status).send(appError)
 	})
 }
 
