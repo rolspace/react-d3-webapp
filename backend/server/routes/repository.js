@@ -6,20 +6,8 @@ const queries = require('../../common/queries')
 const AppError = require('../../common/error')
 const logger = utils.logger
 
-const getCommits = (req, res) => {
-	// if (req.params.name === 'react') {
-	// 	const reactData = require('../../examples/react.json')
-	// 	res.status(HttpStatus.ok).send(reactData)
-	// 	return
-	// }
-	// else if (req.params.name === 'depstime') {
-	// 	const depsData = require('../../examples/depstime.json')
-	// 	res.status(HttpStatus.ok).send(depsData)
-	// 	return
-	// }
-	
+const getCommits = (req, res) => {	
 	const query = queries.getQuery('repo-commits')
-	
 	if (!query) {
 		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
 		const appError = new AppError({
@@ -42,16 +30,14 @@ const getCommits = (req, res) => {
 	}
 	
 	const options = {
+		method: 'POST',
 		uri: 'https://api.github.com/graphql',
+		json: true,
 		headers: {
 			'Authorization': `bearer ${process.env.GITHUB_TOKEN}`,
 			'User-Agent': `${process.env.GITHUB_USER}`
 		},
-		method: 'POST',
-		body: {
-			'query': query.data.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner)
-		},
-		json: true
+		body: { 'query': query.data.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner) },
 	}
 	
 	rp.post(options)
@@ -66,7 +52,7 @@ const getCommits = (req, res) => {
 		res.status(HttpStatus.ok).send(commits)
 	})
 	.catch(error => {
-		logger.error({ message: 'repository.getCommits() error: Github request unsuccessful', error: error, request: req })
+		logger.error({ message: 'repository.getCommits() error: Github request failed', error: error, request: req })
 		
 		const appError = new AppError({
 			message: 'Internal server error',
