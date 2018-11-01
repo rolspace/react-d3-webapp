@@ -1,7 +1,5 @@
 import 'whatwg-fetch'
-import {
-  createAction
-} from 'redux-actions'
+import { createAction } from 'redux-actions'
 import * as types from './repoTypes'
 
 export const fetchRepository = (owner, name) => {
