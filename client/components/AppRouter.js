@@ -5,6 +5,7 @@ import BarGraphChangedFiles from './BarGraphChangedFiles'
 import RepositoryCommits from '../containers/RepositoryCommits'
 import HomePage from '../pages/HomePage'
 import GraphPage from '../pages/GraphPage'
+import PrivateRoute from '../containers/PrivateRoute'
 
 const options = {
 	xAxis: 'label',
@@ -14,9 +15,9 @@ const options = {
 const AppRouter = () => {
 	return (
 		<Switch>
-      <Route exact path='/' component={HomePage} />
-      <Route path='/graphs/repo-additions-deletions' component={GraphPage(RepositoryCommits, BarGraphAddsDeletes, options)} />
-      <Route path='/graphs/repo-files' component={GraphPage(RepositoryCommits, BarGraphChangedFiles, options)} />
+			<Route exact path='/' component={HomePage} />
+			<PrivateRoute path='/graphs/repo-additions-deletions' component={GraphPage(RepositoryCommits, BarGraphAddsDeletes, options)} />
+			<PrivateRoute path='/graphs/repo-files' component={GraphPage(RepositoryCommits, BarGraphChangedFiles, options)} />
 		</Switch>
 	)
 }
