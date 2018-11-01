@@ -41,7 +41,7 @@ class RepositoryCommits extends React.Component {
 			dispatch(fetchRepository(owner, name))
 		}
     
-		dispatch(changeScreen({ screen: this.props.graph.name }))
+		dispatch(changeScreen({ screen: this.props.graphComponent.name }))
 	}
   
 	componentWillUnmount() {
@@ -51,10 +51,11 @@ class RepositoryCommits extends React.Component {
   
 	render() {
 		const GraphComponent = this.props.graphComponent
+
 		const error = this.props.repo.error
 		const isLoading = this.props.repo.isFetching && !this.props.repo.isComplete
     
-		return <GraphComponent data={this.props.repo.commits} {...this.props.options} isLoading={isLoading} error={error} />
+		return <GraphComponent data={this.props.repo.commits} error={error} isLoading={isLoading} {...this.props.options} />
 	}
 }
 
