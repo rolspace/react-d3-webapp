@@ -16,6 +16,9 @@ export const fetchToken = (code, state) => {
 
     return fetch(`${process.env.BACKEND_URL}/api/user/token/`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         code: code,
         state: state,
