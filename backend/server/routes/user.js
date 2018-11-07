@@ -1,7 +1,7 @@
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
 const AppError = require('../../common/error')
-const httpStatus = require('../../common/constants').http
+const HttpStatus = require('../../common/constants').http
 
 const logger = utils.logger
 
@@ -12,7 +12,7 @@ const postToken = (req, res) => {
     logger.error({ message: `token.postToken() error: parameter ${!code ? 'code' : 'state'} is empty`, request: req })
     const appError = new AppError({
       message: `The parameter ${!code ? 'code' : 'state'} is empty`,
-      status: httpStatus.unprocessable
+      status: HttpStatus.unprocessable
     })
 
     return res.status(appError.status).send(appError)
@@ -34,14 +34,14 @@ const postToken = (req, res) => {
 
   rp.post(options)
   .then(json => {
-    res.status(httpStatus.ok).send(json)
+    res.status(HttpStatus.ok).send(json)
   })
   .catch(error => {
     logger.error({ message: 'repository.getCommits() error: Github request failed', error: error, request: req })
 
     const appError = new AppError({
 			message: 'Internal server error',
-			status: httpStatus.internalError
+			status: HttpStatus.internalError
 		})
 
     res.status(appError.status).send(appError)

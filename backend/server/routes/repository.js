@@ -12,7 +12,7 @@ const getCommits = (req, res) => {
 		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
 		const appError = new AppError({
 			message: 'Internal server error',
-			status: httpStatus.internalError
+			status: HttpStatus.internalError
 		})
 		
 		return res.status(appError.status).send(appError)
@@ -23,7 +23,7 @@ const getCommits = (req, res) => {
 		logger.error({ message: `repository.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
 		const appError = new AppError({
 			message: `The ${!owner ? 'owner' : 'name'} parameter is empty`,
-			status: httpStatus.unprocessable
+			status: HttpStatus.unprocessable
 		})
 		
 		return res.status(appError.status).send(appError)
@@ -56,7 +56,7 @@ const getCommits = (req, res) => {
 		
 		const appError = new AppError({
 			message: 'Internal server error',
-			status: httpStatus.internalError
+			status: HttpStatus.internalError
 		})
 		
 		res.status(appError.status).send(appError)
