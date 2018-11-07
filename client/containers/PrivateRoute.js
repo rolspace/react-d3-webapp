@@ -31,7 +31,7 @@ class PrivateRoute extends React.Component {
 
     if (isLoggedIn) {
       const Component = this.props.component
-      return <Route render={() => <Component />} />
+      return <Route path={this.props.path} component={Component} />
     }
     else {
       return <div>Loading...</div>
@@ -42,7 +42,7 @@ class PrivateRoute extends React.Component {
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 }
