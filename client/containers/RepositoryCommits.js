@@ -33,12 +33,14 @@ class RepositoryCommits extends React.Component {
 	}
   
 	componentDidMount() {
-		const { dispatch } = this.props
+		const { dispatch, user, repo } = this.props
     
-		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
-			const owner = this.props.repo.owner || 'facebook'
-			const name = this.props.repo.name || 'react'
-			dispatch(fetchRepository(owner, name))
+		if (!repo.isFetching && !repo.isComplete && user.isLoggedIn) {
+			const owner = repo.owner || 'facebook'
+			const name = repo.name || 'react'
+			const token = user.token
+
+			dispatch(fetchRepository(owner, name, token))
 		}
     
 		dispatch(changeScreen({ screen: this.props.graphComponent.name }))
@@ -66,6 +68,7 @@ RepositoryCommits.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
+		user: state.user,
 		repo: state.repo,
 		ui: state.ui
 	}

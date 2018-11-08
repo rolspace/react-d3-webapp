@@ -2,11 +2,19 @@ import 'whatwg-fetch'
 import { createAction } from 'redux-actions'
 import * as types from './repoTypes'
 
-export const fetchRepository = (owner, name) => {
+export const fetchRepository = (owner, name, token) => {
   return (dispatch) => {
     dispatch(fetchingRepository())
 
-    return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`)
+    return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: token
+      })
+    })
       .then(response => {
         if (response.status === 200) {
           return response.json()

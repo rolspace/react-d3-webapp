@@ -19,6 +19,9 @@ const getCommits = (req, res) => {
 	}
 
 	const { owner, name } = req.params
+	console.log(req.body)
+	const { token } = req.body
+
 	if (!owner || !name) {
 		logger.error({ message: `repository.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
 		const appError = new AppError({
@@ -28,13 +31,23 @@ const getCommits = (req, res) => {
 		
 		return res.status(appError.status).send(appError)
 	}
+
+	if (!token) {
+		logger.error({ message: 'repository.getCommits() error: token not provided', request: req })
+		const appError = new AppError({
+			message: 'Token not provided',
+			status: HttpStatus.unprocessable
+		})
+		
+		return res.status(appError.status).send(appError)	
+	}
 	
 	const options = {
 		method: 'POST',
 		uri: 'https://api.github.com/graphql',
 		json: true,
 		headers: {
-			'Authorization': `bearer ${process.env.GITHUB_TOKEN}`,
+			'Authorization': `bearer ${token}`,
 			'User-Agent': `${process.env.GITHUB_USER}`
 		},
 		body: { 'query': query.data.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner) },
