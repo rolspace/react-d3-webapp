@@ -17,11 +17,10 @@ const init = () => {
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 	
-	app.get('/api/repository/commits/:owner/:name', repository.getCommits)
-
 	app.options('/api/user/token')
 	app.post('/api/user/token', user.postToken)
-	
+	app.post('/api/repository/commits/:owner/:name', repository.getCommits)
+
 	app.use((req, res) => {
 		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' })
 	})
