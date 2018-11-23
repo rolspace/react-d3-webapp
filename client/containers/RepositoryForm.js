@@ -40,9 +40,13 @@ class RepositoryForm extends React.Component {
   
 	handleSubmit(event) {
 		event.preventDefault()
-    
-		const { dispatch } = this.props
-		dispatch(changeRepository(this.state.owner, this.state.name))
+		
+		const { user } = this.props
+
+		if (user.isLoggedIn) {
+			const { dispatch } = this.props
+			dispatch(changeRepository(this.state.owner, this.state.name))
+		}
 	}
   
 	render() {
@@ -73,14 +77,17 @@ RepositoryForm.propTypes = {
 	classes: PropTypes.object.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
-	owner: PropTypes.string.isRequired
+	owner: PropTypes.string.isRequired,
+	user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {
 	return {
 		name: state.repo.name,
-		owner: state.repo.owner
+		owner: state.repo.owner,
+		user: state.user
 	}
 }
 
+//TODO: look into using mapDispatchToProps instead of rendering in this component
 export default connect(mapStateToProps)(withStyles(styles)(RepositoryForm))
