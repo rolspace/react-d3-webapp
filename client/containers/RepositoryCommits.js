@@ -24,21 +24,23 @@ class RepositoryCommits extends React.Component {
 	}
   
 	componentDidUpdate() {
-		const { dispatch } = this.props
+		const { dispatch, repo, user } = this.props
+		const { token } = user
     
-		if (!this.props.repo.isFetching && !this.props.repo.isComplete) {
-			const { owner, name } = this.props.repo
-			dispatch(fetchRepository(owner, name))
+		if (!repo.isFetching && !repo.isComplete && user.isLoggedIn) {
+			const { owner, name } = repo
+
+			dispatch(fetchRepository(owner, name, token))
 		}
 	}
   
 	componentDidMount() {
-		const { dispatch, user, repo } = this.props
-    
+		const { dispatch, repo, user } = this.props
+		const { token } = user
+     
 		if (!repo.isFetching && !repo.isComplete && user.isLoggedIn) {
 			const owner = repo.owner || 'facebook'
 			const name = repo.name || 'react'
-			const token = user.token
 
 			dispatch(fetchRepository(owner, name, token))
 		}
