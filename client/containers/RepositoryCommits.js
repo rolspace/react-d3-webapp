@@ -16,7 +16,7 @@ class RepositoryCommits extends React.Component {
 			return true
 		}
     
-		if (this.props.ui.screen !== nextProps.ui.screen) {
+		if (this.props.screen !== nextProps.screen) {
 			return true
 		}
     
@@ -64,15 +64,17 @@ class RepositoryCommits extends React.Component {
 }
 
 RepositoryCommits.propTypes = {
+	screen: PropTypes.string.isRequired,
 	dispatch: PropTypes.func.isRequired,
-	repo: PropTypes.object.isRequired
+	repo: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {
 	return {
+		screen: state.ui.screen,
 		user: state.user,
 		repo: state.repo,
-		ui: state.ui
 	}
 }
 
