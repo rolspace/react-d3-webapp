@@ -21,7 +21,6 @@ class PrivateRoute extends React.Component {
       dispatch(fetchToken(code, state))
     }
     else if (!code && !state && !isLoggedIn) {
-      console.log(`${window.location.protocol}//${window.location.host}${this.props.location.pathname}`)
       window.location.replace(`https://github.com/login/oauth/authorize?client_id=5757b639c3b7cf82d4ca&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${this.props.location.pathname}`)
     }
   }
@@ -31,7 +30,11 @@ class PrivateRoute extends React.Component {
 
     if (isLoggedIn) {
       const Component = this.props.component
-      return <Route path={this.props.path} component={Component} />
+      history.replaceState({}, document.title, this.props.path)
+
+      return (
+          <Route exact path={this.props.path} component={Component} />
+      )
     }
     else {
       return <div>Loading...</div>
