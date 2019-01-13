@@ -2,9 +2,9 @@ import 'whatwg-fetch'
 import { createAction } from 'redux-actions'
 import * as types from './repoTypes'
 
-export const fetchRepository = (owner, name, token) => {
+export const fetchRepo = (owner, name, token) => {
   return (dispatch) => {
-    dispatch(fetchingRepository())
+    dispatch(fetchingRepo())
 
     return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`, {
       method: 'POST',
@@ -19,7 +19,7 @@ export const fetchRepository = (owner, name, token) => {
         if (response.status === 200) {
           return response.json()
         } else {
-          dispatch(fetchRepositoryError())
+          dispatch(fetchRepoError())
         }
       })
       .then(json => {
@@ -31,15 +31,15 @@ export const fetchRepository = (owner, name, token) => {
           name: name,
           data: result.data
         }
-        dispatch(fetchRepositorySuccess(payload))
+        dispatch(fetchRepoSuccess(payload))
       })
       .catch(error => {
-        dispatch(fetchRepositoryError(error))
+        dispatch(fetchRepoError(error))
       })
   }
 }
 
-export const changeRepository = (owner, name) => {
+export const changeRepo = (owner, name) => {
   return (dispatch) => {
     dispatch(changingRepo())
 
@@ -52,8 +52,8 @@ export const changeRepository = (owner, name) => {
   }
 }
 
-const fetchingRepository = createAction(types.FETCHING_REPOSITORY)
-const fetchRepositoryError = createAction(types.FETCH_REPOSITORY_ERROR)
-const fetchRepositorySuccess = createAction(types.FETCH_REPOSITORY_SUCCESS)
-const changingRepo = createAction(types.CHANGING_REPOSITORY)
-const changeRepoSuccess = createAction(types.CHANGE_REPOSITORY_SUCCESS)
+const fetchingRepo = createAction(types.FETCHING_REPO)
+const fetchRepoError = createAction(types.FETCH_REPO_ERROR)
+const fetchRepoSuccess = createAction(types.FETCH_REPO_SUCCESS)
+const changingRepo = createAction(types.CHANGING_REPO)
+const changeRepoSuccess = createAction(types.CHANGE_REPO_SUCCESS)

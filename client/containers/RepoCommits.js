@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { changeScreen } from '../actions/ui'
-import { fetchRepository } from '../actions/repo'
+import { fetchRepo } from '../actions/repo'
 
-class RepositoryCommits extends React.Component {
+class RepoCommits extends React.Component {
 	constructor(props) {
 		super(props)
 	}
@@ -30,7 +30,7 @@ class RepositoryCommits extends React.Component {
 		if (!repo.isFetching && !repo.isComplete && user.isLoggedIn) {
 			const { owner, name } = repo
 
-			dispatch(fetchRepository(owner, name, token))
+			dispatch(fetchRepo(owner, name, token))
 		}
 	}
   
@@ -42,7 +42,7 @@ class RepositoryCommits extends React.Component {
 			const owner = repo.owner || 'facebook'
 			const name = repo.name || 'react'
 
-			dispatch(fetchRepository(owner, name, token))
+			dispatch(fetchRepo(owner, name, token))
 		}
     
 		dispatch(changeScreen({ screen: this.props.graphComponent.name }))
@@ -63,7 +63,7 @@ class RepositoryCommits extends React.Component {
 	}
 }
 
-RepositoryCommits.propTypes = {
+RepoCommits.propTypes = {
 	screen: PropTypes.string.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	repo: PropTypes.object.isRequired,
@@ -78,4 +78,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(RepositoryCommits)
+export default connect(mapStateToProps)(RepoCommits)

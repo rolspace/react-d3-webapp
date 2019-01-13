@@ -1,5 +1,5 @@
 import React from 'react'
-import RepositoryForm from '../containers/RepositoryForm'
+import RepoForm from '../containers/RepoForm'
 
 const GraphPage = (DatasourceComponent, GraphComponent, options) => {
 	return class GraphPageContainer extends React.Component {
@@ -10,7 +10,7 @@ const GraphPage = (DatasourceComponent, GraphComponent, options) => {
 		render() {
 			return (
 				<div>
-          <RepositoryForm />
+          <RepoForm />
           <DatasourceComponent graphComponent={GraphComponent} options={options} />
 				</div>
 			)

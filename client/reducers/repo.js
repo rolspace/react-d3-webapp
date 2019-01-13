@@ -17,18 +17,18 @@ const initialState = {
 
 const repo = (state = initialState, action) => {
 	switch (action.type) {
-		case types.FETCHING_REPOSITORY:
+		case types.FETCHING_REPO:
       return _.merge({}, state, {
         isComplete: false,
         isFetching: true
       })
-		case types.FETCH_REPOSITORY_ERROR:
+		case types.FETCH_REPO_ERROR:
       return _.merge({}, state, {
         error: 'some error',
         isComplete: true,
         isFetching: false,
       })
-		case types.FETCH_REPOSITORY_SUCCESS: {
+		case types.FETCH_REPO_SUCCESS: {
 			const groupData = new GroupData()
 			const data = action.payload.data
 			
@@ -44,10 +44,10 @@ const repo = (state = initialState, action) => {
 				isFetching: false
 			})
 		}
-		case types.CHANGING_REPOSITORY: {
+		case types.CHANGING_REPO: {
 			return initialState
 		}
-		case types.CHANGE_REPOSITORY_SUCCESS:
+		case types.CHANGE_REPO_SUCCESS:
       return _.merge({}, state, {
 				owner: action.payload.owner,
 				name: action.payload.name

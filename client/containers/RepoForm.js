@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import { changeRepository } from '../actions/repo'
+import { changeRepo } from '../actions/repo'
 
 const styles = {
 	container: {
@@ -17,7 +17,7 @@ const styles = {
 	}
 }
 
-class RepositoryForm extends React.Component {
+class RepoForm extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -45,7 +45,7 @@ class RepositoryForm extends React.Component {
 
 		if (user.isLoggedIn) {
 			const { dispatch } = this.props
-			dispatch(changeRepository(this.state.owner, this.state.name))
+			dispatch(changeRepo(this.state.owner, this.state.name))
 		}
 	}
   
@@ -73,7 +73,7 @@ class RepositoryForm extends React.Component {
 	}
 }
 
-RepositoryForm.propTypes = {
+RepoForm.propTypes = {
 	classes: PropTypes.object.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
@@ -90,4 +90,4 @@ const mapStateToProps = (state) => {
 }
 
 //TODO: look into using mapDispatchToProps instead of rendering in this component
-export default connect(mapStateToProps)(withStyles(styles)(RepositoryForm))
+export default connect(mapStateToProps)(withStyles(styles)(RepoForm))
