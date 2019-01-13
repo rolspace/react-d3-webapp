@@ -19,7 +19,6 @@ const getCommits = (req, res) => {
 	}
 
 	const { owner, name } = req.params
-	console.log(req.body)
 	const { token } = req.body
 
 	if (!owner || !name) {

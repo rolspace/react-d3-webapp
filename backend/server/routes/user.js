@@ -25,8 +25,8 @@ const postToken = (req, res) => {
       'Accept': 'application/json'
     },
 		formData: {
-      client_id: '5757b639c3b7cf82d4ca',
-      client_secret: '5327ec4fd8f2f7e57766cd96696e200abb0a5007',
+      client_id: process.env.APPLICATION_ID,
+      client_secret: process.env.APPLICATION_SECRET,
       code: code,
       state: state
 		}
