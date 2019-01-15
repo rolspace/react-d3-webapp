@@ -9,7 +9,7 @@ const xLabelMargin = 35
 const yLabelMargin = 50
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 
-class BarGraphRenderer {
+class BarGraphRender {
 	constructor(node, data) {
 		this.node = node
 		this.innerNode = d3.select(this.node).append('g')
@@ -87,4 +87,4 @@ class BarGraphRenderer {
 	}
 }
 
-export default BarGraphRenderer
+export default BarGraphRender
