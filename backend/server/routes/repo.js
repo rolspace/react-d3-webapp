@@ -9,7 +9,7 @@ const logger = utils.logger
 const getCommits = (req, res) => {	
 	const query = queries.getQuery('repo-commits')
 	if (!query) {
-		logger.error({ message: 'repository.getCommits() error: query repo-commits does not exist' })
+		logger.error({ message: 'repo.getCommits() error: query repo-commits does not exist' })
 		const appError = new AppError({
 			message: 'Internal server error',
 			status: HttpStatus.internalError
@@ -22,7 +22,7 @@ const getCommits = (req, res) => {
 	const { token } = req.body
 
 	if (!owner || !name) {
-		logger.error({ message: `repository.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
+		logger.error({ message: `repo.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
 		const appError = new AppError({
 			message: `The ${!owner ? 'owner' : 'name'} parameter is empty`,
 			status: HttpStatus.unprocessable
@@ -32,7 +32,7 @@ const getCommits = (req, res) => {
 	}
 
 	if (!token) {
-		logger.error({ message: 'repository.getCommits() error: token not provided', request: req })
+		logger.error({ message: 'repo.getCommits() error: token not provided', request: req })
 		const appError = new AppError({
 			message: 'Token not provided',
 			status: HttpStatus.unprocessable
@@ -54,7 +54,7 @@ const getCommits = (req, res) => {
 	
 	rp.post(options)
 	.then(json => {
-		logger.info({ message: 'repository.getCommits() info: Github request successful', payload: json, request: req })
+		logger.info({ message: 'repo.getCommits() info: Github request successful', payload: json, request: req })
 		
 		const commits = {
 			type: 'commit',
@@ -64,7 +64,7 @@ const getCommits = (req, res) => {
 		res.status(HttpStatus.ok).send(commits)
 	})
 	.catch(error => {
-		logger.error({ message: 'repository.getCommits() error: Github request failed', error: error, request: req })
+		logger.error({ message: 'repo.getCommits() error: Github request failed', error: error, request: req })
 		
 		const appError = new AppError({
 			message: 'Internal server error',

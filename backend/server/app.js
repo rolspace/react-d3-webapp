@@ -2,11 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const utils = require('../common/utils')
-const constants = require('../common/constants')
-const repository = require('./routes/repository')
-const user = require('./routes/user')
-
 const queries = require('../common/queries')
+const constants = require('../common/constants')
+const repo = require('./routes/repo')
+const user = require('./routes/user')
 
 const app = express()
 const logger = utils.logger
@@ -19,7 +18,7 @@ const init = () => {
 	
 	app.options('/api/user/token')
 	app.post('/api/user/token', user.postToken)
-	app.post('/api/repository/commits/:owner/:name', repository.getCommits)
+	app.post('/api/repo/:owner/:name', repo.getCommits)
 
 	app.use((req, res) => {
 		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' })

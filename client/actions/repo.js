@@ -6,7 +6,7 @@ export const fetchRepo = (owner, name, token) => {
   return (dispatch) => {
     dispatch(fetchingRepo())
 
-    return fetch(`${process.env.BACKEND_URL}/api/repository/commits/${owner}/${name}/`, {
+    return fetch(`${process.env.BACKEND_URL}/api/repo/${owner}/${name}/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

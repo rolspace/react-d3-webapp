@@ -3,14 +3,14 @@ const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
-const repository = require('../../server/routes/repository')
+const repo = require('../../server/routes/repo')
 
 const expect = chai.expect
 chai.use(sinonChai)
 
 let res, rpStub
 
-describe('repository module', function() {
+describe('repo module', function() {
   beforeEach(function() {
     loggerStubInfo = sinon.stub(utils.logger, 'info').callsFake(() => { })
     loggerStubError = sinon.stub(utils.logger, 'error').callsFake(() => { })
@@ -33,10 +33,10 @@ describe('repository module', function() {
       params: { name: 'test', owner: 'test' }
     }
     
-    const data = { data: { repository: { ref: { target: { history: { edges: [] }}}}}}
+    const data = { data: { repo: { ref: { target: { history: { edges: [] }}}}}}
     rpStub =  sinon.stub(rp, 'post').resolves(data)
     
-    await repository.getCommits(req, res)
+    await repo.getCommits(req, res)
     rpStub.restore()
     
     expect(res.send).to.have.been.calledOnce
@@ -49,7 +49,7 @@ describe('repository module', function() {
       params: { owner: 'test' }
     }
     
-    await repository.getCommits(req, res)
+    await repo.getCommits(req, res)
     
     expect(res.send).to.have.been.calledOnce
     expect(res.status).to.have.been.calledOnce
@@ -64,7 +64,7 @@ describe('repository module', function() {
     
     rpStub = sinon.stub(rp, 'post').rejects('some error')
     
-    await repository.getCommits(req, res)
+    await repo.getCommits(req, res)
     rpStub.restore()
     
     expect(res.send).to.have.been.calledOnce

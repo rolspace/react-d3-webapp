@@ -2,13 +2,13 @@ import 'whatwg-fetch'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import * as types from '../../actions/repoTypes'
-import { fetchRepository } from '../../actions/repo'
+import { fetchRepo } from '../../actions/repo'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
 describe('Actions: repo actions', () => {
-  test('fetchRepo dispatches a FETCHING_REPOSITORY action and a FETCH_REPOSITORY_SUCCESS action if it is successful', () => {
+  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_SUCCESS action if it is successful', () => {
     const data = {
       type: 'commit',
       data: [{
@@ -46,11 +46,11 @@ describe('Actions: repo actions', () => {
     
     const store = mockStore({ repo: {} })
     
-    return store.dispatch(fetchRepository('owner', 'name')).then(() => {
+    return store.dispatch(fetchRepo('owner', 'name')).then(() => {
       expect(store.getActions()).toEqual([
-        { type: types.FETCHING_REPOSITORY },
+        { type: types.FETCHING_REPO },
         {
-          type: types.FETCH_REPOSITORY_SUCCESS,
+          type: types.FETCH_REPO_SUCCESS,
           payload: {
             owner: 'owner',
             name: 'name',
@@ -61,15 +61,15 @@ describe('Actions: repo actions', () => {
     })
   })
 
-  test('fetchRepo dispatches a FETCHING_REPOSITORY action and a FETCH_REPOSITORY_ERROR action if there is an error', () => {
+  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', () => {
     global.fetch = jest.fn().mockImplementation(() => Promise.reject('some error'))
     
     const store = mockStore({ repo: {} })
     
-    return store.dispatch(fetchRepository('owner', 'name')).then(() => {
+    return store.dispatch(fetchRepo('owner', 'name')).then(() => {
       expect(store.getActions()).toEqual([
-        { type: types.FETCHING_REPOSITORY },
-        { type: types.FETCH_REPOSITORY_ERROR, payload: 'some error' }
+        { type: types.FETCHING_REPO },
+        { type: types.FETCH_REPO_ERROR, payload: 'some error' }
       ])
     })
   })

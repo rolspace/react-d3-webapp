@@ -37,7 +37,7 @@ const postToken = (req, res) => {
     res.status(HttpStatus.ok).send(json)
   })
   .catch(error => {
-    logger.error({ message: 'repository.getCommits() error: Github request failed', error: error, request: req })
+    logger.error({ message: 'user.postToken() error: Github request failed', error: error, request: req })
 
     const appError = new AppError({
 			message: 'Internal server error',

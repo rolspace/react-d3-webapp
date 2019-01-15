@@ -16,7 +16,7 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  test('returns the correct object when the FETCH_REPOSITORY_SUCCESS action is executed', () => {
+  test('returns the correct object when the FETCH_REPO_SUCCESS action is executed', () => {
     const payload = {
       owner: 'owner',
       name: 'name',
@@ -52,7 +52,7 @@ describe('Reducers: repo reducer', () => {
       ]
     }
     
-    expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_SUCCESS', payload: payload })).toEqual({
+    expect(repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload })).toEqual({
       commits: {
         changedFiles: [
           { min: 1, max: 1, count: 1, label: '1' },
@@ -96,8 +96,8 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  test('returns the correct object when the FETCHING_REPOSITORY action is executed', () => {
-    expect(repoReducer(undefined, { type: 'FETCHING_REPOSITORY' })).toEqual({
+  test('returns the correct object when the FETCHING_REPO action is executed', () => {
+    expect(repoReducer(undefined, { type: 'FETCHING_REPO' })).toEqual({
       commits: {
         changedFiles: [],
         linesAdded: [],
@@ -111,8 +111,8 @@ describe('Reducers: repo reducer', () => {
     })
   })
   
-  test('returns the correct object when the FETCH_REPOSITORY_ERROR action is executed', () => {
-    expect(repoReducer(undefined, { type: 'FETCH_REPOSITORY_ERROR' })).toEqual({
+  test('returns the correct object when the FETCH_REPO_ERROR action is executed', () => {
+    expect(repoReducer(undefined, { type: 'FETCH_REPO_ERROR' })).toEqual({
       commits: {
         changedFiles: [],
         linesAdded: [],
