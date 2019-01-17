@@ -1,11 +1,11 @@
 import _ from 'lodash'
 
-const Groups = {
-	SMALL: Symbol('small'),
-	LARGE: Symbol('large')
+const Ranges = {
+	LOW: Symbol('low'),
+	HIGH: Symbol('high')
 }
 
-const smallGroup = [
+const lowRank = [
 	{ min: 1, max: 1, count:0, label: '1' },
 	{ min: 2, max: 2, count:0, label: '2' },
 	{ min: 3, max: 3, count:0, label: '3' },
@@ -17,7 +17,7 @@ const smallGroup = [
 	{ min: 30, max: 10000, count:0, label: '30+' }
 ]
 
-const largeGroup = [
+const highRank = [
 	{ min: 1, max: 20, count:0, label: '1-20' },
 	{ min: 21, max: 40, count:0, label: '21-40' },
 	{ min: 41, max: 60, count:0, label: '41-60' },
@@ -29,41 +29,41 @@ const largeGroup = [
 	{ min: 1500, max: 10000, count:0, label: '1500+' }
 ]
 
-const assignToGroup = (group, property, value) => {
-	let found = group.find((range) => range.min <= value.node[property] && range.max >= value.node[property])
+const assignToRange = (range, property, value) => {
+	let found = range.find((limit) => limit.min <= value.node[property] && limit.max >= value.node[property])
   
 	if (found) {
 		found.count++
 	}
   
-	return group
+	return range
 }
 
-const createGroup = (collection, property, groupType) => {
-	const initialGroup = _.cloneDeep(groupType == Groups.SMALL ? [...smallGroup] : [...largeGroup])
+const createRange = (collection, property, rangeType) => {
+	const startRange = _.cloneDeep(rangeType == Ranges.SMALL ? [...lowRank] : [...highRank])
   
 	if (collection && collection.length) {
-		const updatedGroup = collection.reduce((group, value) => {
-			group = assignToGroup(group, property, value)
-			return group
-		}, initialGroup)
+		const updatedGroup = collection.reduce((range, value) => {
+			range = assignToRange(range, property, value)
+			return range
+		}, startRange)
     
 		return updatedGroup
 	}
   
-	return initialGroup
+	return startRange
 }
 
-class GroupData {
-	createSmallGroup(collection, property) {
-		const group = createGroup(collection, property, Groups.SMALL)
+class Rank {
+	createLowRange(collection, property) {
+		const group = createRange(collection, property, Ranges.LOW)
 		return group
 	}
   
-	createLargeGroup(collection, property) {
-		const group = createGroup(collection, property, Groups.LARGE)
+	createHighRange(collection, property) {
+		const group = createRange(collection, property, Ranges.HIGH)
 		return group
 	}
 }
 
-export default GroupData
+export default Rank

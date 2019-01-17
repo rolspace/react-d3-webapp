@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import GroupData from '../common/groupData'
+import Range from '../common/range'
 import * as types from '../actions/repoTypes'
 
 const initialState = {
@@ -29,14 +29,14 @@ const repo = (state = initialState, action) => {
         isFetching: false,
       })
 		case types.FETCH_REPO_SUCCESS: {
-			const groupData = new GroupData()
+			const range = new Range()
 			const data = action.payload.data
 			
 			return _.merge({}, state, {
 				commits: {
-					changedFiles: groupData.createSmallGroup(data, 'changedFiles'),
-					linesAdded: groupData.createLargeGroup(data, 'additions'),
-					linesDeleted: groupData.createLargeGroup(data, 'deletions')
+					changedFiles: range.createLowRange(data, 'changedFiles'),
+					linesAdded: range.createHighRange(data, 'additions'),
+					linesDeleted: range.createHighRange(data, 'deletions')
 				},
 				owner: action.payload.owner,
 				name: action.payload.name,
