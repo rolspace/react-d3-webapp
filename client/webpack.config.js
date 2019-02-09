@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 
 const babelConfig = Object.assign({}, pkg.babel, {
@@ -27,7 +27,10 @@ const config = {
 		chunkFilename: isDev ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
 		sourcePrefix: '  ',
 	},
-  
+	optimization: {
+		minimize: !isDev
+	},
+	
 	devtool: isDev ? 'source-map' : false,
   
 	stats: {
@@ -43,12 +46,7 @@ const config = {
 	},
   
 	plugins: [
-		new Dotenv({
-			path: isDev ? './.env' : './.env-live'
-		}),
-		new webpack.LoaderOptionsPlugin({
-			debug: isDev
-		}),
+		new Dotenv(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
@@ -107,7 +105,6 @@ const config = {
 };
 
 if (!isDev) {
-	config.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: isVerbose } }));
 	config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
 
