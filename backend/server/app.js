@@ -5,7 +5,7 @@ const utils = require('../common/utils')
 const queries = require('../common/queries')
 const constants = require('../common/constants')
 const repo = require('./routes/repo')
-const user = require('./routes/user')
+const token = require('./routes/token')
 
 const app = express()
 const logger = utils.logger
@@ -16,8 +16,8 @@ const init = () => {
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 	
-	app.options('/api/user/token')
-	app.post('/api/user/token', user.postToken)
+	app.options('/api/token')
+	app.post('/api/token', token.postToken)
 	app.post('/api/repo/:owner/:name', repo.getCommits)
 
 	app.use((req, res) => {
