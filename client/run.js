@@ -1,5 +1,6 @@
 /* eslint-disable no-console, global-require */
 
+const fs = require('fs')
 const del = require('del')
 const webpack = require('webpack')
 const express = require('./server/app')
@@ -9,21 +10,36 @@ const tasks = new Map()
 function run(task) {
 	const start = new Date()
 	console.log(`Starting '${task}'...`)
-	return Promise.resolve().then(() => tasks.get(task)()).then(() => {
-		console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)
-	}, err => console.error(err.stack))
+
+	return new Promise((resolve) => {
+		tasks.get(task)()
+		.then(() => {
+			console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)	
+			resolve()
+		})
+		.catch(error => {
+			console.log(error)
+			resolve()
+		})
+	})
 }
 
-tasks.set('clean', () => del(['public/dist/*', '!public/dist/.git'], { dot: true }))
+tasks.set('clean', () => {
+	return new Promise(resolve => {
+		del(['public/dist/*', '!public/dist/.git'], { dot: true })
+		.then(() => resolve())
+	})
+})
 
 // Bundle JavaScript, CSS and image files with Webpack
 tasks.set('bundle', () => {
 	const webpackConfig = require('./webpack.config')
 	return new Promise((resolve, reject) => {
-		webpack(webpackConfig).run((err, stats) => {
-			if (err) {
-				reject(err)
-			} else {
+		webpack(webpackConfig).run((error, stats) => {
+			if (error) {
+				reject(error)
+			}
+			else {
 				console.log(stats.toString(webpackConfig.stats))
 				resolve()
 			}
@@ -76,12 +92,19 @@ tasks.set('dev', () => {
 // Build website and start the Express server
 tasks.set('pro', () => {
 	process.env.NODE_ENV = 'production'
-  
-	return Promise.resolve()
-	.then(() => run('clean'))
-	.then(() => run('bundle'))
-	.then(() => {
-		express.init()
+	
+	const buildFile = 'public/dist/main.js'
+
+	return new Promise((resolve, reject) => {
+		fs.access(buildFile, fs.constants.R_OK, (error) => {
+			if (error) {
+				reject(error)
+			}
+			else {
+				express.init()
+				resolve()
+			}
+		})
 	})
 })
 
