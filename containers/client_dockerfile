@@ -1,6 +1,13 @@
-FROM node:9.11.1
+FROM node:9.11.1-alpine as build
 WORKDIR /app
 COPY client/ .
+RUN npm install
+RUN export NODE_ENV=production && node run build
+RUN rm .eslintrc.json .env webpack.config.js
+
+FROM node:9.11.1-alpine
+WORKDIR /app
+COPY --from=build app/ .
 RUN npm install --only=production
 EXPOSE 8000
-ENTRYPOINT ["node", "run-pro"]
+ENTRYPOINT ["node", "run", "pro"]

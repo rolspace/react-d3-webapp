@@ -1,5 +1,0 @@
-client/*
-!client/public/
-!client/server/
-!client/run-live.js
-!client/package.json
