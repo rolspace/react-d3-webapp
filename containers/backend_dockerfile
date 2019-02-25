@@ -1,6 +1,7 @@
-FROM node:9.11.1
+FROM node:9.11.1-alpine
 WORKDIR /app
 COPY backend/ .
+RUN rm .eslintrc
 RUN npm install --only=production
 EXPOSE 9000
-ENTRYPOINT ["node", "run-pro"]
+ENTRYPOINT ["node", "run"]
