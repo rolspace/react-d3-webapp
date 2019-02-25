@@ -3,7 +3,7 @@ WORKDIR /app
 COPY client/ .
 RUN npm install
 RUN export NODE_ENV=production && node run build
-RUN rm .eslintrc.json .env webpack.config.js
+RUN rm .eslintrc.json webpack.config.js
 
 FROM node:9.11.1-alpine
 WORKDIR /app
