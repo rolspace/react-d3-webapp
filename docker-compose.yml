@@ -11,21 +11,28 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   reactd3appclient:
-    image: reactd3appclient
+    build:
+      context: .
+      dockerfile: dockerfiles/client_dockerfile
+      args:
+        appid: appid
+        backendurl: http://backendurl
     networks:
       - reactd3appnet
     environment:
       - VIRTUAL_HOST=reactd3client
 
   reactd3appbackend:
-    image: reactd3appbackend
+    build:
+      context: .
+      dockerfile: dockerfiles/backend_dockerfile
     networks:
       - reactd3appnet
     environment:
-      - CLIENT_URL=http://reactd3client
-      - GITHUB_TOKEN=somevalidgithubtoken
-      - GITHUB_USER=someuser
-      - VIRTUAL_HOST=reactd3backend
+      - APPLICATION_ID=appid
+      - APPLICATION_SECRET=appsecret
+      - CLIENT_URL=http://clienturl
+      - VIRTUAL_HOST=reactd3server
 
 networks:
   reactd3appnet:

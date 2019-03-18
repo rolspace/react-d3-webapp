@@ -1,13 +1,19 @@
 FROM node:9.11.1-alpine as build
 WORKDIR /app
 COPY client/ .
-RUN npm install
+ARG appid
+ARG backendurl
+ENV APPLICATION_ID=$appid
+ENV BACKEND_URL=$backendurl
+RUN export NODE_ENV=development && npm install
 RUN export NODE_ENV=production && node run build
 RUN rm .eslintrc.json webpack.config.js
 
 FROM node:9.11.1-alpine
 WORKDIR /app
 COPY --from=build app/ .
-RUN npm install --only=production
+ENV NODE_ENV=production
+RUN npm install
+RUN apk add --no-cache bash
 EXPOSE 8000
 ENTRYPOINT ["node", "run", "pro"]

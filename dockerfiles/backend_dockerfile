@@ -3,5 +3,6 @@ WORKDIR /app
 COPY backend/ .
 RUN rm .eslintrc
 RUN npm install --only=production
+RUN apk add --no-cache bash
 EXPOSE 9000
 ENTRYPOINT ["node", "run"]
