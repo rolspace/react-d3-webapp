@@ -12,14 +12,13 @@ const babelConfig = Object.assign({}, pkg.babel, {
 	babelrc: false
 });
 
+const devEntry = [ 'webpack-hot-middleware/client', 'whatwg-fetch', './main.js' ]
+const prodEntry = [ 'whatwg-fetch', './main.js' ]
+
 const config = {
   mode: 'none',
 	context: __dirname,
-	entry: [
-		'webpack-hot-middleware/client',
-		'whatwg-fetch',
-		'./main.js',
-	],
+	entry: isDev ? devEntry : prodEntry,
 	output: {
 		path: path.resolve(__dirname, './public/dist'),
 		publicPath: '/dist/',
@@ -46,14 +45,8 @@ const config = {
 	},
   
 	plugins: [
-		new Dotenv(),
-		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': isDev ? '"development"' : '"production"',
-			__DEV__: isDev,
-		})
 	],
   
 	module: {
@@ -104,7 +97,21 @@ const config = {
 	}
 };
 
-if (!isDev) {
+if (isDev) {
+	config.plugins.push(new webpack.DefinePlugin({
+		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+		__DEV__: isDev,
+		}));
+	config.plugins.push(new webpack.HotModuleReplacementPlugin());
+	config.plugins.push(new Dotenv());
+}
+else {
+	config.plugins.push(new webpack.DefinePlugin({
+		'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
+		'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
+		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+		__DEV__: isDev,
+	}));
 	config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
 
