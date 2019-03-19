@@ -11,7 +11,7 @@
     "dev": "node run.js",
     "pro": "node run.js",
     "lint": "eslint . --ext .js",
-    "test": "mocha ./test/**/*.test.js"
+    "test": "mocha ./tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
