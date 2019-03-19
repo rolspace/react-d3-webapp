@@ -3,7 +3,7 @@
 const fs = require('fs')
 const del = require('del')
 const webpack = require('webpack')
-const express = require('./server/app')
+const express = require('./app')
 
 const tasks = new Map()
 
