@@ -1,13 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const utils = require('../common/utils')
-const queries = require('../common/queries')
-const constants = require('../common/constants')
+const utils = require('./common/utils')
+const queries = require('./common/queries')
+const constants = require('./common/constants')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
 
 const app = express()
+
 const logger = utils.logger
 const HttpStatus = constants.http
 
