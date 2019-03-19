@@ -1,9 +1,9 @@
 const rp = require('request-promise-native')
-const utils = require('../../common/utils')
-const HttpStatus = require('../../common/constants').http
+const utils = require('../common/utils')
+const HttpStatus = require('../common/constants').http
 
-const queries = require('../../common/queries')
-const AppError = require('../../common/error')
+const queries = require('../common/queries')
+const AppError = require('../common/error')
 const logger = utils.logger
 
 const getCommits = (req, res) => {	

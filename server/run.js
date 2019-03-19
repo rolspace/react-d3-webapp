@@ -1,4 +1,4 @@
 require('dotenv').config()
 
-const serverApp = require('./server/app')
-serverApp.init()
+const server = require('./index')
+server.init()

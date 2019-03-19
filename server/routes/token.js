@@ -1,7 +1,7 @@
 const rp = require('request-promise-native')
-const utils = require('../../common/utils')
-const AppError = require('../../common/error')
-const HttpStatus = require('../../common/constants').http
+const utils = require('../common/utils')
+const AppError = require('../common/error')
+const HttpStatus = require('../common/constants').http
 
 const logger = utils.logger
 

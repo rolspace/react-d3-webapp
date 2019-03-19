@@ -3,7 +3,7 @@ const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 const rp = require('request-promise-native')
 const utils = require('../../common/utils')
-const repo = require('../../server/routes/repo')
+const repo = require('../../routes/repo')
 
 const expect = chai.expect
 chai.use(sinonChai)
