@@ -13,7 +13,7 @@ services:
   reactd3appclient:
     build:
       context: .
-      dockerfile: docker/client_dockerfile
+      dockerfile: _docker/client_dockerfile
       args:
         appid: appid
         backendurl: http://backendurl
@@ -25,7 +25,7 @@ services:
   reactd3appbackend:
     build:
       context: .
-      dockerfile: docker/backend_dockerfile
+      dockerfile: _docker/backend_dockerfile
     networks:
       - reactd3appnet
     environment:
