@@ -3,7 +3,7 @@
 const fs = require('fs')
 const del = require('del')
 const webpack = require('webpack')
-const express = require('./app')
+const server = require('./server')
 
 const tasks = new Map()
 
@@ -101,7 +101,7 @@ tasks.set('pro', () => {
 				reject(error)
 			}
 			else {
-				express.init()
+				server.start()
 				resolve()
 			}
 		})

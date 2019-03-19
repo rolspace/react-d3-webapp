@@ -6,7 +6,7 @@ const express = require('express')
 
 const app = express()
 
-const init = () => {
+const start = () => {
 	app.use(express.static(path.join(process.cwd() + '/public')))
   
 	app.get('*', function (req, res) {
@@ -28,5 +28,5 @@ const init = () => {
 }
 
 module.exports = {
-	init
+	start
 }
