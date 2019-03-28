@@ -10,7 +10,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('repo module', () => {
-  let res, rpStub
+  let res
 
   beforeEach(() => {
     loggerStubInfo = sinon.stub(utils.logger, 'info').callsFake(() => { })
@@ -30,12 +30,11 @@ describe('repo module', () => {
   })
   
   it('responds with a 200 status code when the data is retrieved', async () => {
-    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
-
     const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
-    
     const data = { data: { repository: { ref: { target: { history: { edges: [] }}}}}}
-    rpStub =  sinon.stub(rp, 'post').resolves(data)
+
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
+    const rpStub =  sinon.stub(rp, 'post').resolves(data)
     
     await repo.getCommits(req, res)
     
@@ -48,9 +47,8 @@ describe('repo module', () => {
   })
   
   it('creates an HTTP 422 response if the name parameter is not in the request body', async () => {
-    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
-
     const req = { params: { owner: 'owner' } }
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
     
     await repo.getCommits(req, res)
     
@@ -63,11 +61,9 @@ describe('repo module', () => {
   
   //TODO: this test fails for some reason I do not quite understand. I will need to revisit this to find a solution.
   it('creates an HTTP 500 response if there an error retrieving the external data', async () => {
-    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
-
     const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
-    
-    rpStub = sinon.stub(rp, 'post').rejects('error')
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
+    const rpStub = sinon.stub(rp, 'post').rejects('error')
     
     await repo.getCommits(req, res)
     

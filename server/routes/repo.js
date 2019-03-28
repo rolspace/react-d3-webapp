@@ -63,7 +63,7 @@ const getCommits = (req, res) => {
 			data: json.data.repository.ref.target.history.edges
 		}
 		
-		return res.status(httpStatus.ok).send(commits)
+		res.status(httpStatus.ok).send(commits)
 	})
 	.catch(error => {
 		logger.error({ message: 'repo.getCommits() error: Github request failed', error: error, request: req })
@@ -73,7 +73,7 @@ const getCommits = (req, res) => {
 			status: httpStatus.internalError
 		})
 		
-		return res.status(serverError.status).send(serverError)
+		res.status(serverError.status).send(serverError)
 	})
 }
 
