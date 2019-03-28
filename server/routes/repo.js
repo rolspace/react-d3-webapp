@@ -19,7 +19,6 @@ const getCommits = (req, res) => {
 	}
 
 	const { owner, name } = req.params
-	const { token } = req.body
 
 	if (!owner || !name) {
 		logger.error({ message: `repo.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
@@ -30,6 +29,8 @@ const getCommits = (req, res) => {
 		
 		return res.status(appError.status).send(appError)
 	}
+
+	const { token } = req.body
 
 	if (!token) {
 		logger.error({ message: 'repo.getCommits() error: token not provided', request: req })
@@ -61,7 +62,7 @@ const getCommits = (req, res) => {
 			data: json.data.repository.ref.target.history.edges
 		}
 		
-		res.status(HttpStatus.ok).send(commits)
+		return res.status(HttpStatus.ok).send(commits)
 	})
 	.catch(error => {
 		logger.error({ message: 'repo.getCommits() error: Github request failed', error: error, request: req })
@@ -71,7 +72,7 @@ const getCommits = (req, res) => {
 			status: HttpStatus.internalError
 		})
 		
-		res.status(appError.status).send(appError)
+		return res.status(appError.status).send(appError)
 	})
 }
 

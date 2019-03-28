@@ -2,16 +2,17 @@ const chai = require('chai')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 const rp = require('request-promise-native')
+const queries = require('../../common/queries')
 const utils = require('../../common/utils')
 const repo = require('../../routes/repo')
 
 const expect = chai.expect
 chai.use(sinonChai)
 
-let res, rpStub
+describe('repo module', () => {
+  let res, rpStub
 
-describe('repo module', function() {
-  beforeEach(function() {
+  beforeEach(() => {
     loggerStubInfo = sinon.stub(utils.logger, 'info').callsFake(() => { })
     loggerStubError = sinon.stub(utils.logger, 'error').callsFake(() => { })
     
@@ -21,35 +22,39 @@ describe('repo module', function() {
     }
   })
   
-  afterEach(function() {
+  afterEach(() => {
     loggerStubInfo.restore()
     loggerStubError.restore()
-    
+
     res = {}
   })
   
-  it('creates an HTTP 200 response if there a valid response', async function() {
-    const req = {
-      params: { name: 'test', owner: 'test' }
-    }
+  it('responds with a 200 status code when the data is retrieved', async () => {
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
+
+    const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
     
-    const data = { data: { repo: { ref: { target: { history: { edges: [] }}}}}}
+    const data = { data: { repository: { ref: { target: { history: { edges: [] }}}}}}
     rpStub =  sinon.stub(rp, 'post').resolves(data)
     
     await repo.getCommits(req, res)
+    
     rpStub.restore()
+    queriesStub.restore()
     
     expect(res.send).to.have.been.calledOnce
     expect(res.status).to.have.been.calledOnce
     expect(res.status).to.have.been.calledWith(200)
   })
   
-  it('creates an HTTP 422 response if the name parameter is not in the request body', async function() {
-    const req = {
-      params: { owner: 'test' }
-    }
+  it('creates an HTTP 422 response if the name parameter is not in the request body', async () => {
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
+
+    const req = { params: { owner: 'owner' } }
     
     await repo.getCommits(req, res)
+    
+    queriesStub.restore()
     
     expect(res.send).to.have.been.calledOnce
     expect(res.status).to.have.been.calledOnce
@@ -57,15 +62,17 @@ describe('repo module', function() {
   })
   
   //TODO: this test fails for some reason I do not quite understand. I will need to revisit this to find a solution.
-  it('creates an HTTP 500 response if there an error retrieving the external data', async function() {
-    const req = {
-      params: { name: 'test1', owner: 'test1' }
-    }
+  it('creates an HTTP 500 response if there an error retrieving the external data', async () => {
+    const queriesStub = sinon.stub(queries, 'getQuery').returns({ data: "repository(name: \"%NAME%\", owner: \"%OWNER%\")" })
+
+    const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
     
-    rpStub = sinon.stub(rp, 'post').rejects('some error')
+    rpStub = sinon.stub(rp, 'post').rejects('error')
     
     await repo.getCommits(req, res)
+    
     rpStub.restore()
+    queriesStub.restore()
     
     expect(res.send).to.have.been.calledOnce
     expect(res.status).to.have.been.calledOnce
