@@ -1,8 +1,10 @@
+const path = require('path')
 const rp = require('request-promise-native')
 const constants = require('../common/constants')
-const logger = require('../common/logger')
 const ServerError = require('../common/error')
+const logger = require('../common/logger')
 
+const ns = path.relative(process.cwd(), __filename)
 const httpStatus = constants.http
 
 const post = async (req, res, next) => {
@@ -10,9 +12,9 @@ const post = async (req, res, next) => {
     const { code, state } = req.body
 
     if (!code || !state ) {
-      logger.error({ message: `token.postToken() error: parameter ${!code ? 'code' : 'state'} is empty`, request: req })
+      logger.error({ ns: `${ns}:post`, message: `parameter ${!code ? 'code' : 'state'} is undefined`, request: req })
       const serverError = new ServerError({
-        message: `The parameter ${!code ? 'code' : 'state'} is empty`,
+        message: `The parameter ${!code ? 'code' : 'state'} is undefined`,
         status: httpStatus.unprocessable
       })
 
@@ -34,23 +36,12 @@ const post = async (req, res, next) => {
     }
 
     const json = await rp.post(options)
+    logger.info({ ns: `${ns}:post`, message: 'Github request successful', result: json })
+
     res.status(httpStatus.ok).send(json)
-    // .then(json => {
-    //   res.status(httpStatus.ok).send(json)
-    // })
-    // .catch(error => {
-    //   logger.error({ message: 'user.postToken() error: Github request failed', error: error, request: req })
-
-    //   const serverError = new ServerError({
-    //     message: 'Internal server error',
-    //     status: httpStatus.internalError
-    //   })
-
-    //   res.status(serverError.status).send(serverError)
-    // })
   }
   catch (error) {
-    logger.error({ message: 'user.postToken() error: Github request failed', error: error, request: req })
+    logger.error({ ns:`${ns}:post`, message: 'Github request failed', error: error, request: req })
     next(error)
   }
 }

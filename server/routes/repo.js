@@ -57,10 +57,9 @@ const post = async (req, res, next) => {
 		}
 		
 		const json = await rp.post(options)
-		const result = { data: json.data.repository.ref.target.history.edges }
-		
 		logger.info({ ns: `${ns}:post`, message: 'Github request successful', result: json, request: req })
-			
+
+		const result = { data: json.data.repository.ref.target.history.edges }	
 		res.status(httpStatus.ok).send(result)
 	}
 	catch (error) {

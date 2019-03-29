@@ -9,9 +9,8 @@ const promiseHandler = require('./middlewares/promise')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
 
-console.log(path.relative(process.cwd(), __filename))
-
 const app = express()
+const ns = path.relative(process.cwd(), __filename)
 const httpStatus = constants.http
 
 const init = () => {
@@ -25,6 +24,7 @@ const init = () => {
 	app.post('/api/repo/:owner/:name', promiseHandler(repo.post))
 
 	app.use((req, res) => {
+		logger.info({ ns: `${ns}:init`, message: 'Resource not found' })
 		res.status(httpStatus.notFound).send({ 'message': 'Resource not found' })
 	})
 	
@@ -33,7 +33,7 @@ const init = () => {
 	app.set('port', port)
 	
 	app.listen(port, () => {
-		logger.info('app.init() info: Server started and listening on port %s', port)
+		logger.info({ ns: `${ns}:init`, message: `Server started and listening on port: ${port}` })
 	})
 }
 
