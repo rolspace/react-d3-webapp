@@ -1,21 +1,22 @@
 const rp = require('request-promise-native')
+const constants = require('../common/constants')
+const ServerError = require('../common/error')
 const utils = require('../common/utils')
-const AppError = require('../common/error')
-const HttpStatus = require('../common/constants').http
 
 const logger = utils.logger
+const httpStatus = constants.http
 
 const post = (req, res) => {
   const { code, state } = req.body
 
   if (!code || !state ) {
     logger.error({ message: `token.postToken() error: parameter ${!code ? 'code' : 'state'} is empty`, request: req })
-    const appError = new AppError({
+    const serverError = new ServerError({
       message: `The parameter ${!code ? 'code' : 'state'} is empty`,
-      status: HttpStatus.unprocessable
+      status: httpStatus.unprocessable
     })
 
-    return res.status(appError.status).send(appError)
+    return res.status(serverError.status).send(serverError)
   }
 
   const options = {
@@ -34,17 +35,17 @@ const post = (req, res) => {
 
   rp.post(options)
   .then(json => {
-    res.status(HttpStatus.ok).send(json)
+    res.status(httpStatus.ok).send(json)
   })
   .catch(error => {
     logger.error({ message: 'user.postToken() error: Github request failed', error: error, request: req })
 
-    const appError = new AppError({
+    const serverError = new ServerError({
 			message: 'Internal server error',
-			status: HttpStatus.internalError
+			status: httpStatus.internalError
 		})
 
-    res.status(appError.status).send(appError)
+    res.status(serverError.status).send(serverError)
   })
 }
 

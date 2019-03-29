@@ -1,8 +1,8 @@
 const rp = require('request-promise-native')
 const constants = require('../common/constants')
+const ServerError = require('../common/error')
 const queries = require('../common/queries')
 const utils = require('../common/utils')
-const ServerError = require('../common/error')
 
 const httpStatus = constants.http
 const logger = utils.logger
@@ -17,7 +17,7 @@ const post = async (req, res, next) => {
 				status: httpStatus.internalError
 			})
 			
-			res.status(serverError.status).send(serverError)
+			return res.status(serverError.status).send(serverError)
 		}
 
 		const { owner, name } = req.params
@@ -29,7 +29,7 @@ const post = async (req, res, next) => {
 				status: httpStatus.unprocessable
 			})
 			
-			res.status(serverError.status).send(serverError)
+			return res.status(serverError.status).send(serverError)
 		}
 
 		const { token } = req.body
@@ -41,7 +41,7 @@ const post = async (req, res, next) => {
 				status: httpStatus.unprocessable
 			})
 			
-			res.status(serverError.status).send(serverError)	
+			return res.status(serverError.status).send(serverError)	
 		}
 		
 		const options = {
@@ -56,10 +56,9 @@ const post = async (req, res, next) => {
 		}
 		
 		const json = await rp.post(options)
+		const commits = { data: json.data.repository.ref.target.history.edges }
 		
 		logger.info({ message: 'repo.getCommits() info: Github request successful', payload: json, request: req })
-			
-		const commits = { data: json.data.repository.ref.target.history.edges }
 			
 		res.status(httpStatus.ok).send(commits)
 	}
