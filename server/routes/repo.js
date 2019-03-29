@@ -1,11 +1,10 @@
 const rp = require('request-promise-native')
 const constants = require('../common/constants')
 const ServerError = require('../common/error')
+const logger = require('../common/logger')
 const queries = require('../common/queries')
-const utils = require('../common/utils')
 
 const httpStatus = constants.http
-const logger = utils.logger
 
 const post = async (req, res, next) => {
 	try {

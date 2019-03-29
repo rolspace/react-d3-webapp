@@ -1,7 +1,6 @@
 const fs = require('fs')
-const utils = require('./utils')
+const logger = require('./logger')
 
-const logger = utils.logger
 const queries = []
 
 const getQuery = (name) => {

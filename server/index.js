@@ -2,15 +2,13 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const express = require('express')
 const constants = require('./common/constants')
+const logger = require('./common/logger')
 const queries = require('./common/queries')
-const utils = require('./common/utils')
 const promiseHandler = require('./middlewares/promise')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
 
 const app = express()
-
-const logger = utils.logger
 const httpStatus = constants.http
 
 const init = () => {

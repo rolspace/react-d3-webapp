@@ -4,6 +4,4 @@ const logger = bunyan.createLogger({
 	name: 'react-d3-server'
 })
 
-module.exports = {
-	logger
-}
+module.exports = logger
