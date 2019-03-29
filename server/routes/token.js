@@ -5,7 +5,7 @@ const HttpStatus = require('../common/constants').http
 
 const logger = utils.logger
 
-const postToken = (req, res) => {
+const post = (req, res) => {
   const { code, state } = req.body
 
   if (!code || !state ) {
@@ -49,5 +49,5 @@ const postToken = (req, res) => {
 }
 
 module.exports = {
-  postToken
+  post
 }

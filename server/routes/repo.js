@@ -7,7 +7,7 @@ const ServerError = require('../common/error')
 const httpStatus = constants.http
 const logger = utils.logger
 
-const getCommits = async (req, res, next) => {
+const post = async (req, res, next) => {
 	try {
 		const query = queries.getQuery('repo-commits')
 		if (!query) {
@@ -70,5 +70,5 @@ const getCommits = async (req, res, next) => {
 }
 
 module.exports = {
-	getCommits
+	post
 }
