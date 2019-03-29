@@ -1,16 +1,18 @@
+const path = require('path')
 const rp = require('request-promise-native')
 const constants = require('../common/constants')
 const ServerError = require('../common/error')
 const logger = require('../common/logger')
 const queries = require('../common/queries')
 
+const ns = path.relative(process.cwd(), __filename)
 const httpStatus = constants.http
 
 const post = async (req, res, next) => {
 	try {
 		const query = queries.getQuery('repo-commits')
 		if (!query) {
-			logger.error({ message: 'repo.getCommits() error: query repo-commits does not exist' })
+			logger.error({ ns: `${ns}:post()`, message: 'query repo-commits does not exist' })
 			const serverError = new ServerError({
 				message: 'Internal server error',
 				status: httpStatus.internalError
@@ -22,9 +24,9 @@ const post = async (req, res, next) => {
 		const { owner, name } = req.params
 
 		if (!owner || !name) {
-			logger.error({ message: `repo.getCommits() error: parameter ${!owner ? 'owner' : 'name'} does not exist`, request: req })
+			logger.error({ ns: `${ns}:post()`, message: `parameter ${!owner ? 'owner' : 'name'} is undefined`, request: req })
 			const serverError = new ServerError({
-				message: `The ${!owner ? 'owner' : 'name'} parameter is empty`,
+				message: `parameter ${!owner ? 'owner' : 'name'} is undefined`,
 				status: httpStatus.unprocessable
 			})
 			
@@ -34,7 +36,7 @@ const post = async (req, res, next) => {
 		const { token } = req.body
 
 		if (!token) {
-			logger.error({ message: 'repo.getCommits() error: token not provided', request: req })
+			logger.error({ ns: `${ns}:post`, message: 'token not provided', request: req })
 			const serverError = new ServerError({
 				message: 'Token not provided',
 				status: httpStatus.unprocessable
@@ -55,14 +57,14 @@ const post = async (req, res, next) => {
 		}
 		
 		const json = await rp.post(options)
-		const commits = { data: json.data.repository.ref.target.history.edges }
+		const result = { data: json.data.repository.ref.target.history.edges }
 		
-		logger.info({ message: 'repo.getCommits() info: Github request successful', payload: json, request: req })
+		logger.info({ ns: `${ns}:post`, message: 'Github request successful', result: json, request: req })
 			
-		res.status(httpStatus.ok).send(commits)
+		res.status(httpStatus.ok).send(result)
 	}
 	catch (error) {
-		logger.error({ message: 'repo.getCommits() error: Github request failed', error: error, request: req })
+		logger.error({ ns: `${ns}:post`, message: 'Github request failed', error: error, request: req })
 		next(error)
 	}
 }
