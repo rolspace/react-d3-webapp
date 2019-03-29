@@ -20,7 +20,7 @@ const init = () => {
 	app.use(cors(constants.cors))
 	
 	app.options('/api/token')
-	app.post('/api/token', token.post)
+	app.post('/api/token', promiseHandler(token.post))
 	app.post('/api/repo/:owner/:name', promiseHandler(repo.post))
 
 	app.use((req, res) => {
