@@ -1,10 +1,9 @@
-const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
-const utils = require('./common/utils')
-const queries = require('./common/queries')
+const express = require('express')
 const constants = require('./common/constants')
+const queries = require('./common/queries')
+const utils = require('./common/utils')
 const promiseHandler = require('./middlewares/promise')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
@@ -12,10 +11,11 @@ const token = require('./routes/token')
 const app = express()
 
 const logger = utils.logger
-const HttpStatus = constants.http
+const httpStatus = constants.http
 
 const init = () => {
 	queries.loadQueries()
+	
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
 	
@@ -24,7 +24,7 @@ const init = () => {
 	app.post('/api/repo/:owner/:name', promiseHandler(repo.getCommits))
 
 	app.use((req, res) => {
-		res.status(HttpStatus.notFound).send({ 'message': 'Resource not found' })
+		res.status(httpStatus.notFound).send({ 'message': 'Resource not found' })
 	})
 	
 	const port = process.env.PORT || 9000

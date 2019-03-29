@@ -1,10 +1,10 @@
 const rp = require('request-promise-native')
-
-const utils = require('../common/utils')
+const constants = require('../common/constants')
 const queries = require('../common/queries')
+const utils = require('../common/utils')
 const ServerError = require('../common/error')
-const httpStatus = require('../common/constants').http
 
+const httpStatus = constants.http
 const logger = utils.logger
 
 const getCommits = async (req, res, next) => {
