@@ -26,7 +26,7 @@ const init = () => {
 	app.post('/api/repo/:owner/:name', promiseHandler(repo.post))
 
 	app.use((req, res) => {
-		logger.info({ ns: `${ns}:init`, message: 'Resource not found' })
+		logger.info({ ns: `${ns}:init` }, 'Resource not found')
 		res.status(httpStatus.notFound).send({ 'message': 'Resource not found' })
 	})
 	
@@ -35,7 +35,7 @@ const init = () => {
 	app.set('port', port)
 	
 	app.listen(port, () => {
-		logger.info({ ns: `${ns}:init`, message: `Server started and listening on port: ${port}` })
+		logger.info({ ns: `${ns}:init` }, `Server started and listening on port: ${port}`)
 	})
 }
 
