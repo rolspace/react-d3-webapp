@@ -12,9 +12,9 @@ const post = async (req, res, next) => {
     const { code, state } = req.body
 
     if (!code || !state ) {
-      logger.error({ ns: `${ns}:post`, message: `parameter ${!code ? 'code' : 'state'} is undefined`, request: req })
+      logger.error({ ns: `${ns}:post`}, `Parameter ${!code ? 'code' : 'state'} is undefined`)
       const serverError = new ServerError({
-        message: `The parameter ${!code ? 'code' : 'state'} is undefined`,
+        message: `Parameter ${!code ? 'code' : 'state'} is undefined`,
         status: httpStatus.unprocessable
       })
 
@@ -41,7 +41,7 @@ const post = async (req, res, next) => {
     res.status(httpStatus.ok).send(json)
   }
   catch (error) {
-    logger.error({ ns:`${ns}:post`, message: 'Github request failed', error: error, request: req })
+    logger.error({ ns:`${ns}:post`, error }, 'Github request failed')
     next(error)
   }
 }

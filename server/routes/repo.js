@@ -12,7 +12,7 @@ const post = async (req, res, next) => {
 	try {
 		const query = queries.getQuery('repo-commits')
 		if (!query) {
-			logger.error({ ns: `${ns}:post()`, message: 'query repo-commits does not exist' })
+			logger.error({ ns: `${ns}:post()` }, 'Query repo-commits does not exist')
 			const serverError = new ServerError({
 				message: 'Internal server error',
 				status: httpStatus.internalError
@@ -24,9 +24,9 @@ const post = async (req, res, next) => {
 		const { owner, name } = req.params
 
 		if (!owner || !name) {
-			logger.error({ ns: `${ns}:post()`, message: `parameter ${!owner ? 'owner' : 'name'} is undefined`, request: req })
+			logger.error({ ns: `${ns}:post()` }, `Parameter ${!owner ? 'owner' : 'name'} is undefined`)
 			const serverError = new ServerError({
-				message: `parameter ${!owner ? 'owner' : 'name'} is undefined`,
+				message: `Parameter ${!owner ? 'owner' : 'name'} is undefined`,
 				status: httpStatus.unprocessable
 			})
 			
@@ -36,7 +36,7 @@ const post = async (req, res, next) => {
 		const { token } = req.body
 
 		if (!token) {
-			logger.error({ ns: `${ns}:post`, message: 'token not provided', request: req })
+			logger.error({ ns: `${ns}:post` }, 'Token not provided')
 			const serverError = new ServerError({
 				message: 'Token not provided',
 				status: httpStatus.unprocessable
@@ -57,13 +57,13 @@ const post = async (req, res, next) => {
 		}
 		
 		const json = await rp.post(options)
-		logger.info({ ns: `${ns}:post`, message: 'Github request successful', result: json, request: req })
+		logger.info({ ns: `${ns}:post`, result: json }, 'Github request successful')
 
 		const result = { data: json.data.repository.ref.target.history.edges }	
 		res.status(httpStatus.ok).send(result)
 	}
 	catch (error) {
-		logger.error({ ns: `${ns}:post`, message: 'Github request failed', error: error, request: req })
+		logger.error({ ns: `${ns}:post`, error: error }, 'Github request failed')
 		next(error)
 	}
 }

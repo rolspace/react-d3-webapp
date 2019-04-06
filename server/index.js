@@ -5,7 +5,8 @@ const path = require('path')
 const constants = require('./common/constants')
 const logger = require('./common/logger')
 const queries = require('./common/queries')
-const promiseHandler = require('./middlewares/promise')
+const logHandler = require('./middleware/logHandler')
+const promiseHandler = require('./middleware/promiseHandler')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
 
@@ -18,6 +19,7 @@ const init = () => {
 	
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
+	app.use(logHandler)
 	
 	app.options('/api/token')
 	app.post('/api/token', promiseHandler(token.post))

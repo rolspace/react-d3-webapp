@@ -6,7 +6,7 @@ const ns = path.relative(process.cwd(), __filename)
 const queries = []
 
 const getQuery = (name) => {
-  logger.info({ ns: `${ns}:get`, message: `Getting query: ${name}` })
+  logger.info({ ns: `${ns}:get` }, `Getting query: ${name}` )
 
   return queries.find((query) => name === query.name)
 }
@@ -14,7 +14,7 @@ const getQuery = (name) => {
 const loadQueries = () => {
   fs.readdir('queries', (error, files) => {
     if (error) {
-      logger.error({ ns: `${ns}:load`, message: 'Could not read queries directory', error: error })
+      logger.error({ ns: `${ns}:load`, error }, 'Could not read queries directory')
     }
 
     if (files && files.length > 0) {
@@ -32,7 +32,7 @@ const loadQueries = () => {
           })
         })
         readStream.on('error', (error) => {
-          logger.error({ ns: `${ns}:load`, message: `Could not read stream from 'queries/${file}'`, error: error })
+          logger.error({ ns: `${ns}:load`, error } `Could not read stream from 'queries/${file}'`)
         })
       })
     }
