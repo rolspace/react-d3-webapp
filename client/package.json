@@ -13,7 +13,8 @@
     "dev": "concurrently \"node run dev\" \"cd ../server && npm run dev\"",
     "pro": "concurrently \"node run pro\" \"cd ../server && npm run pro\"",
     "eslint": "eslint .",
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --collectCoverage"
   },
   "repository": {
     "type": "git",
