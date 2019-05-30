@@ -12,7 +12,7 @@
     "build": "node run build",
     "dev": "concurrently \"node run dev\" \"cd ../server && npm run dev\"",
     "pro": "concurrently \"node run pro\" \"cd ../server && npm run pro\"",
-    "eslint": "eslint actions common components containers pages reducers main.js run.js webpack.config.js",
+    "eslint": "eslint .",
     "test": "jest"
   },
   "repository": {

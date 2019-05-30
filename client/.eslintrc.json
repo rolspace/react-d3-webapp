@@ -17,15 +17,20 @@
   "plugins": [
     "react"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "quotes": [
       "error",
       "single"
     ],
     "react/prop-types": [
-      2,
+      "error",
       {
-        "ignore": [ "location", "query", "code" ]
+        "ignore": ["location", "query", "code"]
       }
     ]
   }
