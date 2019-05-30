@@ -17,9 +17,14 @@ const styles = (theme) => ({
 	},
 	svg: {
 		fontFamily: theme.typography.fontFamily,
-		height: '75vh',
+		height: '73vh',
 		minWidth: '700px',
 		width: '100%'
+	},
+	circleRoot: {
+		left: '45%',
+		position: 'absolute',
+		top: '50%',
 	}
 })
 
@@ -28,18 +33,18 @@ class BarGraph extends React.Component {
 		super(props)
 		this.renderGraph = this.renderGraph.bind(this)
 	}
-  
+
 	componentDidUpdate() {
 		this.renderGraph()
 	}
-  
+
 	componentDidMount() {
 		this.renderGraph()
 	}
-  
+
 	renderGraph() {
 		const node = this.node;
-    
+
 		const data = {
 			sets: this.props.data.sets,
 			xAxis: this.props.data.xAxis,
@@ -49,20 +54,20 @@ class BarGraph extends React.Component {
 			height: 500,
 			width: 800
 		}
-    
+
 		const graphRender = new GraphRender(node, data)
 		graphRender.renderGraph()
 	}
-  
+
 	render() {
 		const { classes } = this.props
-    
+
 		return (
 			<div>
         <Grid container className={classes.container}>
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ height: '75vh' }}>
             {this.props.data.isLoading ?
-              <CircularProgress size='100%' thickness={1} classes={{svg: classes.svg, circleIndeterminate: classes.circle}} />
+              <CircularProgress classes={{ root: classes.circleRoot }} />
               :
               <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
             }

@@ -14,10 +14,9 @@ const styles = {
     '&:hover': {
       backgroundColor: '#eee'
     },
-    '&:hover h5': {
+    '&:hover h6': {
       textDecoration: 'underline'
     }
-    
   },
 	card_anchor: {
 		minWidth: '100%',
@@ -26,19 +25,22 @@ const styles = {
 	card_button: {
 		minWidth: '100%',
     padding: '1px 1px 2px 1px'
-	}
+  },
+  card_subtitle: {
+    color: '#aaa'
+  },
 }
 
 const CustomCard = (props) => {
   const { classes } = props
-  
+
   return (
     <ButtonBase className={classes.card_button} disableRipple={true}>
       <Link className={classes.card_anchor} to={props.to}>
         <Card className={classes.card}>
-          <CardContent className={classes.card_content}>
-            <Typography align='left' variant='subheading' component='h5'>{props.title}</Typography>
-            <Typography align='left' variant='caption'>{props.description}</Typography>
+          <CardContent>
+            <Typography align='left' variant='h6' component='h6'>{props.title}</Typography>
+            <Typography className={classes.card_subtitle} align='left' variant='subtitle2' component='div'>{props.description}</Typography>
           </CardContent>
         </Card>
       </Link>

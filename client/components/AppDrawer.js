@@ -11,18 +11,18 @@ class AppDrawer extends React.Component {
   constructor(props) {
     super(props)
   }
-  
+
   render() {
     return (
       <Drawer anchor='left' open={this.props.open} onClose={this.props.onClose}>
         <Divider />
         <List component='nav'>
-          <ListItem button onClick={this.props.onClose}>
+          <ListItem button key='1' onClick={this.props.onClose}>
             <Link to='/graphs/repo-additions-deletions'>
-              <ListItemText primary='Adds vs. Deletes' />
+              <ListItemText primary='Adds / Deletes' />
             </Link>
           </ListItem>
-          <ListItem button onClick={this.props.onClose}>
+          <ListItem button key='2' onClick={this.props.onClose}>
             <Link to='/graphs/repo-files'>
               <ListItemText primary='Changed Files' />
             </Link>

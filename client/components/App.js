@@ -32,22 +32,22 @@ const styles = theme => ({
 class App extends React.Component {
 	constructor(props) {
 		super(props)
-    
+
 		this.handleDrawer = this.handleDrawer.bind(this)
 		this.state = {
 			menuOpen: false
 		}
 	}
-  
+
 	handleDrawer() {
 		this.setState({
 			menuOpen: !this.state.menuOpen
 		})
 	}
-  
+
 	render() {
 		const { classes } = this.props
-    
+
 		return (
 			<Router>
         <div>
@@ -56,7 +56,7 @@ class App extends React.Component {
               <IconButton onClick={this.handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" className={classes.bar_anchor}>
+              <Typography variant="h6" className={classes.bar_anchor}>
                 <Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
               </Typography>
             </Toolbar>
