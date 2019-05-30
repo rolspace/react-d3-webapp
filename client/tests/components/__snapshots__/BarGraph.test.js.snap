@@ -3,10 +3,15 @@
 exports[`Components: BarGraph component renders correctly 1`] = `
 <div>
   <div
-    className="MuiGrid-container-5 BarGraph-container-2"
+    className="MuiGrid-root BarGraph-container-2 MuiGrid-container"
   >
     <div
-      className="MuiGrid-item-6 MuiGrid-grid-xs-12-45"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      style={
+        Object {
+          "height": "75vh",
+        }
+      }
     >
       <svg
         className="BarGraph-svg-4"
