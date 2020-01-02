@@ -14,7 +14,7 @@ function run(task) {
 	return new Promise((resolve) => {
 		tasks.get(task)()
 		.then(() => {
-			console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)	
+			console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)
 			resolve()
 		})
 		.catch(error => {
@@ -48,7 +48,7 @@ tasks.set('bundle', () => {
 })
 
 // Build website into a distributable format
-tasks.set('build', () => {	
+tasks.set('build', () => {
 	return Promise.resolve()
 	.then(() => run('clean'))
 	.then(() => run('bundle'))
@@ -57,20 +57,20 @@ tasks.set('build', () => {
 // Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', () => {
 	process.env.NODE_ENV = 'development'
-  
+
 	let count = 0
 	return run('clean').then(() => new Promise(resolve => {
 		const bs = require('browser-sync').create()
 		const webpackConfig = require('./webpack.config')
 		const compiler = webpack(webpackConfig)
-    
+
 		const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
 			publicPath: webpackConfig.output.publicPath,
 			stats: webpackConfig.stats,
 		})
-    
-		compiler.plugin('done', () => {
-			// Launch Browsersync after the initial bundling is complete
+
+		// Launch Browsersync after the initial bundling is complete
+		compiler.hooks.done.tap('bsPlugin', () => {
 			if (++count === 1) {
 				bs.init({
 					port: process.env.PORT || 8000,
@@ -92,7 +92,7 @@ tasks.set('dev', () => {
 // Build website and start the Express server
 tasks.set('pro', () => {
 	process.env.NODE_ENV = 'production'
-	
+
 	const buildFile = 'public/dist/main.js'
 
 	return new Promise((resolve, reject) => {
