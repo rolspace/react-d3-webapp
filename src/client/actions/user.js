@@ -14,7 +14,7 @@ export const fetchToken = (code, state) => {
   return (dispatch) => {
     dispatch(fetchingToken())
 
-    return fetch(`${process.env.BACKEND_URL}/api/token/`, {
+    return fetch(`${process.env.SERVER_URL}/api/token/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,8 +1,8 @@
 FROM node:9.11.1-alpine
 WORKDIR /app
-COPY backend/ .
+COPY src/server/ .
 RUN rm .eslintrc
 RUN npm install --only=production
 RUN apk add --no-cache bash
 EXPOSE 9000
-ENTRYPOINT ["node", "run"]
+ENTRYPOINT ["node", "run", "pro"]

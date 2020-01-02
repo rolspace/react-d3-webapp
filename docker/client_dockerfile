@@ -1,10 +1,10 @@
 FROM node:9.11.1-alpine as build
 WORKDIR /app
-COPY client/ .
+COPY src/client/ .
 ARG appid
-ARG backendurl
+ARG serverurl
 ENV APPLICATION_ID=$appid
-ENV BACKEND_URL=$backendurl
+ENV SERVER_URL=$serverurl
 RUN export NODE_ENV=development && npm install
 RUN export NODE_ENV=production && node run build
 RUN rm .eslintrc.json webpack.config.js

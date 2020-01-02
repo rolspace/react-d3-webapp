@@ -29,9 +29,9 @@ const config = {
 	optimization: {
 		minimize: !isDev
 	},
-	
+
 	devtool: isDev ? 'source-map' : false,
-  
+
 	stats: {
 		colors: true,
 		reasons: isDev,
@@ -43,12 +43,12 @@ const config = {
 		cached: isVerbose,
 		cachedAssets: isVerbose,
 	},
-  
+
 	plugins: [
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 	],
-  
+
 	module: {
 		rules: [
 			{
@@ -108,7 +108,7 @@ if (isDev) {
 else {
 	config.plugins.push(new webpack.DefinePlugin({
 		'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
-		'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
+		'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
 		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
 		__DEV__: isDev,
 	}));

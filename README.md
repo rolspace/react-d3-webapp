@@ -4,7 +4,7 @@ A long time ago I started a personal project to become more familiar with Node, 
 
 I started this project, abandoned it, started it again, abandoned it again, and finally, started it one last time, up to this point.
 
-Initially, this project was supposed to connect with the Instagram API in order to generate a series of graphs to present user data. After the last Instagram API update, that was not a possibility anymore. 
+Initially, this project was supposed to connect with the Instagram API in order to generate a series of graphs to present user data. After the last Instagram API update, that was not a possibility anymore.
 
 Later, I decided that the best thing to do was to connect to the GitHub GraphQL API to attempt something similar.
 
@@ -16,7 +16,7 @@ The application consists of two parts, the client application and the backend ap
 
 ### Client setup
 
-The client application only requires the environment variable BACKEND_URL, for webpack to inject the URL of the server into the build file. This URL will be used to make the service requests to the server, example: http://localhost:9000.
+The client application only requires the environment variable SERVER_URL, for webpack to inject the URL of the server into the build file. This URL will be used to make the service requests to the server, example: http://localhost:9000.
 
 The PORT environment variable can be provided to overwrite the default port used by the client server (8000)
 
