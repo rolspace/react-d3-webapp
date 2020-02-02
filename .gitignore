@@ -1,6 +1,9 @@
 # Compiled output
-client/public/dist
-client/public/index.html
+src/client/public/dist
+src/client/public/index.html
+
+# local files
+src/server/examples/
 
 # Logs
 logs
