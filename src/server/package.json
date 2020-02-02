@@ -11,18 +11,16 @@
     "dev": "node run.js",
     "pro": "node run.js",
     "eslint": "eslint . --ext .js",
-    "test": "mocha ./tests/**/*.test.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/rolspace/tunnelstats"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
     "eslint": "^5.15.3",
-    "mocha": "^6.0.2",
-    "sinon": "^7.3.1",
-    "sinon-chai": "^3.3.0"
+    "eslint-plugin-jest": "^23.6.0",
+    "jest": "^25.1.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

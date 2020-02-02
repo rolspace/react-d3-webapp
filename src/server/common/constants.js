@@ -4,9 +4,9 @@ module.exports = {
     optionsSuccessStatus: 200,
     preflightContinue: false
   },
-  http: {
+  status: {
     badRequest: 400,
-    internalError: 500,
+    internalServerError: 500,
     notFound: 404,
     ok: 200,
     unprocessable: 422
