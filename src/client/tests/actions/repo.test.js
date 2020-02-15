@@ -8,7 +8,7 @@ const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
 describe('Actions: repo actions', () => {
-  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_SUCCESS action if it is successful', () => {
+  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_SUCCESS action if it is successful', async () => {
     const data = {
       type: 'commit',
       data: [{
@@ -40,37 +40,35 @@ describe('Actions: repo actions', () => {
         }
       }
     ]}
-  
+
     const response = { status: 200, json: () => Promise.resolve(data) }
     global.fetch = jest.fn().mockImplementation(() => Promise.resolve(response))
-    
+
     const store = mockStore({ repo: {} })
-    
-    return store.dispatch(fetchRepo('owner', 'name')).then(() => {
-      expect(store.getActions()).toEqual([
-        { type: types.FETCHING_REPO },
-        {
-          type: types.FETCH_REPO_SUCCESS,
-          payload: {
-            owner: 'owner',
-            name: 'name',
-            data: data.data
-          }
+
+    await store.dispatch(fetchRepo('owner', 'name'));
+    expect(store.getActions()).toEqual([
+      { type: types.FETCHING_REPO },
+      {
+        type: types.FETCH_REPO_SUCCESS,
+        payload: {
+          owner: 'owner',
+          name: 'name',
+          data: data.data
         }
-      ])
-    })
+      }
+    ]);
   })
 
-  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', () => {
+  test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', async () => {
     global.fetch = jest.fn().mockImplementation(() => Promise.reject('some error'))
-    
+
     const store = mockStore({ repo: {} })
-    
-    return store.dispatch(fetchRepo('owner', 'name')).then(() => {
-      expect(store.getActions()).toEqual([
-        { type: types.FETCHING_REPO },
-        { type: types.FETCH_REPO_ERROR, payload: 'some error' }
-      ])
-    })
+
+    await store.dispatch(fetchRepo('owner', 'name'))
+    expect(store.getActions()).toEqual([
+      { type: types.FETCHING_REPO },
+      { type: types.FETCH_REPO_ERROR, payload: 'some error' }
+    ])
   })
 })
