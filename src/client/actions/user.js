@@ -11,30 +11,28 @@ export const FETCH_TOKEN_ERROR = 'FETCHING_TOKEN'
 export const FETCH_TOKEN_SUCCESS = 'FETCHING_TOKEN'
 
 export const fetchToken = (code, state) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchingToken())
 
-    return fetch(`${process.env.SERVER_URL}/api/token/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        code: code,
-        state: state,
+    try {
+      const response = await fetch(`${process.env.SERVER_URL}/api/token/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          code: code,
+          state: state,
+        })
       })
-    })
-    .then(response => {
-      if (response.status === 200) {
-        return response.json()
-      }
-      else {
-        dispatch(fetchTokenError())
-      }
-    })
-    .then(json => {
+
+      const json = await response.json()
+
       dispatch(fetchTokenSuccess(json))
-    })
+    }
+    catch(error) {
+      dispatch(fetchTokenError(error))
+    }
   }
 }
 
