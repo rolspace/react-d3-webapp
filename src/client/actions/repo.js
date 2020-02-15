@@ -3,39 +3,28 @@ import { createAction } from 'redux-actions'
 import * as types from './repoTypes'
 
 export const fetchRepo = (owner, name, token) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchingRepo())
 
-    return fetch(`${process.env.SERVER_URL}/api/repo/${owner}/${name}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: token
+    try {
+      const response = await fetch(`${process.env.SERVER_URL}/api/repo/${owner}/${name}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          token: token
+        })
       })
-    })
-      .then(response => {
-        if (response.status === 200) {
-          return response.json()
-        } else {
-          dispatch(fetchRepoError())
-        }
-      })
-      .then(json => {
-        return json
-      })
-      .then(result => {
-        const payload = {
-          owner: owner,
-          name: name,
-          data: result.data
-        }
-        dispatch(fetchRepoSuccess(payload))
-      })
-      .catch(error => {
-        dispatch(fetchRepoError(error))
-      })
+
+      const json = await response.json()
+      const payload = { owner, name, data: json.data }
+
+      dispatch(fetchRepoSuccess(payload))
+    }
+    catch(error) {
+      dispatch(fetchRepoError(error))
+    }
   }
 }
 
