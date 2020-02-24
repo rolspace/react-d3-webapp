@@ -4,7 +4,7 @@ const logger = require('../common/logger')
 const { status } = constants
 
 // eslint-disable-next-line no-unused-vars
-const catchError = (err, req, res, next) => {
+const catchErrors = (err, req, res, next) => {
   logger.error({ err, req })
 
   res
@@ -12,4 +12,4 @@ const catchError = (err, req, res, next) => {
     .send({ message: 'Server error, please contact the administrator' })
 }
 
-module.exports = catchError
+module.exports = catchErrors

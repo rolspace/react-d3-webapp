@@ -5,21 +5,21 @@ const path = require('path')
 const constants = require('./common/constants')
 const logger = require('./common/logger')
 const queries = require('./common/queries')
-const incomingMiddleware = require('./middleware/incomingMiddleware')
-const catchMiddleware = require('./middleware/catchMiddleware')
+const allIncoming = require('./middleware/allIncoming')
+const catchErrors = require('./middleware/catchErrors')
 const repo = require('./routes/repo')
 const token = require('./routes/token')
 
 const app = express()
 const ns = path.relative(process.cwd(), __filename)
-const httpStatus = constants.http
+const { status } = constants
 
 const init = () => {
 	queries.loadQueries()
 
 	app.use(bodyParser.json())
 	app.use(cors(constants.cors))
-	app.use(incomingMiddleware)
+	app.use(allIncoming)
 
 	app.options('/api/token')
 	app.post('/api/token', token.post)
@@ -27,10 +27,10 @@ const init = () => {
 
 	app.use((req, res) => {
 		logger.warn({ ns: `${ns}:init` }, 'Resource not found')
-		res.status(httpStatus.notFound).send({ 'message': 'Resource not found' })
+		res.status(status.notFound).send({ 'message': 'Resource not found' })
 	})
 
-	app.use(catchMiddleware)
+	app.use(catchErrors)
 
 	const port = process.env.PORT || 9000
 
