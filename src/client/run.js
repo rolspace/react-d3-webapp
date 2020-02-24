@@ -7,32 +7,24 @@ const server = require('./server')
 
 const tasks = new Map()
 
-function run(task) {
-	const start = new Date()
-	console.log(`Starting '${task}'...`)
-
-	return new Promise((resolve) => {
-		tasks.get(task)()
-		.then(() => {
-			console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)
-			resolve()
-		})
-		.catch(error => {
-			console.log(error)
-			resolve()
-		})
-	})
+async function run(task) {
+	try {
+		const start = new Date()
+		console.log(`Starting '${task}'...`)
+		await tasks.get(task)()
+		console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)
+	}
+	catch (err) {
+		console.log(err)
+	}
 }
 
-tasks.set('clean', () => {
-	return new Promise(resolve => {
-		del(['public/dist/*', '!public/dist/.git'], { dot: true })
-		.then(() => resolve())
-	})
+tasks.set('clean', async () => {
+	await del(['public/dist/*', '!public/dist/.git'], { dot: true })
 })
 
 // Bundle JavaScript, CSS and image files with Webpack
-tasks.set('bundle', () => {
+tasks.set('bundle', async () => {
 	const webpackConfig = require('./webpack.config')
 	return new Promise((resolve, reject) => {
 		webpack(webpackConfig).run((error, stats) => {
@@ -48,18 +40,20 @@ tasks.set('bundle', () => {
 })
 
 // Build website into a distributable format
-tasks.set('build', () => {
-	return Promise.resolve()
-	.then(() => run('clean'))
-	.then(() => run('bundle'))
+tasks.set('build', async () => {
+	await run('clean')
+	await run('bundle')
 })
 
 // Build website using webpack and launch it in a browser for testing (default)
-tasks.set('dev', () => {
+tasks.set('dev', async () => {
 	process.env.NODE_ENV = 'development'
 
 	let count = 0
-	return run('clean').then(() => new Promise(resolve => {
+
+	await run('clean')
+
+	return new Promise(resolve => {
 		const bs = require('browser-sync').create()
 		const webpackConfig = require('./webpack.config')
 		const compiler = webpack(webpackConfig)
@@ -86,11 +80,11 @@ tasks.set('dev', () => {
 				}, resolve)
 			}
 		})
-	}))
+	})
 })
 
 // Build website and start the Express server
-tasks.set('pro', () => {
+tasks.set('pro', async () => {
 	process.env.NODE_ENV = 'production'
 
 	const buildFile = 'public/dist/main.js'
