@@ -12,14 +12,14 @@ const post = async (req, res, next) => {
 		const { token } = req.body
 
 		if (!token) {
-			return res.status(status.unprocessable).send({ message: 'Token not provided' })
+			return res.status(status.unprocessable).send({ message: 'token not provided' })
 		}
 
 		const query = queries.getQuery('repo-commits')
 		if (!query) throw new Error('the query file repo-commits does not exist')
 
 		const { owner, name } = req.params
-		if (!owner || !name) throw new Error(`Parameter ${!owner ? 'owner' : 'name'} is undefined`)
+		if (!owner || !name) throw new Error(`parameter ${!owner ? 'owner' : 'name'} is undefined`)
 
 		const options = {
 			method: 'POST',
@@ -32,11 +32,11 @@ const post = async (req, res, next) => {
 			body: { 'query': query.data.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner) },
 		}
 
-		const result = await rp.post(options)
-		logger.info({ ns: `${ns}:post`, result }, 'Github request successful')
+		const response = await rp.post(options)
+		logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
-		const responseData = { data: result.data.repository.ref.target.history.edges }
-		res.status(status.ok).send(responseData)
+		const repoHistory = { data: response.data.repository.ref.target.history.edges }
+		res.status(status.ok).send(repoHistory)
 	}
 	catch (error) {
 		next(error)

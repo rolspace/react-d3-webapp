@@ -25,10 +25,10 @@ const post = async (req, res, next) => {
       }
     }
 
-    const json = await rp.post(options)
-    logger.info({ ns: `${ns}:post`, message: 'Github request successful', result: json })
+    const response = await rp.post(options)
+    logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
-    res.status(status.ok).send(json)
+    res.status(status.ok).send(response)
   }
   catch (error) {
     next(error)
