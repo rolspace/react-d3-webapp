@@ -1,4 +1,4 @@
-import repoReducer from '../../reducers/repo'
+import repoReducer from '../repo'
 
 describe('Reducers: repo reducer', () => {
   test('returns the initial state if no action is executed', () => {
@@ -15,7 +15,7 @@ describe('Reducers: repo reducer', () => {
       error: null
     })
   })
-  
+
   test('returns the correct object when the FETCH_REPO_SUCCESS action is executed', () => {
     const payload = {
       owner: 'owner',
@@ -51,7 +51,7 @@ describe('Reducers: repo reducer', () => {
         }
       ]
     }
-    
+
     expect(repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload })).toEqual({
       commits: {
         changedFiles: [
@@ -95,7 +95,7 @@ describe('Reducers: repo reducer', () => {
       error: null
     })
   })
-  
+
   test('returns the correct object when the FETCHING_REPO action is executed', () => {
     expect(repoReducer(undefined, { type: 'FETCHING_REPO' })).toEqual({
       commits: {
@@ -110,7 +110,7 @@ describe('Reducers: repo reducer', () => {
       error: null
     })
   })
-  
+
   test('returns the correct object when the FETCH_REPO_ERROR action is executed', () => {
     expect(repoReducer(undefined, { type: 'FETCH_REPO_ERROR' })).toEqual({
       commits: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import CustomCard from '../../components/Card'
-import GraphList from '../../components/GraphList'
+import CustomCard from '../Card'
+import GraphList from '../GraphList'
 
 describe('Components: GraphList component', () => {
   it('renders correctly', () => {

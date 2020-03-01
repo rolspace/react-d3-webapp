@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components: BarGraph component renders correctly 1`] = `
+<div>
+  <div
+    className="MuiGrid-root BarGraph-container-2 MuiGrid-container"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      style={
+        Object {
+          "height": "75vh",
+        }
+      }
+    >
+      <svg
+        className="BarGraph-svg-4"
+        viewBox="0 0 800 500"
+      />
+    </div>
+  </div>
+</div>
+`;
