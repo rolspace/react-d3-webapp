@@ -20,7 +20,7 @@
   "devDependencies": {
     "eslint": "^5.15.3",
     "eslint-plugin-jest": "^23.6.0",
-    "jest": "^25.1.0"
+    "jest": "25.1.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

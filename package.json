@@ -1,0 +1,26 @@
+{
+  "name": "react-d3-webapp",
+  "version": "1.0.0",
+  "description": "A long time ago I started a personal project to become more familiar with Node, React, and other tools part of the modern JavaScript ecosystem.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/rolspace/react-d3-webapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/rolspace/react-d3-webapp#readme",
+  "jest": {
+    "projects": [
+      "./src/client/",
+      "./src/server"
+    ]
+  }
+}

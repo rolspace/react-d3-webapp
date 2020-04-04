@@ -47,7 +47,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "express": "^4.17.1",
-    "jest": "^25.1.0",
+    "jest": "25.1.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.12.0",
     "redux-mock-store": "^1.5.4",
@@ -86,12 +86,5 @@
       "@babel/plugin-transform-regenerator",
       "@babel/plugin-proposal-object-rest-spread"
     ]
-  },
-  "jest": {
-    "setupFiles": [
-      "./jest-setup.js"
-    ],
-    "testEnvironment": "jsdom",
-    "testURL": "http://localhost"
   }
 }
