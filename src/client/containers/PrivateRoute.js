@@ -1,59 +1,42 @@
-/*eslint-disable no-console*/
-
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { withRouter, Route } from 'react-router-dom'
 import qs from 'query-string'
 import { fetchToken } from '../actions/user'
 
-class PrivateRoute extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+const PrivateRoute = (props) => {
+  const { code, state } = qs.parse(props.location.search)
 
-  componentDidMount() {
-    const { code, state } = qs.parse(this.props.location.search)
-    const { isLoggedIn } = this.props.user
+  const { isLoggedIn } = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
     if (code && state && !isLoggedIn) {
-      const { dispatch } = this.props
       dispatch(fetchToken(code, state))
     }
-    else if (!code && !state && !isLoggedIn) {
-      window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${this.props.location.pathname}`)
+    else if (!isLoggedIn) {
+      window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${props.location.pathname}`)
     }
+  }, [code, state])
+
+  if (isLoggedIn) {
+    const Component = props.component
+    history.replaceState({}, document.title, props.path)
+
+    return (
+        <Route exact path={props.path} component={Component} />
+    )
   }
-
-  render() {
-    const { isLoggedIn } = this.props.user
-
-    if (isLoggedIn) {
-      const Component = this.props.component
-      history.replaceState({}, document.title, this.props.path)
-
-      return (
-          <Route exact path={this.props.path} component={Component} />
-      )
-    }
-    else {
-      return <div>Loading...</div>
-    }
+  else {
+    return <div>Loading...</div>
   }
 }
 
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(PrivateRoute))
+export default withRouter(PrivateRoute)
