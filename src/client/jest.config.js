@@ -1,10 +1,10 @@
 module.exports = {
   setupFiles: [
-    "./jest.setup.js"
+    './jest.setup.js'
   ],
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   transform: {
     '\\.js$': ['babel-jest', { cwd: __dirname }],
   },
-  testURL: "http://localhost"
+  testURL: 'http://localhost'
 }
