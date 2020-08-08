@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { changeRepo } from '../actions/repo'
+import { useInput } from '../hooks/useInput'
 
 const styles = {
 	container: {
@@ -17,77 +18,46 @@ const styles = {
 	}
 }
 
-class RepoForm extends React.Component {
-	constructor(props) {
-		super(props)
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.handleChange = this.handleChange.bind(this)
-    
-		this.state = {
-			owner: this.props.owner || 'facebook',
-			name: this.props.name || 'react'
-		}
-	}
-  
-	handleChange(event) {
-		const name = event.target.name
-		const value = event.target.value
-    
-		this.setState({
-			[name]: value
-		})
-	}
-  
-	handleSubmit(event) {
-		event.preventDefault()
-		
-		const { user } = this.props
+const RepoForm = (props) => {
+	const { classes } = props
+	const { isLoggedIn } = useSelector(state => state.user)
+	const { owner, name } = useSelector(state => state.repo)
 
-		if (user.isLoggedIn) {
-			const { dispatch } = this.props
-			dispatch(changeRepo(this.state.owner, this.state.name))
+	const { value:ownerInput, bind:bindOwner } = useInput(owner);
+  const { value:nameInput, bind:bindName } = useInput(name);
+
+	const dispatch = useDispatch()
+
+	function handleSubmit(event) {
+		event.preventDefault()
+
+		if (isLoggedIn) {
+			dispatch(changeRepo(ownerInput, nameInput))
 		}
 	}
-  
-	render() {
-		const { classes } = this.props
-    
-		return (
-			<form onSubmit={this.handleSubmit}>
-        <Grid container className={classes.container}>
-          <Grid item xs={4} sm={5}>
-            <TextField id='with-placeholder' name='owner' value={this.state.owner}
-              label='owner' margin='normal' fullWidth={true} onChange={this.handleChange} />
-          </Grid>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={4} sm={5}>
-            <TextField id='with-placeholder' name='name' value={this.state.name}
-              label='repository' margin='normal' fullWidth={true} onChange={this.handleChange} />
-          </Grid>
-          <Grid item xs={3} sm={1} className={classes.buttonContainer}>
-          < Button size='small' variant='raised' type='submit'>go</Button>
-          </Grid>
-        </Grid>
-			</form>
-		)
-	}
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<Grid container className={classes.container}>
+				<Grid item xs={4} sm={5}>
+					<TextField id='with-placeholder' name='owner' label='owner' margin='normal' fullWidth={true}
+						{...bindOwner} />
+				</Grid>
+				<Grid item xs={1}></Grid>
+				<Grid item xs={4} sm={5}>
+					<TextField id='with-placeholder' name='name' label='repository' margin='normal' fullWidth={true}
+						{...bindName} />
+				</Grid>
+				<Grid item xs={3} sm={1} className={classes.buttonContainer}>
+				< Button size='small' variant='raised' type='submit'>go</Button>
+				</Grid>
+			</Grid>
+		</form>
+	)
 }
 
 RepoForm.propTypes = {
 	classes: PropTypes.object.isRequired,
-	dispatch: PropTypes.func.isRequired,
-	name: PropTypes.string.isRequired,
-	owner: PropTypes.string.isRequired,
-	user: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) => {
-	return {
-		name: state.repo.name,
-		owner: state.repo.owner,
-		user: state.user
-	}
-}
-
-//TODO: look into using mapDispatchToProps instead of rendering in this component
-export default connect(mapStateToProps)(withStyles(styles)(RepoForm))
+export default withStyles(styles)(RepoForm)
