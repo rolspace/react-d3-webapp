@@ -8,8 +8,8 @@ describe('Reducers: repo reducer', () => {
         linesAdded: [],
         linesDeleted: []
       },
-      owner: '',
-      name: '',
+      owner: 'facebook',
+      name: 'react',
       isComplete: false,
       isFetching: false,
       error: null
@@ -103,8 +103,8 @@ describe('Reducers: repo reducer', () => {
         linesAdded: [],
         linesDeleted: []
       },
-      owner: '',
-      name: '',
+      owner: 'facebook',
+      name: 'react',
       isComplete: false,
       isFetching: true,
       error: null
@@ -118,8 +118,8 @@ describe('Reducers: repo reducer', () => {
         linesAdded: [],
         linesDeleted: []
       },
-      owner: '',
-      name: '',
+      owner: 'facebook',
+      name: 'react',
       isComplete: true,
       isFetching: false,
       error: 'some error'

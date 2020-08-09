@@ -8,8 +8,8 @@ const initialState = {
 		linesAdded: [],
 		linesDeleted: []
 	},
-	owner: '',
-	name: '',
+	owner: 'facebook',
+	name: 'react',
 	isComplete: false,
 	isFetching: false,
 	error: null
@@ -31,7 +31,7 @@ const repo = (state = initialState, action) => {
 		case types.FETCH_REPO_SUCCESS: {
 			const range = new Range()
 			const data = action.payload.data
-			
+
 			return _.merge({}, state, {
 				commits: {
 					changedFiles: range.createLowRange(data, 'changedFiles'),
