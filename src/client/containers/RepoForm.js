@@ -23,8 +23,8 @@ const RepoForm = (props) => {
 	const { isLoggedIn } = useSelector(state => state.user)
 	const { owner, name } = useSelector(state => state.repo)
 
-	const { value:ownerInput, bind:bindOwner } = useInput(owner);
-  const { value:nameInput, bind:bindName } = useInput(name);
+	const { value:valueOwnerInput, bind:bindOwnerInput } = useInput(owner);
+  const { value:valueNameInput, bind:bindNameInput } = useInput(name);
 
 	const dispatch = useDispatch()
 
@@ -32,7 +32,7 @@ const RepoForm = (props) => {
 		event.preventDefault()
 
 		if (isLoggedIn) {
-			dispatch(changeRepo(ownerInput, nameInput))
+			dispatch(changeRepo(valueOwnerInput, valueNameInput))
 		}
 	}
 
@@ -41,12 +41,12 @@ const RepoForm = (props) => {
 			<Grid container className={classes.container}>
 				<Grid item xs={4} sm={5}>
 					<TextField id='with-placeholder' name='owner' label='owner' margin='normal' fullWidth={true}
-						{...bindOwner} />
+						{...bindOwnerInput} />
 				</Grid>
 				<Grid item xs={1}></Grid>
 				<Grid item xs={4} sm={5}>
 					<TextField id='with-placeholder' name='name' label='repository' margin='normal' fullWidth={true}
-						{...bindName} />
+						{...bindNameInput} />
 				</Grid>
 				<Grid item xs={3} sm={1} className={classes.buttonContainer}>
 				< Button size='small' variant='raised' type='submit'>go</Button>
