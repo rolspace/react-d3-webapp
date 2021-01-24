@@ -32,26 +32,26 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
-    "browser-sync": "^2.26.7",
-    "concurrently": "^5.0.2",
+    "browser-sync": "^2.26.13",
+    "concurrently": "^5.3.0",
     "core-js": "^3.8.3",
-    "del": "^5.1.0",
+    "del": "^6.0.0",
     "dotenv": "^8.2.0",
-    "dotenv-webpack": "^1.7.0",
+    "dotenv-webpack": "^6.0.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^6.8.0",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.18.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
     "express": "^4.17.1",
-    "jest": "25.1.0",
+    "jest": "^26.6.3",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.12.0",
     "redux-mock-store": "^1.5.4",
-    "webpack": "^4.41.5",
-    "webpack-dev-middleware": "^3.7.2",
+    "webpack": "^5.17.0",
+    "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
@@ -76,8 +76,16 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
+      "@babel/preset-react",
+      [
+        "@babel/preset-env",
+        {
+          "corejs": {
+            "version": "3.8"
+          },
+          "useBuiltIns": "entry"
+        }
+      ]
     ],
     "plugins": [
       "react-hot-loader/babel",
