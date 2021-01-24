@@ -1,8 +1,5 @@
 import * as d3 from 'd3'
-import d3tip from 'd3-tip'
 import _ from 'lodash'
-
-d3.tip = d3tip
 
 const colors = ['#00bcd4', 'green']
 const xLabelMargin = 35
@@ -13,10 +10,10 @@ class BarGraphRender {
 	constructor(node, data) {
 		this.node = node
 		this.innerNode = d3.select(this.node).append('g')
-    
+
 		this.sets = data.sets
 		this.setCount = data.sets.length
-    
+
 		if (this.setCount > 0) {
 			this.xAxis = data.xAxis
 			this.yAxis = data.yAxis
@@ -26,25 +23,19 @@ class BarGraphRender {
 			this.height = data.height - margins.top - margins.bottom
 			this.renderGraph = this.renderGraph.bind(this)
 			this.renderSet = this.renderSet.bind(this)
-      
+
 			const xAxisPadding = this.setCount > 1 ? 0.2 : 0.4
 			this.xScales = this.sets.map(set => {
 				const domain = set.map(d => _.get(d, this.xAxis))
 				return d3.scaleBand().domain(domain).rangeRound([0, data.width]).padding(xAxisPadding)
 			})
-      
+
 			const yMax = Math.max(...this.sets.map(set => d3.max(set, d => _.get(d, this.yAxis))))
 			const yTrueMax = yMax % 10 === 0 ? yMax : yMax + (10 - (yMax % 10))
 			this.yScale = d3.scaleLinear().domain([0, yTrueMax]).rangeRound([this.height, 0])
-      
-			this.tip = d3.tip().attr('class', 'd3-tip').offset([-10, 0])
-        .style('color', '#fff').style('background-color', '#455a64').style('font-size', '0.813rem')
-        .style('padding', '5px').style('border', '1px solid #000')
-        .html((d) => `Commits: ${d.count}`)
-			this.innerNode.call(this.tip)
 		}
 	}
-  
+
 	renderSet(set, index) {
 		this.innerNode.selectAll('bar').data(set)
       .enter().append('rect')
@@ -56,32 +47,32 @@ class BarGraphRender {
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide)
 	}
-  
+
 	renderGraph() {
 		if (this.sets.every(set => !set.length)) {
 			d3.select(this.node).selectAll('*').remove()
 		}
 		else {
 			this.innerNode.attr('transform', `translate(${margins.top}, ${margins.left})`)
-      
+
 			this.innerNode.append('g').attr('class', 'axis axis--x')
         .attr('transform', `translate(0, ${this.height})`)
         .call(d3.axisBottom(this.xScales[0]))
-      
+
 			this.innerNode.append('text')
         .attr('transform', `translate(${this.width / 2},${this.height + xLabelMargin})`)
         .style('text-anchor', 'middle').style('font-size', '0.813rem')
         .text(this.xAxisLabel);
-      
+
 			this.innerNode.append('g').attr('class', 'axis axis--y')
         .call(d3.axisLeft(this.yScale).ticks(9))
-      
+
 			this.innerNode.append('text')
         .attr('transform', 'rotate(-90)').attr('x', 0 - this.height/2)
         .attr('y', 0 - yLabelMargin).attr('dy', '1em')
         .style('text-anchor', 'middle').style('font-size', '0.813rem')
         .text(this.yAxisLabel)
-      
+
 			this.sets.forEach(this.renderSet)
 		}
 	}
