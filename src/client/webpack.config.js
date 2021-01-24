@@ -45,8 +45,7 @@ const config = {
 	},
 
 	plugins: [
-		new webpack.NoEmitOnErrorsPlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.NoEmitOnErrorsPlugin()
 	],
 
 	module: {
