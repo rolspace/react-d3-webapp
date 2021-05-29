@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
-import GraphRender from '../common/bargraph'
+import { renderBarGraph } from '../common/bargraph'
 
 const styles = (theme) => ({
 	circle: {
@@ -55,8 +55,7 @@ class BarGraph extends React.Component {
 			width: 800
 		}
 
-		const graphRender = new GraphRender(node, data)
-		graphRender.renderGraph()
+		renderBarGraph(node, data)
 	}
 
 	render() {
