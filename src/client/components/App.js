@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { hot } from 'react-hot-loader'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import { withStyles } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { hot } from 'react-hot-loader'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
@@ -29,48 +29,35 @@ const styles = theme => ({
 	}
 })
 
-class App extends React.Component {
-	constructor(props) {
-		super(props)
+const App = ({ classes }) => {
+	const [menuOpen, setMenuOpen] = useState(false)
 
-		this.handleDrawer = this.handleDrawer.bind(this)
-		this.state = {
-			menuOpen: false
-		}
+	const handleDrawer = () => {
+		setMenuOpen(!menuOpen)
 	}
 
-	handleDrawer() {
-		this.setState({
-			menuOpen: !this.state.menuOpen
-		})
-	}
-
-	render() {
-		const { classes } = this.props
-
-		return (
-			<Router>
-        <div>
-          <AppBar>
-            <Toolbar>
-              <IconButton onClick={this.handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.bar_anchor}>
-                <Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <AppDrawer open={this.state.menuOpen} onClose={this.handleDrawer} />
-          <Grid container className={classes.container}>
-            <Grid item xs={12} sm={12}>
-              <AppRouter />
-            </Grid>
-          </Grid>
-        </div>
-			</Router>
-		)
-	}
+	return (
+		<Router>
+			<div>
+				<AppBar>
+					<Toolbar>
+						<IconButton onClick={handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
+							<MenuIcon />
+						</IconButton>
+						<Typography variant="h6" className={classes.bar_anchor}>
+							<Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
+						</Typography>
+					</Toolbar>
+				</AppBar>
+				<AppDrawer open={menuOpen} onClose={handleDrawer} />
+				<Grid container className={classes.container}>
+					<Grid item xs={12} sm={12}>
+						<AppRouter />
+					</Grid>
+				</Grid>
+			</div>
+		</Router>
+	)
 }
 
 App.propTypes = {
