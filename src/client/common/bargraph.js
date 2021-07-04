@@ -6,6 +6,7 @@ const xLabelMargin = 35
 const yLabelMargin = 50
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 
+// TODO: refactor the function
 export function renderBarGraph(node, data) {
 	if (data.sets.every(set => !set.length)) {
 		d3.select(node).selectAll('*').remove()
