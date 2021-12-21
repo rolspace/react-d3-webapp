@@ -1,36 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import Drawer from '@material-ui/core/Drawer'
+import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Divider } from '../node_modules/@material-ui/core';
 
-class AppDrawer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <Drawer anchor='left' open={this.props.open} onClose={this.props.onClose}>
+const AppDrawer = ({ onClose, open}) => {
+  return (
+    <Drawer anchor='left' open={open} onClose={onClose}>
         <Divider />
         <List component='nav'>
-          <ListItem button key='1' onClick={this.props.onClose}>
+          <ListItem button key='1' onClick={onClose}>
             <Link to='/graphs/repo-additions-deletions'>
               <ListItemText primary='Adds / Deletes' />
             </Link>
           </ListItem>
-          <ListItem button key='2' onClick={this.props.onClose}>
+          <ListItem button key='2' onClick={onClose}>
             <Link to='/graphs/repo-files'>
               <ListItemText primary='Changed Files' />
             </Link>
           </ListItem>
         </List>
       </Drawer>
-    )
-  }
+  )
 }
 
 AppDrawer.propTypes = {
