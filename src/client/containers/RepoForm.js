@@ -49,7 +49,7 @@ const RepoForm = (props) => {
 						{...bindNameInput} />
 				</Grid>
 				<Grid item xs={3} sm={1} className={classes.buttonContainer}>
-				< Button size='small' variant='raised' type='submit'>go</Button>
+				< Button size='small' variant='contained' type='submit'>go</Button>
 				</Grid>
 			</Grid>
 		</form>
