@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
+import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../common/bargraph'
 
 const styles = (theme) => ({
@@ -28,53 +28,44 @@ const styles = (theme) => ({
 	}
 })
 
-class BarGraph extends React.Component {
-	constructor(props) {
-		super(props)
-		this.renderGraph = this.renderGraph.bind(this)
-	}
+const BarGraph = ({ classes, data }) => {
+	const svgRef = useRef(null);
 
-	componentDidUpdate() {
-		this.renderGraph()
-	}
+	useEffect(() => {
+		function renderGraph() {
+			const node = svgRef.current
 
-	componentDidMount() {
-		this.renderGraph()
-	}
+			if (node && data && data.sets) {
+				const graphData = {
+					sets: data?.sets,
+					xAxis: data?.xAxis,
+					yAxis: data?.yAxis,
+					xAxisLabel: data?.xAxisLabel,
+					yAxisLabel: data?.yAxisLabel,
+					height: 500,
+					width: 800
+				}
 
-	renderGraph() {
-		const node = this.node;
-
-		const data = {
-			sets: this.props.data.sets,
-			xAxis: this.props.data.xAxis,
-			yAxis: this.props.data.yAxis,
-			xAxisLabel: this.props.data.xAxisLabel,
-			yAxisLabel: this.props.data.yAxisLabel,
-			height: 500,
-			width: 800
+				renderBarGraph(node, graphData)
+			}
 		}
 
-		renderBarGraph(node, data)
-	}
+		renderGraph()
+	}, [data])
 
-	render() {
-		const { classes } = this.props
-
-		return (
-			<div>
-        <Grid container className={classes.container}>
-          <Grid item xs={12} style={{ height: '75vh' }}>
-            {this.props.data.isLoading ?
-              <CircularProgress classes={{ root: classes.circleRoot }} />
-              :
-              <svg ref={node => this.node = node} className={classes.svg} viewBox='0 0 800 500'></svg>
-            }
-          </Grid>
-        </Grid>
-			</div>
-		)
-	}
+	return (
+		<div>
+			<Grid container className={classes.container}>
+				<Grid item xs={12} style={{ height: '75vh' }}>
+					{data.isLoading ?
+						<CircularProgress classes={{ root: classes.circleRoot }} />
+						:
+						<svg ref={svgRef} className={classes.svg} viewBox='0 0 800 500'></svg>
+					}
+				</Grid>
+			</Grid>
+		</div>
+	)
 }
 
 BarGraph.propTypes = {
