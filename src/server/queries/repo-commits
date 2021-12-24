@@ -1,6 +1,6 @@
 {
   repository(name: "%NAME%", owner: "%OWNER%") {
-    ref(qualifiedName: "master") {
+    ref(qualifiedName: "main") {
       target {
         ... on Commit {
           id
