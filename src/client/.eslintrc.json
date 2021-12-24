@@ -6,7 +6,7 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
+    "standard",
     "plugin:react/recommended"
   ],
   "parser": "babel-eslint",
@@ -24,15 +24,7 @@
     }
   },
   "rules": {
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "react/prop-types": [
-      "error",
-      {
-        "ignore": ["location", "query", "code"]
-      }
-    ]
+    "quotes": ["error", "single"],
+    "react/prop-types": ["error", { "ignore": ["location", "query", "code"] }]
   }
 }
