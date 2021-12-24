@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeRepo } from '../actions/repo'
 import { useInput } from '../hooks/useInput'
 
@@ -18,8 +18,7 @@ const styles = {
 	}
 }
 
-const RepoForm = (props) => {
-	const { classes } = props
+const RepoForm = ({ classes }) => {
 	const { isLoggedIn } = useSelector(state => state.user)
 	const { owner, name } = useSelector(state => state.repo)
 
