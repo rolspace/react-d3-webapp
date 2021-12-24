@@ -1,26 +1,20 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import BarGraph from './BarGraph'
 
-class RepoChangedFiles extends React.Component {
-	constructor(props) {
-		super(props)
+const RepoChangedFiles = ({ data, isLoading, xAxis, yAxis }) => {
+	const graphData = {
+		isLoading: isLoading,
+		sets: [data['changedFiles']],
+		xAxis: xAxis,
+		yAxis: yAxis,
+		xAxisLabel: 'Changed Files',
+		yAxisLabel: 'Total Commits'
 	}
-  
-	render() {
-		const data = {
-			isLoading: this.props.isLoading,
-			sets: [this.props.data['changedFiles']],
-			xAxis: this.props.xAxis,
-			yAxis: this.props.yAxis,
-			xAxisLabel: 'Changed Files',
-			yAxisLabel: 'Total Commits'
-		}
-    
-		return (
-			<BarGraph data={data} />
-		)
-	}
+
+	return (
+		<BarGraph data={graphData} />
+	)
 }
 
 RepoChangedFiles.propTypes = {
