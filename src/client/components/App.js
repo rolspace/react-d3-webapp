@@ -37,26 +37,26 @@ const App = ({ classes }) => {
   }
 
   return (
-		<Router>
-			<div>
-				<AppBar>
-					<Toolbar>
-						<IconButton onClick={handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
-							<MenuIcon />
-						</IconButton>
-						<Typography variant="h6" className={classes.bar_anchor}>
-							<Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
-						</Typography>
-					</Toolbar>
-				</AppBar>
-				<AppDrawer open={menuOpen} onClose={handleDrawer} />
-				<Grid container className={classes.container}>
-					<Grid item xs={12} sm={12}>
-						<AppRouter />
-					</Grid>
-				</Grid>
-			</div>
-		</Router>
+    <Router>
+      <div>
+        <AppBar>
+          <Toolbar>
+            <IconButton onClick={handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.bar_anchor}>
+              <Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <AppDrawer open={menuOpen} onClose={handleDrawer} />
+        <Grid container className={classes.container}>
+          <Grid item xs={12} sm={12}>
+            <AppRouter />
+          </Grid>
+        </Grid>
+      </div>
+    </Router>
   )
 }
 

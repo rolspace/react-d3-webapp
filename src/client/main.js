@@ -1,9 +1,9 @@
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import 'core-js/stable'
-import 'regenerator-runtime/runtime'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { render } from 'react-dom'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { Provider } from 'react-redux'
+import 'regenerator-runtime/runtime'
 import store from './common/store'
 import App from './components/App'
 
@@ -41,9 +41,9 @@ const theme = createMuiTheme({
 const container = document.getElementById('container')
 
 render(
-	<Provider store={store}>
+  <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <App />
     </MuiThemeProvider>
-	</Provider>, container,
+  </Provider>, container,
 )

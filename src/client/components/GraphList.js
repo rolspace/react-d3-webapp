@@ -5,7 +5,7 @@ import CustomCard from './Card'
 
 const GraphList = () => {
   return (
-		<GridList cols={2} spacing={16} cellHeight='auto'>
+    <GridList cols={2} spacing={16} cellHeight='auto'>
       <GridListTile>
         <CustomCard
           to='/graphs/repo-additions-deletions'
@@ -30,7 +30,7 @@ const GraphList = () => {
           title='Graph #4'
           description='Pending' />
       </GridListTile>
-		</GridList>
+    </GridList>
   )
 }
 

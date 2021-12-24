@@ -83,13 +83,13 @@ const config = {
         test: /\.css/,
         use: [
           'style-loader',
-					`css-loader?${JSON.stringify({
-						sourceMap: isDev,
-						modules: true,
-						localIdentName: isDev ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-						minimize: !isDev,
-					})}`,
-					'postcss-loader',
+          `css-loader?${JSON.stringify({
+            sourceMap: isDev,
+            modules: true,
+            localIdentName: isDev ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+            minimize: !isDev,
+          })}`,
+          'postcss-loader',
         ],
       },
     ],

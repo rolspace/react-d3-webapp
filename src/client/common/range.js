@@ -40,7 +40,7 @@ const assignToRange = (range, property, value) => {
 }
 
 const createRange = (collection, property, rangeType) => {
-  const startRange = _.cloneDeep(rangeType == Ranges.LOW ? [...lowRank] : [...highRank])
+  const startRange = _.cloneDeep(rangeType === Ranges.LOW ? [...lowRank] : [...highRank])
 
   if (collection && collection.length) {
     const updatedGroup = collection.reduce((range, value) => {

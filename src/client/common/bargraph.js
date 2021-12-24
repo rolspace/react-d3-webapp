@@ -17,7 +17,7 @@ export function renderBarGraph (node, data) {
 
     const xAxisPadding = data.sets.length > 1 ? 0.2 : 0.4
     const height = data.height - margins.top - margins.bottom
-    const	width = data.width - margins.right - margins.left
+    const width = data.width - margins.right - margins.left
 
     const xScales = data.sets.map(set => {
       const domain = set.map(d => _.get(d, data.xAxis))

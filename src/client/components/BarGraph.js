@@ -54,16 +54,16 @@ const BarGraph = ({ classes, data }) => {
   }, [data])
 
   return (
-		<div>
-			<Grid container className={classes.container}>
-				<Grid item xs={12} style={{ height: '75vh' }}>
-					{data.isLoading
-					  ? <CircularProgress classes={{ root: classes.circleRoot }} />
-					  :						<svg ref={svgRef} className={classes.svg} viewBox='0 0 800 500'></svg>
-					}
-				</Grid>
-			</Grid>
-		</div>
+    <div>
+      <Grid container className={classes.container}>
+        <Grid item xs={12} style={{ height: '75vh' }}>
+          {data.isLoading
+            ? <CircularProgress classes={{ root: classes.circleRoot }} />
+            : <svg ref={svgRef} className={classes.svg} viewBox='0 0 800 500'></svg>
+          }
+        </Grid>
+      </Grid>
+    </div>
   )
 }
 

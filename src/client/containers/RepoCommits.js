@@ -32,7 +32,7 @@ const RepoCommits = ({ graphComponent, options }) => {
   const GraphComponent = graphComponent
 
   return (
-		<GraphComponent data={repo.commits} error={error} isLoading={isLoading} {...options} />
+    <GraphComponent data={repo.commits} error={error} isLoading={isLoading} {...options} />
   )
 }
 

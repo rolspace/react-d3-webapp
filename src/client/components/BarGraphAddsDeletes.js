@@ -13,7 +13,7 @@ const BarGraphAddsDeletes = ({ data, isLoading, xAxis, yAxis }) => {
   }
 
   return (
-		<BarGraph data={graphData} />
+    <BarGraph data={graphData} />
   )
 }
 

@@ -14,11 +14,11 @@ const HomePage = (props) => {
   const { classes } = props
 
   return (
-		<Grid container className={classes.container} justify='center'>
+    <Grid container className={classes.container} justify='center'>
       <Grid item xs={12} sm={6}>
         <GraphList />
       </Grid>
-		</Grid>
+    </Grid>
   )
 }
 
