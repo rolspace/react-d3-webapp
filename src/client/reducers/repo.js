@@ -24,7 +24,7 @@ const repo = (state = initialState, action) => {
       })
     case types.FETCH_REPO_ERROR:
       return _.merge({}, state, {
-        error: 'some error',
+        error: action.payload,
         isComplete: true,
         isFetching: false,
       })

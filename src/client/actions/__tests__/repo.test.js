@@ -62,14 +62,20 @@ describe('Actions: repo actions', () => {
   })
 
   test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', async () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.reject('some error'))
+    const error = new Error('some error')
+
+    global.fetch = jest.fn().mockImplementation(() => Promise.reject(error))
 
     const store = mockStore({ repo: {} })
 
     await store.dispatch(fetchRepo('owner', 'name'))
     expect(store.getActions()).toEqual([
       { type: types.FETCHING_REPO },
-      { type: types.FETCH_REPO_ERROR, payload: 'some error' },
+      {
+        error: true,
+        type: types.FETCH_REPO_ERROR,
+        payload: error,
+      },
     ])
   })
 })

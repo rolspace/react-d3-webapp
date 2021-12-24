@@ -112,7 +112,14 @@ describe('Reducers: repo reducer', () => {
   })
 
   test('returns the correct object when the FETCH_REPO_ERROR action is executed', () => {
-    expect(repoReducer(undefined, { type: 'FETCH_REPO_ERROR' })).toEqual({
+    const error = new Error('some error')
+
+    const action = {
+      payload: error,
+      type: 'FETCH_REPO_ERROR',
+    }
+
+    expect(repoReducer(undefined, action)).toEqual({
       commits: {
         changedFiles: [],
         linesAdded: [],
@@ -122,7 +129,7 @@ describe('Reducers: repo reducer', () => {
       name: 'react',
       isComplete: true,
       isFetching: false,
-      error: 'some error',
+      error,
     })
   })
 })
