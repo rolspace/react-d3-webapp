@@ -10,22 +10,22 @@ import { Link } from 'react-router-dom'
 const styles = {
   card: {
     '&:hover': {
-      backgroundColor: '#eee'
+      backgroundColor: '#eee',
     },
     '&:hover h6': {
-      textDecoration: 'underline'
-    }
+      textDecoration: 'underline',
+    },
   },
-	card_anchor: {
-		minWidth: '100%',
-    textDecoration: 'none'
-	},
-	card_button: {
-		minWidth: '100%',
-    padding: '1px 1px 2px 1px'
+  card_anchor: {
+    minWidth: '100%',
+    textDecoration: 'none',
+  },
+  card_button: {
+    minWidth: '100%',
+    padding: '1px 1px 2px 1px',
   },
   card_subtitle: {
-    color: '#aaa'
+    color: '#aaa',
   },
 }
 
@@ -48,7 +48,7 @@ CustomCard.propTypes = {
   classes: PropTypes.object.isRequired,
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
 }
 
 export default withStyles(styles)(CustomCard)

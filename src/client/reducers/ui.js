@@ -2,18 +2,18 @@ import _ from 'lodash'
 import { CHANGE_SCREEN } from '../actions/ui'
 
 const initialState = {
-	screen: ''
+  screen: '',
 }
 
 const ui = (state = initialState, action) => {
-	switch (action.type) {
-		case CHANGE_SCREEN:
+  switch (action.type) {
+    case CHANGE_SCREEN:
       return _.merge({}, state, {
-        screen: action.payload.screen
+        screen: action.payload.screen,
       })
-		default:
+    default:
       return state
-	}
+  }
 }
 
 export default ui

@@ -1,4 +1,4 @@
-/*eslint-disable no-console*/
+/* eslint-disable no-console */
 
 import 'whatwg-fetch'
 import { createAction } from 'redux-actions'
@@ -18,24 +18,23 @@ export const fetchToken = (code, state) => {
       const response = await fetch(`${process.env.SERVER_URL}/api/token/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           code: code,
           state: state,
-        })
+        }),
       })
 
       const json = await response.json()
 
       dispatch(fetchTokenSuccess(json))
-    }
-    catch(error) {
+    } catch (error) {
       dispatch(fetchTokenError(error))
     }
   }
 }
 
-const fetchingToken =  createAction(FETCHING_TOKEN)
-const fetchTokenError =  createAction(FETCH_TOKEN_ERROR)
-const fetchTokenSuccess =  createAction(FETCH_TOKEN_SUCCESS)
+const fetchingToken = createAction(FETCHING_TOKEN)
+const fetchTokenError = createAction(FETCH_TOKEN_ERROR)
+const fetchTokenSuccess = createAction(FETCH_TOKEN_SUCCESS)

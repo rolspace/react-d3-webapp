@@ -5,36 +5,35 @@ import { fetchRepo } from '../actions/repo'
 import { changeScreen } from '../actions/ui'
 
 const RepoCommits = ({ graphComponent, options }) => {
-	const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-	const screen = useSelector((state) => state.ui.screen)
-	const repo = useSelector((state) => state.repo)
-	const user = useSelector((state) => state.user)
+  const screen = useSelector((state) => state.ui.screen)
+  const repo = useSelector((state) => state.repo)
+  const user = useSelector((state) => state.user)
 
-	useEffect(() => {
-		dispatch(changeScreen({ screen: graphComponent.name }))
+  useEffect(() => {
+    dispatch(changeScreen({ screen: graphComponent.name }))
 
-		return () => {
-			dispatch(changeScreen({ screen: '' }))
-		}
-	}, [dispatch, screen])
+    return () => {
+      dispatch(changeScreen({ screen: '' }))
+    }
+  }, [dispatch, screen])
 
-	const { error, isFetching, isComplete, name, owner } = repo
-	useEffect(() => {
-		const { isLoggedIn, token } = user
+  const { error, isFetching, isComplete, name, owner } = repo
+  useEffect(() => {
+    const { isLoggedIn, token } = user
 
+    if (!isFetching && !isComplete && isLoggedIn) {
+      dispatch(fetchRepo(owner, name, token))
+    }
+  }, [dispatch, repo, user])
 
-		if (!isFetching && !isComplete && isLoggedIn) {
-			dispatch(fetchRepo(owner, name, token))
-		}
-	}, [dispatch, repo, user])
+  const isLoading = isFetching && !isComplete
+  const GraphComponent = graphComponent
 
-	const isLoading = isFetching && !isComplete
-	const GraphComponent = graphComponent
-
-	return (
+  return (
 		<GraphComponent data={repo.commits} error={error} isLoading={isLoading} {...options} />
-	)
+  )
 }
 
 export default RepoCommits

@@ -7,9 +7,9 @@ describe('Components: BarGraph component', () => {
     const data = {
       sets: [],
       xAxis: 'xAxis',
-			yAxis: 'yAxis',
-			xAxisLabel: 'xAxisLabel',
-			yAxisLabel: 'yAxisLabel'
+      yAxis: 'yAxis',
+      xAxisLabel: 'xAxisLabel',
+      yAxisLabel: 'yAxisLabel',
     }
 
     const tree = renderer.create(<BarGraph data={data} />).toJSON()

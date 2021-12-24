@@ -1,13 +1,13 @@
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Divider } from '../node_modules/@material-ui/core';
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Divider } from '../node_modules/@material-ui/core'
 
-const AppDrawer = ({ onClose, open}) => {
+const AppDrawer = ({ onClose, open }) => {
   return (
     <Drawer anchor='left' open={open} onClose={onClose}>
         <Divider />
@@ -29,7 +29,7 @@ const AppDrawer = ({ onClose, open}) => {
 
 AppDrawer.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
 }
 
 export default AppDrawer

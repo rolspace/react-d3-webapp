@@ -9,33 +9,33 @@ import { changeRepo } from '../actions/repo'
 import { useInput } from '../hooks/useInput'
 
 const styles = {
-	container: {
-		paddingTop: '60px'
-	},
-	buttonContainer: {
-		lineHeight: '72px',
-		textAlign: 'center'
-	}
+  container: {
+    paddingTop: '60px',
+  },
+  buttonContainer: {
+    lineHeight: '72px',
+    textAlign: 'center',
+  },
 }
 
 const RepoForm = ({ classes }) => {
-	const { isLoggedIn } = useSelector(state => state.user)
-	const { owner, name } = useSelector(state => state.repo)
+  const { isLoggedIn } = useSelector(state => state.user)
+  const { owner, name } = useSelector(state => state.repo)
 
-	const { value:valueOwnerInput, bind:bindOwnerInput } = useInput(owner);
-  const { value:valueNameInput, bind:bindNameInput } = useInput(name);
+  const { value: valueOwnerInput, bind: bindOwnerInput } = useInput(owner)
+  const { value: valueNameInput, bind: bindNameInput } = useInput(name)
 
-	const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-	function handleSubmit(event) {
-		event.preventDefault()
+  function handleSubmit (event) {
+    event.preventDefault()
 
-		if (isLoggedIn) {
-			dispatch(changeRepo(valueOwnerInput, valueNameInput))
-		}
-	}
+    if (isLoggedIn) {
+      dispatch(changeRepo(valueOwnerInput, valueNameInput))
+    }
+  }
 
-	return (
+  return (
 		<form onSubmit={handleSubmit}>
 			<Grid container className={classes.container}>
 				<Grid item xs={4} sm={5}>
@@ -52,11 +52,11 @@ const RepoForm = ({ classes }) => {
 				</Grid>
 			</Grid>
 		</form>
-	)
+  )
 }
 
 RepoForm.propTypes = {
-	classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(RepoForm)

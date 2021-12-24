@@ -13,30 +13,30 @@ import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
 const styles = theme => ({
-	container: {
-		[theme.breakpoints.up('md')]: {
-			paddingLeft: '80px',
-			paddingRight: '80px'
-		}
-	},
-	bar_anchor: {
-		color: 'white',
-		textDecoration: 'none'
-	},
-	bar_anchor_reset: {
-		color: 'inherit',
-		textDecoration: 'inherit'
-	}
+  container: {
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: '80px',
+      paddingRight: '80px',
+    },
+  },
+  bar_anchor: {
+    color: 'white',
+    textDecoration: 'none',
+  },
+  bar_anchor_reset: {
+    color: 'inherit',
+    textDecoration: 'inherit',
+  },
 })
 
 const App = ({ classes }) => {
-	const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
-	const handleDrawer = () => {
-		setMenuOpen(!menuOpen)
-	}
+  const handleDrawer = () => {
+    setMenuOpen(!menuOpen)
+  }
 
-	return (
+  return (
 		<Router>
 			<div>
 				<AppBar>
@@ -57,11 +57,11 @@ const App = ({ classes }) => {
 				</Grid>
 			</div>
 		</Router>
-	)
+  )
 }
 
 App.propTypes = {
-	classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 }
 
 export { App }

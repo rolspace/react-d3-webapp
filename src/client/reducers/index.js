@@ -4,9 +4,9 @@ import ui from './ui'
 import user from './user'
 
 const reducer = combineReducers({
-	repo,
-	ui,
-	user
+  repo,
+  ui,
+  user,
 })
 
 export default reducer

@@ -4,7 +4,7 @@ import React from 'react'
 import CustomCard from './Card'
 
 const GraphList = () => {
-	return (
+  return (
 		<GridList cols={2} spacing={16} cellHeight='auto'>
       <GridListTile>
         <CustomCard
@@ -31,7 +31,7 @@ const GraphList = () => {
           description='Pending' />
       </GridListTile>
 		</GridList>
-	)
+  )
 }
 
 export default GraphList

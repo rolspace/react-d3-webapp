@@ -20,10 +20,10 @@ describe('Actions: repo actions', () => {
           oid: 'abc1ea0cd96c81467c574b134349eafc30f945d0d',
           author: {
             user: {
-              login: 'user1'
-            }
-          }
-        }
+              login: 'user1',
+            },
+          },
+        },
       },
       {
         node: {
@@ -34,19 +34,20 @@ describe('Actions: repo actions', () => {
           oid: '0999a79fedef38a824a837c535bf853013dd4012',
           author: {
             user: {
-              login: 'user2'
-            }
-          }
-        }
-      }
-    ]}
+              login: 'user2',
+            },
+          },
+        },
+      },
+      ],
+    }
 
     const response = { status: 200, json: () => Promise.resolve(data) }
     global.fetch = jest.fn().mockImplementation(() => Promise.resolve(response))
 
     const store = mockStore({ repo: {} })
 
-    await store.dispatch(fetchRepo('owner', 'name'));
+    await store.dispatch(fetchRepo('owner', 'name'))
     expect(store.getActions()).toEqual([
       { type: types.FETCHING_REPO },
       {
@@ -54,10 +55,10 @@ describe('Actions: repo actions', () => {
         payload: {
           owner: 'owner',
           name: 'name',
-          data: data.data
-        }
-      }
-    ]);
+          data: data.data,
+        },
+      },
+    ])
   })
 
   test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_ERROR action if there is an error', async () => {
@@ -68,7 +69,7 @@ describe('Actions: repo actions', () => {
     await store.dispatch(fetchRepo('owner', 'name'))
     expect(store.getActions()).toEqual([
       { type: types.FETCHING_REPO },
-      { type: types.FETCH_REPO_ERROR, payload: 'some error' }
+      { type: types.FETCH_REPO_ERROR, payload: 'some error' },
     ])
   })
 })

@@ -10,19 +10,18 @@ export const fetchRepo = (owner, name, token) => {
       const response = await fetch(`${process.env.SERVER_URL}/api/repo/${owner}/${name}/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          token: token
-        })
+          token: token,
+        }),
       })
 
       const json = await response.json()
       const payload = { owner, name, data: json.data }
 
       dispatch(fetchRepoSuccess(payload))
-    }
-    catch(error) {
+    } catch (error) {
       dispatch(fetchRepoError(error))
     }
   }
@@ -34,7 +33,7 @@ export const changeRepo = (owner, name) => {
 
     const payload = {
       owner: owner,
-      name: name
+      name: name,
     }
 
     dispatch(changeRepoSuccess(payload))

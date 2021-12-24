@@ -6,71 +6,70 @@ import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../common/bargraph'
 
 const styles = (theme) => ({
-	circle: {
-		r: 5
-	},
-	container: {
-		overflowX: 'scroll'
-	},
-	root: {
-		width: '100%'
-	},
-	svg: {
-		fontFamily: theme.typography.fontFamily,
-		height: '73vh',
-		minWidth: '700px',
-		width: '100%'
-	},
-	circleRoot: {
-		left: '45%',
-		position: 'absolute',
-		top: '50%',
-	}
+  circle: {
+    r: 5,
+  },
+  container: {
+    overflowX: 'scroll',
+  },
+  root: {
+    width: '100%',
+  },
+  svg: {
+    fontFamily: theme.typography.fontFamily,
+    height: '73vh',
+    minWidth: '700px',
+    width: '100%',
+  },
+  circleRoot: {
+    left: '45%',
+    position: 'absolute',
+    top: '50%',
+  },
 })
 
 const BarGraph = ({ classes, data }) => {
-	const svgRef = useRef(null);
+  const svgRef = useRef(null)
 
-	useEffect(() => {
-		function renderGraph() {
-			const node = svgRef.current
+  useEffect(() => {
+    function renderGraph () {
+      const node = svgRef.current
 
-			if (node && data && data.sets) {
-				const graphData = {
-					sets: data.sets,
-					xAxis: data.xAxis,
-					yAxis: data.yAxis,
-					xAxisLabel: data.xAxisLabel,
-					yAxisLabel: data.yAxisLabel,
-					height: 500,
-					width: 800
-				}
+      if (node && data && data.sets) {
+        const graphData = {
+          sets: data.sets,
+          xAxis: data.xAxis,
+          yAxis: data.yAxis,
+          xAxisLabel: data.xAxisLabel,
+          yAxisLabel: data.yAxisLabel,
+          height: 500,
+          width: 800,
+        }
 
-				renderBarGraph(node, graphData)
-			}
-		}
+        renderBarGraph(node, graphData)
+      }
+    }
 
-		renderGraph()
-	}, [data])
+    renderGraph()
+  }, [data])
 
-	return (
+  return (
 		<div>
 			<Grid container className={classes.container}>
 				<Grid item xs={12} style={{ height: '75vh' }}>
-					{data.isLoading ?
-						<CircularProgress classes={{ root: classes.circleRoot }} />
-						:
-						<svg ref={svgRef} className={classes.svg} viewBox='0 0 800 500'></svg>
+					{data.isLoading
+					  ? <CircularProgress classes={{ root: classes.circleRoot }} />
+					  :						<svg ref={svgRef} className={classes.svg} viewBox='0 0 800 500'></svg>
 					}
 				</Grid>
 			</Grid>
 		</div>
-	)
+  )
 }
 
 BarGraph.propTypes = {
-	classes: PropTypes.object.isRequired,
-	data: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(BarGraph)
