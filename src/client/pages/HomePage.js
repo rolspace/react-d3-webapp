@@ -10,9 +10,7 @@ const styles = {
   },
 }
 
-const HomePage = (props) => {
-  const { classes } = props
-
+const HomePage = ({ classes }) => {
   return (
     <Grid container className={classes.container} justify='center'>
       <Grid item xs={12} sm={6}>
