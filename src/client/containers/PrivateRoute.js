@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { withRouter, Route } from 'react-router-dom'
 import qs from 'query-string'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, withRouter } from 'react-router-dom'
 import { fetchToken } from '../actions/user'
 
-const PrivateRoute = (props) => {
-  const { code, state } = qs.parse(props.location.search)
-
+const PrivateRoute = ({ component, location, path }) => {
+  const { code, state } = qs.parse(location.search)
   const { isLoggedIn } = useSelector(state => state.user)
   const dispatch = useDispatch()
 
@@ -16,16 +15,16 @@ const PrivateRoute = (props) => {
       dispatch(fetchToken(code, state))
     }
     else if (!isLoggedIn) {
-      window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${props.location.pathname}`)
+      window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${location.pathname}`)
     }
   }, [code, state])
 
   if (isLoggedIn) {
-    const Component = props.component
-    history.replaceState({}, document.title, props.path)
+    const Component = component
+    history.replaceState({}, document.title, path)
 
     return (
-        <Route exact path={props.path} component={Component} />
+        <Route exact path={path} component={Component} />
     )
   }
   else {
@@ -36,6 +35,7 @@ const PrivateRoute = (props) => {
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,
 }
 
