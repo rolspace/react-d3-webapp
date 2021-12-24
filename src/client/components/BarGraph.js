@@ -37,11 +37,11 @@ const BarGraph = ({ classes, data }) => {
 
 			if (node && data && data.sets) {
 				const graphData = {
-					sets: data?.sets,
-					xAxis: data?.xAxis,
-					yAxis: data?.yAxis,
-					xAxisLabel: data?.xAxisLabel,
-					yAxisLabel: data?.yAxisLabel,
+					sets: data.sets,
+					xAxis: data.xAxis,
+					yAxis: data.yAxis,
+					xAxisLabel: data.xAxisLabel,
+					yAxisLabel: data.yAxisLabel,
 					height: 500,
 					width: 800
 				}
