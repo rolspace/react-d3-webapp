@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import Range from '../common/range'
 import * as types from '../actions/repoTypes'
+import Range from '../common/range'
 
 const initialState = {
   commits: {

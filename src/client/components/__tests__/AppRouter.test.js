@@ -1,5 +1,5 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 import { Switch } from 'react-router-dom'
 import PrivateRoute from '../../containers/PrivateRoute'
 import AppRouter from '../AppRouter'

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import 'whatwg-fetch'
 import { createAction } from 'redux-actions'
+import 'whatwg-fetch'
 
 export const QUERYING_TOKEN = 'QUERYING_TOKEN'
 export const QUERY_TOKEN_ERROR = 'QUERY_TOKEN_ERROR'

@@ -1,7 +1,7 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import { HomePage } from '../HomePage'
+import React from 'react'
 import GraphList from '../../components/GraphList'
+import { HomePage } from '../HomePage'
 
 describe('Components: HomePage component', function () {
   it('renders correctly', function () {

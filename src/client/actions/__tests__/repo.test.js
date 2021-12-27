@@ -1,8 +1,8 @@
-import 'whatwg-fetch'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
-import * as types from '../../actions/repoTypes'
+import 'whatwg-fetch'
 import { fetchRepo } from '../../actions/repo'
+import * as types from '../../actions/repoTypes'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)

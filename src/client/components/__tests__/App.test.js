@@ -1,10 +1,10 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { AppBar, Toolbar } from '@material-ui/core'
+import { shallow } from 'enzyme'
+import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { App } from '../App'
-import AppRouter from '../AppRouter'
 import AppDrawer from '../AppDrawer'
+import AppRouter from '../AppRouter'
 
 describe('Components: App component', () => {
   test('renders correctly', () => {
