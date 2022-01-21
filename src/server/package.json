@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node run.js",
     "pro": "node run.js",
-    "eslint": "eslint . --ext .js",
+    "lint": "eslint .",
     "test": "jest"
   },
   "repository": {
