@@ -4,14 +4,19 @@
       "jest": true,
       "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": "standard",
   "parserOptions": {
-      "ecmaVersion": 2018
+      "ecmaVersion": 2021
   },
+  "plugins": [
+      "jest"
+  ],
   "rules": {
-      "quotes": [
-          "error",
-          "single"
-      ]
+    "brace-style": ["error", "1tbs", { "allowSingleLine": false }],
+    "comma-dangle": ["error", "always-multiline"],
+    "curly": ["error", "all"],
+    "prefer-destructuring": "error",
+    "quotes": ["error", "single"],
+    "react/prop-types": ["error", { "ignore": ["location", "query", "code"] }]
   }
 }
