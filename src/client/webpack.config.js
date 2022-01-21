@@ -2,15 +2,11 @@
 
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
-const pkg = require('./package.json')
+const babelConfig = require('./.babelrc.json')
 const webpack = require('webpack')
 
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
-
-const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false,
-})
 
 const devEntry = ['webpack-hot-middleware/client', 'whatwg-fetch', './main.js']
 const prodEntry = ['whatwg-fetch', './main.js']

@@ -74,24 +74,5 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "whatwg-fetch": "^3.0.0"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-react",
-      [
-        "@babel/preset-env",
-        {
-          "corejs": {
-            "version": "3.8"
-          },
-          "useBuiltIns": "entry"
-        }
-      ]
-    ],
-    "plugins": [
-      "react-hot-loader/babel",
-      "@babel/plugin-transform-regenerator",
-      "@babel/plugin-proposal-object-rest-spread"
-    ]
   }
 }
