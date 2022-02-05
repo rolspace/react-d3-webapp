@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Docker Server Debug",
+            "type": "docker",
+            "request": "launch",
+            "serverReadyAction": {
+                "action": "openExternally"
+            },
+            "preLaunchTask": "docker-run-server: debug",
+            "platform": "node",
+            "node": {
+                "package": "${workspaceFolder}/src/server/package.json",
+                "localRoot": "${workspaceFolder}/src/server"
+            }
+        }
+    ]
+}
