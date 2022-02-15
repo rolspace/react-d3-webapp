@@ -98,7 +98,6 @@ if (isDev) {
     __DEV__: isDev,
   }))
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
-  config.plugins.push(new Dotenv())
 } else {
   config.plugins.push(new webpack.DefinePlugin({
     'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
