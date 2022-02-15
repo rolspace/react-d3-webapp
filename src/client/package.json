@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "node run build",
-    "dev": "concurrently \"node run dev\" \"cd ../server && npm run dev\"",
-    "pro": "concurrently \"node run pro\" \"cd ../server && npm run pro\"",
+    "dev": "node run.js dev",
+    "pro": "node run.js pro",
     "lint": "eslint .",
     "test": "jest",
     "test-coverage": "jest --collectCoverage"
