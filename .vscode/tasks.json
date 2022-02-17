@@ -2,6 +2,13 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"type": "npm",
+			"label": "local-run-client",
+			"script": "dev",
+			"path": "src/client/",
+			"detail": "node run.js dev"
+		},
+		{
 			"type": "docker-build",
 			"label": "docker-build-server",
 			"platform": "node",
@@ -32,10 +39,12 @@
 				"docker-build-server"
 			],
 			"dockerRun": {
-				"ports": [{
-					"containerPort": 9000,
-					"hostPort": 9000
-				}],
+				"ports": [
+					{
+						"containerPort": 9000,
+						"hostPort": 9000
+					}
+				],
 				"env": {
 					"APPLICATION_ID": "",
 					"APPLICATION_SECRET": "",
@@ -99,10 +108,12 @@
 					"NODE_ENV": "development",
 					"SERVER_URL": "http://localhost:9000"
 				},
-				"ports": [{
-					"containerPort": 8000,
-					"hostPort": 8000
-				}]
+				"ports": [
+					{
+						"containerPort": 8000,
+						"hostPort": 8000
+					}
+				]
 			},
 			"node": {
 				"package": "${workspaceFolder}/src/client/package.json",

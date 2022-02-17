@@ -1,7 +1,37 @@
 {
     "configurations": [
+
         {
-            "name": "Docker Server Debug",
+            "name": "Local Launch Client Browser",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "preLaunchTask": "local-run-client",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}/src/client",
+        },
+        {
+            "name": "Docker Launch Client Browser",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}/src/client"
+        },
+        {
+            "name": "Docker Launch Client Server",
+            "type": "docker",
+            "request": "launch",
+            "serverReadyAction": {
+                "action": "openExternally"
+            },
+            "preLaunchTask": "docker-run-client: debug",
+            "platform": "node",
+            "node": {
+                "package": "${workspaceFolder}/src/client/package.json",
+                "localRoot": "${workspaceFolder}/src/client"
+            }
+        },
+        {
+            "name": "Docker Launch API Server",
             "type": "docker",
             "request": "launch",
             "serverReadyAction": {
