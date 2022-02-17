@@ -7,7 +7,7 @@ const server = require('./server')
 
 const tasks = new Map()
 
-async function run (task) {
+const run = async (task) => {
   try {
     const start = new Date()
     console.log(`Starting '${task}'...`)
@@ -45,10 +45,9 @@ tasks.set('build', async () => {
 
 // Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', async () => {
-  process.env.NODE_ENV = 'development'
-
   let count = 0
-
+  process.env.NODE_ENV = 'development'
+  
   await run('clean')
 
   return new Promise(resolve => {
