@@ -14,7 +14,7 @@ const app = express()
 const ns = path.relative(process.cwd(), __filename)
 const { status } = constants
 
-const init = () => {
+const init = (() => {
 	queries.loadQueries()
 
 	app.use(bodyParser.json())
@@ -39,8 +39,4 @@ const init = () => {
 	app.listen(port, () => {
 		logger.info({ ns: `${ns}:init` }, `Server started and listening on port: ${port}`)
 	})
-}
-
-module.exports = {
-	init
-}
+})()

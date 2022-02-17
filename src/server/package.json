@@ -8,9 +8,8 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "dev": "node run.js",
-    "pro": "node run.js",
     "lint": "eslint .",
+    "start": "node index.js",
     "test": "jest",
     "test-coverage": "jest --collectCoverage"
   },
