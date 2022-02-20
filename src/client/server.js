@@ -9,7 +9,7 @@ const app = express()
 const start = () => {
   app.use(express.static(path.join(process.cwd() + '/public')))
 
-  app.get('*', function (req, res) {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(process.cwd(), '/public/index.html'))
   })
 

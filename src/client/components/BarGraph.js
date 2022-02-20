@@ -32,7 +32,7 @@ const BarGraph = ({ classes, data }) => {
   const svgRef = useRef(null)
 
   useEffect(() => {
-    function renderGraph () {
+    const renderGraph = () => {
       const node = svgRef.current
 
       if (node && data && data.sets) {

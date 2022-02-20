@@ -7,7 +7,7 @@ const yLabelMargin = 50
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 
 // TODO: refactor the function
-export function renderBarGraph (node, data) {
+export const renderBarGraph = (node, data) => {
   if (data.sets.every(set => !set.length)) {
     d3.select(node).selectAll('*').remove()
   } else {
@@ -59,7 +59,7 @@ export function renderBarGraph (node, data) {
   }
 }
 
-function renderBarGraphSet (set, index) {
+const renderBarGraphSet = (set, index) => {
   this.innerNode.selectAll('bar').data(set)
     .enter().append('rect')
     .style('fill', colors[index]).style('stroke-width', 1).style('stroke', '#000')

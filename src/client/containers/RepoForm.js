@@ -27,7 +27,7 @@ const RepoForm = ({ classes }) => {
 
   const dispatch = useDispatch()
 
-  function handleSubmit (event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
 
     if (isLoggedIn) {

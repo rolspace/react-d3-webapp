@@ -3,8 +3,8 @@ import React from 'react'
 import GraphList from '../../components/GraphList'
 import { HomePage } from '../HomePage'
 
-describe('Components: HomePage component', function () {
-  it('renders correctly', function () {
+describe('Components: HomePage component', () => {
+  it('renders correctly', () => {
     const classes = {}
 
     const component = shallow(<HomePage classes={classes} />)
