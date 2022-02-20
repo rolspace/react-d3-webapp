@@ -1,8 +1,7 @@
 const rp = require('request-promise-native')
+const logger = require('../../common/logger')
 const queries = require('../../common/queries')
 const repo = require('../repo')
-
-jest.mock('../../common/logger')
 
 let res = {}
 
@@ -31,6 +30,10 @@ describe('repo module', () => {
     const requestPromiseMock = jest
                                 .spyOn(rp, 'post')
                                 .mockResolvedValue(data)
+
+    const loggerMock = jest
+                        .spyOn(logger, 'info')
+                        .mockImplementation(() => jest.fn())
 
     await repo.post(req, res)
 
