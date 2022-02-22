@@ -104,7 +104,7 @@
 			],
 			"dockerRun": {
 				"env": {
-					"APPLICATION_ID": "983e65ddf795ce2dc9d8",
+					"APPLICATION_ID": "",
 					"NODE_ENV": "development",
 					"SERVER_URL": "http://localhost:9000"
 				},
