@@ -42,6 +42,12 @@ const config = {
 
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
+      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      __DEV__: isDev,
+    })
   ],
 
   module: {
@@ -93,18 +99,8 @@ const config = {
 }
 
 if (isDev) {
-  config.plugins.push(new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    __DEV__: isDev,
-  }))
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
 } else {
-  config.plugins.push(new webpack.DefinePlugin({
-    'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
-    'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    __DEV__: isDev,
-  }))
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
 }
 
