@@ -1,6 +1,5 @@
 {
     "configurations": [
-
         {
             "name": "Local Launch Client Browser",
             "request": "launch",
@@ -43,6 +42,14 @@
                 "package": "${workspaceFolder}/src/server/package.json",
                 "localRoot": "${workspaceFolder}/src/server"
             }
-        }
+        },
+        {
+            "name": "Docker Attach to Server",
+            "type": "node",
+            "request": "attach",
+            "localRoot": "${workspaceFolder}/src/server",
+            "remoteRoot": "/usr/src/app",
+            "port": 9230
+        },
     ]
 }
