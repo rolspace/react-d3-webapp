@@ -18,10 +18,6 @@ const run = async (task) => {
   }
 }
 
-tasks.set('clean', async () => {
-  await del(['public/dist/*', '!public/dist/.git'], { dot: true })
-})
-
 // Bundle JavaScript, CSS and image files with Webpack
 tasks.set('bundle', async () => {
   const webpackConfig = require('./webpack.prod')
@@ -37,19 +33,9 @@ tasks.set('bundle', async () => {
   })
 })
 
-// Build website into a distributable format
-tasks.set('build', async () => {
-  process.env.NODE_ENV = 'production'
-  await run('clean')
-  await run('bundle')
-})
-
 // Build website using webpack and launch it in a browser for testing (default)
 tasks.set('dev', async () => {
   let count = 0
-  process.env.NODE_ENV = 'development'
-  
-  await run('clean')
 
   return new Promise(resolve => {
     const bs = require('browser-sync').create()
