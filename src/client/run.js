@@ -24,7 +24,7 @@ tasks.set('clean', async () => {
 
 // Bundle JavaScript, CSS and image files with Webpack
 tasks.set('bundle', async () => {
-  const webpackConfig = require('./webpack.config')
+  const webpackConfig = require('./webpack.prod')
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((error, stats) => {
       if (error) {
@@ -39,6 +39,7 @@ tasks.set('bundle', async () => {
 
 // Build website into a distributable format
 tasks.set('build', async () => {
+  process.env.NODE_ENV = 'production'
   await run('clean')
   await run('bundle')
 })
@@ -52,7 +53,7 @@ tasks.set('dev', async () => {
 
   return new Promise(resolve => {
     const bs = require('browser-sync').create()
-    const webpackConfig = require('./webpack.config')
+    const webpackConfig = require('./webpack.dev')
     const compiler = webpack(webpackConfig)
 
     const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
