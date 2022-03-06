@@ -19,7 +19,6 @@ const config = {
     context: __dirname,
     entry: ['whatwg-fetch', './main.js'],
     output: {
-        clean: true,
         filename: '[name].js',
         path: path.resolve(__dirname, './public/dist'),
         publicPath: '/dist/',
