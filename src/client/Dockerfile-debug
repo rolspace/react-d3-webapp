@@ -1,9 +1,14 @@
 FROM node:lts-alpine
+
+ENV APPLICATION_ID=application_id
 ENV NODE_ENV=development
+ENV SERVER_URL=http://serverurl
+
 WORKDIR /usr/src/app
 COPY . .
+RUN cd public && rm -rf ./dist && cd /usr/src/app \
+    && chown -R node /usr/src/app
+USER node
 RUN npm install --silent
 EXPOSE 8000
-RUN chown -R node /usr/src/app
-USER node
 CMD ["node", "run.js", "dev"]
