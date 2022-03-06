@@ -1,7 +1,6 @@
 /* eslint-disable no-console, global-require */
 
 const fs = require('fs')
-const del = require('del')
 const webpack = require('webpack')
 const server = require('./server')
 
