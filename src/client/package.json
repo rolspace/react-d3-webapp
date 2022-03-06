@@ -54,7 +54,8 @@
     "regenerator-runtime": "^0.13.7",
     "webpack": "^5.17.0",
     "webpack-dev-middleware": "^4.1.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "@material-ui/core": "^4.8.2",
