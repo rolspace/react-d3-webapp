@@ -1,6 +1,5 @@
 # Compiled output
 src/client/public/dist
-src/client/public/index.html
 
 # local files
 src/server/examples/
