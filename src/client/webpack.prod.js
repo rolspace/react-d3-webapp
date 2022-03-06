@@ -5,9 +5,6 @@ const common = require('./webpack.common.js');
 const config = {
     mode: 'production',
     devtool: 'source-map',
-    output: {
-        clean: true,
-    },
     module: {
         rules: [
             {
