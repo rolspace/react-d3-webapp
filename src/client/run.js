@@ -18,7 +18,7 @@ const run = async (task) => {
 }
 
 // Bundle JavaScript, CSS and image files with Webpack
-tasks.set('bundle', async () => {
+tasks.set('build', async () => {
   const webpackConfig = require('./webpack.prod')
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((error, stats) => {
