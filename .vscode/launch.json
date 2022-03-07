@@ -44,7 +44,7 @@
             }
         },
         {
-            "name": "Docker Attach to Server",
+            "name": "Docker Attach to API Server",
             "type": "node",
             "request": "attach",
             "localRoot": "${workspaceFolder}/src/server",

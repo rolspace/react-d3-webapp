@@ -23,17 +23,6 @@
 		},
 		{
 			"type": "docker-run",
-			"label": "docker-run-server: release",
-			"dependsOn": [
-				"docker-build-server"
-			],
-			"platform": "node",
-			"node": {
-				"package": "${workspaceFolder}/src/server/package.json"
-			}
-		},
-		{
-			"type": "docker-run",
 			"label": "docker-run-server: debug",
 			"dependsOn": [
 				"docker-build-server"
@@ -49,7 +38,6 @@
 					"APPLICATION_ID": "",
 					"APPLICATION_SECRET": "",
 					"CLIENT_URL": "http://localhost:8000",
-					"DEBUG": "*",
 					"GITHUB_USER": "",
 					"NODE_ENV": "development"
 				}
@@ -57,30 +45,6 @@
 			"node": {
 				"package": "${workspaceFolder}/src/server/package.json",
 				"enableDebugging": true
-			}
-		},
-		{
-			"type": "docker-build",
-			"label": "docker-build-client: release",
-			"platform": "node",
-			"dockerBuild": {
-				"dockerfile": "${workspaceFolder}/src/client/Dockerfile",
-				"context": "${workspaceFolder}/src/client",
-				"pull": true
-			},
-			"node": {
-				"package": "${workspaceFolder}/src/client/package.json"
-			}
-		},
-		{
-			"type": "docker-run",
-			"label": "docker-run-client: release",
-			"dependsOn": [
-				"docker-build-client"
-			],
-			"platform": "node",
-			"node": {
-				"package": "${workspaceFolder}/src/client/package.json"
 			}
 		},
 		{
