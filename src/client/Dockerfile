@@ -1,18 +1,19 @@
 FROM node:lts-alpine as intermediate
 
-ENV APPLICATION_ID=application_id
-ENV NODE_ENV=production
-ENV SERVER_URL=http://serverurl
+ARG application_id=12345abcde
+ENV APPLICATION_ID=$application_id
+
+ARG node_env=production
+ENV NODE_ENV=$node_env
+
+ARG server_url=http://serverurl
+ENV SERVER_URL=$server_url
 
 WORKDIR /usr/src/app
 COPY . .
 RUN cd public && rm -rf ./dist && cd /usr/src/app \
     && npm install --silent --production=false && npm run build
 
-FROM alpine
-RUN apk add thttpd && adduser -D static
-USER static
-WORKDIR /home/static
-COPY --from=intermediate /usr/src/app/public .
-EXPOSE 8000
-CMD ["thttpd", "-D", "-h", "0.0.0.0", "-p", "8000", "-d", "/home/static", "-u", "static", "-l", "-", "-M", "60"]
+FROM nginx:alpine
+COPY --from=intermediate /usr/src/app/nginx.conf /etc/nginx/nginx.conf
+COPY --from=intermediate /usr/src/app/public /usr/share/nginx/html
