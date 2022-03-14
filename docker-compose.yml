@@ -1,39 +1,28 @@
-version: "3.6"
+version: '3.4'
 
 services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy:latest
+  reactd3webappbackend:
+    image: reactd3webappbackend
+    build:
+      context: src/server
+      dockerfile: ./Dockerfile
+    environment:
+      APPLICATION_ID: application_id
+      APPLICATION_SECRET: application_secret
+      CLIENT_URL: http://localhost:8000
+      GITHUB_USER: github_user
+      NODE_ENV: production
     ports:
-      - "80:80"
-    networks:
-      - reactd3appnet
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - 9000:9000
 
-  reactd3appclient:
+  reactd3webappclient:
+    image: reactd3webappclient
     build:
-      context: .
-      dockerfile: _docker/client_dockerfile
+      context: src/client
+      dockerfile: ./Dockerfile
       args:
-        appid: appid
-        backendurl: http://backendurl
-    networks:
-      - reactd3appnet
-    environment:
-      - VIRTUAL_HOST=reactd3client
-
-  reactd3appbackend:
-    build:
-      context: .
-      dockerfile: _docker/server_dockerfile
-    networks:
-      - reactd3appnet
-    environment:
-      - APPLICATION_ID=appid
-      - APPLICATION_SECRET=appsecret
-      - CLIENT_URL=http://clienturl
-      - VIRTUAL_HOST=reactd3server
-
-networks:
-  reactd3appnet:
-    driver: bridge
+        application_id: application_id
+        node_env: production
+        server_url: http://localhost:9000
+    ports:
+      - 8000:80
