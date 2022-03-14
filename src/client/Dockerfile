@@ -14,6 +14,9 @@ COPY . .
 RUN cd public && rm -rf ./dist && cd /usr/src/app \
     && npm install --silent --production=false && npm run build
 
+# This is mostly done as a demonstration
+# In a real production environment, the better choice would most likely be to use
+# a well known cloud resource for hosting static web sites such as AWS S3 or similar.
 FROM nginx:alpine
 COPY --from=intermediate /usr/src/app/nginx.conf /etc/nginx/nginx.conf
 COPY --from=intermediate /usr/src/app/public /usr/share/nginx/html
