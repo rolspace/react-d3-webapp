@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-ENV APPLICATION_ID=application_id
+ENV APPLICATION_ID=12345abcde
 ENV NODE_ENV=development
 ENV SERVER_URL=http://serverurl
 
