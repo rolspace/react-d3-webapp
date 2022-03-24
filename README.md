@@ -8,42 +8,57 @@ Initially, this project was supposed to connect with the Instagram API in order 
 
 Later, I decided that the best thing to do was to connect to the GitHub GraphQL API to attempt something similar.
 
-As most personal projects, this is still a work in progress.
+### How to run
 
-## Application setup
+The application has two parts, the client application and the API backend.
 
-The application consists of two parts, the client application and the backend application.
+#### Client application
 
-### Client setup
+The client application requires two environment variables: 
+- APPLICATION_ID: GitHub application id.
+- SERVER_URL: domain for the API backend
 
-The client application only requires the environment variable SERVER_URL, for webpack to inject the URL of the server into the build file. This URL will be used to make the service requests to the server, example: http://localhost:9000.
+The client application can be run in several ways:
 
-The PORT environment variable can be provided to overwrite the default port used by the client server (8000)
+Option 1: Locally
+- Using the terminal, set the `/src/client` folder as the current directory and install the client application dependencies with the `npm install` command.
+- Run the `npm run dev` command to launch the application in development mode.
 
-### Backend setup
+Option 2: Use Docker launch config in VSCode
+- Run the `Docker Launch Client Server` launch config in VSCode. It will build and start the dev server using webpack and Docker. It is necessary to modify the tasks.json file to provide the environment variables to the `docker-run-client: debug` task (in tasks.json).
+- Run the `Docker Launch Client Browser` launch config in VSCode. It will launch Chrome and load the client application.
+
+With this option a Run and Debug session in VSCode will be started.
+
+Option 3: Use Docker Compose and attach with VSCode
+- Use the `docker-compose.debug.yml` file to launch **both** the client application and the API backend. It is necessary to modify the Compose file to provide the environment variables.
+- Run the `Docker Launch Client Browser` launch config in VSCode. It will attach VSCode to the client application started with Docker Compose.
+
+#### API Backend
+
+The API Backend requires four environment variables:
+- APPLICATION_ID: GitHub application id
+- APPLICATION_SECRET: GitHub application secret
+- CLIENT_URL: domain for the client application
+- GITHUB_USER: GitHub user to include in request header
+
+The API Backend can be run in several ways:
+
+Option 1: Locally
+- Using the terminal, set the `/src/server` folder as the current directory and install the client application dependencies with the `npm install` command.
+- Run the `npm run dev` command to launch the application in development mode.
+
+Option 2: Use Docker launch config in VSCode
+- Run the `Docker Launch API Server` launch config in VSCode. It will start the application in a Docker container. It is necessary to modify the tasks.json file to provide the environment variables to the `docker-run-server: debug` task (in tasks.json).
+
+Option 3: Use Docker Compose and attach with VSCode
+- Use the `docker-compose.debug.yml` file to launch **both** the client application and the API backend. It is necessary to modify the Compose file to provide the environment variables.
+- Run the `Docker Attach to API` launch config in VSCode. It will attach VSCode to the API Backend started with Docker Compose.
 
 The backend application requires three environment variables. CLIENT_URL is used to define the URL for incoming requests to the backend server, example: http://localhost:8000. GITHUB_USER defines the id of the user providing the personal access token for the GitHub GraphQL requests. GITHUB_TOKEN is the personal access token used to authenticate the GraphQL API requests.
 
-The PORT environment variable can be provided to overwrite the default port used by the backend server (9000)
-
-### How to run (development)
-
-Install all dependencies running:
-
-`npm install`
-
-from inside the /client and /backend folders separately.
-
-In development mode, both applications can be started by going into the /client folder and running:
-
-`npm run dev`
-
-*ESLint and Hot Module Reloading are already configured to run after any changes in the client application.*
+The PORT environment variable can be provided to overwrite the default port used by the backend server (the default is port 9000)
 
 ### How to run (production)
 
-[Work in Progress]
-
-### How to run (containers)
-
-[Work in Progress]
+In order to simulate a production environment, the `docker-compose.yml` can be used to launch **both** the client application and the API Backend. The Compose file needs to be modified to provide the environment variables and arguments for the containers.
