@@ -9,32 +9,33 @@ const { status } = constants
 const post = async (req, res, next) => {
   try {
     const { code, state } = req.body
-    if (!code || !state ) throw new Error(`Parameter ${!code ? 'code' : 'state'} is undefined`)
+    if (!code || !state) {
+      throw new Error(`Parameter ${!code ? 'code' : 'state'} is undefined`)
+    }
 
     const options = {
       method: 'POST',
       uri: 'https://github.com/login/oauth/access_token',
       headers: {
-        'Accept': 'application/json'
+        accept: 'application/json',
       },
       formData: {
         client_id: process.env.APPLICATION_ID,
         client_secret: process.env.APPLICATION_SECRET,
         code: code,
-        state: state
-      }
+        state: state,
+      },
     }
 
     const response = await rp.post(options)
     logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
     res.status(status.ok).send(response)
-  }
-  catch (error) {
+  } catch (error) {
     next(error)
   }
 }
 
 module.exports = {
-  post
+  post,
 }

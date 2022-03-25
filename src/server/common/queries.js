@@ -6,7 +6,7 @@ const ns = path.relative(process.cwd(), __filename)
 const queries = []
 
 const getQuery = (name) => {
-  logger.info({ ns: `${ns}:get` }, `Getting query: ${name}` )
+  logger.info({ ns: `${ns}:get` }, `Getting query: ${name}`)
 
   return queries.find((query) => name === query.name)
 }
@@ -19,7 +19,7 @@ const loadQueries = () => {
 
     if (files && files.length > 0) {
       files.forEach((file) => {
-        let data = []
+        const data = []
 
         const readStream = fs.createReadStream(`queries/${file}`)
         readStream.on('data', (chunk) => {
@@ -28,11 +28,11 @@ const loadQueries = () => {
         readStream.on('end', () => {
           queries.push({
             name: file,
-            data: Buffer.concat(data).toString()
+            data: Buffer.concat(data).toString(),
           })
         })
         readStream.on('error', (error) => {
-          logger.error({ ns: `${ns}:load`, error } `Could not read stream from 'queries/${file}'`)
+          logger.error({ ns: `${ns}:load`, error }` Could not read stream from 'queries/${file}'`)
         })
       })
     }
@@ -41,5 +41,5 @@ const loadQueries = () => {
 
 module.exports = {
   getQuery,
-  loadQueries
+  loadQueries,
 }
