@@ -4,7 +4,8 @@ const path = require('path')
 const babelConfig = require('./.babelrc.json')
 const webpack = require('webpack')
 
-const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
+const isVerbose =
+  process.argv.includes('--verbose') || process.argv.includes('-v')
 const include = [
   path.resolve(__dirname, './actions'),
   path.resolve(__dirname, './common'),

@@ -7,14 +7,16 @@ import { fetchToken } from '../actions/user'
 
 const PrivateRoute = ({ component, location, path }) => {
   const { code, state } = qs.parse(location.search)
-  const { isLoggedIn } = useSelector(state => state.user)
+  const { isLoggedIn } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (code && state && !isLoggedIn) {
       dispatch(fetchToken(code, state))
     } else if (!isLoggedIn) {
-      window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${location.pathname}`)
+      window.location.replace(
+        `https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${location.pathname}`
+      )
     }
   }, [code, state])
 
@@ -22,9 +24,7 @@ const PrivateRoute = ({ component, location, path }) => {
     const Component = component
     history.replaceState({}, document.title, path)
 
-    return (
-        <Route exact path={path} component={Component} />
-    )
+    return <Route exact path={path} component={Component} />
   } else {
     return <div>Loading...</div>
   }

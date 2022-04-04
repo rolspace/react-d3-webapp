@@ -12,9 +12,7 @@ const BarGraphAddsDeletes = ({ data, isLoading, xAxis, yAxis }) => {
     yAxisLabel: 'Total Commits',
   }
 
-  return (
-    <BarGraph data={graphData} />
-  )
+  return <BarGraph data={graphData} />
 }
 
 BarGraphAddsDeletes.propTypes = {

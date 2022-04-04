@@ -35,8 +35,16 @@ const CustomCard = ({ description, classes, title, to }) => {
       <Link className={classes.card_anchor} to={to}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography align='left' variant='h6' component='h6'>{title}</Typography>
-            <Typography className={classes.card_subtitle} align='left' variant='subtitle2' component='div'>{description}</Typography>
+            <Typography align="left" variant="h6" component="h6">
+              {title}
+            </Typography>
+            <Typography
+              className={classes.card_subtitle}
+              align="left"
+              variant="subtitle2"
+              component="div">
+              {description}
+            </Typography>
           </CardContent>
         </Card>
       </Link>

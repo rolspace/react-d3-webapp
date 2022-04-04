@@ -45,5 +45,6 @@ render(
     <MuiThemeProvider theme={theme}>
       <App />
     </MuiThemeProvider>
-  </Provider>, container,
+  </Provider>,
+  container
 )

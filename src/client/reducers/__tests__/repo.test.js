@@ -52,7 +52,9 @@ describe('Reducers: repo reducer', () => {
       ],
     }
 
-    expect(repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload })).toEqual({
+    expect(
+      repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload })
+    ).toEqual({
       commits: {
         changedFiles: [
           { min: 1, max: 1, count: 1, label: '1' },

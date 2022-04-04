@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom'
 import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     [theme.breakpoints.up('md')]: {
       paddingLeft: '80px',
@@ -41,11 +41,17 @@ const App = ({ classes }) => {
       <div>
         <AppBar>
           <Toolbar>
-            <IconButton onClick={handleDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <IconButton
+              onClick={handleDrawer}
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu">
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.bar_anchor}>
-              <Link className={classes.bar_anchor_reset} to="/">GH repositories / charts and data</Link>
+              <Link className={classes.bar_anchor_reset} to="/">
+                GH repositories / charts and data
+              </Link>
             </Typography>
           </Toolbar>
         </AppBar>

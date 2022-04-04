@@ -11,34 +11,35 @@ describe('Actions: repo actions', () => {
   test('fetchRepo dispatches a FETCHING_REPO action and a FETCH_REPO_SUCCESS action if it is successful', async () => {
     const data = {
       type: 'commit',
-      data: [{
-        node: {
-          additions: 17,
-          deletions: 10,
-          changedFiles: 3,
-          pushedDate: '2018-07-25T21:22:54Z',
-          oid: 'abc1ea0cd96c81467c574b134349eafc30f945d0d',
-          author: {
-            user: {
-              login: 'user1',
+      data: [
+        {
+          node: {
+            additions: 17,
+            deletions: 10,
+            changedFiles: 3,
+            pushedDate: '2018-07-25T21:22:54Z',
+            oid: 'abc1ea0cd96c81467c574b134349eafc30f945d0d',
+            author: {
+              user: {
+                login: 'user1',
+              },
             },
           },
         },
-      },
-      {
-        node: {
-          additions: 34,
-          deletions: 0,
-          changedFiles: 1,
-          pushedDate: '2018-07-25T15:58:55Z',
-          oid: '0999a79fedef38a824a837c535bf853013dd4012',
-          author: {
-            user: {
-              login: 'user2',
+        {
+          node: {
+            additions: 34,
+            deletions: 0,
+            changedFiles: 1,
+            pushedDate: '2018-07-25T15:58:55Z',
+            oid: '0999a79fedef38a824a837c535bf853013dd4012',
+            author: {
+              user: {
+                login: 'user2',
+              },
             },
           },
         },
-      },
       ],
     }
 

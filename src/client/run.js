@@ -11,7 +11,9 @@ const run = async (task) => {
     const start = new Date()
     console.log(`Starting '${task}'...`)
     await tasks.get(task)()
-    console.log(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`)
+    console.log(
+      `Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`
+    )
   } catch (err) {
     console.log(err)
   }
@@ -36,7 +38,7 @@ tasks.set('build', async () => {
 tasks.set('dev', async () => {
   let count = 0
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const bs = require('browser-sync').create()
     const webpackConfig = require('./webpack.dev')
     const compiler = webpack(webpackConfig)
@@ -49,18 +51,21 @@ tasks.set('dev', async () => {
     // Launch Browsersync after the initial bundling is complete
     compiler.hooks.done.tap('bsPlugin', () => {
       if (++count === 1) {
-        bs.init({
-          port: process.env.PORT || 8000,
-          ui: { port: Number(process.env.PORT || 8000) + 1 },
-          server: {
-            baseDir: 'public',
-            middleware: [
-              webpackDevMiddleware,
-              require('webpack-hot-middleware')(compiler),
-              require('connect-history-api-fallback')(),
-            ],
+        bs.init(
+          {
+            port: process.env.PORT || 8000,
+            ui: { port: Number(process.env.PORT || 8000) + 1 },
+            server: {
+              baseDir: 'public',
+              middleware: [
+                webpackDevMiddleware,
+                require('webpack-hot-middleware')(compiler),
+                require('connect-history-api-fallback')(),
+              ],
+            },
           },
-        }, resolve)
+          resolve
+        )
       }
     })
   })

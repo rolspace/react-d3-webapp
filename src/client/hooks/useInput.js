@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useInput = initialValue => {
+export const useInput = (initialValue) => {
   const [value, setValue] = useState(initialValue)
 
   return {
@@ -9,7 +9,7 @@ export const useInput = initialValue => {
     reset: () => setValue(''),
     bind: {
       value,
-      onChange: event => {
+      onChange: (event) => {
         setValue(event.target.value)
       },
     },
