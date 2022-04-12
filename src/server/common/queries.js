@@ -16,7 +16,7 @@ const loadQueries = () => {
     if (error) {
       logger.error(
         { ns: `${ns}:load`, error },
-        'Could not read queries directory'
+        'Could not read queries directory',
       )
     }
 
@@ -39,7 +39,7 @@ const loadQueries = () => {
             {
               ns: `${ns}:load`,
               error,
-            }` Could not read stream from 'queries/${file}'`
+            }` Could not read stream from 'queries/${file}'`,
           )
         })
       })

@@ -30,7 +30,7 @@ describe('repo module', () => {
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
+      .mockReturnValue({ data: 'repository(name: "%NAME%", owner: "%OWNER%")' })
 
     const requestPromiseMock = jest.spyOn(rp, 'post').mockResolvedValue(data)
 
@@ -50,7 +50,7 @@ describe('repo module', () => {
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
+      .mockReturnValue({ data: 'repository(name: "%NAME%", owner: "%OWNER%")' })
 
     const nextMock = jest.fn()
 
@@ -68,7 +68,7 @@ describe('repo module', () => {
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
+      .mockReturnValue({ data: 'repository(name: "%NAME%", owner: "%OWNER%")' })
 
     const requestPromiseMock = jest.spyOn(rp, 'post').mockRejectedValue('error')
 
