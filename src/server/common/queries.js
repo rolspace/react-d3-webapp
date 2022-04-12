@@ -14,7 +14,10 @@ const getQuery = (name) => {
 const loadQueries = () => {
   fs.readdir('queries', (error, files) => {
     if (error) {
-      logger.error({ ns: `${ns}:load`, error }, 'Could not read queries directory')
+      logger.error(
+        { ns: `${ns}:load`, error },
+        'Could not read queries directory'
+      )
     }
 
     if (files && files.length > 0) {
@@ -32,7 +35,12 @@ const loadQueries = () => {
           })
         })
         readStream.on('error', (error) => {
-          logger.error({ ns: `${ns}:load`, error }` Could not read stream from 'queries/${file}'`)
+          logger.error(
+            {
+              ns: `${ns}:load`,
+              error,
+            }` Could not read stream from 'queries/${file}'`
+          )
         })
       })
     }

@@ -20,20 +20,21 @@ describe('repo module', () => {
   })
 
   test('responds with a 200 status code when the request for data is successful', async () => {
-    const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
-    const data = { data: { repository: { ref: { target: { history: { edges: [] } } } } } }
+    const req = {
+      params: { name: 'name', owner: 'owner' },
+      body: { token: 'token' },
+    }
+    const data = {
+      data: { repository: { ref: { target: { history: { edges: [] } } } } },
+    }
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: 'repository(name: \'%NAME%\', owner: \'%OWNER%\')' })
+      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
 
-    const requestPromiseMock = jest
-      .spyOn(rp, 'post')
-      .mockResolvedValue(data)
+    const requestPromiseMock = jest.spyOn(rp, 'post').mockResolvedValue(data)
 
-    jest
-      .spyOn(logger, 'info')
-      .mockImplementation(() => jest.fn())
+    jest.spyOn(logger, 'info').mockImplementation(() => jest.fn())
 
     await repo.post(req, res)
 
@@ -49,7 +50,7 @@ describe('repo module', () => {
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: 'repository(name: \'%NAME%\', owner: \'%OWNER%\')' })
+      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
 
     const nextMock = jest.fn()
 
@@ -60,15 +61,16 @@ describe('repo module', () => {
   })
 
   test('calls the next handler, if there an error retrieving the external data', async () => {
-    const req = { params: { name: 'name', owner: 'owner' }, body: { token: 'token' } }
+    const req = {
+      params: { name: 'name', owner: 'owner' },
+      body: { token: 'token' },
+    }
 
     const queriesMock = jest
       .spyOn(queries, 'getQuery')
-      .mockReturnValue({ data: 'repository(name: \'%NAME%\', owner: \'%OWNER%\')' })
+      .mockReturnValue({ data: "repository(name: '%NAME%', owner: '%OWNER%')" })
 
-    const requestPromiseMock = jest
-      .spyOn(rp, 'post')
-      .mockRejectedValue('error')
+    const requestPromiseMock = jest.spyOn(rp, 'post').mockRejectedValue('error')
 
     const nextMock = jest.fn()
 

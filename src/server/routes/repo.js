@@ -12,7 +12,9 @@ const post = async (req, res, next) => {
     const { token } = req.body
 
     if (!token) {
-      return res.status(status.unprocessable).send({ message: 'token not provided' })
+      return res
+        .status(status.unprocessable)
+        .send({ message: 'token not provided' })
     }
 
     const query = queries.getQuery('repo-commits')
@@ -33,13 +35,19 @@ const post = async (req, res, next) => {
         authorization: `bearer ${token}`,
         'User-Agent': `${process.env.GITHUB_USER}`,
       },
-      body: { query: query.data.replace('%NAME%', req.params.name).replace('%OWNER%', req.params.owner) },
+      body: {
+        query: query.data
+          .replace('%NAME%', req.params.name)
+          .replace('%OWNER%', req.params.owner),
+      },
     }
 
     const response = await rp.post(options)
     logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
-    const repoHistory = { data: response.data.repository.ref.target.history.edges }
+    const repoHistory = {
+      data: response.data.repository.ref.target.history.edges,
+    }
     res.status(status.ok).send(repoHistory)
   } catch (error) {
     next(error)
