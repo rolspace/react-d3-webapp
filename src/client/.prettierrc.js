@@ -1,7 +1,7 @@
 const prettierConfigStandard = require('prettier-config-standard')
 
 const prettierConfig = Object.assign({}, prettierConfigStandard, {
-  jsxBracketSameLine: true,
+  bracketSameLine: true,
   trailingComma: 'es5',
 })
 
