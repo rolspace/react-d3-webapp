@@ -13,6 +13,7 @@
     "dev": "node run.js dev",
     "pro": "node run.js pro",
     "lint": "eslint .",
+    "format": "prettier -w .",
     "test": "jest",
     "test-coverage": "jest --collectCoverage"
   },

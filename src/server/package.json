@@ -9,6 +9,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "format": "prettier -w .",
     "start": "node index.js",
     "test": "jest",
     "test-coverage": "jest --collectCoverage"
