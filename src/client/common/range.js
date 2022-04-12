@@ -32,7 +32,7 @@ const highRank = [
 const assignToRange = (range, property, value) => {
   const found = range.find(
     (limit) =>
-      limit.min <= value.node[property] && limit.max >= value.node[property]
+      limit.min <= value.node[property] && limit.max >= value.node[property],
   )
 
   if (found) {
@@ -44,7 +44,7 @@ const assignToRange = (range, property, value) => {
 
 const createRange = (collection, property, rangeType) => {
   const startRange = _.cloneDeep(
-    rangeType === Ranges.LOW ? [...lowRank] : [...highRank]
+    rangeType === Ranges.LOW ? [...lowRank] : [...highRank],
   )
 
   if (collection && collection.length) {

@@ -29,7 +29,7 @@ export const renderBarGraph = (node, data) => {
     })
 
     const yMax = Math.max(
-      ...data.sets.map((set) => d3.max(set, (d) => _.get(d, data.yAxis)))
+      ...data.sets.map((set) => d3.max(set, (d) => _.get(d, data.yAxis))),
     )
     const yTrueMax = yMax % 10 === 0 ? yMax : yMax + (10 - (yMax % 10))
     const yScale = d3
@@ -91,13 +91,13 @@ const renderBarGraphSet = (set, index) => {
       'x',
       (d) =>
         this.xScales[index](_.get(d, this.xAxis)) +
-        (index !== 0 ? this.xScales[index].bandwidth() / 2 : 0)
+        (index !== 0 ? this.xScales[index].bandwidth() / 2 : 0),
     )
     .attr(
       'width',
       this.setCount > 1
         ? this.xScales[index].bandwidth() / 2
-        : this.xScales[index].bandwidth()
+        : this.xScales[index].bandwidth(),
     )
     .attr('y', (d) => this.yScale(_.get(d, this.yAxis)))
     .attr('height', (d) => this.height - this.yScale(_.get(d, this.yAxis)))

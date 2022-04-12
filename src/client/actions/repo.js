@@ -17,7 +17,7 @@ export const fetchRepo = (owner, name, token) => {
           body: JSON.stringify({
             token: token,
           }),
-        }
+        },
       )
 
       const json = await response.json()

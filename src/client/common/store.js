@@ -5,7 +5,7 @@ import reducer from '../reducers'
 
 const store = createStore(
   reducer,
-  applyMiddleware(promiseMiddleware, thunkMiddleware)
+  applyMiddleware(promiseMiddleware, thunkMiddleware),
 )
 
 export default store

@@ -15,7 +15,7 @@ const PrivateRoute = ({ component, location, path }) => {
       dispatch(fetchToken(code, state))
     } else if (!isLoggedIn) {
       window.location.replace(
-        `https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${location.pathname}`
+        `https://github.com/login/oauth/authorize?client_id=${process.env.APPLICATION_ID}&state=blah&redirect_uri=${window.location.protocol}//${window.location.host}${location.pathname}`,
       )
     }
   }, [code, state])

@@ -12,7 +12,7 @@ const run = async (task) => {
     console.log(`Starting '${task}'...`)
     await tasks.get(task)()
     console.log(
-      `Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`
+      `Finished '${task}' after ${new Date().getTime() - start.getTime()}ms`,
     )
   } catch (err) {
     console.log(err)
@@ -64,7 +64,7 @@ tasks.set('dev', async () => {
               ],
             },
           },
-          resolve
+          resolve,
         )
       }
     })

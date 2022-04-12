@@ -46,5 +46,5 @@ render(
       <App />
     </MuiThemeProvider>
   </Provider>,
-  container
+  container,
 )
