@@ -2,11 +2,38 @@ import * as d3 from 'd3'
 import _ from 'lodash'
 
 const colors = ['#00bcd4', 'green']
+const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 const xLabelMargin = 35
 const yLabelMargin = 50
-const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 
-// TODO: refactor the function
+const renderBarGraphSet = (graphInfo, set, index) => {
+  const { height, innerNode, xScales, yScale, xAxis, yAxis, setCount } =
+    graphInfo
+
+  innerNode
+    .selectAll('bar')
+    .data(set)
+    .enter()
+    .append('rect')
+    .style('fill', colors[index])
+    .style('stroke-width', 1)
+    .style('stroke', '#000')
+    .attr(
+      'x',
+      (d) =>
+        xScales[index](_.get(d, xAxis)) +
+        (index !== 0 ? xScales[index].bandwidth() / 2 : 0),
+    )
+    .attr(
+      'width',
+      setCount > 1
+        ? xScales[index].bandwidth() / 2
+        : xScales[index].bandwidth(),
+    )
+    .attr('y', (d) => yScale(_.get(d, yAxis)))
+    .attr('height', (d) => height - yScale(_.get(d, yAxis)))
+}
+
 export const renderBarGraph = (node, data) => {
   if (data.sets.every((set) => !set.length)) {
     d3.select(node).selectAll('*').remove()
@@ -65,7 +92,7 @@ export const renderBarGraph = (node, data) => {
       .style('font-size', '0.813rem')
       .text(data.yAxisLabel)
 
-    data.sets.forEach(renderBarGraphSet, {
+    const graphInfo = {
       node,
       innerNode,
       height,
@@ -74,31 +101,8 @@ export const renderBarGraph = (node, data) => {
       yAxis: data.yAxis,
       xScales,
       yScale,
-    })
-  }
-}
+    }
 
-const renderBarGraphSet = (set, index) => {
-  this.innerNode
-    .selectAll('bar')
-    .data(set)
-    .enter()
-    .append('rect')
-    .style('fill', colors[index])
-    .style('stroke-width', 1)
-    .style('stroke', '#000')
-    .attr(
-      'x',
-      (d) =>
-        this.xScales[index](_.get(d, this.xAxis)) +
-        (index !== 0 ? this.xScales[index].bandwidth() / 2 : 0),
-    )
-    .attr(
-      'width',
-      this.setCount > 1
-        ? this.xScales[index].bandwidth() / 2
-        : this.xScales[index].bandwidth(),
-    )
-    .attr('y', (d) => this.yScale(_.get(d, this.yAxis)))
-    .attr('height', (d) => this.height - this.yScale(_.get(d, this.yAxis)))
+    data.sets.forEach((set, index) => renderBarGraphSet(graphInfo, set, index))
+  }
 }
