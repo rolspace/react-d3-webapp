@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Local Launch Client Browser",
+            "name": "React D3 Client: Local Launch Browser",
             "request": "launch",
             "type": "pwa-chrome",
             "preLaunchTask": "local-run-client",
@@ -9,14 +9,14 @@
             "webRoot": "${workspaceFolder}/src/client",
         },
         {
-            "name": "Docker Launch Client Browser",
+            "name": "React D3 Client: Docker Launch Browser",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8000",
             "webRoot": "${workspaceFolder}/src/client"
         },
         {
-            "name": "Docker Launch Client Server",
+            "name": "React D3 Client: Docker Launch Server",
             "type": "docker",
             "request": "launch",
             "serverReadyAction": {
@@ -30,7 +30,7 @@
             }
         },
         {
-            "name": "Docker Launch API Server",
+            "name": "React D3 API: Docker Launch Server",
             "type": "docker",
             "request": "launch",
             "serverReadyAction": {
@@ -44,7 +44,7 @@
             }
         },
         {
-            "name": "Docker Attach to API Server",
+            "name": "React D3 API: Docker Attach to Server",
             "type": "node",
             "request": "attach",
             "localRoot": "${workspaceFolder}/src/server",
