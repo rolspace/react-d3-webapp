@@ -15,7 +15,6 @@
   "scripts": {
     "test": "jest"
   },
-  "dependencies": {},
   "devDependencies": {
     "jest": "^25.1.0"
   },
@@ -24,5 +23,6 @@
       "./src/client/",
       "./src/server"
     ]
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }
