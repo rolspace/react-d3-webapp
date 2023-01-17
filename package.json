@@ -13,6 +13,9 @@
     "url": "git+ssh://git@bitbucket.org/rolspace/react-d3-webapp.git"
   },
   "packageManager": "yarn@3.3.1",
+  "workspaces": [
+    "src/*"
+  ],
   "scripts": {
     "test": "jest"
   },
