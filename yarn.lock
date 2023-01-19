@@ -9701,9 +9701,9 @@ __metadata:
     redux-promise: ^0.6.0
     redux-thunk: ^2.3.0
     regenerator-runtime: ^0.13.7
-    webpack: ^5.17.0
-    webpack-dev-middleware: ^5.3.1
-    webpack-hot-middleware: ^2.25.1
+    webpack: ^5.75.0
+    webpack-dev-middleware: ^5.3.3
+    webpack-hot-middleware: ^2.25.3
     webpack-merge: ^5.8.0
     whatwg-fetch: ^3.0.0
   languageName: unknown
@@ -12010,7 +12010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:^5.3.1":
+"webpack-dev-middleware@npm:^5.3.3":
   version: 5.3.3
   resolution: "webpack-dev-middleware@npm:5.3.3"
   dependencies:
@@ -12025,7 +12025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-hot-middleware@npm:^2.25.1":
+"webpack-hot-middleware@npm:^2.25.3":
   version: 2.25.3
   resolution: "webpack-hot-middleware@npm:2.25.3"
   dependencies:
@@ -12053,7 +12053,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.17.0":
+"webpack@npm:^5.75.0":
   version: 5.75.0
   resolution: "webpack@npm:5.75.0"
   dependencies:
