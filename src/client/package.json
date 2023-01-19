@@ -22,8 +22,8 @@
     "test-coverage": "jest --collectCoverage"
   },
   "dependencies": {
-    "@material-ui/core": "^4.8.2",
-    "@material-ui/icons": "^4.5.1",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "d3": "^5.15.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
