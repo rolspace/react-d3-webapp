@@ -5648,10 +5648,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:3.27.1", {\
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.27.1-7b0086b1f4/node_modules/core-js/",\
+        ["npm:3.27.2", {\
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.27.2-99146711a6/node_modules/core-js/",\
           "packageDependencies": [\
-            ["core-js", "npm:3.27.1"]\
+            ["core-js", "npm:3.27.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12251,7 +12251,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-loader", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:8.3.0"],\
             ["browser-sync", "npm:2.27.11"],\
             ["concurrently", "npm:5.3.0"],\
-            ["core-js", "npm:3.27.1"],\
+            ["core-js", "npm:3.27.2"],\
             ["d3", "npm:5.16.0"],\
             ["dotenv", "npm:8.6.0"],\
             ["dotenv-webpack", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:6.0.4"],\
