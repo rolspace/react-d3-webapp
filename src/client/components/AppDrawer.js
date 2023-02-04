@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Divider } from '../node_modules/@material-ui/core'
+import { Divider } from '@material-ui/core/Divider'
 
 const AppDrawer = ({ onClose, open }) => {
   return (
