@@ -65,7 +65,6 @@ tasks.set('build', async () => {
         reject(error)
       } else {
         console.log(stats.toString(webpackConfig.stats))
-        console.log('NODE_ENV', process.env.NODE_ENV)
         resolve()
       }
     })
