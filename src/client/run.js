@@ -19,22 +19,7 @@ const run = async (task) => {
   }
 }
 
-// Bundle JavaScript, CSS and image files with Webpack
-tasks.set('build', async () => {
-  const webpackConfig = require('./webpack.prod')
-  return new Promise((resolve, reject) => {
-    webpack(webpackConfig).run((error, stats) => {
-      if (error) {
-        reject(error)
-      } else {
-        console.log(stats.toString(webpackConfig.stats))
-        resolve()
-      }
-    })
-  })
-})
-
-// Build website using webpack and launch it in a browser for testing (default)
+// Build 'development' using webpack and launch it in a browser for testing
 tasks.set('dev', async () => {
   let count = 0
 
@@ -71,7 +56,23 @@ tasks.set('dev', async () => {
   })
 })
 
-// Build website and start the Express server
+// Bundle JavaScript, CSS and image files with Webpack for 'production'
+tasks.set('build', async () => {
+  const webpackConfig = require('./webpack.prod')
+  return new Promise((resolve, reject) => {
+    webpack(webpackConfig).run((error, stats) => {
+      if (error) {
+        reject(error)
+      } else {
+        console.log(stats.toString(webpackConfig.stats))
+        console.log('NODE_ENV', process.env.NODE_ENV)
+        resolve()
+      }
+    })
+  })
+})
+
+// Run 'production' with the Express server
 tasks.set('pro', async () => {
   process.env.NODE_ENV = 'production'
 
