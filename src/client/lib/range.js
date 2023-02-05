@@ -59,6 +59,7 @@ const createRange = (collection, property, rangeType) => {
   return startRange
 }
 
+// TODO: change to const function
 class Rank {
   createLowRange(collection, property) {
     const group = createRange(collection, property, Ranges.LOW)
