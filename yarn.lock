@@ -5280,7 +5280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-standard@npm:^17.0.0, eslint-config-standard@npm:latest":
+"eslint-config-standard@npm:^17.0.0":
   version: 17.0.0
   resolution: "eslint-config-standard@npm:17.0.0"
   peerDependencies:
@@ -5343,7 +5343,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.25.2":
+"eslint-plugin-import@npm:^2.27.5":
   version: 2.27.5
   resolution: "eslint-plugin-import@npm:2.27.5"
   dependencies:
@@ -5411,7 +5411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:^15.0.0":
+"eslint-plugin-n@npm:^15.6.1":
   version: 15.6.1
   resolution: "eslint-plugin-n@npm:15.6.1"
   dependencies:
@@ -5429,7 +5429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-promise@npm:^6.0.0":
+"eslint-plugin-promise@npm:^6.1.1":
   version: 6.1.1
   resolution: "eslint-plugin-promise@npm:6.1.1"
   peerDependencies:
@@ -5438,7 +5438,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:latest":
+"eslint-plugin-react@npm:^7.32.2":
   version: 7.32.2
   resolution: "eslint-plugin-react@npm:7.32.2"
   dependencies:
@@ -5524,7 +5524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.0.1, eslint@npm:^8.33.0":
+"eslint@npm:^8.33.0":
   version: 8.33.0
   resolution: "eslint@npm:8.33.0"
   dependencies:
@@ -9940,15 +9940,15 @@ __metadata:
     dotenv-webpack: ^6.0.4
     enzyme: ^3.11.0
     enzyme-adapter-react-16: ^1.15.7
-    eslint: ^8.0.1
+    eslint: ^8.33.0
     eslint-config-prettier: ^8.6.0
-    eslint-config-standard: latest
+    eslint-config-standard: ^17.0.0
     eslint-loader: ^4.0.2
-    eslint-plugin-import: ^2.25.2
+    eslint-plugin-import: ^2.27.5
     eslint-plugin-jsx-a11y: ^6.7.1
-    eslint-plugin-n: ^15.0.0
-    eslint-plugin-promise: ^6.0.0
-    eslint-plugin-react: latest
+    eslint-plugin-n: ^15.6.1
+    eslint-plugin-promise: ^6.1.1
+    eslint-plugin-react: ^7.32.2
     express: ^4.18.2
     jest: ^25.5.4
     lodash: ^4.17.21
