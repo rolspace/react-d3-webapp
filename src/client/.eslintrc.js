@@ -5,19 +5,13 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'standard',
-  ],
-  overrides: [
-  ],
+  extends: ['plugin:react/recommended', 'standard'],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   settings: {
     react: {
       version: 'detect',
