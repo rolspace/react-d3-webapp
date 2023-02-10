@@ -11907,13 +11907,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:2.8.3", {\
-          "packageLocation": "./.yarn/cache/prettier-npm-2.8.3-2c5624c4ca-92f2ceb522.zip/node_modules/prettier/",\
-          "packageDependencies": [\
-            ["prettier", "npm:2.8.3"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:2.8.4", {\
           "packageLocation": "./.yarn/cache/prettier-npm-2.8.4-ba64a351d1-c173064bf3.zip/node_modules/prettier/",\
           "packageDependencies": [\
@@ -11935,7 +11928,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["prettier-config-standard", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:5.0.0"],\
             ["@types/prettier", null],\
-            ["prettier", "npm:2.8.3"]\
+            ["prettier", "npm:2.8.4"]\
           ],\
           "packagePeers": [\
             "@types/prettier",\
@@ -12248,7 +12241,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-promise", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:6.1.1"],\
             ["express", "npm:4.18.2"],\
             ["jest", "npm:25.5.4"],\
-            ["prettier", "npm:2.8.3"],\
+            ["prettier", "npm:2.8.4"],\
             ["prettier-config-standard", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:5.0.0"],\
             ["request", "npm:2.88.2"],\
             ["request-promise-native", "virtual:011dab26b32224916e5f37463e1dd03fa6cbbcabef3816f679d3450e730c0afba0d74038a1bb6f023cc25e6b11220f80a3cdc89b0f6c7b662c7979136f0fd5de#npm:1.0.9"]\
@@ -12291,7 +12284,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express", "npm:4.18.2"],\
             ["jest", "npm:25.5.4"],\
             ["lodash", "npm:4.17.21"],\
-            ["prettier", "npm:2.8.3"],\
+            ["prettier", "npm:2.8.4"],\
             ["prettier-config-standard", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:5.0.0"],\
             ["prop-types", "npm:15.8.1"],\
             ["query-string", "npm:6.14.1"],\
