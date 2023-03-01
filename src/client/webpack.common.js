@@ -1,8 +1,9 @@
 /* eslint-disable global-require */
 
+const ESLintPlugin = require('eslint-webpack-plugin')
 const path = require('path')
-const babelConfig = require('./.babelrc.json')
 const webpack = require('webpack')
+const babelConfig = require('./.babelrc.json')
 
 const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
@@ -35,6 +36,11 @@ const config = {
     cachedAssets: isVerbose,
   },
   plugins: [
+    new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      failOnError: true,
+      failOnWarning: true,
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
@@ -43,14 +49,6 @@ const config = {
   ],
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        options: { failOnError: true },
-        include,
-        exclude: /node_modules/,
-      },
       {
         test: /\.jsx?$/,
         include,
