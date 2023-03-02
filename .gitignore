@@ -63,8 +63,8 @@ typings/
 # dotenv environment variables file
 .env*
 
+.pnp.*
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
