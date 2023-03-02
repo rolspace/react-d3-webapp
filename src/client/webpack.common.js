@@ -9,7 +9,7 @@ const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
 const include = [
   path.resolve(__dirname, './actions'),
-  path.resolve(__dirname, './common'),
+  path.resolve(__dirname, './lib'),
   path.resolve(__dirname, './components'),
   path.resolve(__dirname, './containers'),
   path.resolve(__dirname, './pages'),
@@ -35,18 +35,6 @@ const config = {
     cached: isVerbose,
     cachedAssets: isVerbose,
   },
-  plugins: [
-    new ESLintPlugin({
-      extensions: ['js', 'jsx'],
-      failOnError: true,
-      failOnWarning: true,
-    }),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
-      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
-    }),
-  ],
   module: {
     rules: [
       {
@@ -56,6 +44,18 @@ const config = {
       },
     ],
   },
+  plugins: [
+    new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      failOnError: true,
+      failOnWarning: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
+      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
+    }),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 }
 
 module.exports = config
