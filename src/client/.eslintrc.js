@@ -21,6 +21,7 @@ module.exports = {
     'brace-style': ['error', '1tbs', { allowSingleLine: false }],
     'comma-dangle': ['error', 'always-multiline'],
     curly: ['error', 'all'],
+    'multiline-ternary': 'off',
     'prefer-destructuring': 'error',
     quotes: ['error', 'single'],
     'react/prop-types': ['error', { ignore: ['location', 'query', 'code'] }],
