@@ -15,7 +15,7 @@ export const fetchRepo = (owner, name, token) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            token: token,
+            token,
           }),
         },
       )
@@ -35,8 +35,8 @@ export const changeRepo = (owner, name) => {
     dispatch(changingRepo())
 
     const payload = {
-      owner: owner,
-      name: name,
+      owner,
+      name,
     }
 
     dispatch(changeRepoSuccess(payload))

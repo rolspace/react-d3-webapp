@@ -53,7 +53,7 @@ describe('Reducers: repo reducer', () => {
     }
 
     expect(
-      repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload: payload }),
+      repoReducer(undefined, { type: 'FETCH_REPO_SUCCESS', payload }),
     ).toEqual({
       commits: {
         changedFiles: [

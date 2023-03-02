@@ -4,10 +4,10 @@ import BarGraph from './BarGraph'
 
 const RepoChangedFiles = ({ data, isLoading, xAxis, yAxis }) => {
   const graphData = {
-    isLoading: isLoading,
+    isLoading,
     sets: [data.changedFiles],
-    xAxis: xAxis,
-    yAxis: yAxis,
+    xAxis,
+    yAxis,
     xAxisLabel: 'Changed Files',
     yAxisLabel: 'Total Commits',
   }

@@ -4,10 +4,10 @@ import BarGraph from './BarGraph'
 
 const BarGraphAddsDeletes = ({ data, isLoading, xAxis, yAxis }) => {
   const graphData = {
-    isLoading: isLoading,
+    isLoading,
     sets: [data.linesAdded, data.linesDeleted],
-    xAxis: xAxis,
-    yAxis: yAxis,
+    xAxis,
+    yAxis,
     xAxisLabel: 'Code Lines',
     yAxisLabel: 'Total Commits',
   }

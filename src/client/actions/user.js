@@ -21,8 +21,8 @@ export const fetchToken = (code, state) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          code: code,
-          state: state,
+          code,
+          state,
         }),
       })
 
