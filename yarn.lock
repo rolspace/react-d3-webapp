@@ -4809,37 +4809,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-defaults@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "dotenv-defaults@npm:2.0.2"
-  dependencies:
-    dotenv: ^8.2.0
-  checksum: c005960bd048e2189c4799e729c41f362e415e6e0b54313d3f31e853a84b049bf770b25cb21c112c2805bb13a8376edc9de451fb514abf8546392d327c27f6e5
-  languageName: node
-  linkType: hard
-
-"dotenv-webpack@npm:^6.0.4":
-  version: 6.0.4
-  resolution: "dotenv-webpack@npm:6.0.4"
-  dependencies:
-    dotenv-defaults: ^2.0.1
-  peerDependencies:
-    webpack: ^1 || ^2 || ^3 || ^4 || ^5
-  checksum: 8334ecf9ef808b60617e1a84d37d09510cd1582978d4125a751f8f92b035cdfa48ff71473c739814b9b6fd6dba09582ca88b446901905af92535f1f7139574ff
-  languageName: node
-  linkType: hard
-
 "dotenv@npm:^7.0.0":
   version: 7.0.0
   resolution: "dotenv@npm:7.0.0"
   checksum: 18a7b3ef0e90fd6fcce7c7cbdd48d923b0cb180807540b80c797bda4a098097e17820d6315ae28eec22f73954cd0ab9d81904d46370183817c09f694d40566ff
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^8.2.0, dotenv@npm:^8.6.0":
-  version: 8.6.0
-  resolution: "dotenv@npm:8.6.0"
-  checksum: 38e902c80b0666ab59e9310a3d24ed237029a7ce34d976796349765ac96b8d769f6df19090f1f471b77a25ca391971efde8a1ea63bb83111bd8bec8e5cc9b2cd
   languageName: node
   linkType: hard
 
@@ -9802,8 +9775,6 @@ __metadata:
     connect-history-api-fallback: 1.6.0
     core-js: ^3.27.2
     d3: ^5.16.0
-    dotenv: ^8.6.0
-    dotenv-webpack: ^6.0.4
     enzyme: ^3.11.0
     enzyme-adapter-react-16: ^1.15.7
     eslint: ^8.34.0

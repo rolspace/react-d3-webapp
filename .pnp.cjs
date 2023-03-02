@@ -6662,46 +6662,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dotenv", "npm:7.0.0"]\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["npm:8.6.0", {\
-          "packageLocation": "./.yarn/cache/dotenv-npm-8.6.0-2ce3e9f7bb-38e902c80b.zip/node_modules/dotenv/",\
-          "packageDependencies": [\
-            ["dotenv", "npm:8.6.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["dotenv-defaults", [\
-        ["npm:2.0.2", {\
-          "packageLocation": "./.yarn/cache/dotenv-defaults-npm-2.0.2-436a76242a-c005960bd0.zip/node_modules/dotenv-defaults/",\
-          "packageDependencies": [\
-            ["dotenv-defaults", "npm:2.0.2"],\
-            ["dotenv", "npm:8.6.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["dotenv-webpack", [\
-        ["npm:6.0.4", {\
-          "packageLocation": "./.yarn/cache/dotenv-webpack-npm-6.0.4-db12b1d2c8-8334ecf9ef.zip/node_modules/dotenv-webpack/",\
-          "packageDependencies": [\
-            ["dotenv-webpack", "npm:6.0.4"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:6.0.4", {\
-          "packageLocation": "./.yarn/__virtual__/dotenv-webpack-virtual-96a33a95ea/0/cache/dotenv-webpack-npm-6.0.4-db12b1d2c8-8334ecf9ef.zip/node_modules/dotenv-webpack/",\
-          "packageDependencies": [\
-            ["dotenv-webpack", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:6.0.4"],\
-            ["@types/webpack", null],\
-            ["dotenv-defaults", "npm:2.0.2"],\
-            ["webpack", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:5.75.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/webpack",\
-            "webpack"\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["dtrace-provider", [\
@@ -12381,8 +12341,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["connect-history-api-fallback", "npm:1.6.0"],\
             ["core-js", "npm:3.27.2"],\
             ["d3", "npm:5.16.0"],\
-            ["dotenv", "npm:8.6.0"],\
-            ["dotenv-webpack", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:6.0.4"],\
             ["enzyme", "npm:3.11.0"],\
             ["enzyme-adapter-react-16", "virtual:c7e3fa58ca317c15947f04b0bcd552f4f0617acfa1930a9cba86156ebdc5f3e46bf409a7e31e12612bad0e125dfbe935deaeca17836f9bf44e000ae57b6c3c93#npm:1.15.7"],\
             ["eslint", "npm:8.34.0"],\
