@@ -1,3 +1,6 @@
+// TODO: convert api server completely to import based
+require('dotenv').config()
+
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const express = require('express')
