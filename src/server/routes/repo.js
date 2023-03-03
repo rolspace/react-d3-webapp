@@ -33,7 +33,7 @@ const post = async (req, res, next) => {
       json: true,
       headers: {
         authorization: `bearer ${token}`,
-        'User-Agent': `${process.env.GITHUB_USER}`,
+        'User-Agent': 'react-d3-webapp',
       },
       body: {
         query: query.data
