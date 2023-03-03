@@ -22,8 +22,8 @@ const post = async (req, res, next) => {
       formData: {
         client_id: process.env.APPLICATION_ID,
         client_secret: process.env.APPLICATION_SECRET,
-        code: code,
-        state: state,
+        code,
+        state,
       },
     }
 
