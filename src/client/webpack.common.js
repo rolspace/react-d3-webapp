@@ -50,10 +50,6 @@ const config = {
       failOnError: true,
       failOnWarning: true,
     }),
-    new webpack.DefinePlugin({
-      'process.env.APPLICATION_ID': JSON.stringify(process.env.APPLICATION_ID),
-      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
-    }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
 }
