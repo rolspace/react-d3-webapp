@@ -14,8 +14,7 @@
   },
   "scripts": {
     "build": "node run build",
-    "dev": "node run.js dev",
-    "pro": "node run.js pro",
+    "start": "node run.js",
     "lint": "eslint .",
     "format": "prettier -w .",
     "test": "jest",
