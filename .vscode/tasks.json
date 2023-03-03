@@ -75,7 +75,6 @@
                     "APPLICATION_ID": "",
                     "APPLICATION_SECRET": "",
                     "CLIENT_URL": "http://localhost:8000",
-                    "GITHUB_USER": "",
                     "NODE_ENV": "development"
                 }
             },

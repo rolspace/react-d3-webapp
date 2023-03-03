@@ -10,7 +10,6 @@ services:
       APPLICATION_ID: application_id
       APPLICATION_SECRET: application_secret
       CLIENT_URL: http://localhost:8000
-      GITHUB_USER: github_user
       NODE_ENV: development
     ports:
       - 9000:9000
