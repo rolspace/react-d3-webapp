@@ -8,57 +8,77 @@ Initially, this project was supposed to connect with the Instagram API in order 
 
 Later, I decided that the best thing to do was to connect to the GitHub GraphQL API to attempt something similar.
 
-### How to run
+## How to run
 
-The application has two parts, the client application and the API backend.
+The project has two applications:
 
-#### Client application
+- the Node Backend
+- the React Frontend
 
-The client application requires two environment variables: 
-- APPLICATION_ID: GitHub application id.
-- SERVER_URL: domain for the API backend
+Install the dependencies for both applications with `yarn --immutable`.
 
-The client application can be run in several ways:
+### Node Backend
 
-Option 1: Locally
-- Using the terminal, set the `/src/client` folder as the current directory and install the client application dependencies with the `npm install` command.
-- Run the `npm run dev` command to launch the application in development mode.
+Ideally, the Node Backend should be started first. It requires three environment variables:
 
-Option 2: Use Docker launch config in VSCode
-- Run the `Docker Launch Client Server` launch config in VSCode. It will build and start the dev server using webpack and Docker. It is necessary to modify the tasks.json file to provide the environment variables to the `docker-run-client: debug` task (in tasks.json).
-- Run the `Docker Launch Client Browser` launch config in VSCode. It will launch Chrome and load the client application.
-
-With this option a Run and Debug session in VSCode will be started.
-
-Option 3: Use Docker Compose and attach with VSCode
-- Use the `docker-compose.debug.yml` file to launch **both** the client application and the API backend. It is necessary to modify the Compose file to provide the environment variables.
-- Run the `Docker Launch Client Browser` launch config in VSCode. It will attach VSCode to the client application started with Docker Compose.
-
-#### API Backend
-
-The API Backend requires four environment variables:
 - APPLICATION_ID: GitHub application id
 - APPLICATION_SECRET: GitHub application secret
-- CLIENT_URL: domain for the client application
-- GITHUB_USER: GitHub user to include in request header
+- CLIENT_URL: URL for the React Frontend
 
-The API Backend can be run in several ways:
+> Make sure these environment variables are set before starting the application.
+> DotEnv can be used to set the environment variables when NODE_ENV !== 'production'.
+> Production mode will not allow environment variables from DotEnv.
 
-Option 1: Locally
-- Using the terminal, set the `/src/server` folder as the current directory and install the client application dependencies with the `npm install` command.
-- Run the `npm run dev` command to launch the application in development mode.
+The Node Backend can be started in two ways:
 
-Option 2: Use Docker launch config in VSCode
-- Run the `Docker Launch API Server` launch config in VSCode. It will start the application in a Docker container. It is necessary to modify the tasks.json file to provide the environment variables to the `docker-run-server: debug` task (in tasks.json).
+Option 1: run locally
 
-Option 3: Use Docker Compose and attach with VSCode
-- Use the `docker-compose.debug.yml` file to launch **both** the client application and the API backend. It is necessary to modify the Compose file to provide the environment variables.
-- Run the `Docker Attach to API` launch config in VSCode. It will attach VSCode to the API Backend started with Docker Compose.
+- Using the terminal, set the `./src/server` folder as the current directory.
+- Run the `yarn start` command to launch the application.
 
-The backend application requires three environment variables. CLIENT_URL is used to define the URL for incoming requests to the backend server, example: http://localhost:8000. GITHUB_USER defines the id of the user providing the personal access token for the GitHub GraphQL requests. GITHUB_TOKEN is the personal access token used to authenticate the GraphQL API requests.
+Option 2: run with Docker launch config in VSCode
 
-The PORT environment variable can be provided to overwrite the default port used by the backend server (the default is port 9000)
+- Run the `React D3 API: Docker Launch Server` launch config in VSCode. It will start the application in a Docker container. Make sure to modify the tasks.json file to set the environment variables in the `docker-run-server: debug` task.
 
-### How to run (production)
+The PORT environment variable can be set in order to overwrite the default port used by the backend server (port 9000).
 
-In order to simulate a production environment, the `docker-compose.yml` can be used to launch **both** the client application and the API Backend. The Compose file needs to be modified to provide the environment variables and arguments for the containers.
+### React Frontend
+
+The React Frontend requires two environment variables:
+
+- APPLICATION_ID: GitHub application id
+- SERVER_URL: URL for the Node Backend
+
+> Make sure these environment variables are set before building the application.
+> DotEnv can be used to set the environment variables when starting the application in development mode (`yarn start dev`)
+
+The client application can be started in two ways:
+
+Option 1: run locally
+
+- Using the terminal, set the `./src/client` folder as the current directory.
+- Run the `yarn start dev` command to launch the application in development mode.
+
+Option 2: run with Docker launch config in VSCode
+
+- Run the `React D3 Client: Docker Launch Server` launch config in VSCode. Make sure to modify the tasks.json file to set the environment variables in the `docker-run-client: debug` task.
+- Run the `React D3 Client: Docker Launch Browser` launch config in VSCode. It will launch Chrome and load the React Frontend, the application will run in development mode.
+
+Option 3: run production mode
+
+- Using the terminal, set the `./src/client` folder as the current directory.
+- Run the `yarn start pro` command to launch the application in production mode (with Express as the server).
+
+### Node Backend and React Frontend
+
+Both applications can be started with Docker Compose and a debugger can be attached with VSCode.
+
+- Use the `docker-compose.debug.yml` file to launch **both** applications. It is necessary to modify the Compose file to set the environment variables for each of the applications.
+- Run the `React D3 Client: Docker Launch Browser` launch config in VSCode. It will attach VSCode to the client application started with Docker Compose. The React Frontend will run in development mode.
+- Run the `React D3 API: Docker Attach to Server` launch config in VSCode. It will attach VSCode to the API Backend started with Docker Compose.
+
+### Node Backend and React Frontend (in production mode)
+
+In order to simulate a production environment, the `docker-compose.yml` can be used to launch **both** the React Frontend and the Node Backend. The Compose file needs to be modified to set the environment variables and arguments for the containers.
+
+The React Frontend will run as a static application hosted by an NGINX proxy in production mode.
