@@ -38,6 +38,7 @@ const BarGraph = ({ classes, data }) => {
       if (node && data && data.sets) {
         const graphData = {
           sets: data.sets,
+          colors: data.colors,
           xAxis: data.xAxis,
           yAxis: data.yAxis,
           xAxisLabel: data.xAxisLabel,

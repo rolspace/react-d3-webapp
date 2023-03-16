@@ -6,6 +6,7 @@ const BarGraphAddsDeletes = ({ data, isLoading, xAxis, yAxis }) => {
   const graphData = {
     isLoading,
     sets: [data.linesAdded, data.linesDeleted],
+    colors: ['#2da44e', '#cf222e'],
     xAxis,
     yAxis,
     xAxisLabel: 'Code Lines',

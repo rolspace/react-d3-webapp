@@ -6,6 +6,7 @@ const RepoChangedFiles = ({ data, isLoading, xAxis, yAxis }) => {
   const graphData = {
     isLoading,
     sets: [data.changedFiles],
+    colors: ['#00bcd4'],
     xAxis,
     yAxis,
     xAxisLabel: 'Changed Files',
