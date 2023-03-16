@@ -8,6 +8,14 @@ Initially, this project was supposed to connect with the Instagram API in order 
 
 Later, I decided that the best thing to do was to connect to the GitHub GraphQL API to attempt something similar.
 
+As it stands, this web application allows you to sign in with a GitHub account to query some basic data from a public repository.
+
+Graph #1 shows how many commits in a repo have added (or deleted) a range of lines.
+
+Graph #2 shows how many commits in a repo have changed a range of files.
+
+Additional graphs are work-in-progress.
+
 ## How to run
 
 The project has two applications:
