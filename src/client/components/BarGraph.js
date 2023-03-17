@@ -28,37 +28,38 @@ const styles = (theme) => ({
   },
 })
 
-const BarGraph = ({ classes, data }) => {
+const BarGraph = ({ graphData, classes }) => {
+  const { sets, colors, xAxis, xAxisLabel, yAxis, yAxisLabel, isLoading } =
+    graphData
+
   const svgRef = useRef(null)
 
   useEffect(() => {
     const renderGraph = () => {
-      const node = svgRef.current
+      const { current: node } = svgRef
 
-      if (node && data && data.sets) {
-        const graphData = {
-          sets: data.sets,
-          colors: data.colors,
-          xAxis: data.xAxis,
-          yAxis: data.yAxis,
-          xAxisLabel: data.xAxisLabel,
-          yAxisLabel: data.yAxisLabel,
+      if (node && sets) {
+        renderBarGraph(node, {
+          sets,
+          colors,
+          xAxis,
+          xAxisLabel,
+          yAxis,
+          yAxisLabel,
           height: 500,
           width: 800,
-        }
-
-        renderBarGraph(node, graphData)
+        })
       }
     }
 
     renderGraph()
-  }, [data])
+  }, [graphData])
 
   return (
     <div>
       <Grid container className={classes.container}>
         <Grid item xs={12} style={{ height: '75vh' }}>
-          {data.isLoading ? (
+          {isLoading ? (
             <CircularProgress classes={{ root: classes.circleRoot }} />
           ) : (
             <svg
@@ -74,7 +75,7 @@ const BarGraph = ({ classes, data }) => {
 
 BarGraph.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
+  graphData: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(BarGraph)
