@@ -30,7 +30,9 @@ const repo = (state = initialState, action) => {
       })
     case types.FETCH_REPO_SUCCESS: {
       const range = new Range()
-      const { data } = action.payload
+      const {
+        payload: { data },
+      } = action
 
       return _.merge({}, state, {
         commits: {

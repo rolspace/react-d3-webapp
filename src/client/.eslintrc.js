@@ -22,7 +22,16 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     curly: ['error', 'all'],
     'multiline-ternary': 'off',
-    'prefer-destructuring': 'error',
+    'prefer-destructuring': [
+      'error',
+      {
+        array: true,
+        object: true,
+      },
+      {
+        enforceForRenamedProperties: true,
+      },
+    ],
     quotes: ['error', 'single'],
     'react/prop-types': ['error', { ignore: ['location', 'query', 'code'] }],
     'space-before-function-paren': [
