@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import { renderBarGraph } from '../common/bargraph'
+import { renderBarGraph } from '../lib/bargraph'
 
 const styles = (theme) => ({
   circle: {
@@ -29,7 +29,7 @@ const styles = (theme) => ({
 })
 
 const BarGraph = ({ graphData, classes }) => {
-  const { sets, colors, xAxis, xAxisLabel, yAxis, yAxisLabel, isLoading } =
+  const { sets, colors, loading, xAxis, xAxisLabel, yAxis, yAxisLabel } =
     graphData
 
   const svgRef = useRef(null)
@@ -59,7 +59,7 @@ const BarGraph = ({ graphData, classes }) => {
     <div>
       <Grid container className={classes.container}>
         <Grid item xs={12} style={{ height: '75vh' }}>
-          {isLoading ? (
+          {loading === 'pending' ? (
             <CircularProgress classes={{ root: classes.circleRoot }} />
           ) : (
             <svg

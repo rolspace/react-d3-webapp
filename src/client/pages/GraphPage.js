@@ -1,5 +1,5 @@
 import React from 'react'
-import RepoForm from '../containers/RepoForm'
+import RepoForm from '../features/repo/RepoForm'
 
 const GraphPage = (DatasourceComponent, GraphComponent, options) => {
   return class GraphPageContainer extends React.Component {

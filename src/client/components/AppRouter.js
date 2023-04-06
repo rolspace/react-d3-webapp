@@ -1,11 +1,11 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
+import RepoCommits from '../features/repo/RepoCommits'
+import PrivateRoute from '../features/user/PrivateRoute'
+import GraphPage from '../pages/GraphPage'
+import HomePage from '../pages/HomePage'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
-import RepoCommits from '../containers/RepoCommits'
-import HomePage from '../pages/HomePage'
-import GraphPage from '../pages/GraphPage'
-import PrivateRoute from '../containers/PrivateRoute'
 
 const options = {
   xAxis: 'label',

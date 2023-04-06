@@ -1,12 +1,12 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeRepo } from '../actions/repo'
-import { useInput } from '../hooks/useInput'
+import { useInput } from '../../lib/hooks/useInput'
+import { repoChanged } from './repoSlice'
 
 const styles = {
   container: {
@@ -19,8 +19,8 @@ const styles = {
 }
 
 const RepoForm = ({ classes }) => {
-  const { isLoggedIn } = useSelector((state) => state.user)
   const { owner, name } = useSelector((state) => state.repo)
+  const { token } = useSelector((state) => state.user)
 
   const { value: valueOwnerInput, bind: bindOwnerInput } = useInput(owner)
   const { value: valueNameInput, bind: bindNameInput } = useInput(name)
@@ -30,8 +30,8 @@ const RepoForm = ({ classes }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    if (isLoggedIn) {
-      dispatch(changeRepo(valueOwnerInput, valueNameInput))
+    if (token !== '') {
+      dispatch(repoChanged({ valueOwnerInput, valueNameInput }))
     }
   }
 

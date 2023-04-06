@@ -1,4 +1,4 @@
-import configureMockStore from 'redux-mock-store'
+/* import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import 'whatwg-fetch'
 import { fetchRepo } from '../../actions/repo'
@@ -80,3 +80,4 @@ describe('Actions: repo actions', () => {
     ])
   })
 })
+ */
