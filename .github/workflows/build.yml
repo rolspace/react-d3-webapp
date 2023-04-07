@@ -1,6 +1,6 @@
 name: build
 
-on: [push, workflow_call]
+on: [push, workflow_dispatch]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -25,3 +25,24 @@ jobs:
             cd src/client
             yarn --immutable
             yarn build
+
+    lint-node:
+        name: Lint Node application
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+    
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ vars.NODE_VERSION }}
+                cache: 'yarn'
+                cache-dependency-path: 'yarn.lock'
+
+            - name: Lint
+              run: |
+                cd src/server
+                yarn --immutable
+                yarn lint
