@@ -6125,16 +6125,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flux-standard-action@npm:^2.0.3":
-  version: 2.1.2
-  resolution: "flux-standard-action@npm:2.1.2"
-  dependencies:
-    lodash.isplainobject: ^4.0.6
-    lodash.isstring: ^4.0.1
-  checksum: 9d14c071b6bd4547a46124d9b8d82e76257b9fc6bff0f38a9abe49dc9ad0a17c21f59d19329c3f23e90cdf66d0198c464902b171a01e73a3438868aa68b61735
-  languageName: node
-  linkType: hard
-
 "follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
@@ -7233,13 +7223,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-promise@npm:^2.1.0":
-  version: 2.2.2
-  resolution: "is-promise@npm:2.2.2"
-  checksum: 18bf7d1c59953e0ad82a1ed963fb3dc0d135c8f299a14f89a17af312fc918373136e56028e8831700e1933519630cc2fd4179a777030330fde20d34e96f40c78
-  languageName: node
-  linkType: hard
-
 "is-regex@npm:^1.0.5, is-regex@npm:^1.1.0, is-regex@npm:^1.1.4":
   version: 1.1.4
   resolution: "is-regex@npm:1.1.4"
@@ -8295,13 +8278,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"just-curry-it@npm:5.3.0":
-  version: 5.3.0
-  resolution: "just-curry-it@npm:5.3.0"
-  checksum: 7a7d2e118c23e47374efa1a388f82d8b698953203408f398cd5333d22ea31aaa7ea7a10022f9475ba76c6068468bbb0476398a069f7129586f44ee51ef28a88f
-  languageName: node
-  linkType: hard
-
 "kind-of@npm:^3.0.2, kind-of@npm:^3.0.3, kind-of@npm:^3.2.0":
   version: 3.2.2
   resolution: "kind-of@npm:3.2.2"
@@ -8474,20 +8450,6 @@ __metadata:
   version: 3.3.2
   resolution: "lodash.isfinite@npm:3.3.2"
   checksum: 5e9f9c27fdcdb940f7d4bd3546f584502448004825ce42dc6c40cbee6a3de73d825f9aced3f5b50ff0f613b8dcb1b985fe6e29d172522d1d7975d3f8d02cef86
-  languageName: node
-  linkType: hard
-
-"lodash.isplainobject@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "lodash.isplainobject@npm:4.0.6"
-  checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
-  languageName: node
-  linkType: hard
-
-"lodash.isstring@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "lodash.isstring@npm:4.0.1"
-  checksum: eaac87ae9636848af08021083d796e2eea3d02e80082ab8a9955309569cb3a463ce97fd281d7dc119e402b2e7d8c54a23914b15d2fc7fff56461511dc8937ba0
   languageName: node
   linkType: hard
 
@@ -9997,10 +9959,6 @@ __metadata:
     react-tap-event-plugin: ^3.0.3
     react-test-renderer: ^16.14.0
     redux: ^4.2.1
-    redux-actions: ^3.0.0
-    redux-mock-store: ^1.5.4
-    redux-promise: ^0.6.0
-    redux-thunk: ^2.4.2
     regenerator-runtime: ^0.13.11
     webpack: ^5.76.2
     webpack-dev-middleware: ^5.3.3
@@ -10245,42 +10203,6 @@ __metadata:
   version: 2.0.0
   resolution: "realpath-native@npm:2.0.0"
   checksum: 0aa2db96e8f3258b0477b350fc0ffd658dea3da9aa1a6099aedaf845230cf94a0ed77ed8104816897c99de27a25c232351a466c3a87d85f340330e9274f688fa
-  languageName: node
-  linkType: hard
-
-"reduce-reducers@npm:1.0.4":
-  version: 1.0.4
-  resolution: "reduce-reducers@npm:1.0.4"
-  checksum: 9b3648fa505a3ac7834cd8150ec98f9915e4020c8df0e9a4eddb5d3615814067943913f2582d0be4763ad6583209c0cf7ad3cc1021745b9b8e6ace768d49f6a9
-  languageName: node
-  linkType: hard
-
-"redux-actions@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "redux-actions@npm:3.0.0"
-  dependencies:
-    just-curry-it: 5.3.0
-    reduce-reducers: 1.0.4
-  checksum: 29cbf70f767c26ff8fae7809341fed5d77afc780f4126d26de5a6beed5d8277eb7eed24c1414e806ec0cde604a9bd746963233ad26154da84cfd5b1a7e207f84
-  languageName: node
-  linkType: hard
-
-"redux-mock-store@npm:^1.5.4":
-  version: 1.5.4
-  resolution: "redux-mock-store@npm:1.5.4"
-  dependencies:
-    lodash.isplainobject: ^4.0.6
-  checksum: 571eab2cca3e46321969025af865ddd780804c811be9db277fddf772d86e3ea67b4ef1b19ea3866417d41eb1b73605103020321f68cf68f379a52679a6823d12
-  languageName: node
-  linkType: hard
-
-"redux-promise@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "redux-promise@npm:0.6.0"
-  dependencies:
-    flux-standard-action: ^2.0.3
-    is-promise: ^2.1.0
-  checksum: 6c4f3382901f8a57e4e1e12cb47477a38eb0416ac25b1201590850822323a1ca07667cdd64ceb6a8a18ac973f6024e4fb94e1e96edeb067a41c2a28ea56a8f3a
   languageName: node
   linkType: hard
 
