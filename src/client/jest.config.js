@@ -1,7 +1,10 @@
 module.exports = {
+  moduleDirectories: [__dirname],
   testEnvironment: 'jsdom',
   transform: {
     '\\.js$': ['babel-jest', { cwd: __dirname }],
   },
-  testURL: 'http://localhost',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
 }
