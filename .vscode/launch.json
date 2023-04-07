@@ -1,55 +1,57 @@
+// TODO: add locally run api server
+// TODO: add environment variables for locally run client
 {
-    "configurations": [
-        {
-            "name": "React D3 Client: Local Launch Browser",
-            "request": "launch",
-            "type": "pwa-chrome",
-            "preLaunchTask": "local-run-client",
-            "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}/src/client",
-        },
-        {
-            "name": "React D3 Client: Docker Launch Browser",
-            "request": "launch",
-            "type": "pwa-chrome",
-            "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}/src/client"
-        },
-        {
-            "name": "React D3 Client: Docker Launch Server",
-            "type": "docker",
-            "request": "launch",
-            "serverReadyAction": {
-                "action": "openExternally"
-            },
-            "preLaunchTask": "docker-run-client: debug",
-            "platform": "node",
-            "node": {
-                "package": "${workspaceFolder}/src/client/package.json",
-                "localRoot": "${workspaceFolder}/src/client"
-            }
-        },
-        {
-            "name": "React D3 API: Docker Launch Server",
-            "type": "docker",
-            "request": "launch",
-            "serverReadyAction": {
-                "action": "openExternally"
-            },
-            "preLaunchTask": "docker-run-server: debug",
-            "platform": "node",
-            "node": {
-                "package": "${workspaceFolder}/src/server/package.json",
-                "localRoot": "${workspaceFolder}/src/server"
-            }
-        },
-        {
-            "name": "React D3 API: Docker Attach to Server",
-            "type": "node",
-            "request": "attach",
-            "localRoot": "${workspaceFolder}/src/server",
-            "remoteRoot": "/usr/src/app",
-            "port": 9230
-        },
-    ]
+  "configurations": [
+    {
+      "name": "React D3 Client: Local Launch Browser",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "preLaunchTask": "local-run-client",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}/src/client"
+    },
+    {
+      "name": "React D3 Client: Docker Launch Browser",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}/src/client"
+    },
+    {
+      "name": "React D3 Client: Docker Launch Server",
+      "type": "docker",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "openExternally"
+      },
+      "preLaunchTask": "docker-run-client: debug",
+      "platform": "node",
+      "node": {
+        "package": "${workspaceFolder}/src/client/package.json",
+        "localRoot": "${workspaceFolder}/src/client"
+      }
+    },
+    {
+      "name": "React D3 API: Docker Launch Server",
+      "type": "docker",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "openExternally"
+      },
+      "preLaunchTask": "docker-run-server: debug",
+      "platform": "node",
+      "node": {
+        "package": "${workspaceFolder}/src/server/package.json",
+        "localRoot": "${workspaceFolder}/src/server"
+      }
+    },
+    {
+      "name": "React D3 API: Docker Attach to Server",
+      "type": "node",
+      "request": "attach",
+      "localRoot": "${workspaceFolder}/src/server",
+      "remoteRoot": "/usr/src/app",
+      "port": 9230
+    }
+  ]
 }

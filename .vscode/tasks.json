@@ -1,87 +1,83 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "label": "local-run-client",
-            "script": "dev",
-            "path": "src/client/",
-            "detail": "node run.js dev"
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "label": "local-run-client",
+      "script": "dev",
+      "path": "src/client/",
+      "detail": "node run.js dev"
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build-client: debug",
+      "platform": "node",
+      "dockerBuild": {
+        "dockerfile": "${workspaceFolder}/src/client/Dockerfile-debug",
+        "context": "${workspaceFolder}/src/client",
+        "pull": true
+      },
+      "node": {
+        "package": "${workspaceFolder}/src/client/package.json"
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run-client: debug",
+      "dependsOn": ["docker-build-client: debug"],
+      "dockerRun": {
+        "env": {
+          "APPLICATION_ID": "",
+          "NODE_ENV": "development",
+          "SERVER_URL": "http://localhost:9000"
         },
-        {
-            "type": "docker-build",
-            "label": "docker-build-client: debug",
-            "platform": "node",
-            "dockerBuild": {
-                "dockerfile": "${workspaceFolder}/src/client/Dockerfile-debug",
-                "context": "${workspaceFolder}/src/client",
-                "pull": true
-            },
-            "node": {
-                "package": "${workspaceFolder}/src/client/package.json"
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run-client: debug",
-            "dependsOn": [
-                "docker-build-client: debug"
-            ],
-            "dockerRun": {
-                "env": {
-                    "APPLICATION_ID": "",
-                    "NODE_ENV": "development",
-                    "SERVER_URL": "http://localhost:9000"
-                },
-                "ports": [
-                    {
-                        "containerPort": 8000,
-                        "hostPort": 8000
-                    }
-                ]
-            },
-            "node": {
-                "package": "${workspaceFolder}/src/client/package.json",
-                "enableDebugging": true
-            }
-        },
-        {
-            "type": "docker-build",
-            "label": "docker-build-server",
-            "platform": "node",
-            "dockerBuild": {
-                "dockerfile": "${workspaceFolder}/src/server/Dockerfile",
-                "context": "${workspaceFolder}/src/server",
-                "pull": true
-            },
-            "node": {
-                "package": "${workspaceFolder}/src/server/package.json"
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run-server: debug",
-            "dependsOn": [
-                "docker-build-server"
-            ],
-            "dockerRun": {
-                "ports": [
-                    {
-                        "containerPort": 9000,
-                        "hostPort": 9000
-                    }
-                ],
-                "env": {
-                    "APPLICATION_ID": "",
-                    "APPLICATION_SECRET": "",
-                    "CLIENT_URL": "http://localhost:8000",
-                    "NODE_ENV": "development"
-                }
-            },
-            "node": {
-                "package": "${workspaceFolder}/src/server/package.json",
-                "enableDebugging": true
-            }
+        "ports": [
+          {
+            "containerPort": 8000,
+            "hostPort": 8000
+          }
+        ]
+      },
+      "node": {
+        "package": "${workspaceFolder}/src/client/package.json",
+        "enableDebugging": true
+      }
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build-server",
+      "platform": "node",
+      "dockerBuild": {
+        "dockerfile": "${workspaceFolder}/src/server/Dockerfile",
+        "context": "${workspaceFolder}/src/server",
+        "pull": true
+      },
+      "node": {
+        "package": "${workspaceFolder}/src/server/package.json"
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run-server: debug",
+      "dependsOn": ["docker-build-server"],
+      "dockerRun": {
+        "ports": [
+          {
+            "containerPort": 9000,
+            "hostPort": 9000
+          }
+        ],
+        "env": {
+          "APPLICATION_ID": "",
+          "APPLICATION_SECRET": "",
+          "CLIENT_URL": "http://localhost:8000",
+          "NODE_ENV": "development"
         }
-    ]
+      },
+      "node": {
+        "package": "${workspaceFolder}/src/server/package.json",
+        "enableDebugging": true
+      }
+    }
+  ]
 }
