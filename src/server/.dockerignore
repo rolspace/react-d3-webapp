@@ -18,6 +18,13 @@
 **/node_modules
 **/npm-debug.log
 **/obj
+**/.yarn
 **/secrets.dev.yaml
 **/values.dev.yaml
 README.md
+
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

@@ -37,16 +37,20 @@ Ideally, the Node Backend should be started first. It requires three environment
 > DotEnv can be used to set the environment variables when NODE_ENV !== 'production'.
 > Production mode will not allow environment variables from DotEnv.
 
-The Node Backend can be started in two ways:
+The Node Backend can be started in three ways:
 
-Option 1: run locally
+Option 1: start from the terminal
 
 - Using the terminal, set the `./src/server` folder as the current directory.
 - Run the `yarn start` command to launch the application.
 
-Option 2: run with Docker launch config in VSCode
+Option 2: start from the local API launch config in VSCode
 
-- Run the `React D3 API: Docker Launch Server` launch config in VSCode. It will start the application in a Docker container. Make sure to modify the tasks.json file to set the environment variables in the `docker-run-server: debug` task.
+- Run the `Local API: launch` launch config in VSCode. It will start the application. Make sure to modify the `.env` file to set the environment variables.
+
+Option 3: start from the Docker API launch config in VSCode
+
+- Run the `Docker API: launch` launch config in VSCode. It will start the application in a Docker container. Make sure to modify the `tasks.json` file to set the environment variables in the `docker-run-server: debug` task.
 
 The PORT environment variable can be set in order to overwrite the default port used by the backend server (port 9000).
 
@@ -60,33 +64,13 @@ The React Frontend requires two environment variables:
 > Make sure these environment variables are set before building the application.
 > DotEnv can be used to set the environment variables when starting the application in development mode (`yarn start dev`)
 
-The client application can be started in two ways:
+The client application can be started locally in two ways:
 
-Option 1: run locally
+Option 1: start from the terminal
 
 - Using the terminal, set the `./src/client` folder as the current directory.
 - Run the `yarn start dev` command to launch the application in development mode.
 
-Option 2: run with Docker launch config in VSCode
+Option 2: start from the Local client launch config in VSCode
 
-- Run the `React D3 Client: Docker Launch Server` launch config in VSCode. Make sure to modify the tasks.json file to set the environment variables in the `docker-run-client: debug` task.
-- Run the `React D3 Client: Docker Launch Browser` launch config in VSCode. It will launch Chrome and load the React Frontend, the application will run in development mode.
-
-Option 3: run production mode
-
-- Using the terminal, set the `./src/client` folder as the current directory.
-- Run the `yarn start pro` command to launch the application in production mode (with Express as the server).
-
-### Node Backend and React Frontend
-
-Both applications can be started with Docker Compose and a debugger can be attached with VSCode.
-
-- Use the `docker-compose.debug.yml` file to launch **both** applications. It is necessary to modify the Compose file to set the environment variables for each of the applications.
-- Run the `React D3 Client: Docker Launch Browser` launch config in VSCode. It will attach VSCode to the client application started with Docker Compose. The React Frontend will run in development mode.
-- Run the `React D3 API: Docker Attach to Server` launch config in VSCode. It will attach VSCode to the API Backend started with Docker Compose.
-
-### Node Backend and React Frontend (in production mode)
-
-In order to simulate a production environment, the `docker-compose.yml` can be used to launch **both** the React Frontend and the Node Backend. The Compose file needs to be modified to set the environment variables and arguments for the containers.
-
-The React Frontend will run as a static application hosted by an NGINX proxy in production mode.
+- Run the `Local client: launch` config in VSCode. Make sure to modify the `.env` file to set the environment variables.

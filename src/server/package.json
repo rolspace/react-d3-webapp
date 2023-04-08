@@ -1,5 +1,5 @@
 {
-  "name": "react-d3-webapp-backend",
+  "name": "react-d3-api",
   "version": "0.5.0",
   "author": "Rolando Ramos",
   "description": "API server that serves as an interface to get GitHub data",
