@@ -28,6 +28,7 @@ jobs:
 
         - name: Build
           run: |
+            cd src/client
             yarn build
 
     lint-node:
