@@ -1,5 +1,7 @@
 # React + D3 Web App
 
+[![build](https://github.com/rolspace/react-d3-webapp/actions/workflows/build.yml/badge.svg)](https://github.com/rolspace/react-d3-webapp/actions/workflows/build.yml)
+
 A long time ago I started a personal project to become more familiar with Node, React, and other tools part of the modern JavaScript ecosystem.
 
 I started this project, abandoned it, started it again, abandoned it again, and finally, started it one last time, up to this point.
