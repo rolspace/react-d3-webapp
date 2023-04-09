@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import GraphList from '../GraphList'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
+import GraphList from '../GraphList'
 
 describe('Components: GraphList component', () => {
   test('renders correctly', () => {
@@ -13,5 +13,8 @@ describe('Components: GraphList component', () => {
     )
 
     expect(screen.getAllByRole('listitem').length).toEqual(4)
+    expect(screen.getAllByRole('link').length).toEqual(4)
+    expect(screen.getByText(/Adds vs. Deletes/i))
+    expect(screen.getByText(/Changed Files/i))
   })
 })
