@@ -20,10 +20,14 @@ jobs:
             cache: 'yarn'
             cache-dependency-path: 'yarn.lock'
 
-        - name: Build
+        - name: Test
           run: |
             cd src/client
             yarn --immutable
+            yarn test
+
+        - name: Build
+          run: |
             yarn build
 
     lint-node:
