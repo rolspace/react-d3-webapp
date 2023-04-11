@@ -3,21 +3,25 @@ import React from 'react'
 import BarGraph from './BarGraph'
 
 const BarGraphAddsDeletes = ({ datasource, loading, xAxis, yAxis }) => {
-  const { linesAdded, linesDeleted } = datasource
+  if (datasource) {
+    const { linesAdded = [], linesDeleted = [] } = datasource
 
-  return (
-    <BarGraph
-      graphData={{
-        sets: [linesAdded, linesDeleted],
-        colors: ['#2da44e', '#cf222e'],
-        loading,
-        xAxis,
-        xAxisLabel: 'Code Lines',
-        yAxis,
-        yAxisLabel: 'Total Commits',
-      }}
-    />
-  )
+    return (
+      <BarGraph
+        graphData={{
+          sets: [linesAdded, linesDeleted],
+          colors: ['#2da44e', '#cf222e'],
+          loading,
+          xAxis,
+          xAxisLabel: 'Code Lines',
+          yAxis,
+          yAxisLabel: 'Total Commits',
+        }}
+      />
+    )
+  }
+
+  return null
 }
 
 BarGraphAddsDeletes.propTypes = {
