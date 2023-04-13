@@ -19,6 +19,9 @@ const include = [
 const config = {
   context: __dirname,
   entry: ['whatwg-fetch', './main.js'],
+  resolve: {
+    extensions: ['.jsx', '...'],
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, './public/dist'),
