@@ -40,7 +40,7 @@ const RepoForm = ({ classes }) => {
       <Grid container className={classes.container}>
         <Grid item xs={4} sm={5}>
           <TextField
-            id="with-placeholder"
+            id="owner"
             name="owner"
             label="owner"
             margin="normal"
@@ -51,8 +51,8 @@ const RepoForm = ({ classes }) => {
         <Grid item xs={1}></Grid>
         <Grid item xs={4} sm={5}>
           <TextField
-            id="with-placeholder"
-            name="name"
+            id="repository"
+            name="repository"
             label="repository"
             margin="normal"
             fullWidth={true}
