@@ -4,17 +4,15 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import GraphList from '../GraphList'
 
-describe('Components: GraphList component', () => {
-  test('renders correctly', () => {
-    render(
-      <BrowserRouter>
-        <GraphList />
-      </BrowserRouter>,
-    )
+test('GraphList renders correctly', () => {
+  render(
+    <BrowserRouter>
+      <GraphList />
+    </BrowserRouter>,
+  )
 
-    expect(screen.getAllByRole('listitem').length).toEqual(4)
-    expect(screen.getAllByRole('link').length).toEqual(4)
-    expect(screen.getByText(/Adds vs. Deletes/i))
-    expect(screen.getByText(/Changed Files/i))
-  })
+  expect(screen.getAllByRole('listitem').length).toEqual(4)
+  expect(screen.getAllByRole('link').length).toEqual(4)
+  expect(screen.getByText(/Adds vs. Deletes/i))
+  expect(screen.getByText(/Changed Files/i))
 })
