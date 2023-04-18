@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom/extend-expect'
 import { screen } from '@testing-library/react'
-import { renderWithProviders } from '../../../utils/test-utils'
-import React from 'react'
-import RepoForm from '../RepoForm'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import { renderWithProviders } from '../../../utils/test-utils'
+import RepoForm from '../RepoForm'
 
 test('RepoForm renders correctly', () => {
   renderWithProviders(<RepoForm />, {
@@ -23,7 +23,7 @@ test('RepoForm renders correctly', () => {
   expect(screen.getAllByRole('button').length).toEqual(1)
 })
 
-test('RepoForm sets form inputs and state correctly on user events', async () => {
+test('RepoForm sets correct values on user input', async () => {
   renderWithProviders(<RepoForm />, {
     repo: { owner: 'facebook', name: 'react' },
   })
@@ -36,4 +36,14 @@ test('RepoForm sets form inputs and state correctly on user events', async () =>
   await userEvent.type(ownerInput, 'dotnet')
 
   expect(ownerInput).toHaveValue('dotnet')
+
+  const repositoryInput = screen.getByRole('textbox', {
+    name: /repository/i,
+  })
+
+  await userEvent.clear(repositoryInput)
+  await userEvent.type(repositoryInput, 'runtime')
+
+  expect(ownerInput).toHaveValue('dotnet')
+  expect(repositoryInput).toHaveValue('runtime')
 })
