@@ -13,10 +13,8 @@ const RepoCommits = ({ graphComponent, options }) => {
 
   useEffect(() => {
     if (loading === 'idle' && !fulfilled && error === null && token !== '') {
-      dispatch(fetchRepo({ owner, name, commits, token }))
+      dispatch(fetchRepo({ owner, name, token }))
     }
-
-    console.log(`${owner}-${name}-${token}`)
   }, [dispatch, name, owner, token])
 
   const GraphComponent = graphComponent
