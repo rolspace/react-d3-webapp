@@ -7,7 +7,9 @@ import RepoForm from '../RepoForm'
 
 test('RepoForm renders correctly', () => {
   renderWithProviders(<RepoForm />, {
-    repo: { owner: 'facebook', name: 'react' },
+    preloadedState: {
+      repo: { owner: 'facebook', name: 'react' },
+    },
   })
 
   const ownerInput = screen.getByRole('textbox', {
@@ -25,7 +27,9 @@ test('RepoForm renders correctly', () => {
 
 test('RepoForm sets correct values on user input', async () => {
   renderWithProviders(<RepoForm />, {
-    repo: { owner: 'facebook', name: 'react' },
+    preloadedState: {
+      repo: { owner: 'facebook', name: 'react' },
+    },
   })
 
   const ownerInput = screen.getByRole('textbox', {
