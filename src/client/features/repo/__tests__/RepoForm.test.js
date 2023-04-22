@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { renderWithProviders } from '../../../utils/test-utils'
+import { renderWithProviders } from '../../../utils/testUtils'
 import RepoForm from '../RepoForm'
 
 test('RepoForm renders correctly', () => {

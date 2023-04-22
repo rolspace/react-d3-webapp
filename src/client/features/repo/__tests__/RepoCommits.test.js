@@ -6,7 +6,7 @@ import React from 'react'
 import 'whatwg-fetch'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
-import { renderWithProviders } from '../../../utils/test-utils'
+import { renderWithProviders } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
 export const handlers = [
