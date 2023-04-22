@@ -1,8 +1,6 @@
 /* eslint-disable no-console, global-require */
 
-const fs = require('fs')
 const webpack = require('webpack')
-const server = require('./server')
 
 const tasks = new Map()
 
@@ -65,24 +63,6 @@ tasks.set('build', async () => {
         reject(error)
       } else {
         console.log(stats.toString(webpackConfig.stats))
-        resolve()
-      }
-    })
-  })
-})
-
-// Run 'production' with the Express server
-tasks.set('pro', async () => {
-  process.env.NODE_ENV = 'production'
-
-  const buildFile = 'public/dist/main.js'
-
-  return new Promise((resolve, reject) => {
-    fs.access(buildFile, fs.constants.R_OK, (error) => {
-      if (error) {
-        reject(error)
-      } else {
-        server.start()
         resolve()
       }
     })
