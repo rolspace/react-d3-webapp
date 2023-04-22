@@ -7,4 +7,15 @@ module.exports = {
   testEnvironmentOptions: {
     url: 'http://localhost',
   },
+  collectCoverageFrom: [
+    '**/*.{js,jsx}',
+    '!**/coverage/**',
+    '!**/public/**',
+    '!**/*rc.js',
+    '!**/testUtils.jsx',
+    '!**/jest.config.js',
+    '!**/main.js',
+    '!**/run.js',
+    '!**/webpack*.js',
+  ],
 }
