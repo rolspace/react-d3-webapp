@@ -5,6 +5,7 @@ import { setupServer } from 'msw/node'
 import React from 'react'
 import 'whatwg-fetch'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
+import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
 import { renderWithProviders } from '../../../utils/test-utils'
 import RepoCommits from '../RepoCommits'
 
@@ -69,12 +70,52 @@ afterEach(() => server.resetHandlers())
 
 afterAll(() => server.close())
 
-test('RepoCommits fetches repo data and renders graph', async () => {
+test('RepoCommits fetches repo data and renders adds vs. deletes graph', async () => {
   process.env.SERVER_URL = 'http://localhost'
 
   const { container } = renderWithProviders(
     <RepoCommits
       graphComponent={BarGraphAddsDeletes}
+      options={{
+        xAxis: 'label',
+        yAxis: 'count',
+      }}
+    />,
+    {
+      preloadedState: {
+        user: {
+          token: 'AbcDeF123456',
+        },
+        repo: {
+          owner: 'facebook',
+          name: 'react',
+          commits: {
+            changedFiles: [],
+            linesAdded: [],
+            linesDeleted: [],
+          },
+          loading: 'idle',
+          fulfilled: false,
+          error: null,
+        },
+      },
+    },
+  )
+
+  expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
+  expect(
+    container.querySelector(
+      'body > div > div > div > div > svg > g > rect:nth-child(5)',
+    ),
+  ).toBeInTheDocument()
+})
+
+test('RepoCommits fetches repo data and renders changed files graph', async () => {
+  process.env.SERVER_URL = 'http://localhost'
+
+  const { container } = renderWithProviders(
+    <RepoCommits
+      graphComponent={BarGraphChangedFiles}
       options={{
         xAxis: 'label',
         yAxis: 'count',
