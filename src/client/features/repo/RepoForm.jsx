@@ -22,8 +22,18 @@ const RepoForm = ({ classes }) => {
   const { owner, name } = useSelector((state) => state.repo)
   const { token } = useSelector((state) => state.user)
 
-  const { value: valueOwnerInput, bind: bindOwnerInput } = useInput(owner)
-  const { value: valueNameInput, bind: bindNameInput } = useInput(name)
+  const {
+    value: ownerValue,
+    valueChanged: ownerValueChanged,
+    setValueChanged: setOwnerValueChanged,
+    bind: ownerInputBind,
+  } = useInput(owner)
+  const {
+    value: nameValue,
+    valueChanged: nameValueChanged,
+    setValueChanged: setNameValueChanged,
+    bind: nameInputBind,
+  } = useInput(name)
 
   const dispatch = useDispatch()
 
@@ -31,8 +41,11 @@ const RepoForm = ({ classes }) => {
     event.preventDefault()
 
     if (token !== '') {
-      dispatch(repoChanged({ valueOwnerInput, valueNameInput }))
+      dispatch(repoChanged({ ownerValue, nameValue }))
     }
+
+    setOwnerValueChanged(false)
+    setNameValueChanged(false)
   }
 
   return (
@@ -45,7 +58,7 @@ const RepoForm = ({ classes }) => {
             label="owner"
             margin="normal"
             fullWidth={true}
-            {...bindOwnerInput}
+            {...ownerInputBind}
           />
         </Grid>
         <Grid item xs={1}></Grid>
@@ -56,11 +69,15 @@ const RepoForm = ({ classes }) => {
             label="repository"
             margin="normal"
             fullWidth={true}
-            {...bindNameInput}
+            {...nameInputBind}
           />
         </Grid>
         <Grid item xs={3} sm={1} className={classes.buttonContainer}>
-          <Button size="small" variant="contained" type="submit">
+          <Button
+            size="small"
+            variant="contained"
+            type="submit"
+            disabled={!(ownerValueChanged || nameValueChanged)}>
             go
           </Button>
         </Grid>

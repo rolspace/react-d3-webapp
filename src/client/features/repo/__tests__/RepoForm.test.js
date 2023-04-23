@@ -32,6 +32,12 @@ test('RepoForm sets correct values on user input', async () => {
     },
   })
 
+  const button = screen.getByRole('button', {
+    name: /go/i,
+  })
+
+  expect(button).toBeDisabled()
+
   const ownerInput = screen.getByRole('textbox', {
     name: /owner/i,
   })
@@ -39,6 +45,7 @@ test('RepoForm sets correct values on user input', async () => {
   await userEvent.clear(ownerInput)
   await userEvent.type(ownerInput, 'dotnet')
 
+  expect(button).not.toBeDisabled()
   expect(ownerInput).toHaveValue('dotnet')
 
   const repositoryInput = screen.getByRole('textbox', {
@@ -48,6 +55,16 @@ test('RepoForm sets correct values on user input', async () => {
   await userEvent.clear(repositoryInput)
   await userEvent.type(repositoryInput, 'runtime')
 
+  expect(button).not.toBeDisabled()
   expect(ownerInput).toHaveValue('dotnet')
   expect(repositoryInput).toHaveValue('runtime')
+
+  await userEvent.clear(ownerInput)
+  await userEvent.type(ownerInput, 'facebook')
+  await userEvent.clear(repositoryInput)
+  await userEvent.type(repositoryInput, 'react')
+
+  expect(button).toBeDisabled()
+  expect(ownerInput).toHaveValue('facebook')
+  expect(repositoryInput).toHaveValue('react')
 })

@@ -20,10 +20,10 @@ export const repoSlice = createSlice({
   reducers: {
     repoChanged(state, action) {
       const {
-        payload: { valueOwnerInput, valueNameInput },
+        payload: { ownerValue, nameValue },
       } = action
-      state.owner = valueOwnerInput
-      state.name = valueNameInput
+      state.owner = ownerValue
+      state.name = nameValue
       state.fulfilled = false
       state.commits = {
         changedFiles: [],
