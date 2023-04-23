@@ -1,9 +1,4 @@
-import {
-  // createAction,
-  createAsyncThunk,
-  // createReducer,
-  createSlice,
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { createHighRange, createLowRange } from '../../lib/range'
 
 const initialState = {
