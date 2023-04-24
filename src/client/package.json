@@ -23,6 +23,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "@reduxjs/toolkit": "^1.9.3",
     "d3": "^5.16.0",
     "lodash": "^4.17.21",
