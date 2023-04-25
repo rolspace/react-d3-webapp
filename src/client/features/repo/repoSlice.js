@@ -22,9 +22,13 @@ export const repoSlice = createSlice({
       const {
         payload: { ownerValue, nameValue },
       } = action
+
       state.owner = ownerValue
       state.name = nameValue
+      state.loading = 'idle'
       state.fulfilled = false
+      state.error = null
+
       state.commits = {
         changedFiles: [],
         linesAdded: [],
@@ -37,6 +41,7 @@ export const repoSlice = createSlice({
       state.loading = 'pending'
       state.fulfilled = false
       state.error = null
+
       state.commits = {
         changedFiles: [],
         linesAdded: [],
@@ -51,6 +56,7 @@ export const repoSlice = createSlice({
       state.loading = 'idle'
       state.fulfilled = true
       state.error = null
+
       state.commits = {
         changedFiles: createLowRange(data, 'changedFiles'),
         linesAdded: createHighRange(data, 'additions'),
@@ -61,7 +67,9 @@ export const repoSlice = createSlice({
       const { error } = action
 
       state.loading = 'idle'
+      state.fulfilled = true
       state.error = error
+
       state.commits = {
         changedFiles: [],
         linesAdded: [],

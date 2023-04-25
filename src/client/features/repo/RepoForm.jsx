@@ -19,7 +19,7 @@ const styles = {
 }
 
 const RepoForm = ({ classes }) => {
-  const { owner, name } = useSelector((state) => state.repo)
+  const { owner, name, error } = useSelector((state) => state.repo)
   const { token } = useSelector((state) => state.user)
 
   const {
@@ -77,7 +77,9 @@ const RepoForm = ({ classes }) => {
             size="small"
             variant="contained"
             type="submit"
-            disabled={!(ownerValueChanged || nameValueChanged)}>
+            disabled={
+              error === null && !(ownerValueChanged || nameValueChanged)
+            }>
             go
           </Button>
         </Grid>

@@ -2,31 +2,51 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchRepo } from './repoSlice'
+import Alert from '@material-ui/lab/Alert'
+import AlertTitle from '@material-ui/lab/AlertTitle'
+import Grid from '@material-ui/core/Grid'
 
 const RepoCommits = ({ graphComponent, options }) => {
   const dispatch = useDispatch()
 
-  const { commits, error, fulfilled, loading, name, owner } = useSelector(
+  const { owner, name, commits, loading, fulfilled, error } = useSelector(
     (state) => state.repo,
   )
   const { token } = useSelector((state) => state.user)
 
   useEffect(() => {
-    if (loading === 'idle' && !fulfilled && error === null && token !== '') {
+    if (
+      loading === 'idle' &&
+      fulfilled === false &&
+      error === null &&
+      token !== ''
+    ) {
       dispatch(fetchRepo({ owner, name, token }))
     }
-  }, [dispatch, name, owner, token])
+  }, [dispatch, name, owner, fulfilled, token])
 
   const GraphComponent = graphComponent
 
-  return (
-    <GraphComponent
-      datasource={commits}
-      loading={loading}
-      error={error}
-      {...options}
-    />
-  )
+  if (error) {
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Grid container justifyContent="center">
+            <Grid item sm={10} md={6}>
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                An error ocurred while loading the repository data.
+                <br />
+                Please try again.
+              </Alert>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    )
+  }
+
+  return <GraphComponent datasource={commits} loading={loading} {...options} />
 }
 
 export default RepoCommits
