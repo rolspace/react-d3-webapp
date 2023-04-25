@@ -13,6 +13,6 @@ test('GraphList renders correctly', () => {
 
   expect(screen.getAllByRole('listitem').length).toEqual(4)
   expect(screen.getAllByRole('link').length).toEqual(4)
-  expect(screen.getByText(/Adds vs. Deletes/i))
+  expect(screen.getByText(/Adds \/ Deletes/i))
   expect(screen.getByText(/Changed Files/i))
 })

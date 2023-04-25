@@ -12,7 +12,7 @@ const styles = {
 
 const HomePage = ({ classes }) => {
   return (
-    <Grid container className={classes.container} justify="center">
+    <Grid container className={classes.container} justifyContent="center">
       <Grid item xs={12} sm={6}>
         <GraphList />
       </Grid>

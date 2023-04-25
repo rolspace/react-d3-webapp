@@ -9,15 +9,15 @@ const GraphList = () => {
       <ImageListItem>
         <CustomCard
           to="/graphs/repo-additions-deletions"
-          title="Adds vs. Deletes"
-          description="Groups commits based on the total lines of code that have been added or deleted"
+          title="Adds / Deletes"
+          description="Groups commits based on the total added/deleted LOC"
         />
       </ImageListItem>
       <ImageListItem>
         <CustomCard
           to="/graphs/repo-files"
           title="Changed Files"
-          description="Groups commits based on the number of files that have been modified"
+          description="Groups commits based on the number of modified files"
         />
       </ImageListItem>
       <ImageListItem>
