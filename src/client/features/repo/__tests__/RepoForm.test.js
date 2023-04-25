@@ -28,13 +28,16 @@ test('RepoForm renders correctly', () => {
 test('RepoForm sets correct values on user input', async () => {
   renderWithProviders(<RepoForm />, {
     preloadedState: {
-      repo: { owner: 'facebook', name: 'react' },
+      repo: { owner: 'facebook', name: 'react', error: null },
+      user: { token: '' },
     },
   })
 
   const button = screen.getByRole('button', {
     name: /go/i,
   })
+
+  screen.debug()
 
   expect(button).toBeDisabled()
 
