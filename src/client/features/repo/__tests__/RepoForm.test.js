@@ -37,8 +37,6 @@ test('RepoForm sets correct values on user input', async () => {
     name: /go/i,
   })
 
-  screen.debug()
-
   expect(button).toBeDisabled()
 
   const ownerInput = screen.getByRole('textbox', {
