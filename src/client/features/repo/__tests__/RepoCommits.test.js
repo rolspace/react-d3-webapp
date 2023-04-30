@@ -11,7 +11,6 @@ import RepoCommits from '../RepoCommits'
 
 const handlers = [
   rest.post(/\/api\/repo\//, (req, res, context) => {
-    console.log('captured')
     return res(
       context.json({
         data: [
