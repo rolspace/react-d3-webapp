@@ -125,6 +125,7 @@ test('RepoCommits fetches repo data and renders changed files graph', async () =
       preloadedState: {
         user: {
           token: 'AbcDeF123456',
+          error: null,
         },
         repo: {
           owner: 'facebook',
