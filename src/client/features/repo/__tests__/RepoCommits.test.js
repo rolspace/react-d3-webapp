@@ -9,8 +9,9 @@ import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
 import { renderWithProviders } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
-export const handlers = [
+const handlers = [
   rest.post(/\/api\/repo\//, (req, res, context) => {
+    console.log('captured')
     return res(
       context.json({
         data: [
