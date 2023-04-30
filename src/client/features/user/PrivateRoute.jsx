@@ -8,8 +8,8 @@ import { fetchToken } from './userSlice'
 const PrivateRoute = ({ component, location, path }) => {
   const { code, state } = qs.parse(location.search)
 
-  const { token } = useSelector((state) => state.user)
   const dispatch = useDispatch()
+  const { token } = useSelector((state) => state.user)
 
   useEffect(() => {
     if (code && state && token === '') {
@@ -23,7 +23,7 @@ const PrivateRoute = ({ component, location, path }) => {
         }//${window.location.host}${location.pathname}`,
       )
     }
-  }, [code, state])
+  }, [dispatch, code, state])
 
   if (token) {
     const Component = component
