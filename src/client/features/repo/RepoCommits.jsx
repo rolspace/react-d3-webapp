@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid'
 const RepoCommits = ({ graphComponent, options }) => {
   const dispatch = useDispatch()
 
-  const { owner, name, commits, loading, fulfilled, error } = useSelector(
+  const { owner, repository, commits, loading, fulfilled, error } = useSelector(
     (state) => state.repo,
   )
   const { token } = useSelector((state) => state.user)
@@ -21,9 +21,9 @@ const RepoCommits = ({ graphComponent, options }) => {
       fulfilled === false &&
       error === null
     ) {
-      dispatch(fetchRepo({ owner, name, token }))
+      dispatch(fetchRepo({ owner, repository, token }))
     }
-  }, [dispatch, name, owner, token, fulfilled])
+  }, [dispatch, owner, repository, token, fulfilled])
 
   const GraphComponent = graphComponent
 

@@ -3,9 +3,8 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useInput } from '../../lib/hooks/useInput'
 import { repoChanged } from './repoSlice'
 
 const styles = {
@@ -19,21 +18,14 @@ const styles = {
 }
 
 const RepoForm = ({ classes }) => {
-  const { owner, name, error } = useSelector((state) => state.repo)
+  const { owner, repository, error } = useSelector((state) => state.repo)
   const { token } = useSelector((state) => state.user)
 
-  const {
-    value: ownerValue,
-    valueChanged: ownerValueChanged,
-    setValueChanged: setOwnerValueChanged,
-    bind: ownerInputBind,
-  } = useInput(owner)
-  const {
-    value: nameValue,
-    valueChanged: nameValueChanged,
-    setValueChanged: setNameValueChanged,
-    bind: nameInputBind,
-  } = useInput(name)
+  const [ownerValue, setOwnerValue] = useState(owner)
+  const [ownerValueChanged, setOwnerValueChanged] = useState(false)
+
+  const [repositoryValue, setRepositoryValue] = useState(repository)
+  const [repositoryValueChanged, setRepositoryValueChanged] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -41,11 +33,11 @@ const RepoForm = ({ classes }) => {
     event.preventDefault()
 
     if (token !== '') {
-      dispatch(repoChanged({ ownerValue, nameValue }))
+      dispatch(repoChanged({ ownerValue, repositoryValue }))
     }
 
     setOwnerValueChanged(false)
-    setNameValueChanged(false)
+    setRepositoryValueChanged(false)
   }
 
   return (
@@ -58,7 +50,15 @@ const RepoForm = ({ classes }) => {
             label="owner"
             margin="normal"
             fullWidth={true}
-            {...ownerInputBind}
+            value={ownerValue}
+            onChange={(event) => {
+              const {
+                target: { value: newValue },
+              } = event
+
+              setOwnerValueChanged(owner !== newValue)
+              setOwnerValue(newValue)
+            }}
           />
         </Grid>
         <Grid item xs={1}></Grid>
@@ -69,7 +69,15 @@ const RepoForm = ({ classes }) => {
             label="repository"
             margin="normal"
             fullWidth={true}
-            {...nameInputBind}
+            value={repositoryValue}
+            onChange={(event) => {
+              const {
+                target: { value: newValue },
+              } = event
+
+              setRepositoryValueChanged(repository !== newValue)
+              setRepositoryValue(newValue)
+            }}
           />
         </Grid>
         <Grid item xs={3} sm={1} className={classes.buttonContainer}>
@@ -78,7 +86,7 @@ const RepoForm = ({ classes }) => {
             variant="contained"
             type="submit"
             disabled={
-              error === null && !(ownerValueChanged || nameValueChanged)
+              error === null && !(ownerValueChanged || repositoryValueChanged)
             }>
             go
           </Button>

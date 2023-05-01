@@ -3,7 +3,7 @@ import { createHighRange, createLowRange } from '../../lib/range'
 
 const initialState = {
   owner: 'facebook',
-  name: 'react',
+  repository: 'react',
   commits: {
     changedFiles: [],
     linesAdded: [],
@@ -20,11 +20,11 @@ export const repoSlice = createSlice({
   reducers: {
     repoChanged(state, action) {
       const {
-        payload: { ownerValue, nameValue },
+        payload: { ownerValue, repositoryValue },
       } = action
 
       state.owner = ownerValue
-      state.name = nameValue
+      state.repository = repositoryValue
       state.loading = 'idle'
       state.fulfilled = false
       state.error = null
@@ -81,9 +81,9 @@ export const repoSlice = createSlice({
 
 export const fetchRepo = createAsyncThunk(
   'repo/fetch',
-  async ({ owner, name, token }) => {
+  async ({ owner, repository, token }) => {
     const response = await fetch(
-      `${process.env.SERVER_URL}/api/repo/${owner}/${name}/`,
+      `${process.env.SERVER_URL}/api/repo/${owner}/${repository}/`,
       {
         method: 'POST',
         headers: {
