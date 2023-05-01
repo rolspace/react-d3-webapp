@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom/extend-expect'
 import { screen } from '@testing-library/react'
-import React, { Fragment } from 'react'
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { renderWithProviders } from '../../../utils/testUtils'
 import PrivateRoute from '../PrivateRoute'
-import { BrowserRouter } from 'react-router-dom'
 
 const location = {
   ...window.location,
@@ -18,7 +18,7 @@ Object.defineProperty(window, 'location', {
 test('PrivateRoute fetches user token and renders correct component', () => {
   renderWithProviders(
     <BrowserRouter>
-      <PrivateRoute component={<></>} path="/path" />
+      <PrivateRoute component={() => <></>} path="/path" />
     </BrowserRouter>,
     {
       preloadedState: {
