@@ -1,5 +1,5 @@
 {
-  "name": "react-d3-client",
+  "name": "reactd3-client",
   "version": "0.5.0",
   "author": "Rolando Ramos",
   "description": "Web application that displays GitHub repository data using D3 graphs",
