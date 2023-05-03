@@ -22,16 +22,16 @@ const loadQueries = () => {
 
     if (files && files.length > 0) {
       files.forEach((file) => {
-        const data = []
+        const fileData = []
 
         const readStream = fs.createReadStream(`queries/${file}`)
         readStream.on('data', (chunk) => {
-          data.push(chunk)
+          fileData.push(chunk)
         })
         readStream.on('end', () => {
           queries.push({
             name: file,
-            data: Buffer.concat(data).toString(),
+            text: Buffer.concat(fileData).toString(),
           })
         })
         readStream.on('error', (error) => {
