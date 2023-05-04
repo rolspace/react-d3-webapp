@@ -9,7 +9,9 @@ const { status } = constants
 
 const post = async (req, res, next) => {
   try {
-    const { token } = req.body
+    const {
+      body: { token },
+    } = req
 
     if (!token) {
       return res
@@ -24,7 +26,9 @@ const post = async (req, res, next) => {
       )
     }
 
-    const { owner, name } = req.params
+    const {
+      params: { owner, name },
+    } = req
     if (!owner || !name) {
       throw new Error(`parameter ${!owner ? 'owner' : 'name'} is undefined`)
     }
@@ -32,9 +36,7 @@ const post = async (req, res, next) => {
     const response = await axios.post(
       'https://api.github.com/graphql',
       {
-        query: queryText
-          .replace('%NAME%', req.params.name)
-          .replace('%OWNER%', req.params.owner),
+        query: queryText.replace('%NAME%', name).replace('%OWNER%', owner),
       },
       {
         headers: {
