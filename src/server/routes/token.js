@@ -1,5 +1,5 @@
+const axios = require('axios')
 const path = require('path')
-const rp = require('request-promise-native')
 const constants = require('../common/constants')
 const logger = require('../common/logger')
 
@@ -13,24 +13,25 @@ const post = async (req, res, next) => {
       throw new Error(`Parameter ${!code ? 'code' : 'state'} is undefined`)
     }
 
-    const options = {
-      method: 'POST',
-      uri: 'https://github.com/login/oauth/access_token',
-      headers: {
-        accept: 'application/json',
-      },
-      formData: {
+    const response = await axios.post(
+      'https://github.com/login/oauth/access_token',
+      {
         client_id: process.env.APPLICATION_ID,
         client_secret: process.env.APPLICATION_SECRET,
         code,
         state,
       },
-    }
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+      },
+    )
 
-    const response = await rp.post(options)
+    const { data } = response
     logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
-    res.status(status.ok).send(response)
+    res.status(status.ok).send(data)
   } catch (error) {
     next(error)
   }
