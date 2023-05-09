@@ -1,11 +1,13 @@
+const axios = require('axios')
 const path = require('path')
 const constants = require('../common/constants')
 const logger = require('../common/logger')
 const queries = require('../common/queries')
-const axios = require('axios')
 
 const ns = path.relative(process.cwd(), __filename)
-const { status } = constants
+const {
+  status: { ok, unprocessable },
+} = constants
 
 const post = async (req, res, next) => {
   try {
@@ -14,9 +16,7 @@ const post = async (req, res, next) => {
     } = req
 
     if (!token) {
-      return res
-        .status(status.unprocessable)
-        .send({ message: 'token not provided' })
+      return res.status(unprocessable).send({ message: 'token not provided' })
     }
 
     const { text: queryText } = queries.getQuery('repo-commits')
@@ -40,6 +40,7 @@ const post = async (req, res, next) => {
       },
       {
         headers: {
+          Accept: 'application/json',
           Authorization: `bearer ${token}`,
           'User-Agent': 'react-d3-webapp',
         },
@@ -62,7 +63,7 @@ const post = async (req, res, next) => {
       },
     } = response
 
-    res.status(status.ok).send({ data: edges })
+    res.status(ok).send({ data: edges })
   } catch (error) {
     next(error)
   }

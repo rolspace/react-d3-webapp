@@ -4,11 +4,15 @@ const constants = require('../common/constants')
 const logger = require('../common/logger')
 
 const ns = path.relative(process.cwd(), __filename)
-const { status } = constants
+const {
+  status: { ok },
+} = constants
 
 const post = async (req, res, next) => {
   try {
-    const { code, state } = req.body
+    const {
+      body: { code, state },
+    } = req
     if (!code || !state) {
       throw new Error(`Parameter ${!code ? 'code' : 'state'} is undefined`)
     }
@@ -31,7 +35,7 @@ const post = async (req, res, next) => {
     const { data } = response
     logger.info({ ns: `${ns}:post`, response }, 'request successful')
 
-    res.status(status.ok).send(data)
+    res.status(ok).send(data)
   } catch (error) {
     next(error)
   }
