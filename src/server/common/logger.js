@@ -1,8 +1,6 @@
-const bunyan = require('bunyan')
+import bunyan from 'bunyan'
 
-const logger = bunyan.createLogger({
-  name: 'react-d3-server',
+export const logger = bunyan.createLogger({
+  name: 'reactd3-server',
   serializers: bunyan.stdSerializers,
 })
-
-module.exports = logger

@@ -1,7 +1,7 @@
-const rp = require('request-promise-native')
-const logger = require('../../common/logger')
-const queries = require('../../common/queries')
-const repo = require('../repo')
+import rp from 'request-promise-native'
+import { logger } from '../../common/logger'
+import { getQuery, loadQueries } from '../../common/queries'
+import { repo } from '../repo'
 
 let res = {}
 

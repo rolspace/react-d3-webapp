@@ -1,41 +1,40 @@
-// TODO: convert api server completely to import based
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+/* eslint-disable import/first */
+import './common/config.js'
 
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const express = require('express')
-const path = require('path')
-const constants = require('./common/constants')
-const logger = require('./common/logger')
-const queries = require('./common/queries')
-const allIncoming = require('./middleware/allIncoming')
-const catchErrors = require('./middleware/catchErrors')
-const repo = require('./routes/repo')
-const token = require('./routes/token')
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import express from 'express'
+import path from 'path'
+import * as url from 'url'
+import { cors as corsConstants, status } from './common/constants.js'
+import { logger } from './common/logger.js'
+import { loadQueries } from './common/queries.js'
+import { allIncomingHandler } from './middleware/allIncoming.js'
+import { catchErrorHandler } from './middleware/catchErrors.js'
+import { post as repoPostHandler } from './routes/repo.js'
+import { post as tokenPostHandler } from './routes/token.js'
 
 const app = express()
+const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
-const { status } = constants
 
 const init = () => {
-  queries.loadQueries()
+  loadQueries()
 
   app.use(bodyParser.json())
-  app.use(cors(constants.cors))
-  app.use(allIncoming)
+  app.use(cors(corsConstants))
+  app.use(allIncomingHandler)
 
   app.options('/api/token')
-  app.post('/api/token', token.post)
-  app.post('/api/repo/:owner/:name', repo.post)
+  app.post('/api/token', tokenPostHandler)
+  app.post('/api/repo/:owner/:name', repoPostHandler)
 
   app.use((req, res) => {
     logger.warn({ ns: `${ns}:init` }, 'Resource not found')
     res.status(status.notFound).send({ message: 'Resource not found' })
   })
 
-  app.use(catchErrors)
+  app.use(catchErrorHandler)
 
   const port = process.env.PORT || 9000
 

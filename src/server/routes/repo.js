@@ -1,15 +1,15 @@
-const axios = require('axios')
-const path = require('path')
-const constants = require('../common/constants')
-const logger = require('../common/logger')
-const queries = require('../common/queries')
+import axios from 'axios'
+import path from 'path'
+import * as url from 'url'
+import { status } from '../common/constants.js'
+import { logger } from '../common/logger.js'
+import { getQuery } from '../common/queries.js'
 
+const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
-const {
-  status: { ok, unprocessable },
-} = constants
+const { ok, unprocessable } = status
 
-const post = async (req, res, next) => {
+export const post = async (req, res, next) => {
   try {
     const {
       body: { token },
@@ -19,7 +19,7 @@ const post = async (req, res, next) => {
       return res.status(unprocessable).send({ message: 'token not provided' })
     }
 
-    const { text: queryText } = queries.getQuery('repo-commits')
+    const { text: queryText } = getQuery('repo-commits')
     if (!queryText) {
       throw new Error(
         'the query file repo-commits does not exist or it is empty',
@@ -67,8 +67,4 @@ const post = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}
-
-module.exports = {
-  post,
 }

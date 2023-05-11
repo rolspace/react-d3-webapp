@@ -1,17 +1,19 @@
-const fs = require('fs')
-const path = require('path')
-const logger = require('./logger')
+import fs from 'fs'
+import path from 'path'
+import * as url from 'url'
+import { logger } from './logger.js'
 
+const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
 const queries = []
 
-const getQuery = (name) => {
+export const getQuery = (name) => {
   logger.info({ ns: `${ns}:get` }, `Getting query: ${name}`)
 
   return queries.find((query) => name === query.name)
 }
 
-const loadQueries = () => {
+export const loadQueries = () => {
   fs.readdir('queries', (error, files) => {
     if (error) {
       logger.error(
@@ -45,9 +47,4 @@ const loadQueries = () => {
       })
     }
   })
-}
-
-module.exports = {
-  getQuery,
-  loadQueries,
 }

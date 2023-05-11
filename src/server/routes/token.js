@@ -1,14 +1,14 @@
-const axios = require('axios')
-const path = require('path')
-const constants = require('../common/constants')
-const logger = require('../common/logger')
+import axios from 'axios'
+import path from 'path'
+import * as url from 'url'
+import { status } from '../common/constants.js'
+import { logger } from '../common/logger.js'
 
+const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
-const {
-  status: { ok },
-} = constants
+const { ok } = status
 
-const post = async (req, res, next) => {
+export const post = async (req, res, next) => {
   try {
     const {
       body: { code, state },
@@ -39,8 +39,4 @@ const post = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}
-
-module.exports = {
-  post,
 }

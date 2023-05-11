@@ -1,8 +1,6 @@
-const logger = require('../common/logger')
+import { logger } from '../common/logger.js'
 
-const allIncomingHandler = (req, res, next) => {
+export const allIncomingHandler = (req, res, next) => {
   logger.info({ req }, 'Request log')
   next()
 }
-
-module.exports = allIncomingHandler
