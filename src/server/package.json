@@ -17,7 +17,7 @@
     "lint": "eslint .",
     "format": "prettier -w .",
     "start": "node index.js",
-    "test": "jest",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "test-coverage": "jest --collectCoverage"
   },
   "dependencies": {
