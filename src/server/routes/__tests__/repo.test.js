@@ -20,6 +20,19 @@ afterEach(() => {
 const loggerModulePath = '../../lib/logger'
 const queriesModulePath = '../../lib/queries'
 
+jest.unstable_mockModule(loggerModulePath, () => ({
+  logger: {
+    info: jest.fn(),
+    error: jest.fn(),
+  },
+}))
+
+jest.unstable_mockModule(queriesModulePath, () => ({
+  getQuery: jest.fn().mockReturnValue({
+    text: 'repository(name: "%NAME%", owner: "%OWNER%")',
+  }),
+}))
+
 test('repo module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
     rest.post('https://api.github.com/graphql', (req, res, context) => {
@@ -41,19 +54,7 @@ test('repo module responds with a 200 status code when the request for data is s
     body: { token: 'token' },
   }
 
-  jest.unstable_mockModule(loggerModulePath, () => ({
-    logger: {
-      info: jest.fn(),
-    },
-  }))
-
   await import(loggerModulePath)
-
-  jest.unstable_mockModule(queriesModulePath, () => ({
-    getQuery: jest.fn().mockReturnValue({
-      text: 'repository(name: "%NAME%", owner: "%OWNER%")',
-    }),
-  }))
   await import(queriesModulePath)
 
   const { post } = await import('../repo')
@@ -65,20 +66,19 @@ test('repo module responds with a 200 status code when the request for data is s
   expect(res.status).toHaveBeenCalledWith(200)
 })
 
-// test('repo module calls the next handler if the name parameter is not in the request body', async () => {
-//   const req = { params: { owner: 'owner' }, body: { token: 'token' } }
+test('repo module responds with a 404 status code if the owner or name path parameters are not included', async () => {
+  const req = { params: { owner: 'owner' }, body: { token: 'token' } }
 
-//   const queriesMock = jest
-//     .spyOn(queries, 'getQuery')
-//     .mockReturnValue({ data: 'repository(name: "%NAME%", owner: "%OWNER%")' })
+  await import(loggerModulePath)
+  await import(queriesModulePath)
 
-//   const nextMock = jest.fn()
+  const { post } = await import('../repo')
 
-//   await repo.post(req, res, nextMock)
+  await post(req, res, () => {})
 
-//   expect(queriesMock).toHaveBeenCalledTimes(1)
-//   expect(nextMock).toHaveBeenCalledTimes(1)
-// })
+  expect(res.status).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledWith(404)
+})
 
 // test('repo module calls the next handler, if there an error retrieving the external data', async () => {
 //   const req = {

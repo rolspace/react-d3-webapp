@@ -8,16 +8,28 @@ import { getQuery } from '../lib/queries.js'
 const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
 
-const { ok, unprocessable } = status
+const { notFound, ok, unprocessable } = status
 
 export const post = async (req, res, next) => {
   try {
     const {
       body: { token },
+      params: { owner, name },
     } = req
 
     if (!token) {
-      return res.status(unprocessable).send({ message: 'token not provided' })
+      console.log('!roken')
+      return res
+        .status(unprocessable)
+        .send({ message: 'No token in the request' })
+    }
+
+    if (!owner || !name) {
+      logger.error(
+        { ns: `${ns}:post`, req },
+        `parameter ${!owner ? 'owner' : 'name'} is undefined`,
+      )
+      return res.status(notFound).send({ message: 'Not Found' })
     }
 
     const { text: queryText } = getQuery('repo-commits')
@@ -25,13 +37,6 @@ export const post = async (req, res, next) => {
       throw new Error(
         'the query file repo-commits does not exist or it is empty',
       )
-    }
-
-    const {
-      params: { owner, name },
-    } = req
-    if (!owner || !name) {
-      throw new Error(`parameter ${!owner ? 'owner' : 'name'} is undefined`)
     }
 
     const response = await axios.post(
