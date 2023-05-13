@@ -17,6 +17,9 @@ afterEach(() => {
   res = {}
 })
 
+const loggerModulePath = '../../lib/logger'
+const queriesModulePath = '../../lib/queries'
+
 test('repo module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
     rest.post('https://api.github.com/graphql', (req, res, context) => {
@@ -38,20 +41,20 @@ test('repo module responds with a 200 status code when the request for data is s
     body: { token: 'token' },
   }
 
-  jest.unstable_mockModule('../../common/logger', () => ({
+  jest.unstable_mockModule(loggerModulePath, () => ({
     logger: {
       info: jest.fn(),
     },
   }))
 
-  await import('../../common/logger')
+  await import(loggerModulePath)
 
-  jest.unstable_mockModule('../../common/queries', () => ({
+  jest.unstable_mockModule(queriesModulePath, () => ({
     getQuery: jest.fn().mockReturnValue({
       text: 'repository(name: "%NAME%", owner: "%OWNER%")',
     }),
   }))
-  await import('../../common/queries')
+  await import(queriesModulePath)
 
   const { post } = await import('../repo')
 

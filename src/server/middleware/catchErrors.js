@@ -1,5 +1,5 @@
-import { status } from '../common/constants.js'
-import { logger } from '../common/logger.js'
+import { status } from '../lib/constants.js'
+import { logger } from '../lib/logger.js'
 
 // eslint-disable-next-line no-unused-vars
 export const catchErrorHandler = (err, req, res, next) => {

@@ -1,22 +1,23 @@
 /* eslint-disable import/first */
-import './common/config.js'
+import './lib/config.js'
 
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
 import path from 'path'
 import * as url from 'url'
-import { cors as corsConstants, status } from './common/constants.js'
-import { logger } from './common/logger.js'
-import { loadQueries } from './common/queries.js'
+import { cors as corsConstants, status } from './lib/constants.js'
+import { logger } from './lib/logger.js'
+import { loadQueries } from './lib/queries.js'
 import { allIncomingHandler } from './middleware/allIncoming.js'
 import { catchErrorHandler } from './middleware/catchErrors.js'
 import { post as repoPostHandler } from './routes/repo.js'
 import { post as tokenPostHandler } from './routes/token.js'
 
-const app = express()
 const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
+
+const app = express()
 
 const init = () => {
   loadQueries()

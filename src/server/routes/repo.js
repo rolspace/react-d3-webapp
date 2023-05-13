@@ -1,12 +1,13 @@
 import axios from 'axios'
 import path from 'path'
 import * as url from 'url'
-import { status } from '../common/constants.js'
-import { logger } from '../common/logger.js'
-import { getQuery } from '../common/queries.js'
+import { status } from '../lib/constants.js'
+import { logger } from '../lib/logger.js'
+import { getQuery } from '../lib/queries.js'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const ns = path.relative(process.cwd(), __filename)
+
 const { ok, unprocessable } = status
 
 export const post = async (req, res, next) => {
