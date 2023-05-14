@@ -80,6 +80,21 @@ test('repo module responds with a 404 status code if the owner or name path para
   expect(res.status).toHaveBeenCalledWith(404)
 })
 
+test('repo module responds with a 422 status code if the token is not included', async () => {
+  const req = { params: { name: 'name', owner: 'owner' }, body: {} }
+
+  await import(loggerModulePath)
+  await import(queriesModulePath)
+
+  const { post } = await import('../repo')
+
+  await post(req, res, () => {})
+
+  expect(res.send).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledWith(422)
+})
+
 // test('repo module calls the next handler, if there an error retrieving the external data', async () => {
 //   const req = {
 //     params: { name: 'name', owner: 'owner' },
