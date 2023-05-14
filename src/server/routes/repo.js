@@ -18,7 +18,6 @@ export const post = async (req, res, next) => {
     } = req
 
     if (!token) {
-      console.log('!roken')
       return res
         .status(unprocessable)
         .send({ message: 'No token in the request' })
