@@ -17,18 +17,18 @@ export const post = async (req, res, next) => {
       params: { owner, name },
     } = req
 
-    if (!token) {
-      return res
-        .status(unprocessable)
-        .send({ message: 'No token in the request' })
-    }
-
     if (!owner || !name) {
       logger.error(
         { ns: `${ns}:post`, req },
         `parameter ${!owner ? 'owner' : 'name'} is undefined`,
       )
-      return res.status(notFound).send({ message: 'Not Found' })
+      return res.status(notFound).send({ message: 'Not found' })
+    }
+
+    if (!token) {
+      return res
+        .status(unprocessable)
+        .send({ message: 'No token in the request' })
     }
 
     const { text: queryText } = getQuery('repo-commits')
