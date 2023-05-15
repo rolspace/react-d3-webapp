@@ -64,6 +64,9 @@ test('repo module responds with a 200 status code when the request for data is s
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledWith(200)
+
+  server.resetHandlers()
+  server.close()
 })
 
 test('repo module responds with a 404 status code if the owner or name path parameters are not included', async () => {
@@ -95,23 +98,31 @@ test('repo module responds with a 422 status code if the token is not included',
   expect(res.status).toHaveBeenCalledWith(422)
 })
 
-// test('repo module calls the next handler, if there an error retrieving the external data', async () => {
-//   const req = {
-//     params: { name: 'name', owner: 'owner' },
-//     body: { token: 'token' },
-//   }
+test('repo module calls the next handler, if there is an error retrieving the external data', async () => {
+  const handlers = [
+    rest.post('https://api.github.com/graphql', (req, res, context) => {
+      throw new Error('Request failed')
+    }),
+  ]
 
-//   const queriesMock = jest
-//     .spyOn(queries, 'getQuery')
-//     .mockReturnValue({ data: 'repository(name: "%NAME%", owner: "%OWNER%")' })
+  const server = setupServer(...handlers)
+  server.listen()
 
-//   const requestPromiseMock = jest.spyOn(rp, 'post').mockRejectedValue('error')
+  const req = {
+    params: { name: 'name', owner: 'owner' },
+    body: { token: 'token' },
+  }
 
-//   const nextMock = jest.fn()
+  await import(loggerModulePath)
+  await import(queriesModulePath)
 
-//   await repo.post(req, res, nextMock)
+  const nextMock = jest.fn()
+  const { post } = await import('../repo')
 
-//   expect(queriesMock).toHaveBeenCalledTimes(1)
-//   expect(requestPromiseMock).toHaveBeenCalledTimes(1)
-//   expect(nextMock).toHaveBeenCalledTimes(1)
-// })
+  await post(req, res, nextMock)
+
+  expect(nextMock).toHaveBeenCalledTimes(1)
+
+  server.resetHandlers()
+  server.close()
+})
