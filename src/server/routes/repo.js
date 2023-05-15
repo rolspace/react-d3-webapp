@@ -1,13 +1,9 @@
 import axios from 'axios'
-import path from 'path'
-import * as url from 'url'
 import { status } from '../lib/constants.js'
 import { logger } from '../lib/logger.js'
 import { getQuery } from '../lib/queries.js'
 
-const __filename = url.fileURLToPath(import.meta.url)
-const ns = path.relative(process.cwd(), __filename)
-
+const ns = 'routes/repo'
 const { notFound, ok, unprocessable } = status
 
 export const post = async (req, res, next) => {

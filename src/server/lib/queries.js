@@ -1,10 +1,7 @@
 import fs from 'fs'
-import path from 'path'
-import * as url from 'url'
 import { logger } from './logger.js'
 
-const __filename = url.fileURLToPath(import.meta.url)
-const ns = path.relative(process.cwd(), __filename)
+const ns = 'lib/queries'
 const queries = []
 
 export const getQuery = (name) => {
