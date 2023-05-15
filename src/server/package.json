@@ -18,7 +18,7 @@
     "format": "prettier -w .",
     "start": "node index.js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-    "test-coverage": "jest --collectCoverage"
+    "test-coverage": "yarn test --collectCoverage"
   },
   "dependencies": {
     "axios": "^1.4.0",
