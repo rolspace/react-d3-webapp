@@ -24,14 +24,12 @@ export const post = async (req, res, next) => {
     if (!token) {
       return res
         .status(unprocessable)
-        .send({ message: 'No token in the request' })
+        .send({ message: 'No token sent in the request' })
     }
 
-    const { text: queryText } = getQuery('repo-commits')
+    const { text: queryText } = getQuery('repoCommits')
     if (!queryText) {
-      throw new Error(
-        'the query file repo-commits does not exist or it is empty',
-      )
+      throw new Error('the query repoCommits does not exist or it is empty')
     }
 
     const response = await axios.post(
@@ -43,7 +41,7 @@ export const post = async (req, res, next) => {
         headers: {
           Accept: 'application/json',
           Authorization: `bearer ${token}`,
-          'User-Agent': 'react-d3-webapp',
+          'User-Agent': 'reactd3-server',
         },
       },
     )

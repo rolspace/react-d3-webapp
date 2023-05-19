@@ -5,17 +5,17 @@ const ns = 'lib/queries'
 const queries = []
 
 export const getQuery = (name) => {
-  logger.info({ ns: `${ns}:get` }, `Getting query: ${name}`)
+  logger.info({ ns: `${ns}:getQuery` }, `Getting query: ${name}`)
 
   return queries.find((query) => name === query.name)
 }
 
 export const loadQueries = () => {
-  fs.readdir('queries', (error, files) => {
+  fs.readdir('data', (error, files) => {
     if (error) {
       logger.error(
-        { ns: `${ns}:load`, error },
-        'Could not read queries directory',
+        { ns: `${ns}:loadQueries`, error },
+        'Could not read data directory',
       )
     }
 
@@ -23,7 +23,7 @@ export const loadQueries = () => {
       files.forEach((file) => {
         const fileData = []
 
-        const readStream = fs.createReadStream(`queries/${file}`)
+        const readStream = fs.createReadStream(`data/${file}`)
         readStream.on('data', (chunk) => {
           fileData.push(chunk)
         })
@@ -36,9 +36,9 @@ export const loadQueries = () => {
         readStream.on('error', (error) => {
           logger.error(
             {
-              ns: `${ns}:load`,
+              ns: `${ns}:loadQueries`,
               error,
-            }` Could not read stream from 'queries/${file}'`,
+            }` Could not read stream from 'data/${file}'`,
           )
         })
       })
