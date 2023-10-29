@@ -4,37 +4,28 @@ import './lib/config.js'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import { cors as corsConstants, status } from './lib/constants.js'
+import { cors as corsConstants, port } from './lib/constants.js'
 import { logger } from './lib/logger.js'
 import { loadQueries } from './lib/queries.js'
-import { allIncomingHandler } from './middleware/allIncoming.js'
-import { catchErrorHandler } from './middleware/catchErrors.js'
-import { post as repoPostHandler } from './routes/repo.js'
-import { post as tokenPostHandler } from './routes/token.js'
+import { catchErrorHandler } from './middleware/catchError.js'
+import { logRequestHandler } from './middleware/logRequest.js'
+import { notFoundHandler } from './middleware/notFound.js'
+import { post as postRepoHandler } from './routes/repo.js'
+import { post as postTokenHandler } from './routes/token.js'
 
 const ns = 'index'
-
 const app = express()
 
 const init = () => {
   loadQueries()
 
-  app.use(bodyParser.json())
-  app.use(cors(corsConstants))
-  app.use(allIncomingHandler)
+  app.use(...[bodyParser.json(), cors(corsConstants), logRequestHandler])
 
   app.options('/api/token')
-  app.post('/api/token', tokenPostHandler)
-  app.post('/api/repo/:owner/:name', repoPostHandler)
+  app.post('/api/token', postTokenHandler)
+  app.post('/api/repo/:owner/:name', postRepoHandler)
 
-  app.use((req, res) => {
-    logger.warn({ ns: `${ns}:init` }, 'Resource not found')
-    res.status(status.notFound).send({ message: 'Resource not found' })
-  })
-
-  app.use(catchErrorHandler)
-
-  const port = process.env.PORT || 9000
+  app.use(...[notFoundHandler, catchErrorHandler])
 
   app.set('port', port)
 
