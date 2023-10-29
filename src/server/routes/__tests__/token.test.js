@@ -59,3 +59,44 @@ test('token module responds with a 200 status code when the request for data is 
   server.resetHandlers()
   server.close()
 })
+
+test('repo module responds with a 422 status code if the code or state are not included', async () => {
+  const req = { params: { name: 'name', owner: 'owner' }, body: {} }
+
+  await import(loggerModulePath)
+
+  const { post } = await import('../token')
+
+  await post(req, res, () => { })
+
+  expect(res.send).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledWith(422)
+})
+
+test('token module calls the next handler, if there is an error retrieving the external data', async () => {
+  const handlers = [
+    rest.post('https://github.com/login/oauth/access_token', (req, res, context) => {
+      throw new Error('Request failed')
+    }),
+  ]
+
+  const server = setupServer(...handlers)
+  server.listen()
+
+  const req = {
+    body: { code: 'code', state: 'state' },
+  }
+
+  await import(loggerModulePath)
+
+  const { post } = await import('../token')
+
+  const mockNextHandler = jest.fn()
+  await post(req, res, mockNextHandler)
+
+  expect(mockNextHandler).toHaveBeenCalledTimes(1)
+
+  server.resetHandlers()
+  server.close()
+})

@@ -3,15 +3,18 @@ import { status } from '../lib/constants.js'
 import { logger } from '../lib/logger.js'
 
 const ns = 'routes/token'
-const { ok } = status
+const { ok, unprocessable } = status
 
 export const post = async (req, res, next) => {
   try {
     const {
       body: { code, state },
     } = req
+
     if (!code || !state) {
-      throw new Error(`Parameter ${!code ? 'code' : 'state'} is undefined`)
+      return res
+        .status(unprocessable)
+        .send({ message: 'No token sent in the request' })
     }
 
     const response = await axios.post(
@@ -30,7 +33,7 @@ export const post = async (req, res, next) => {
     )
 
     const { data } = response
-    logger.info({ ns: `${ns}:post`, response }, 'request successful')
+    logger.info({ ns: `${ns}:post`, response }, 'GitHub request successful')
 
     res.status(ok).send(data)
   } catch (error) {

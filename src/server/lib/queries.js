@@ -5,9 +5,19 @@ const ns = 'lib/queries'
 const queries = []
 
 export const getQuery = (name) => {
-  logger.info({ ns: `${ns}:getQuery` }, `Getting query: ${name}`)
+  if (!name) {
+    throw new Error('Parameter "name" not provided')
+  }
 
-  return queries.find((query) => name === query.name)
+  logger.debug({ ns: `${ns}:getQuery` }, `Getting query: ${name}`)
+
+  const query = queries.find((query) => name === query.name)
+
+  if (!query) {
+    throw new Error(`Query ${name} not found`)
+  }
+
+  return query
 }
 
 export const loadQueries = () => {

@@ -14,11 +14,7 @@ export const post = async (req, res, next) => {
     } = req
 
     if (!owner || !name) {
-      logger.error(
-        { ns: `${ns}:post`, req },
-        `parameter ${!owner ? 'owner' : 'name'} is undefined`,
-      )
-      return res.status(notFound).send({ message: 'Not found' })
+      return res.status(notFound).send({ message: 'Requested repository not found' })
     }
 
     if (!token) {
@@ -27,15 +23,12 @@ export const post = async (req, res, next) => {
         .send({ message: 'No token sent in the request' })
     }
 
-    const { text: queryText } = getQuery('repoCommits')
-    if (!queryText) {
-      throw new Error('the query repoCommits does not exist or it is empty')
-    }
+    const { text } = getQuery('repoCommits')
 
     const response = await axios.post(
       'https://api.github.com/graphql',
       {
-        query: queryText.replace('%NAME%', name).replace('%OWNER%', owner),
+        query: text.replace('%NAME%', name).replace('%OWNER%', owner),
       },
       {
         headers: {
@@ -46,7 +39,7 @@ export const post = async (req, res, next) => {
       },
     )
 
-    logger.info({ ns: `${ns}:post`, response }, 'request successful')
+    logger.info({ ns: `${ns}:post`, response }, 'GitHub request successful')
 
     const {
       data: {

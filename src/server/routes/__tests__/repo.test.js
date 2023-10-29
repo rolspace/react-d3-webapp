@@ -59,7 +59,7 @@ test('repo module responds with a 200 status code when the request for data is s
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => {})
+  await post(req, res, () => { })
 
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledTimes(1)
@@ -69,7 +69,7 @@ test('repo module responds with a 200 status code when the request for data is s
   server.close()
 })
 
-test('repo module responds with a 404 status code if the owner or name path parameters are not included', async () => {
+test('repo module responds with a 404 status code if the name path parameter is not included', async () => {
   const req = { params: { owner: 'owner' }, body: { token: 'token' } }
 
   await import(loggerModulePath)
@@ -77,7 +77,21 @@ test('repo module responds with a 404 status code if the owner or name path para
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => {})
+  await post(req, res, () => { })
+
+  expect(res.status).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledWith(404)
+})
+
+test('repo module responds with a 404 status code if the owner path parameter are not included', async () => {
+  const req = { params: { name: 'name' }, body: { token: 'token' } }
+
+  await import(loggerModulePath)
+  await import(queriesModulePath)
+
+  const { post } = await import('../repo')
+
+  await post(req, res, () => { })
 
   expect(res.status).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledWith(404)
@@ -91,7 +105,7 @@ test('repo module responds with a 422 status code if the token is not included',
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => {})
+  await post(req, res, () => { })
 
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledTimes(1)
@@ -116,12 +130,12 @@ test('repo module calls the next handler, if there is an error retrieving the ex
   await import(loggerModulePath)
   await import(queriesModulePath)
 
-  const nextMock = jest.fn()
   const { post } = await import('../repo')
 
-  await post(req, res, nextMock)
+  const mockNextHandler = jest.fn()
+  await post(req, res, mockNextHandler)
 
-  expect(nextMock).toHaveBeenCalledTimes(1)
+  expect(mockNextHandler).toHaveBeenCalledTimes(1)
 
   server.resetHandlers()
   server.close()
