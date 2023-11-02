@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 ENV APPLICATION_ID=12345
 ENV APPLICATION_SECRET=abcde
@@ -6,9 +6,14 @@ ENV CLIENT_URL=http://clienturl
 ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
-COPY . .
+COPY ["index.js", "package.json", "./"]
+COPY data/ ./data
+COPY lib/ ./lib
+COPY middleware/ ./middleware
+COPY routes/ ./routes
+
 RUN chown -R node /usr/src/app
 USER node
-RUN yarn --immutable
+RUN npm install
 EXPOSE 9000
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
