@@ -15,6 +15,7 @@ import { post as postTokenHandler } from './routes/token.js'
 
 const ns = 'index'
 const app = express()
+app.disable('x-powered-by')
 
 const init = () => {
   loadQueries()
