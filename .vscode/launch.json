@@ -1,12 +1,11 @@
 {
   "configurations": [
     {
-      "name": "Local client: launch browser",
+      "name": "Local Client: launch",
+      "command": "yarn start",
       "request": "launch",
-      "type": "chrome",
-      "preLaunchTask": "local-client",
-      "url": "http://localhost:8000",
-      "webRoot": "${workspaceFolder}/src/client"
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/src/client"
     },
     {
       "name": "Local API: launch",
