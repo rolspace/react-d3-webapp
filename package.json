@@ -1,6 +1,6 @@
 {
   "name": "react-d3-webapp",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "author": "Rolando Ramos",
   "description": "A long time ago I started a personal project to become more familiar with Node, React, and other tools part of the modern JavaScript ecosystem.",
   "main": "index.js",
