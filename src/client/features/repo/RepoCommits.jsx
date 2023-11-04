@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import { fetchRepo } from './repoSlice'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
@@ -47,6 +48,11 @@ const RepoCommits = ({ graphComponent, options }) => {
   }
 
   return <GraphComponent datasource={commits} loading={loading} {...options} />
+}
+
+RepoCommits.propTypes = {
+  graphComponent: PropTypes.elementType.isRequired,
+  options: PropTypes.object.isRequired,
 }
 
 export default RepoCommits

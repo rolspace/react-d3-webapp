@@ -47,7 +47,7 @@ const createRange = (rangeType, collection, property) => {
     rangeType === RangeTypes.LOW ? [...lowerRange] : [...higherRange],
   )
 
-  if (collection && collection.length) {
+  if (collection?.length) {
     const updatedGroup = collection.reduce((range, value) => {
       range = assignToRange(range, property, value)
       return range
