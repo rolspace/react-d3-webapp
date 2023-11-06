@@ -17,6 +17,7 @@
     "src/*"
   ],
   "scripts": {
+    "format": "prettier -w .",
     "test": "jest"
   },
   "devDependencies": {
