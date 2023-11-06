@@ -59,7 +59,7 @@ test('repo module responds with a 200 status code when the request for data is s
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => { })
+  await post(req, res, () => {})
 
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledTimes(1)
@@ -77,7 +77,7 @@ test('repo module responds with a 404 status code if the name path parameter is 
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => { })
+  await post(req, res, () => {})
 
   expect(res.status).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledWith(404)
@@ -91,7 +91,7 @@ test('repo module responds with a 404 status code if the owner path parameter ar
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => { })
+  await post(req, res, () => {})
 
   expect(res.status).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledWith(404)
@@ -105,7 +105,7 @@ test('repo module responds with a 422 status code if the token is not included',
 
   const { post } = await import('../repo')
 
-  await post(req, res, () => { })
+  await post(req, res, () => {})
 
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledTimes(1)

@@ -39,7 +39,7 @@ jobs:
   lint-test-node:
     name: Lint, test Node application
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3

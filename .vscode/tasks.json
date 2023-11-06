@@ -29,9 +29,7 @@
           "CLIENT_URL": "http://localhost:8000",
           "NODE_ENV": "development"
         },
-        "envFiles": [
-          "${workspaceFolder}/src/server/.env"
-        ]
+        "envFiles": ["${workspaceFolder}/src/server/.env"]
       },
       "node": {
         "package": "${workspaceFolder}/src/server/package.json",

@@ -14,7 +14,9 @@ export const post = async (req, res, next) => {
     } = req
 
     if (!owner || !name) {
-      return res.status(notFound).send({ message: 'Requested repository not found' })
+      return res
+        .status(notFound)
+        .send({ message: 'Requested repository not found' })
     }
 
     if (!token) {
