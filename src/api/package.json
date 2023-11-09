@@ -1,5 +1,5 @@
 {
-  "name": "reactd3-api",
+  "name": "react-d3-api",
   "version": "0.7.0",
   "author": "Rolando Ramos",
   "description": "API that serves as a middleman to get GitHub data for the client application",

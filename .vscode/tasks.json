@@ -19,6 +19,7 @@
       "label": "docker-run-api: debug",
       "dependsOn": ["docker-build-api"],
       "dockerRun": {
+        "containerName": "react-d3-api",
         "ports": [
           {
             "containerPort": 9000,
