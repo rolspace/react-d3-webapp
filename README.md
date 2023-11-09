@@ -43,7 +43,7 @@ The Node Backend can be started in three ways:
 
 Option 1: start from the terminal
 
-- Using the terminal, set the `./src/server` folder as the current directory.
+- Using the terminal, set the `./src/api` folder as the current directory.
 - Run the `yarn start` command to launch the application.
 
 Option 2: start from the local API launch config in VSCode
@@ -52,7 +52,7 @@ Option 2: start from the local API launch config in VSCode
 
 Option 3: start from the Docker API launch config in VSCode
 
-- Run the `Docker API: launch` launch config in VSCode. It will start the application in a Docker container. Make sure to modify the `tasks.json` file to set the environment variables in the `docker-run-server: debug` task.
+- Run the `Docker API: launch` launch config in VSCode. It will start the application in a Docker container. Make sure to modify the `tasks.json` file to set the environment variables in the `docker-run-api: debug` task.
 
 The PORT environment variable can be set in order to overwrite the default port used by the backend server (port 9000).
 
@@ -61,7 +61,7 @@ The PORT environment variable can be set in order to overwrite the default port 
 The React Frontend requires two environment variables:
 
 - APPLICATION_ID: GitHub application id
-- SERVER_URL: URL for the Node Backend
+- API_URL: URL for the Node Backend
 
 > Make sure these environment variables are set before building the application.
 > DotEnv can be used to set the environment variables when starting the application in development mode (`yarn start dev`)

@@ -1,5 +1,5 @@
 {
-  "name": "reactd3-server",
+  "name": "reactd3-api",
   "version": "0.7.0",
   "author": "Rolando Ramos",
   "description": "API that serves as a middleman to get GitHub data for the client application",
@@ -25,6 +25,7 @@
     "body-parser": "^1.20.2",
     "bunyan": "^1.8.15",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "msw": "^1.2.1"
   },

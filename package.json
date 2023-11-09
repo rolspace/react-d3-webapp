@@ -28,7 +28,7 @@
   "jest": {
     "projects": [
       "./src/client/",
-      "./src/server"
+      "./src/api"
     ]
   }
 }

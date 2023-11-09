@@ -5474,6 +5474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.3.1":
+  version: 16.3.1
+  resolution: "dotenv@npm:16.3.1"
+  checksum: dbb778237ef8750e9e3cd1473d3c8eaa9cc3600e33a75c0e36415d0fa0848197f56c3800f77924c70e7828f0b03896818cd52f785b07b9ad4d88dba73fbba83f
+  languageName: node
+  linkType: hard
+
 "dotenv@npm:^8.2.0":
   version: 8.6.0
   resolution: "dotenv@npm:8.6.0"
@@ -10669,6 +10676,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reactd3-api@workspace:src/api":
+  version: 0.0.0-use.local
+  resolution: "reactd3-api@workspace:src/api"
+  dependencies:
+    axios: "npm:^1.4.0"
+    body-parser: "npm:^1.20.2"
+    bunyan: "npm:^1.8.15"
+    cors: "npm:^2.8.5"
+    dotenv: "npm:^16.3.1"
+    eslint: "npm:^8.36.0"
+    eslint-config-standard: "npm:^17.0.0"
+    eslint-plugin-import: "npm:^2.27.5"
+    eslint-plugin-jest: "npm:^27.2.1"
+    eslint-plugin-n: "npm:^15.6.1"
+    eslint-plugin-promise: "npm:^6.1.1"
+    express: "npm:^4.18.2"
+    jest: "npm:^29.5.0"
+    msw: "npm:^1.2.1"
+    prettier: "npm:^2.8.4"
+    prettier-config-standard: "npm:^5.0.0"
+  languageName: unknown
+  linkType: soft
+
 "reactd3-client@workspace:src/client":
   version: 0.0.0-use.local
   resolution: "reactd3-client@workspace:src/client"
@@ -10731,28 +10761,6 @@ __metadata:
     webpack-hot-middleware: "npm:^2.25.3"
     webpack-merge: "npm:^5.8.0"
     whatwg-fetch: "npm:^3.6.2"
-  languageName: unknown
-  linkType: soft
-
-"reactd3-server@workspace:src/server":
-  version: 0.0.0-use.local
-  resolution: "reactd3-server@workspace:src/server"
-  dependencies:
-    axios: "npm:^1.4.0"
-    body-parser: "npm:^1.20.2"
-    bunyan: "npm:^1.8.15"
-    cors: "npm:^2.8.5"
-    eslint: "npm:^8.36.0"
-    eslint-config-standard: "npm:^17.0.0"
-    eslint-plugin-import: "npm:^2.27.5"
-    eslint-plugin-jest: "npm:^27.2.1"
-    eslint-plugin-n: "npm:^15.6.1"
-    eslint-plugin-promise: "npm:^6.1.1"
-    express: "npm:^4.18.2"
-    jest: "npm:^29.5.0"
-    msw: "npm:^1.2.1"
-    prettier: "npm:^2.8.4"
-    prettier-config-standard: "npm:^5.0.0"
   languageName: unknown
   linkType: soft
 

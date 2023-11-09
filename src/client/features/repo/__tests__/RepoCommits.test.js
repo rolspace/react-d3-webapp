@@ -71,7 +71,7 @@ afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 test('RepoCommits fetches repo data and renders adds vs. deletes graph', async () => {
-  process.env.SERVER_URL = 'http://localhost'
+  process.env.API_URL = 'http://localhost'
 
   const { container } = renderWithProviders(
     <RepoCommits
@@ -111,7 +111,7 @@ test('RepoCommits fetches repo data and renders adds vs. deletes graph', async (
 })
 
 test('RepoCommits fetches repo data and renders changed files graph', async () => {
-  process.env.SERVER_URL = 'http://localhost'
+  process.env.API_URL = 'http://localhost'
 
   const { container } = renderWithProviders(
     <RepoCommits

@@ -36,7 +36,7 @@ export const post = async (req, res, next) => {
         headers: {
           Accept: 'application/json',
           Authorization: `bearer ${token}`,
-          'User-Agent': 'reactd3-server',
+          'User-Agent': 'reactd3-api',
         },
       },
     )

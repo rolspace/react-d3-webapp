@@ -12,7 +12,7 @@
       "command": "yarn start",
       "request": "launch",
       "type": "node-terminal",
-      "cwd": "${workspaceFolder}/src/server"
+      "cwd": "${workspaceFolder}/src/api"
     },
     {
       "name": "Docker API: launch",
@@ -21,11 +21,11 @@
       "serverReadyAction": {
         "action": "openExternally"
       },
-      "preLaunchTask": "docker-run-server: debug",
+      "preLaunchTask": "docker-run-api: debug",
       "platform": "node",
       "node": {
-        "package": "${workspaceFolder}/src/server/package.json",
-        "localRoot": "${workspaceFolder}/src/server"
+        "package": "${workspaceFolder}/src/api/package.json",
+        "localRoot": "${workspaceFolder}/src/api"
       }
     }
   ]

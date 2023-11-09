@@ -2,7 +2,7 @@
 src/client/public/dist
 
 # local files
-src/server/examples/
+src/api/examples/
 
 # Logs
 logs

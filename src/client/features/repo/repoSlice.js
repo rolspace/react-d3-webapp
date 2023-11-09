@@ -83,7 +83,7 @@ export const fetchRepo = createAsyncThunk(
   'repo/fetch',
   async ({ owner, repository, token }) => {
     const response = await fetch(
-      `${process.env.SERVER_URL}/api/repo/${owner}/${repository}/`,
+      `${process.env.API_URL}/api/repo/${owner}/${repository}/`,
       {
         method: 'POST',
         headers: {

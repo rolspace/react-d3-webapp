@@ -34,7 +34,7 @@ export const userSlice = createSlice({
 export const fetchToken = createAsyncThunk(
   'token/fetch',
   async ({ code, state }) => {
-    const response = await fetch(`${process.env.SERVER_URL}/api/token/`, {
+    const response = await fetch(`${process.env.API_URL}/api/token/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

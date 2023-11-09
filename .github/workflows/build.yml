@@ -5,8 +5,8 @@ on: [push, workflow_dispatch]
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  lint-test-build-react:
-    name: Lint, test, build React application
+  lint-test-build-client:
+    name: Lint, test, build React client application
     runs-on: ubuntu-latest
 
     steps:
@@ -36,8 +36,8 @@ jobs:
           cd src/client
           yarn build
 
-  lint-test-node:
-    name: Lint, test Node application
+  lint-test-api:
+    name: Lint, test Node API application
     runs-on: ubuntu-latest
 
     steps:
@@ -53,19 +53,19 @@ jobs:
 
       - name: Lint and Test
         run: |
-          cd src/server
+          cd src/api
           yarn --immutable && yarn lint && yarn test --coverage
 
       - name: Upload coverage
         uses: actions/upload-artifact@v3
         with:
-          name: server-coverage
-          path: ./src/server/coverage/
+          name: api-coverage
+          path: ./src/api/coverage/
 
   sonar:
     name: Perform Sonar analysis
     runs-on: ubuntu-latest
-    needs: [lint-test-build-react, lint-test-node]
+    needs: [lint-test-build-client, lint-test-api]
 
     steps:
       - name: Checkout
@@ -87,11 +87,11 @@ jobs:
           name: client-coverage
           path: ./src/client/coverage/
 
-      - name: Download server coverage
+      - name: Download API coverage
         uses: actions/download-artifact@v3
         with:
-          name: server-coverage
-          path: ./src/server/coverage/
+          name: api-coverage
+          path: ./src/api/coverage/
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
