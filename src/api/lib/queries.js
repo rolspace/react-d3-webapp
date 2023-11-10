@@ -1,5 +1,4 @@
-import fs from 'fs'
-import { logger } from './logger.js'
+import { readFile, readdir } from 'node:fs/promises'
 
 const queries = []
 
@@ -17,37 +16,13 @@ export const getQuery = (name) => {
   return query
 }
 
-export const loadQueries = () => {
-  fs.readdir('data', (error, files) => {
-    logger.info(files)
-    if (error) {
-      logger.error(
-        'Could not read data directory',
-      )
-    }
+export const loadQueries = async () => {
+  const fileNames = await readdir('data')
 
-    if (files && files.length > 0) {
-      files.forEach((file) => {
-        const fileData = []
-
-        const readStream = fs.createReadStream(`data/${file}`)
-        readStream.on('data', (chunk) => {
-          fileData.push(chunk)
-        })
-        readStream.on('end', () => {
-          queries.push({
-            name: file,
-            text: Buffer.concat(fileData).toString(),
-          })
-        })
-        readStream.on('error', (error) => {
-          logger.error(
-            {
-              error,
-            }` Could not read stream from 'data/${file}'`,
-          )
-        })
-      })
-    }
-  })
+  for (const fileName of fileNames) {
+    queries.push({
+      name: fileName,
+      text: await readFile(`data/${fileName}`, { encoding: 'utf8' }),
+    })
+  }
 }
