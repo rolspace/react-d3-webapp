@@ -1,6 +1,6 @@
 name: build
 
-on: [push, workflow_dispatch]
+on: [push]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ vars.NODE_VERSION }}
@@ -44,7 +44,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ vars.NODE_VERSION }}
