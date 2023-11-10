@@ -1,7 +1,6 @@
 import fs from 'fs'
 import { logger } from './logger.js'
 
-const ns = 'lib/queries'
 const queries = []
 
 export const getQuery = (name) => {
@@ -9,7 +8,7 @@ export const getQuery = (name) => {
     throw new Error('Parameter "name" not provided')
   }
 
-  logger.debug({ ns: `${ns}:getQuery` }, `Getting query: ${name}`)
+  logger.debug(`Getting query: ${name}`)
 
   const query = queries.find((query) => name === query.name)
 
@@ -22,9 +21,9 @@ export const getQuery = (name) => {
 
 export const loadQueries = () => {
   fs.readdir('data', (error, files) => {
+    logger.info(files)
     if (error) {
       logger.error(
-        { ns: `${ns}:loadQueries`, error },
         'Could not read data directory',
       )
     }
@@ -46,7 +45,6 @@ export const loadQueries = () => {
         readStream.on('error', (error) => {
           logger.error(
             {
-              ns: `${ns}:loadQueries`,
               error,
             }` Could not read stream from 'data/${file}'`,
           )

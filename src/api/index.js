@@ -13,7 +13,6 @@ import { notFoundHandler } from './middleware/notFound.js'
 import { post as postRepoHandler } from './routes/repo.js'
 import { post as postTokenHandler } from './routes/token.js'
 
-const ns = 'index'
 const app = express()
 app.disable('x-powered-by')
 
@@ -32,7 +31,6 @@ const init = () => {
 
   app.listen(port, () => {
     logger.info(
-      { ns: `${ns}:init` },
       `Server started and listening on port: ${port}`,
     )
   })

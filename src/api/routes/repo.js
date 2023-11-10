@@ -3,7 +3,6 @@ import { status } from '../lib/constants.js'
 import { logger } from '../lib/logger.js'
 import { getQuery } from '../lib/queries.js'
 
-const ns = 'routes/repo'
 const { notFound, ok, unprocessable } = status
 
 export const post = async (req, res, next) => {
@@ -41,7 +40,7 @@ export const post = async (req, res, next) => {
       },
     )
 
-    logger.info({ ns: `${ns}:post`, response }, 'GitHub request successful')
+    logger.info('GitHub request successful')
 
     const {
       data: {
