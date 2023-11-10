@@ -17,15 +17,7 @@ afterEach(() => {
   res = {}
 })
 
-const loggerModulePath = '../../lib/logger'
 const queriesModulePath = '../../lib/queries'
-
-jest.unstable_mockModule(loggerModulePath, () => ({
-  logger: {
-    info: jest.fn(),
-    error: jest.fn(),
-  },
-}))
 
 jest.unstable_mockModule(queriesModulePath, () => ({
   getQuery: jest.fn().mockReturnValue({
@@ -54,7 +46,6 @@ test('repo module responds with a 200 status code when the request for data is s
     body: { token: 'token' },
   }
 
-  await import(loggerModulePath)
   await import(queriesModulePath)
 
   const { post } = await import('../repo')
@@ -72,7 +63,6 @@ test('repo module responds with a 200 status code when the request for data is s
 test('repo module responds with a 404 status code if the name path parameter is not included', async () => {
   const req = { params: { owner: 'owner' }, body: { token: 'token' } }
 
-  await import(loggerModulePath)
   await import(queriesModulePath)
 
   const { post } = await import('../repo')
@@ -86,7 +76,6 @@ test('repo module responds with a 404 status code if the name path parameter is 
 test('repo module responds with a 404 status code if the owner path parameter are not included', async () => {
   const req = { params: { name: 'name' }, body: { token: 'token' } }
 
-  await import(loggerModulePath)
   await import(queriesModulePath)
 
   const { post } = await import('../repo')
@@ -100,7 +89,6 @@ test('repo module responds with a 404 status code if the owner path parameter ar
 test('repo module responds with a 422 status code if the token is not included', async () => {
   const req = { params: { name: 'name', owner: 'owner' }, body: {} }
 
-  await import(loggerModulePath)
   await import(queriesModulePath)
 
   const { post } = await import('../repo')
@@ -127,7 +115,6 @@ test('repo module calls the next handler, if there is an error retrieving the ex
     body: { token: 'token' },
   }
 
-  await import(loggerModulePath)
   await import(queriesModulePath)
 
   const { post } = await import('../repo')

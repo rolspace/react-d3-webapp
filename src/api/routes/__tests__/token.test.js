@@ -17,15 +17,6 @@ afterEach(() => {
   res = {}
 })
 
-const loggerModulePath = '../../lib/logger'
-
-jest.unstable_mockModule(loggerModulePath, () => ({
-  logger: {
-    info: jest.fn(),
-    error: jest.fn(),
-  },
-}))
-
 test('token module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
     rest.post(
@@ -49,8 +40,6 @@ test('token module responds with a 200 status code when the request for data is 
     body: { code: 'code', state: 'state' },
   }
 
-  await import(loggerModulePath)
-
   const { post } = await import('../token')
 
   await post(req, res, () => {})
@@ -65,8 +54,6 @@ test('token module responds with a 200 status code when the request for data is 
 
 test('repo module responds with a 422 status code if the code or state are not included', async () => {
   const req = { params: { name: 'name', owner: 'owner' }, body: {} }
-
-  await import(loggerModulePath)
 
   const { post } = await import('../token')
 
@@ -93,8 +80,6 @@ test('token module calls the next handler, if there is an error retrieving the e
   const req = {
     body: { code: 'code', state: 'state' },
   }
-
-  await import(loggerModulePath)
 
   const { post } = await import('../token')
 

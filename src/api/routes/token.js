@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { status } from '../lib/constants.js'
-import { logger } from '../lib/logger.js'
 
 const { ok, unprocessable } = status
 
@@ -32,7 +31,6 @@ export const post = async (req, res, next) => {
     )
 
     const { data } = response
-    logger.info('GitHub request successful')
 
     res.status(ok).send(data)
   } catch (error) {

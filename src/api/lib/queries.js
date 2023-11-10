@@ -8,8 +8,6 @@ export const getQuery = (name) => {
     throw new Error('Parameter "name" not provided')
   }
 
-  logger.debug(`Getting query: ${name}`)
-
   const query = queries.find((query) => name === query.name)
 
   if (!query) {
