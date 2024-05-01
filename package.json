@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/rolspace/react-d3-webapp.git"
+    "url": "git+https://github.com/rolspace/react-d3-webapp.git"
   },
   "packageManager": "yarn@4.0.1",
   "workspaces": [
