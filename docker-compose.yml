@@ -1,17 +1,17 @@
 version: '3.8'
 
-name: react-d3-webapp_api_compose
+name: reactd3webapp_api_compose
 
 services:
   api:
-    container_name: react-d3-webapp_api
+    container_name: reactd3webapp_api
     build:
       context: src/api
       dockerfile: Dockerfile
       tags:
-        - rolspace/react-d3-webapp_api
+        - rolspace/reactd3webapp_api:latest
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
     env_file:
       - src/api/.env
     ports:

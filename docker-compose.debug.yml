@@ -1,15 +1,15 @@
 version: '3.8'
 
-name: react-d3-webapp_apidebug_compose
+name: reactd3webapp_apidebug_compose
 
 services:
   api:
-    container_name: react-d3-webapp_api
+    container_name: reactd3webapp_api
     build:
       context: src/api
       dockerfile: Dockerfile
       tags:
-        - rolspace/react-d3-webapp_apidebug
+        - rolspace/reactd3webapp_api:debug
     environment:
       NODE_ENV: development
     env_file:

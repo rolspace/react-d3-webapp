@@ -6,6 +6,7 @@
       "label": "docker-build-api",
       "platform": "node",
       "dockerBuild": {
+        "tag": "rolspace/reactd3webapp_api:debug",
         "dockerfile": "${workspaceFolder}/src/api/Dockerfile",
         "context": "${workspaceFolder}/src/api",
         "pull": true
@@ -19,7 +20,7 @@
       "label": "docker-run-api: debug",
       "dependsOn": ["docker-build-api"],
       "dockerRun": {
-        "containerName": "react-d3-api",
+        "containerName": "reactd3webapp_api",
         "ports": [
           {
             "containerPort": 9000,
