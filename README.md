@@ -1,6 +1,6 @@
 # React + D3 Web App
 
-[![build](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp)
+[![build](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp)
 
 A long time ago I started a personal project to become more familiar with Node, React, and other tools part of the modern JavaScript ecosystem.
 
