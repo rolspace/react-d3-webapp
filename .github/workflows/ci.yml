@@ -1,4 +1,5 @@
-name: build
+name: ci
+run-name: Run CI process
 
 on: [push]
 
