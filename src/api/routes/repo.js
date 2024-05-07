@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { status } from '../lib/constants.js'
 import { getQuery } from '../lib/queries.js'
+import { status } from '../lib/status.js'
 
 const { notFound, ok, unprocessable } = status
 

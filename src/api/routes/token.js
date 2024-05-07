@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { status } from '../lib/constants.js'
+import { status } from '../lib/status.js'
 
 const { ok, unprocessable } = status
 
