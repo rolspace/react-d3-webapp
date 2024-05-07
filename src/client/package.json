@@ -78,7 +78,7 @@
     "react-test-renderer": "^16.14.0",
     "regenerator-runtime": "^0.13.11",
     "webpack": "^5.76.2",
-    "webpack-dev-middleware": "^5.3.3",
+    "webpack-dev-middleware": "^5.3.4",
     "webpack-hot-middleware": "^2.25.3",
     "webpack-merge": "^5.8.0"
   }
