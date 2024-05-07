@@ -4,7 +4,6 @@ import './lib/config.js'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import { cors as corsConstants, port } from './lib/constants.js'
 import { logger } from './lib/logger.js'
 import { loadQueries } from './lib/queries.js'
 import { catchErrorHandler } from './middleware/catchError.js'
@@ -13,13 +12,19 @@ import { notFoundHandler } from './middleware/notFound.js'
 import { post as postRepoHandler } from './routes/repo.js'
 import { post as postTokenHandler } from './routes/token.js'
 
+const port = process.env.PORT || 9000
+
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+}
+
 const app = express()
 app.disable('x-powered-by')
 
 const init = () => {
   loadQueries()
 
-  app.use(...[bodyParser.json(), cors(corsConstants), logRequestHandler])
+  app.use(...[bodyParser.json(), cors(corsOptions), logRequestHandler])
 
   app.options('/api/token')
   app.post('/api/token', postTokenHandler)
