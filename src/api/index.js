@@ -35,9 +35,7 @@ const init = () => {
   app.set('port', port)
 
   app.listen(port, () => {
-    logger.info(
-      `Server started and listening on port: ${port}`,
-    )
+    logger.info(`Server started and listening on port: ${port}`)
   })
 }
 
