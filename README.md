@@ -56,9 +56,9 @@ The Node Backend can be started in four ways:
 
 **Option 4**: use the Docker Compose file
 
-- If you have the Docker extension for VSCode, just right click on the `docker-compose.yml` file at the root of the workspace and select _Compose Up_. Make sure to create the `.env` file to set the required environment variables.
+- If you have the Docker extension for VSCode, just right click on the [docker-compose.yml](./docker-compose.yml) file at the root of the workspace and select _Compose Up_. Make sure to create the `.env` file to set the required environment variables.
 
-> There is a `docker-compose.debug.yml` file that can be used for debugging.
+> The Docker Compose file, [docker-compose.debug.yml](./docker-compose.debug.yml), can be used for debugging.
 
 The PORT environment variable can be set in order to overwrite the default port used by the backend server (port 9000).
 
