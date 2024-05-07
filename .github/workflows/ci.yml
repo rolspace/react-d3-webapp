@@ -102,10 +102,4 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.organization=rolspace
-            -Dsonar.projectKey=rolspace_react-d3-webapp
-            -Dsonar.javascript.lcov.reportPaths=**/lcov.info
-            -Dsonar.sources=.
-            -Dsonar.coverage.exclusions=**/__tests__/**,**/index.js,**/main.js,**/run.js,**/jest.config.*,**/webpack*.js,**/testUtils.jsx
-            -Dsonar.verbose=true
             -Dsonar.projectVersion=${{ steps.version.outputs.value }}-${{ steps.commit.outputs.value }}
