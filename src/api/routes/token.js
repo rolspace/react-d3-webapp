@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { status } from '../lib/status.js'
-
-const { ok, unprocessable } = status
+import { OK, UNPROCESSABLE } from '../lib/status.js'
 
 export const post = async (req, res, next) => {
   try {
@@ -11,7 +9,7 @@ export const post = async (req, res, next) => {
 
     if (!code || !state) {
       return res
-        .status(unprocessable)
+        .status(UNPROCESSABLE)
         .send({ message: 'No token sent in the request' })
     }
 
@@ -32,7 +30,7 @@ export const post = async (req, res, next) => {
 
     const { data } = response
 
-    res.status(ok).send(data)
+    res.status(OK).send(data)
   } catch (error) {
     next(error)
   }

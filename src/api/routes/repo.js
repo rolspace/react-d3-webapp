@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { getQuery } from '../lib/queries.js'
-import { status } from '../lib/status.js'
-
-const { notFound, ok, unprocessable } = status
+import { NOT_FOUND, OK, UNPROCESSABLE } from '../lib/status.js'
 
 export const post = async (req, res, next) => {
   try {
@@ -13,13 +11,13 @@ export const post = async (req, res, next) => {
 
     if (!owner || !name) {
       return res
-        .status(notFound)
+        .status(NOT_FOUND)
         .send({ message: 'Requested repository not found' })
     }
 
     if (!token) {
       return res
-        .status(unprocessable)
+        .status(UNPROCESSABLE)
         .send({ message: 'No token sent in the request' })
     }
 
@@ -53,7 +51,7 @@ export const post = async (req, res, next) => {
       },
     } = response
 
-    res.status(ok).send({ data: edges })
+    res.status(OK).send({ data: edges })
   } catch (error) {
     next(error)
   }
