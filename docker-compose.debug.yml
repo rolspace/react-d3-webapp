@@ -1,31 +1,20 @@
-version: '3.4'
+version: '3.8'
+
+name: reactd3webapp_apidebug_compose
 
 services:
-  reactd3webappbackend:
-    image: reactd3webappbackend
+  api:
+    container_name: reactd3webapp_api
     build:
-      context: src/server
-      dockerfile: ./Dockerfile
+      context: src/api
+      dockerfile: Dockerfile
+      tags:
+        - rolspace/reactd3webapp_api:debug
     environment:
-      APPLICATION_ID: application_id
-      APPLICATION_SECRET: application_secret
-      CLIENT_URL: http://localhost:8000
       NODE_ENV: development
+    env_file:
+      - src/api/.env
     ports:
       - 9000:9000
-      - 9230:9230
-    command: ["node", "--inspect=0.0.0.0:9230", "index.js"]
-
-  reactd3webappclient:
-    image: reactd3webappclient
-    build:
-      context: src/client
-      dockerfile: ./Dockerfile-debug
-    environment:
-      APPLICATION_ID: application_id
-      NODE_ENV: development
-      SERVER_URL: http://localhost:9000
-    ports:
-      - 8000:8000
-      - 9231:9231
-    command: ["node", "--inspect=0.0.0.0:9231", "run.js", "dev"]
+      - 9229:9229
+    command: ["node", "--inspect=0.0.0.0:9229", "run.js"]

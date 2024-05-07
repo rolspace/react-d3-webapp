@@ -1,8 +1,21 @@
 module.exports = {
-  setupFiles: ['./jest.setup.js'],
+  moduleDirectories: [__dirname],
   testEnvironment: 'jsdom',
   transform: {
-    '\\.js$': ['babel-jest', { cwd: __dirname }],
+    '\\.jsx?$': ['babel-jest', { cwd: __dirname }],
   },
-  testURL: 'http://localhost',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
+  collectCoverageFrom: [
+    '**/*.{js,jsx}',
+    '!**/coverage/**',
+    '!**/public/**',
+    '!**/*rc.js',
+    '!**/webpack*.js',
+    '!utils/testUtils.jsx',
+    '!jest.config.js',
+    '!main.js',
+    '!run.js',
+  ],
 }

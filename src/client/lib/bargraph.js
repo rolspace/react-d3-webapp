@@ -1,13 +1,12 @@
 import * as d3 from 'd3'
 import _ from 'lodash'
 
-const colors = ['#00bcd4', 'green']
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 const xLabelMargin = 35
 const yLabelMargin = 50
 
 const renderBarGraphSet = (graphInfo, set, index) => {
-  const { height, innerNode, xScales, yScale, xAxis, yAxis, setCount } =
+  const { height, innerNode, xScales, yScale, xAxis, yAxis, setCount, colors } =
     graphInfo
 
   innerNode
@@ -97,6 +96,7 @@ export const renderBarGraph = (node, data) => {
       innerNode,
       height,
       setCount: data.sets.length,
+      colors: data.colors,
       xAxis: data.xAxis,
       yAxis: data.yAxis,
       xScales,

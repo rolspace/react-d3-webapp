@@ -1,27 +1,18 @@
-version: '3.4'
+version: '3.8'
+
+name: reactd3webapp_api_compose
 
 services:
-  reactd3webappbackend:
-    image: reactd3webappbackend
+  api:
+    container_name: reactd3webapp_api
     build:
-      context: src/server
-      dockerfile: ./Dockerfile
+      context: src/api
+      dockerfile: Dockerfile
+      tags:
+        - rolspace/reactd3webapp_api:latest
     environment:
-      APPLICATION_ID: application_id
-      APPLICATION_SECRET: application_secret
-      CLIENT_URL: http://localhost:8000
       NODE_ENV: production
+    env_file:
+      - src/api/.env
     ports:
       - 9000:9000
-
-  reactd3webappclient:
-    image: reactd3webappclient
-    build:
-      context: src/client
-      dockerfile: ./Dockerfile
-      args:
-        application_id: application_id
-        node_env: production
-        server_url: http://localhost:9000
-    ports:
-      - 8000:80

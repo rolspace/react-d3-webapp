@@ -1,11 +1,11 @@
 import _ from 'lodash'
 
-const Ranges = {
+const RangeTypes = {
   LOW: Symbol('low'),
   HIGH: Symbol('high'),
 }
 
-const lowRank = [
+const lowerRange = [
   { min: 1, max: 1, count: 0, label: '1' },
   { min: 2, max: 2, count: 0, label: '2' },
   { min: 3, max: 3, count: 0, label: '3' },
@@ -17,7 +17,7 @@ const lowRank = [
   { min: 30, max: 10000, count: 0, label: '30+' },
 ]
 
-const highRank = [
+const higherRange = [
   { min: 1, max: 20, count: 0, label: '1-20' },
   { min: 21, max: 40, count: 0, label: '21-40' },
   { min: 41, max: 60, count: 0, label: '41-60' },
@@ -42,12 +42,12 @@ const assignToRange = (range, property, value) => {
   return range
 }
 
-const createRange = (collection, property, rangeType) => {
+const createRange = (rangeType, collection, property) => {
   const startRange = _.cloneDeep(
-    rangeType === Ranges.LOW ? [...lowRank] : [...highRank],
+    rangeType === RangeTypes.LOW ? [...lowerRange] : [...higherRange],
   )
 
-  if (collection && collection.length) {
+  if (collection?.length) {
     const updatedGroup = collection.reduce((range, value) => {
       range = assignToRange(range, property, value)
       return range
@@ -59,17 +59,12 @@ const createRange = (collection, property, rangeType) => {
   return startRange
 }
 
-// TODO: change to const function
-class Rank {
-  createLowRange(collection, property) {
-    const group = createRange(collection, property, Ranges.LOW)
-    return group
-  }
-
-  createHighRange(collection, property) {
-    const group = createRange(collection, property, Ranges.HIGH)
-    return group
-  }
+export const createLowRange = (collection, property) => {
+  const group = createRange(RangeTypes.LOW, collection, property)
+  return group
 }
 
-export default Rank
+export const createHighRange = (collection, property) => {
+  const group = createRange(RangeTypes.HIGH, collection, property)
+  return group
+}

@@ -1,21 +1,34 @@
-import { AppBar, Toolbar } from '@material-ui/core'
-import { shallow } from 'enzyme'
+import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { App } from '../App'
-import AppDrawer from '../AppDrawer'
-import AppRouter from '../AppRouter'
+import App from '../App'
+import userEvent from '@testing-library/user-event'
 
-describe('Components: App component', () => {
-  test('renders correctly', () => {
-    const classes = {}
+test('App renders correctly', async () => {
+  render(<App />)
 
-    const component = shallow(<App classes={classes} />)
+  expect(
+    screen.getByRole('heading', {
+      name: /gh repositories \/ charts and data/i,
+    }),
+  ).toBeInTheDocument()
+  expect(screen.getAllByRole('listitem').length).toEqual(4)
+  expect(screen.getAllByRole('link').length).toEqual(5)
+  expect(
+    screen.queryByRole('presentation', {
+      hidden: true,
+    }),
+  ).toBeNull()
 
-    expect(component.find(Router).length).toBe(1)
-    expect(component.find(AppBar).length).toBe(1)
-    expect(component.find(Toolbar).length).toBe(1)
-    expect(component.find(AppRouter).length).toBe(1)
-    expect(component.find(AppDrawer).length).toBe(1)
+  const menuButton = screen.getByRole('button', {
+    name: /menu/i,
   })
+
+  await userEvent.click(menuButton)
+
+  expect(
+    screen.getByRole('presentation', {
+      hidden: false,
+    }),
+  ).toBeInTheDocument()
 })

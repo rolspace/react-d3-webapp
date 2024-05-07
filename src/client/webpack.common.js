@@ -8,18 +8,20 @@ const babelConfig = require('./.babelrc.json')
 const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
 const include = [
-  path.resolve(__dirname, './actions'),
-  path.resolve(__dirname, './lib'),
+  path.resolve(__dirname, './app'),
   path.resolve(__dirname, './components'),
-  path.resolve(__dirname, './containers'),
+  path.resolve(__dirname, './features'),
+  path.resolve(__dirname, './lib'),
   path.resolve(__dirname, './pages'),
-  path.resolve(__dirname, './reducers'),
   path.resolve(__dirname, './main.js'),
 ]
 
 const config = {
   context: __dirname,
   entry: ['whatwg-fetch', './main.js'],
+  resolve: {
+    extensions: ['.jsx', '...'],
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, './public/dist'),

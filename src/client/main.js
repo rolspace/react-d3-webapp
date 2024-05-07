@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import 'regenerator-runtime/runtime'
-import store from './common/store'
+import store from './app/store'
 import App from './components/App'
 
 const theme = createMuiTheme({

@@ -1,11 +1,18 @@
-import { shallow } from 'enzyme'
+import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import CustomCard from '../Card'
+import { BrowserRouter } from 'react-router-dom'
 import GraphList from '../GraphList'
 
-describe('Components: GraphList component', () => {
-  it('renders correctly', () => {
-    const component = shallow(<GraphList />)
-    expect(component.find(CustomCard).length).toBe(4)
-  })
+test('GraphList renders correctly', () => {
+  render(
+    <BrowserRouter>
+      <GraphList />
+    </BrowserRouter>,
+  )
+
+  expect(screen.getAllByRole('listitem').length).toEqual(4)
+  expect(screen.getAllByRole('link').length).toEqual(4)
+  expect(screen.getByText(/Adds \/ Deletes/i))
+  expect(screen.getByText(/Changed Files/i))
 })
