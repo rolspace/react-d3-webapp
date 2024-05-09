@@ -10641,7 +10641,6 @@ __metadata:
     eslint-plugin-promise: "npm:^6.1.1"
     eslint-plugin-react: "npm:^7.32.2"
     eslint-webpack-plugin: "npm:^4.0.0"
-    express: "npm:^4.19.2"
     jest: "npm:^29.5.0"
     jest-environment-jsdom: "npm:^29.5.0"
     lodash: "npm:^4.17.21"
