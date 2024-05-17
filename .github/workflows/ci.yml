@@ -6,8 +6,13 @@ on: [push]
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  lint-test-build-client:
-    name: Lint, test, build React client application
+  ci-client:
+    name: Run CI for the React client application
+    defaults:
+      run:
+        working-directory: ./src/client
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +26,14 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
 
-      - name: Lint and Test
-        run: |
-          cd src/client
-          yarn --immutable && yarn lint && yarn test --coverage
+      - name: yarn install
+        run: yarn --immutable
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test with coverage
+        run: yarn test --coverage
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
@@ -33,12 +42,15 @@ jobs:
           path: ./src/client/coverage/
 
       - name: Build
-        run: |
-          cd src/client
-          yarn build
+        run: yarn build
 
-  lint-test-api:
-    name: Lint, test Node API application
+  ci-api:
+    name: Run CI for the Node API application
+    defaults:
+      run:
+        working-directory: ./src/api
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
 
     steps:
@@ -52,10 +64,14 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
 
-      - name: Lint and Test
-        run: |
-          cd src/api
-          yarn --immutable && yarn lint && yarn test --coverage
+      - name: yarn install
+        run: yarn --immutable
+
+      - name: Lint
+        run: yarn lint
+  
+      - name: Test with coverage
+        run: yarn test --coverage
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
@@ -63,10 +79,12 @@ jobs:
           name: api-coverage
           path: ./src/api/coverage/
 
-  sonar:
+  ci-sonar:
     name: Perform Sonar analysis
     runs-on: ubuntu-latest
-    needs: [lint-test-build-client, lint-test-api]
+    needs: [ci-client, ci-api]
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
