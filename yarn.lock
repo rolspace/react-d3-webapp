@@ -11663,7 +11663,6 @@ __metadata:
     react-redux: "npm:^7.2.9"
     react-router-dom: "npm:^5.3.4"
     react-tap-event-plugin: "npm:^3.0.3"
-    react-test-renderer: "npm:^16.14.0"
     redux: "npm:^4.2.1"
     regenerator-runtime: "npm:^0.13.11"
     webpack: "npm:^5.91.0"
@@ -11818,7 +11817,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-test-renderer@npm:^16.0.0-0, react-test-renderer@npm:^16.14.0":
+"react-test-renderer@npm:^16.0.0-0":
   version: 16.14.0
   resolution: "react-test-renderer@npm:16.14.0"
   dependencies:

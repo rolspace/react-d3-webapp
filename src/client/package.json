@@ -74,7 +74,6 @@
     "prettier": "^2.8.8",
     "prettier-config-standard": "^5.0.0",
     "react-addons-test-utils": "^15.6.2",
-    "react-test-renderer": "^16.14.0",
     "regenerator-runtime": "^0.13.11",
     "webpack": "^5.91.0",
     "webpack-dev-middleware": "^5.3.4",
