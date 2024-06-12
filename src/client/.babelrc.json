@@ -12,7 +12,6 @@
     ]
   ],
   "plugins": [
-    "react-hot-loader/babel",
     "@babel/plugin-transform-regenerator",
     "@babel/plugin-proposal-object-rest-spread"
   ]

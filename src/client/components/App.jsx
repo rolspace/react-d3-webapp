@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { hot } from 'react-hot-loader'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
@@ -72,4 +71,4 @@ App.propTypes = {
 
 export { App }
 
-export default hot(module)(withStyles(styles)(App))
+export default module(withStyles(styles)(App))
