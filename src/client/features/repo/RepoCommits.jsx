@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchRepo } from './repoSlice'
-import Alert from '@material-ui/lab/Alert'
-import AlertTitle from '@material-ui/lab/AlertTitle'
-import Grid from '@material-ui/core/Grid'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
+import Grid from '@mui/material/Grid'
 
 const RepoCommits = ({ graphComponent, options }) => {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles'
 import 'core-js/stable'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
@@ -7,7 +7,7 @@ import 'regenerator-runtime/runtime'
 import store from './app/store'
 import App from './components/App'
 
-const theme = createMuiTheme({
+const theme = createTheme(adaptV4Theme({
   palette: {
     primary: {
       light: '#718792',
@@ -36,15 +36,17 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-})
+}))
 
 const container = document.getElementById('container')
 const root = createRoot(container)
 
 root.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
   </Provider>,
 )
