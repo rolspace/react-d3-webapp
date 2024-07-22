@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import qs from 'query-string'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, withRouter } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { fetchToken } from './userSlice'
 
 const PrivateRoute = ({ component, location, path }) => {

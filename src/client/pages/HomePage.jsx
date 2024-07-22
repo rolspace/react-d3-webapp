@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 import GraphList from '../components/GraphList'

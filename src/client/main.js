@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles'
+import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import 'core-js/stable'
 import React from 'react'
 import { createRoot } from 'react-dom/client'

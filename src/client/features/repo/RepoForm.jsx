@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

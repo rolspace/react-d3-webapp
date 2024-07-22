@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import RepoCommits from '../features/repo/RepoCommits'
 import PrivateRoute from '../features/user/PrivateRoute'
 import GraphPage from '../pages/GraphPage'

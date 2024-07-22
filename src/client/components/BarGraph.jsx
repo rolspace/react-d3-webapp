@@ -1,6 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../lib/bargraph'
