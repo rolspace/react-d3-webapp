@@ -7,7 +7,7 @@ import 'regenerator-runtime/runtime'
 import store from './app/store'
 import App from './components/App'
 
-const theme = createTheme(adaptV4Theme({
+const theme = createTheme({
   palette: {
     primary: {
       light: '#718792',
