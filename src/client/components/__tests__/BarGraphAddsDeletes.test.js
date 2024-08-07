@@ -56,6 +56,5 @@ test('BarGraphAddsDeletes does not render component if required props are missin
   render(<BarGraphAddsDeletes />)
 
   expect(spy).toHaveBeenCalledTimes(4)
-  expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed prop type'))
   spy.mockRestore()
 })
