@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { screen } from '@testing-library/react'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
