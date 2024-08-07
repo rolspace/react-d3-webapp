@@ -1,25 +1,30 @@
 import '@testing-library/jest-dom'
 import { screen } from '@testing-library/react'
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
 import { renderWithProviders } from '../../../utils/testUtils'
 import PrivateRoute from '../PrivateRoute'
 
-const location = {
-  ...window.location,
-  search: '?code=code&state=state',
-}
+test('PrivateRoute renders content correctly when "code" and "state" are provided', async () => {
+  const searchValue = '?code=code&state=state'
 
-Object.defineProperty(window, 'location', {
-  writable: true,
-  value: location,
-})
+  const location = {
+    ...window.location,
+    search: searchValue,
+  }
 
-test('PrivateRoute fetches user token and renders correct component', () => {
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: location,
+  })
+
   renderWithProviders(
-    <BrowserRouter>
-      <PrivateRoute component={() => <></>} path="/path" />
-    </BrowserRouter>,
+    <PrivateRoute
+      component={<></>}
+      path="/path"
+      pathname="/path"
+      search={searchValue}>
+      <></>
+    </PrivateRoute>,
     {
       preloadedState: {
         user: {
@@ -30,5 +35,5 @@ test('PrivateRoute fetches user token and renders correct component', () => {
     },
   )
 
-  expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
+  expect(await screen.findByText(/Requesting access\.\.\./i)).toBeInTheDocument()
 })

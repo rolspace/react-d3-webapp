@@ -2,17 +2,16 @@ import PropTypes from 'prop-types'
 import qs from 'query-string'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
 import { fetchToken } from './userSlice'
 
-const PrivateRoute = ({ component, location, path }) => {
-  const { code, state } = qs.parse(location.search)
+const PrivateRoute = ({ children, path, pathname, search }) => {
+  const { code, state } = qs.parse(search)
 
   const dispatch = useDispatch()
   const { token } = useSelector((state) => state.user)
 
   useEffect(() => {
-    if (code && state && token === '') {
+    if (code && state) {
       dispatch(fetchToken({ code, state }))
     } else if (token === '') {
       window.location.replace(
@@ -20,25 +19,25 @@ const PrivateRoute = ({ component, location, path }) => {
           process.env.APPLICATION_ID
         }&state=${crypto.randomUUID()}&redirect_uri=${
           window.location.protocol
-        }//${window.location.host}${location.pathname}`,
+        }//${window.location.host}${pathname}`,
       )
     }
-  }, [dispatch, code, state])
+  }, [code, state])
 
-  if (token) {
-    const Component = component
+  if (token !== '') {
     history.replaceState({}, document.title, path)
 
-    return <Route exact path={path} component={Component} />
-  } else {
-    return <div>Loading...</div>
+    return children
+  } else if (token === '') {
+    return <div>Requesting access...</div>
   }
 }
 
 PrivateRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
+  children: PropTypes.object,
   path: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired,
 }
 
-export default withRouter(PrivateRoute)
+export default PrivateRoute

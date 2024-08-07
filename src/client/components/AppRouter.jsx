@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import RepoCommits from '../features/repo/RepoCommits'
 import PrivateRoute from '../features/user/PrivateRoute'
 import GraphPage from '../pages/GraphPage'
@@ -13,18 +13,39 @@ const options = {
 }
 
 const AppRouter = () => {
+  const { pathname, search } = useLocation()
+
+  const AddsDeletes = GraphPage(RepoCommits, BarGraphAddsDeletes, options)
+  const ChangedFiles = GraphPage(RepoCommits, BarGraphChangedFiles, options)
+
   return (
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <PrivateRoute
+    <Routes>
+      <Route exact path="/" element={<HomePage />} />
+      <Route
+        exact
         path="/graphs/repo-additions-deletions"
-        component={GraphPage(RepoCommits, BarGraphAddsDeletes, options)}
+        element={
+          <PrivateRoute
+            path="/graphs/repo-additions-deletions"
+            pathname={pathname}
+            search={search}>
+            <AddsDeletes />
+          </PrivateRoute>
+        }
       />
-      <PrivateRoute
+      <Route
+        exact
         path="/graphs/repo-files"
-        component={GraphPage(RepoCommits, BarGraphChangedFiles, options)}
+        element={
+          <PrivateRoute
+            path="/graphs/repo-files"
+            pathname={pathname}
+            search={search}>
+            <ChangedFiles />
+          </PrivateRoute>
+        }
       />
-    </Switch>
+    </Routes>
   )
 }
 
