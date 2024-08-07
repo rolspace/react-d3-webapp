@@ -16,7 +16,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   svg: {
-    fontFamily: theme.typography.fontFamily,
+    fontFamily: theme?.typography?.fontFamily,
     height: '73vh',
     minWidth: '700px',
     width: '100%',

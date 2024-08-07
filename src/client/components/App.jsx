@@ -13,7 +13,7 @@ import AppRouter from './AppRouter'
 
 const styles = (theme) => ({
   container: {
-    [theme.breakpoints.up('md')]: {
+    [theme?.breakpoints?.up('md')]: {
       paddingLeft: '80px',
       paddingRight: '80px',
     },
