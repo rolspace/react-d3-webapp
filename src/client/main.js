@@ -36,7 +36,7 @@ const theme = createTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-}))
+})
 
 const container = document.getElementById('container')
 const root = createRoot(container)
