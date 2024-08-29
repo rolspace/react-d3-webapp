@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
-import { fetchRepo } from './repoSlice'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Grid from '@mui/material/Grid'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchRepo } from './repoSlice'
 
 const RepoCommits = ({ graphComponent, options }) => {
   const dispatch = useDispatch()
