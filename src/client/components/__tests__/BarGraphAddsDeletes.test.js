@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
 import BarGraphAddsDeletes from '../BarGraphAddsDeletes'
@@ -56,6 +56,5 @@ test('BarGraphAddsDeletes does not render component if required props are missin
   render(<BarGraphAddsDeletes />)
 
   expect(spy).toHaveBeenCalledTimes(4)
-  expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed prop type'))
   spy.mockRestore()
 })

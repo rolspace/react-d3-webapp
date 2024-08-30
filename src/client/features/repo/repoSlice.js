@@ -9,8 +9,8 @@ const initialState = {
     linesAdded: [],
     linesDeleted: [],
   },
-  loading: 'idle', // need a better way to do this
-  fulfilled: false, // need a better way to do this
+  loading: 'idle', // TODO: need a better way to do this
+  fulfilled: false, // TODO: need a better way to do this
   error: null,
 }
 

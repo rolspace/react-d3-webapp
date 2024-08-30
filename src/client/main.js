@@ -1,13 +1,17 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material/styles'
 import 'core-js/stable'
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import 'regenerator-runtime/runtime'
 import store from './app/store'
 import App from './components/App'
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       light: '#718792',
@@ -39,12 +43,14 @@ const theme = createMuiTheme({
 })
 
 const container = document.getElementById('container')
+const root = createRoot(container)
 
-render(
+root.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
   </Provider>,
-  container,
 )

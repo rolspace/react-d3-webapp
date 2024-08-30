@@ -1,20 +1,19 @@
-import AppBar from '@material-ui/core/AppBar'
-import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import AppBar from '@mui/material/AppBar'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { hot } from 'react-hot-loader'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
 const styles = (theme) => ({
   container: {
-    [theme.breakpoints.up('md')]: {
+    [theme?.breakpoints?.up('md')]: {
       paddingLeft: '80px',
       paddingRight: '80px',
     },
@@ -45,7 +44,8 @@ const App = ({ classes }) => {
               onClick={handleDrawer}
               className={classes.menuButton}
               color="inherit"
-              aria-label="Menu">
+              aria-label="Menu"
+              size="large">
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.bar_anchor}>
@@ -72,4 +72,4 @@ App.propTypes = {
 
 export { App }
 
-export default hot(module)(withStyles(styles)(App))
+export default withStyles(styles)(App)

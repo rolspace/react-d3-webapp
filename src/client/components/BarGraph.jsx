@@ -1,6 +1,6 @@
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Grid from '@material-ui/core/Grid'
-import { withStyles } from '@material-ui/core/styles'
+import CircularProgress from '@mui/material/CircularProgress'
+import Grid from '@mui/material/Grid'
+import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../lib/bargraph'
@@ -16,7 +16,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   svg: {
-    fontFamily: theme.typography.fontFamily,
+    fontFamily: theme?.typography?.fontFamily,
     height: '73vh',
     minWidth: '700px',
     width: '100%',
