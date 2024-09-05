@@ -11774,7 +11774,6 @@ __metadata:
     enzyme: "npm:^3.11.0"
     enzyme-adapter-react-16: "npm:^1.15.8"
     eslint: "npm:^8.57.0"
-    eslint-config-standard: "npm:^17.1.0"
     eslint-plugin-import: "npm:^2.29.1"
     eslint-plugin-n: "npm:^15.7.0"
     eslint-plugin-promise: "npm:^6.2.0"
