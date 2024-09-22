@@ -1,68 +1,53 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import react from "eslint-plugin-react";
-import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import globals from 'globals'
+import neostandard from 'neostandard'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [{
-    ignores: ["**/coverage", "**/node_modules", "public/dist"],
-}, ...compat.extends("plugin:react/recommended", "standard"), {
-    plugins: {
-        react,
-    },
-
+export default [
+  ...neostandard(),
+  {
+    ignores: ['**/coverage', '**/node_modules', 'public/dist'],
+  },
+  {
     languageOptions: {
-        globals: {
-            ...globals.browser,
-            ...globals.node,
-            ...globals.jest,
-        },
-
-        ecmaVersion: "latest",
-        sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.jest,
+      },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
-
     settings: {
-        react: {
-            version: "detect",
-        },
+      react: {
+        version: 'detect',
+      },
     },
-
     rules: {
-        "brace-style": ["error", "1tbs", {
-            allowSingleLine: false,
-        }],
-
-        "comma-dangle": ["error", "always-multiline"],
-        curly: ["error", "all"],
-        "multiline-ternary": "off",
-
-        "prefer-destructuring": ["error", {
-            array: true,
-            object: true,
-        }, {
-            enforceForRenamedProperties: true,
-        }],
-
-        quotes: ["error", "single"],
-
-        "react/prop-types": ["error", {
-            ignore: ["location", "query", "code"],
-        }],
-
-        "space-before-function-paren": ["error", {
-            anonymous: "always",
-            named: "never",
-            asyncArrow: "always",
-        }],
+      '@stylistic/comma-dangle': ['error', 'always-multiline'],
+      '@stylistic/jsx-closing-bracket-location': [1, {
+        nonEmpty: 'tag-aligned',
+        selfClosing: 'line-aligned',
+      }],
+      '@stylistic/jsx-quotes': ['error', 'prefer-double'],
+      '@stylistic/multiline-ternary': 'off',
+      '@stylistic/space-before-function-paren': ['error', {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
+      }],
+      'brace-style': ['error', '1tbs', {
+        allowSingleLine: false,
+      }],
+      curly: ['error', 'all'],
+      'prefer-destructuring': ['error', {
+        array: true,
+        object: true,
+      }, {
+        enforceForRenamedProperties: true,
+      }],
+      quotes: ['error', 'single'],
+      'react/prop-types': ['error', {
+        ignore: ['location', 'query', 'code'],
+      }],
     },
-}];
+  },
+]
