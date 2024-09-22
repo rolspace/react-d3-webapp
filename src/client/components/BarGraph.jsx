@@ -65,7 +65,8 @@ const BarGraph = ({ graphData, classes }) => {
             <svg
               ref={svgRef}
               className={classes.svg}
-              viewBox="0 0 800 500"></svg>
+              viewBox="0 0 800 500"
+            />
           )}
         </Grid>
       </Grid>

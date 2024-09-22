@@ -31,7 +31,7 @@ const styles = {
 
 const CustomCard = ({ description, classes, title, to }) => {
   return (
-    <ButtonBase className={classes.card_button} disableRipple={true}>
+    <ButtonBase className={classes.card_button} disableRipple>
       <Link className={classes.card_anchor} to={to}>
         <Card className={classes.card}>
           <CardContent>
@@ -42,7 +42,8 @@ const CustomCard = ({ description, classes, title, to }) => {
               className={classes.card_subtitle}
               align="left"
               variant="subtitle2"
-              component="div">
+              component="div"
+            >
               {description}
             </Typography>
           </CardContent>

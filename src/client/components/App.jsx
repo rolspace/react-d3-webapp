@@ -45,7 +45,8 @@ const App = ({ classes }) => {
               className={classes.menuButton}
               color="inherit"
               aria-label="Menu"
-              size="large">
+              size="large"
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.bar_anchor}>

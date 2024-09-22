@@ -1,5 +1,3 @@
-/* eslint-disable no-console, global-require */
-
 const webpack = require('webpack')
 
 const tasks = new Map()

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Grid from '@mui/material/Grid'

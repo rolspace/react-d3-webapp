@@ -49,7 +49,7 @@ const RepoForm = ({ classes }) => {
             name="owner"
             label="owner"
             margin="normal"
-            fullWidth={true}
+            fullWidth
             value={ownerValue}
             onChange={(event) => {
               const {
@@ -61,14 +61,14 @@ const RepoForm = ({ classes }) => {
             }}
           />
         </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={1} />
         <Grid item xs={4} sm={5}>
           <TextField
             id="repository"
             name="repository"
             label="repository"
             margin="normal"
-            fullWidth={true}
+            fullWidth
             value={repositoryValue}
             onChange={(event) => {
               const {
@@ -87,7 +87,8 @@ const RepoForm = ({ classes }) => {
             type="submit"
             disabled={
               error === null && !(ownerValueChanged || repositoryValueChanged)
-            }>
+            }
+          >
             go
           </Button>
         </Grid>

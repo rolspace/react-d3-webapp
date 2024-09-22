@@ -28,7 +28,8 @@ const AppRouter = () => {
           <PrivateRoute
             path="/graphs/repo-additions-deletions"
             pathname={pathname}
-            search={search}>
+            search={search}
+          >
             <AddsDeletes />
           </PrivateRoute>
         }
@@ -40,7 +41,8 @@ const AppRouter = () => {
           <PrivateRoute
             path="/graphs/repo-files"
             pathname={pathname}
-            search={search}>
+            search={search}
+          >
             <ChangedFiles />
           </PrivateRoute>
         }

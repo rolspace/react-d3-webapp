@@ -22,7 +22,8 @@ test('PrivateRoute renders content correctly when "code" and "state" are provide
       component={<></>}
       path="/path"
       pathname="/path"
-      search={searchValue}>
+      search={searchValue}
+    >
       <></>
     </PrivateRoute>,
     {

@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 const ESLintPlugin = require('eslint-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
