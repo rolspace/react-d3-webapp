@@ -2273,7 +2273,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.9.1":
+"@eslint/js@npm:9.9.1, @eslint/js@npm:^9.9.1":
   version: 9.9.1
   resolution: "@eslint/js@npm:9.9.1"
   checksum: c3fac3389bda97e790eea03c0a0be2dc1cfb0eec3863f8c4b88033ca7bad4265e4c48abe40d4dc8f82b456a2617fc8a499b2b90837c8bd39a05ebc8cb34c3a04
@@ -12288,6 +12288,8 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.24.7"
     "@emotion/react": "npm:^11.11.4"
     "@emotion/styled": "npm:^11.11.5"
+    "@eslint/eslintrc": "npm:^3.1.0"
+    "@eslint/js": "npm:^9.9.1"
     "@mui/icons-material": "npm:^5.15.19"
     "@mui/material": "npm:^5.15.19"
     "@mui/styles": "npm:^5.15.19"
@@ -12314,6 +12316,7 @@ __metadata:
     eslint-plugin-promise: "npm:^7.1.0"
     eslint-plugin-react: "npm:^7.35.2"
     eslint-webpack-plugin: "npm:^4.2.0"
+    globals: "npm:^15.9.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
