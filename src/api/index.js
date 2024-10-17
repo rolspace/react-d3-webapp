@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 import './lib/config.js'
 
 import bodyParser from 'body-parser'

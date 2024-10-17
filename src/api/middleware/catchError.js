@@ -1,7 +1,6 @@
 import { logger } from '../lib/logger.js'
 import { INTERNAL_SERVER_ERROR } from '../lib/status.js'
 
-// eslint-disable-next-line no-unused-vars
 export const catchErrorHandler = (err, req, res, next) => {
   logger.error({ err, req })
 
