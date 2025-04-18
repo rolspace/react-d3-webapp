@@ -1,26 +1,16 @@
-import react from 'eslint-plugin-react'
-import globals from 'globals'
-import neostandard from 'neostandard'
+import neostandard, { plugins } from 'neostandard'
 
 export default [
-  ...neostandard(),
-  {
+  ...neostandard({
+    files: ['src/client/**/*.js'],
+    env: ['node', 'browser', 'jest'],
     ignores: ['**/coverage', '**/node_modules', 'public/dist'],
-  },
+  }),
+  plugins.react.configs.flat.recommended,
   {
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ...globals.jest,
-      },
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
     },
     settings: {
       react: {
@@ -28,7 +18,7 @@ export default [
       },
     },
     plugins: {
-      react,
+      react: plugins.react,
     },
     rules: {
       '@stylistic/comma-dangle': ['error', 'always-multiline'],

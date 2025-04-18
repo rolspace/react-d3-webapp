@@ -1,17 +1,13 @@
-import globals from 'globals'
 import neostandard from 'neostandard'
 
 export default [
-  ...neostandard(),
-  {
+  ...neostandard({
+    files: ['src/api/**/*.js'],
+    env: ['node', 'jest'],
     ignores: ['**/coverage', '**/data', '**/node_modules'],
-  },
+  }),
   {
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
