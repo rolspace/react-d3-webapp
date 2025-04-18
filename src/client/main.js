@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   createTheme,
   StyledEngineProvider,
@@ -11,7 +10,6 @@ import { Provider } from 'react-redux'
 import 'regenerator-runtime/runtime'
 import store from './app/store'
 import App from './components/App'
-/* eslint-enable no-unused-vars */
 
 const theme = createTheme({
   palette: {
