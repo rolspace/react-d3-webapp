@@ -19,16 +19,13 @@ afterEach(() => {
 
 test('token module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
-    http.post(
-      'https://github.com/login/oauth/access_token',
-      () => {
-        return HttpResponse.json({
-          data: {
-            access_token: 'abcdef123456',
-          },
-        })
-      },
-    ),
+    http.post('https://github.com/login/oauth/access_token', () => {
+      return HttpResponse.json({
+        data: {
+          access_token: 'abcdef123456',
+        },
+      })
+    }),
   ]
 
   const server = setupServer(...handlers)
@@ -64,12 +61,9 @@ test('repo module responds with a 422 status code if the code or state are not i
 
 test('token module calls the next handler, if there is an error retrieving the external data', async () => {
   const handlers = [
-    http.post(
-      'https://github.com/login/oauth/access_token',
-      () => {
-        throw new Error('Request failed')
-      },
-    ),
+    http.post('https://github.com/login/oauth/access_token', () => {
+      throw new Error('Request failed')
+    }),
   ]
 
   const server = setupServer(...handlers)

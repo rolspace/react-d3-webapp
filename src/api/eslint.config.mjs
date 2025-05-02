@@ -13,21 +13,32 @@ export default [
     },
     rules: {
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
-      '@stylistic/space-before-function-paren': ['error', {
-        anonymous: 'always',
-        named: 'never',
-        asyncArrow: 'always',
-      }],
-      'brace-style': ['error', '1tbs', {
-        allowSingleLine: false,
-      }],
+      '@stylistic/space-before-function-paren': [
+        'error',
+        {
+          anonymous: 'always',
+          named: 'never',
+          asyncArrow: 'always',
+        },
+      ],
+      'brace-style': [
+        'error',
+        '1tbs',
+        {
+          allowSingleLine: false,
+        },
+      ],
       curly: ['error', 'all'],
-      'prefer-destructuring': ['error', {
-        array: true,
-        object: true,
-      }, {
-        enforceForRenamedProperties: true,
-      }],
+      'prefer-destructuring': [
+        'error',
+        {
+          array: true,
+          object: true,
+        },
+        {
+          enforceForRenamedProperties: true,
+        },
+      ],
       quotes: ['error', 'single'],
     },
   },
