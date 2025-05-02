@@ -51,10 +51,10 @@ test('BarGraphAddsDeletes renders correctly', () => {
 })
 
 test('BarGraphAddsDeletes does not render component if required props are missing', () => {
-  const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
-
   render(<BarGraphAddsDeletes />)
 
-  expect(spy).toHaveBeenCalledTimes(4)
-  spy.mockRestore()
+  expect(screen.queryByText(/code lines/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/total commits/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/1-20/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/21-40/i)).not.toBeInTheDocument()
 })

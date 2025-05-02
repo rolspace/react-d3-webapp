@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
 let res = {}
@@ -27,14 +27,12 @@ jest.unstable_mockModule(queriesModulePath, () => ({
 
 test('repo module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
-    rest.post('https://api.github.com/graphql', (req, res, context) => {
-      return res(
-        context.json({
-          data: {
-            repository: { ref: { target: { history: { edges: [] } } } },
-          },
-        }),
-      )
+    http.post('https://api.github.com/graphql', (req, res, context) => {
+      return HttpResponse.json({
+        data: {
+          repository: { ref: { target: { history: { edges: [] } } } },
+        },
+      })
     }),
   ]
 
@@ -102,7 +100,7 @@ test('repo module responds with a 422 status code if the token is not included',
 
 test('repo module calls the next handler, if there is an error retrieving the external data', async () => {
   const handlers = [
-    rest.post('https://api.github.com/graphql', (req, res, context) => {
+    http.post('https://api.github.com/graphql', () => {
       throw new Error('Request failed')
     }),
   ]

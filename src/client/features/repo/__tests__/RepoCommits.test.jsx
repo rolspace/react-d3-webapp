@@ -1,64 +1,62 @@
 import '@testing-library/jest-dom'
 import { screen } from '@testing-library/react'
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import React from 'react'
-import 'whatwg-fetch'
+//import 'whatwg-fetch'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
 import { renderWithProviders } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
 const handlers = [
-  rest.post(/\/api\/repo\//, (req, res, context) => {
-    return res(
-      context.json({
-        data: [
-          {
-            node: {
-              additions: 54,
-              deletions: 32,
-              changedFiles: 3,
-              pushedDate: '2023-04-21T18:23:50Z',
-              oid: '123abc',
-              author: {
-                user: {
-                  login: 'author1',
-                },
+  http.post(/\/api\/repo\//, () => {
+    return HttpResponse.json({
+      data: [
+        {
+          node: {
+            additions: 54,
+            deletions: 32,
+            changedFiles: 3,
+            pushedDate: '2023-04-21T18:23:50Z',
+            oid: '123abc',
+            author: {
+              user: {
+                login: 'author1',
               },
             },
           },
-          {
-            node: {
-              additions: 1,
-              deletions: 1,
-              changedFiles: 1,
-              pushedDate: '2023-04-21T18:23:27Z',
-              oid: '456def',
-              author: {
-                user: {
-                  login: 'author2',
-                },
+        },
+        {
+          node: {
+            additions: 1,
+            deletions: 1,
+            changedFiles: 1,
+            pushedDate: '2023-04-21T18:23:27Z',
+            oid: '456def',
+            author: {
+              user: {
+                login: 'author2',
               },
             },
           },
-          {
-            node: {
-              additions: 521,
-              deletions: 35,
-              changedFiles: 7,
-              pushedDate: '2023-04-21T17:29:47Z',
-              oid: '789ghi',
-              author: {
-                user: {
-                  login: 'author3',
-                },
+        },
+        {
+          node: {
+            additions: 521,
+            deletions: 35,
+            changedFiles: 7,
+            pushedDate: '2023-04-21T17:29:47Z',
+            oid: '789ghi',
+            author: {
+              user: {
+                login: 'author3',
               },
             },
           },
-        ],
-      }),
-    )
+        },
+      ],
+    })
   }),
 ]
 

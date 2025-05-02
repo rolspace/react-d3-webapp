@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
 let res = {}
@@ -19,16 +19,14 @@ afterEach(() => {
 
 test('token module responds with a 200 status code when the request for data is successful', async () => {
   const handlers = [
-    rest.post(
+    http.post(
       'https://github.com/login/oauth/access_token',
-      (req, res, context) => {
-        return res(
-          context.json({
-            data: {
-              access_token: 'abcdef123456',
-            },
-          }),
-        )
+      () => {
+        return HttpResponse.json({
+          data: {
+            access_token: 'abcdef123456',
+          },
+        })
       },
     ),
   ]
@@ -66,9 +64,9 @@ test('repo module responds with a 422 status code if the code or state are not i
 
 test('token module calls the next handler, if there is an error retrieving the external data', async () => {
   const handlers = [
-    rest.post(
+    http.post(
       'https://github.com/login/oauth/access_token',
-      (req, res, context) => {
+      () => {
         throw new Error('Request failed')
       },
     ),

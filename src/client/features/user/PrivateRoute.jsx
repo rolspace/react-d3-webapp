@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import qs from 'query-string'
+import queryString from 'query-string'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchToken } from './userSlice'
 
 const PrivateRoute = ({ children, path, pathname, search }) => {
-  const { code, state } = qs.parse(search)
+  const { code, state } = queryString.parse(search)
 
   const dispatch = useDispatch()
   const { token } = useSelector((state) => state.user)
