@@ -43,7 +43,7 @@ const RepoForm = ({ classes }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container className={classes.container}>
-        <Grid item xs={4} sm={5}>
+        <Grid size={{ xs: 4, sm: 5 }}>
           <TextField
             id="owner"
             name="owner"
@@ -61,8 +61,8 @@ const RepoForm = ({ classes }) => {
             }}
           />
         </Grid>
-        <Grid item xs={1} />
-        <Grid item xs={4} sm={5}>
+        <Grid size={1} />
+        <Grid size={{ xs: 4, sm: 5 }}>
           <TextField
             id="repository"
             name="repository"
@@ -80,7 +80,7 @@ const RepoForm = ({ classes }) => {
             }}
           />
         </Grid>
-        <Grid item xs={3} sm={1} className={classes.buttonContainer}>
+        <Grid size={{ xs: 3, sm: 1 }} className={classes.buttonContainer}>
           <Button
             size="small"
             variant="contained"

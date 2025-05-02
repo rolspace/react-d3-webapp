@@ -58,7 +58,7 @@ const App = ({ classes }) => {
         </AppBar>
         <AppDrawer open={menuOpen} onClose={handleDrawer} />
         <Grid container className={classes.container}>
-          <Grid item xs={12} sm={12}>
+          <Grid size={{ xs: 12, sm: 12 }}>
             <AppRouter />
           </Grid>
         </Grid>

@@ -30,9 +30,9 @@ const RepoCommits = ({ graphComponent, options }) => {
   if (error) {
     return (
       <Grid container>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Grid container justifyContent="center">
-            <Grid item sm={10} md={6}>
+            <Grid size={{ sm: 10, md: 6 }}>
               <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
                 An error ocurred while loading the repository data.

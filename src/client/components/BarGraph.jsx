@@ -58,7 +58,7 @@ const BarGraph = ({ graphData, classes }) => {
   return (
     <div>
       <Grid container className={classes.container}>
-        <Grid item xs={12} style={{ height: '75vh' }}>
+        <Grid size={12} style={{ height: '75vh' }}>
           {loading === 'pending' ? (
             <CircularProgress classes={{ root: classes.circleRoot }} />
           ) : (
