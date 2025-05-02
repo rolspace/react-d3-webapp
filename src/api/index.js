@@ -25,7 +25,9 @@ const init = () => {
 
   app.use(...[bodyParser.json(), cors(corsOptions), logRequestHandler])
 
-  app.options('/api/token')
+  app.options('/api/token', () => {
+    logger.info('CORS preflight request for /api/token')
+  })
   app.post('/api/token', postTokenHandler)
   app.post('/api/repo/:owner/:name', postRepoHandler)
 
