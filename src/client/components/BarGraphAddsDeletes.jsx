@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import BarGraph from './BarGraph'
+import BarGraph from './BarGraph.jsx'
 
 const BarGraphAddsDeletes = ({ datasource, loading, xAxis, yAxis }) => {
   if (datasource) {

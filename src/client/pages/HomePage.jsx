@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid'
 import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
-import GraphList from '../components/GraphList'
+import GraphList from '../components/GraphList.jsx'
 
 const styles = {
   container: {

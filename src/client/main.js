@@ -7,9 +7,8 @@ import 'core-js/stable'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import 'regenerator-runtime/runtime'
-import store from './app/store'
-import App from './components/App'
+import store from './app/store.js'
+import App from './components/App.jsx'
 
 const theme = createTheme({
   palette: {

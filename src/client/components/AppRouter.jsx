@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import RepoCommits from '../features/repo/RepoCommits'
-import PrivateRoute from '../features/user/PrivateRoute'
-import GraphPage from '../pages/GraphPage'
-import HomePage from '../pages/HomePage'
-import BarGraphAddsDeletes from './BarGraphAddsDeletes'
-import BarGraphChangedFiles from './BarGraphChangedFiles'
+import RepoCommits from '../features/repo/RepoCommits.jsx'
+import PrivateRoute from '../features/user/PrivateRoute.jsx'
+import GraphPage from '../pages/GraphPage.jsx'
+import HomePage from '../pages/HomePage.jsx'
+import BarGraphAddsDeletes from './BarGraphAddsDeletes.jsx'
+import BarGraphChangedFiles from './BarGraphChangedFiles.jsx'
 
 const options = {
   xAxis: 'label',

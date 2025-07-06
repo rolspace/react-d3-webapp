@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchRepo } from './repoSlice'
+import { fetchRepo } from './repoSlice.js'
 
 const RepoCommits = ({ graphComponent, options }) => {
   const dispatch = useDispatch()

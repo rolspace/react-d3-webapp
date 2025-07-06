@@ -5,7 +5,7 @@ import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { repoChanged } from './repoSlice'
+import { repoChanged } from './repoSlice.js'
 
 const styles = {
   container: {

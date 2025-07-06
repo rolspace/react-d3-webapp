@@ -8,8 +8,8 @@ import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
-import AppDrawer from './AppDrawer'
-import AppRouter from './AppRouter'
+import AppDrawer from './AppDrawer.jsx'
+import AppRouter from './AppRouter.jsx'
 
 const styles = (theme) => ({
   container: {
