@@ -1,7 +1,12 @@
-const ESLintPlugin = require('eslint-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
-const babelConfig = require('./.babelrc.json')
+import ESLintPlugin from 'eslint-webpack-plugin'
+import path from 'path'
+import webpack from 'webpack'
+import babelConfig from './.babelrc.json' assert { type: 'json' }
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
@@ -54,4 +59,4 @@ const config = {
   ],
 }
 
-module.exports = config
+export default config

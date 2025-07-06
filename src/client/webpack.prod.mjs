@@ -1,6 +1,6 @@
-const webpack = require('webpack')
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
+import webpack from 'webpack'
+import { merge } from 'webpack-merge'
+import common from './webpack.common.mjs'
 
 const config = {
   mode: 'production',
@@ -11,12 +11,14 @@ const config = {
         test: /\.css/,
         use: [
           'style-loader',
-          `css-loader?${JSON.stringify({
-            sourceMap: false,
-            modules: true,
-            localIdentName: '[name]_[local]_[hash:base64:3]',
-            minimize: true,
-          })}`,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: false,
+              modules: true,
+              localIdentName: '[name]_[local]_[hash:base64:3]',
+            },
+          },
           'postcss-loader',
         ],
       },
@@ -30,4 +32,4 @@ const config = {
   ],
 }
 
-module.exports = merge(common, config)
+export default merge(common, config)

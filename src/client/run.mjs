@@ -1,4 +1,4 @@
-const webpack = require('webpack')
+import webpack from 'webpack'
 
 const tasks = new Map()
 
@@ -19,15 +19,20 @@ const run = async (task) => {
 tasks.set('dev', async () => {
   let count = 0
 
-  return new Promise((resolve) => {
-    const bs = require('browser-sync').create()
-    const webpackConfig = require('./webpack.dev')
+  return new Promise(async (resolve) => {
+    const browserSync = (await import('browser-sync')).default
+    const bs = browserSync.create()
+    const webpackConfig = (await import('./webpack.dev.mjs')).default || (await import('./webpack.dev.mjs'))
     const compiler = webpack(webpackConfig)
 
-    const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+    const { default: webpackDevMiddleware } = await import('webpack-dev-middleware')
+    const devMiddleware = webpackDevMiddleware(compiler, {
       publicPath: webpackConfig.output.publicPath,
       stats: webpackConfig.stats,
     })
+
+    const { default: webpackHotMiddleware } = await import('webpack-hot-middleware')
+    const { default: connectHistoryApiFallback } = await import('connect-history-api-fallback')
 
     // Launch Browsersync after the initial bundling is complete
     compiler.hooks.done.tap('bsPlugin', () => {
@@ -39,9 +44,9 @@ tasks.set('dev', async () => {
             server: {
               baseDir: 'public',
               middleware: [
-                webpackDevMiddleware,
-                require('webpack-hot-middleware')(compiler),
-                require('connect-history-api-fallback')(),
+                devMiddleware,
+                webpackHotMiddleware(compiler),
+                connectHistoryApiFallback(),
               ],
             },
           },
@@ -54,7 +59,7 @@ tasks.set('dev', async () => {
 
 // Bundle JavaScript, CSS and image files with Webpack for 'production'
 tasks.set('build', async () => {
-  const webpackConfig = require('./webpack.prod')
+  const webpackConfig = (await import('./webpack.prod.mjs')).default || (await import('./webpack.prod.mjs'))
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((error, stats) => {
       if (error) {
@@ -67,5 +72,5 @@ tasks.set('build', async () => {
   })
 })
 
-// Execute the specified task or default one. E.g.: node run build
+// Execute the specified task or default one. E.g.: node run.mjs build
 run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'dev')
