@@ -19,20 +19,20 @@ const run = async (task) => {
 tasks.set('dev', async () => {
   let count = 0
 
-  return new Promise(async (resolve) => {
-    const browserSync = (await import('browser-sync')).default
+  const { default: browserSync } = (await import('browser-sync'))
+  const { default: webpackDevMiddleware } = await import('webpack-dev-middleware')
+  const { default: webpackHotMiddleware } = await import('webpack-hot-middleware')
+  const { default: connectHistoryApiFallback } = await import('connect-history-api-fallback')
+  const webpackConfig = (await import('./webpack.dev.mjs')).default || (await import('./webpack.dev.mjs'))
+
+  return new Promise(resolve => {
     const bs = browserSync.create()
-    const webpackConfig = (await import('./webpack.dev.mjs')).default || (await import('./webpack.dev.mjs'))
     const compiler = webpack(webpackConfig)
 
-    const { default: webpackDevMiddleware } = await import('webpack-dev-middleware')
     const devMiddleware = webpackDevMiddleware(compiler, {
       publicPath: webpackConfig.output.publicPath,
       stats: webpackConfig.stats,
     })
-
-    const { default: webpackHotMiddleware } = await import('webpack-hot-middleware')
-    const { default: connectHistoryApiFallback } = await import('connect-history-api-fallback')
 
     // Launch Browsersync after the initial bundling is complete
     compiler.hooks.done.tap('bsPlugin', () => {
@@ -60,6 +60,7 @@ tasks.set('dev', async () => {
 // Bundle JavaScript, CSS and image files with Webpack for 'production'
 tasks.set('build', async () => {
   const webpackConfig = (await import('./webpack.prod.mjs')).default || (await import('./webpack.prod.mjs'))
+
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((error, stats) => {
       if (error) {

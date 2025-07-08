@@ -14,7 +14,7 @@
     "url": "https://github.com/rolspace/react-d3-webapp"
   },
   "scripts": {
-    "build": "node run build",
+    "build": "node run.mjs build",
     "start": "node run.mjs",
     "lint": "eslint .",
     "format": "prettier -w .",

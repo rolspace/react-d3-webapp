@@ -1,9 +1,8 @@
 import ESLintPlugin from 'eslint-webpack-plugin'
-import path from 'path'
 import webpack from 'webpack'
-import babelConfig from './.babelrc.json' assert { type: 'json' }
+import babelConfig from './.babelrc.json' with { type: 'json' }
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import { dirname, resolve } from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -11,12 +10,12 @@ const __dirname = dirname(__filename)
 const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
 const include = [
-  path.resolve(__dirname, './app'),
-  path.resolve(__dirname, './components'),
-  path.resolve(__dirname, './features'),
-  path.resolve(__dirname, './lib'),
-  path.resolve(__dirname, './pages'),
-  path.resolve(__dirname, './main.js'),
+  resolve(__dirname, './app'),
+  resolve(__dirname, './components'),
+  resolve(__dirname, './features'),
+  resolve(__dirname, './lib'),
+  resolve(__dirname, './pages'),
+  resolve(__dirname, './main.js'),
 ]
 
 const config = {
@@ -27,7 +26,7 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, './public/dist'),
+    path: resolve(__dirname, './public/dist'),
     publicPath: '/dist/',
   },
   stats: {
