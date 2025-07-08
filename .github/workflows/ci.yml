@@ -69,7 +69,7 @@ jobs:
 
       - name: Lint
         run: yarn lint
-  
+
       - name: Test with coverage
         run: yarn test --coverage
 
