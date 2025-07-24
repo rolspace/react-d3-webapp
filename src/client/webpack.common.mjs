@@ -20,7 +20,7 @@ const include = [
 
 const config = {
   context: __dirname,
-  entry: ['whatwg-fetch', './main.js'],
+  entry: ['./main.js'],
   resolve: {
     extensions: ['.jsx', '...'],
   },

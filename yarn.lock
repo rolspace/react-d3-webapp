@@ -11484,7 +11484,6 @@ __metadata:
     webpack-dev-middleware: "npm:^7.4.2"
     webpack-hot-middleware: "npm:^2.26.1"
     webpack-merge: "npm:^6.0.1"
-    whatwg-fetch: "npm:^3.6.20"
   languageName: unknown
   linkType: soft
 
@@ -13817,13 +13816,6 @@ __metadata:
   version: 3.6.2
   resolution: "whatwg-fetch@npm:3.6.2"
   checksum: 10/f05ceff9e9098db228fee84b9f9258a434283c0eb3cd8183c8b22e25e32698a2f80ee8a9c1c634d5b1441fe7692a031812d8a1f21079da76892a5119be2ac945
-  languageName: node
-  linkType: hard
-
-"whatwg-fetch@npm:^3.6.20":
-  version: 3.6.20
-  resolution: "whatwg-fetch@npm:3.6.20"
-  checksum: 10/2b4ed92acd6a7ad4f626a6cb18b14ec982bbcaf1093e6fe903b131a9c6decd14d7f9c9ca3532663c2759d1bdf01d004c77a0adfb2716a5105465c20755a8c57c
   languageName: node
   linkType: hard
 
