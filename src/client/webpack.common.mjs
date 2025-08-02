@@ -22,7 +22,7 @@ const config = {
   context: __dirname,
   entry: ['./main.js'],
   resolve: {
-    extensions: ['.jsx', '...'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '...'],
   },
   output: {
     filename: '[name].js',
@@ -45,6 +45,12 @@ const config = {
         test: /\.jsx?$/,
         include,
         use: [`babel-loader?${JSON.stringify(babelConfig)}`],
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        include,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
