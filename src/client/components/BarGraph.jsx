@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import { renderBarGraph } from '../app/bargraph.js'
+import { renderBarGraph } from '../services/bargraph.js'
 
 const styles = (theme) => ({
   circle: {

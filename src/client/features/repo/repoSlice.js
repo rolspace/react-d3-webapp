@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { createHighRange, createLowRange } from '../../app/range.js'
+import { createHighRange, createLowRange } from '../../services/range.ts'
 
 const initialState = {
   owner: 'facebook',
