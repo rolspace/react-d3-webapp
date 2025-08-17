@@ -1,8 +1,9 @@
-import '@testing-library/jest-dom'
-import { screen } from '@testing-library/react'
+import '@testing-library/jest-dom/vitest'
+import { cleanup, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import React from 'react'
+import { afterAll, afterEach, beforeAll, describe, it, expect } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
 import { renderWithProviders } from '../../../utils/testUtils'
@@ -61,89 +62,94 @@ const handlers = [
 
 const server = setupServer(...handlers)
 
-beforeAll(() => server.listen())
-
-afterEach(() => server.resetHandlers())
-
 afterAll(() => server.close())
 
-test('RepoCommits fetches repo data and renders adds vs. deletes graph', async () => {
-  process.env.API_URL = 'http://localhost'
+describe('RepoCommits', () => {
+  beforeAll(() => server.listen())
 
-  const { container } = renderWithProviders(
-    <RepoCommits
-      graphComponent={BarGraphAddsDeletes}
-      options={{
-        xAxis: 'label',
-        yAxis: 'count',
-      }}
-    />,
-    {
-      preloadedState: {
-        user: {
-          token: 'AbcDeF123456',
-        },
-        repo: {
-          owner: 'facebook',
-          name: 'react',
-          commits: {
-            changedFiles: [],
-            linesAdded: [],
-            linesDeleted: [],
+  afterEach(() => {
+    server.resetHandlers()
+    cleanup()
+  })
+
+  it('fetches repo data and renders adds vs. deletes graph', async () => {
+    process.env.API_URL = 'http://localhost'
+
+    const { container } = renderWithProviders(
+      <RepoCommits
+        graphComponent={BarGraphAddsDeletes}
+        options={{
+          xAxis: 'label',
+          yAxis: 'count',
+        }}
+      />,
+      {
+        preloadedState: {
+          user: {
+            token: 'AbcDeF123456',
           },
-          loading: 'idle',
-          fulfilled: false,
-          error: null,
+          repo: {
+            owner: 'facebook',
+            name: 'react',
+            commits: {
+              changedFiles: [],
+              linesAdded: [],
+              linesDeleted: [],
+            },
+            loading: 'idle',
+            fulfilled: false,
+            error: null,
+          },
         },
       },
-    },
-  )
+    )
 
-  expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
-  expect(
-    container.querySelector(
-      'body > div > div > div > div > svg > g > rect:nth-child(5)',
-    ),
-  ).toBeInTheDocument()
-})
+    expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
+    expect(
+      container.querySelector(
+        'body > div > div > div > div > svg > g > rect:nth-child(5)',
+      ),
+    ).toBeInTheDocument()
+  })
 
-test('RepoCommits fetches repo data and renders changed files graph', async () => {
-  process.env.API_URL = 'http://localhost'
+  it('fetches repo data and renders changed files graph', async () => {
+    process.env.API_URL = 'http://localhost'
 
-  const { container } = renderWithProviders(
-    <RepoCommits
-      graphComponent={BarGraphChangedFiles}
-      options={{
-        xAxis: 'label',
-        yAxis: 'count',
-      }}
-    />,
-    {
-      preloadedState: {
-        user: {
-          token: 'AbcDeF123456',
-          error: null,
-        },
-        repo: {
-          owner: 'facebook',
-          name: 'react',
-          commits: {
-            changedFiles: [],
-            linesAdded: [],
-            linesDeleted: [],
+    const { container } = renderWithProviders(
+      <RepoCommits
+        graphComponent={BarGraphChangedFiles}
+        options={{
+          xAxis: 'label',
+          yAxis: 'count',
+        }}
+      />,
+      {
+        preloadedState: {
+          user: {
+            token: 'AbcDeF123456',
+            error: null,
           },
-          loading: 'idle',
-          fulfilled: false,
-          error: null,
+          repo: {
+            owner: 'facebook',
+            name: 'react',
+            commits: {
+              changedFiles: [],
+              linesAdded: [],
+              linesDeleted: [],
+            },
+            loading: 'idle',
+            fulfilled: false,
+            error: null,
+          },
         },
       },
-    },
-  )
+    )
 
-  expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
-  expect(
-    container.querySelector(
-      'body > div > div > div > div > svg > g > rect:nth-child(5)',
-    ),
-  ).toBeInTheDocument()
+    expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
+    expect(
+      container.querySelector(
+        'body > div > div > div > div > svg > g > rect:nth-child(5)',
+      ),
+    ).toBeInTheDocument()
+  })
 })

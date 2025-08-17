@@ -1,32 +1,33 @@
-import { jest } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { catchErrorHandler } from '../catchError'
 
-jest.unstable_mockModule('../../lib/logger', () => ({
-  logger: jest.fn(() => ({
-    error: jest.fn(),
-  })),
+vi.mock('../../lib/logger', () => ({
+  logger: {
+    error: vi.fn(),
+  },
 }))
 
 let res = {}
 
-beforeEach(() => {
-  res = {
-    send: jest.fn().mockReturnThis(),
-    status: jest.fn().mockReturnThis(),
-  }
-})
+describe('catchErrorHandler', () => {
+  beforeEach(() => {
+    res = {
+      send: vi.fn().mockReturnThis(),
+      status: vi.fn().mockReturnThis(),
+    }
+  })
 
-afterEach(() => {
-  jest.restoreAllMocks()
+  afterEach(() => {
+    vi.restoreAllMocks()
+    res = {}
+  })
 
-  res = {}
-})
+  it('logs an error', async () => {
+    await import('../../lib/logger')
 
-test('logs an error', async () => {
-  await import('../../lib/logger')
+    catchErrorHandler(new Error('Error'), {}, res, {})
 
-  catchErrorHandler(new Error('Error'), {}, res, {})
-
-  expect(res.status).toHaveBeenCalledTimes(1)
-  expect(res.send).toHaveBeenCalledTimes(1)
+    expect(res.status).toHaveBeenCalledTimes(1)
+    expect(res.send).toHaveBeenCalledTimes(1)
+  })
 })

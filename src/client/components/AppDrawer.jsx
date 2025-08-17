@@ -1,7 +1,7 @@
 import Divider from '@mui/material/Divider'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -12,16 +12,16 @@ const AppDrawer = ({ onClose, open }) => {
     <Drawer anchor="left" open={open} onClose={onClose}>
       <Divider />
       <List component="nav">
-        <ListItem button key="1" onClick={onClose}>
+        <ListItemButton key="1" onClick={onClose}>
           <Link to="/graphs/repo-additions-deletions">
             <ListItemText primary="Adds / Deletes" />
           </Link>
-        </ListItem>
-        <ListItem button key="2" onClick={onClose}>
+        </ListItemButton>
+        <ListItemButton key="2" onClick={onClose}>
           <Link to="/graphs/repo-files">
             <ListItemText primary="Changed Files" />
           </Link>
-        </ListItem>
+        </ListItemButton>
       </List>
     </Drawer>
   )
