@@ -10,10 +10,7 @@ export default defineConfig({
         '**/*.{js,ts}',
       ],
       exclude: ['index.js'],
-      reporters: [
-        'default',
-        'lcov',
-      ],
+      reporter: ['text', 'lcov'],
       reportsDirectory: 'coverage',
     },
   },

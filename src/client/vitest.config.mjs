@@ -10,10 +10,7 @@ export default defineConfig({
       include: [
         '**/*.{js,ts,jsx,tsx}',
       ],
-      reporters: [
-        'default',
-        'lcov',
-      ],
+      reporter: ['text', 'lcov'],
       reportsDirectory: 'coverage',
     },
   },
