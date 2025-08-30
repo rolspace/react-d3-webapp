@@ -1,14 +1,28 @@
 import ButtonBase from '@mui/material/ButtonBase'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import { withStyles } from '@mui/styles'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const styles = {
-  card: {
+interface CustomCardProps {
+  description: string
+  title: string
+  to: string
+}
+
+const PREFIX = 'Card'
+
+const classes = {
+  card: `${PREFIX}-card`,
+  card_anchor: `${PREFIX}-card_anchor`,
+  card_button: `${PREFIX}-card_button`,
+  card_subtitle: `${PREFIX}-card_subtitle`,
+}
+
+const StyledButtonBase = styled(ButtonBase)({
+  [`& .${classes.card}`]: {
     '&:hover': {
       backgroundColor: '#eee',
     },
@@ -16,22 +30,23 @@ const styles = {
       textDecoration: 'underline',
     },
   },
-  card_anchor: {
+  [`& .${classes.card_anchor}`]: {
     minWidth: '100%',
     textDecoration: 'none',
   },
-  card_button: {
+  [`&.${classes.card_button}`]: {
     minWidth: '100%',
     padding: '1px 1px 2px 1px',
   },
-  card_subtitle: {
+  [`& .${classes.card_subtitle}`]: {
     color: '#aaa',
   },
-}
+})
 
-const CustomCard = ({ description, classes, title, to }) => {
+const CustomCard = (props: CustomCardProps) => {
+  const { description, title, to } = props
   return (
-    <ButtonBase className={classes.card_button} disableRipple>
+    <StyledButtonBase className={classes.card_button} disableRipple>
       <Link className={classes.card_anchor} to={to}>
         <Card className={classes.card}>
           <CardContent>
@@ -49,15 +64,8 @@ const CustomCard = ({ description, classes, title, to }) => {
           </CardContent>
         </Card>
       </Link>
-    </ButtonBase>
+    </StyledButtonBase>
   )
 }
 
-CustomCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  to: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-}
-
-export default withStyles(styles)(CustomCard)
+export default CustomCard
