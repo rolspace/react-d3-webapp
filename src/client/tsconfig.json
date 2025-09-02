@@ -6,14 +6,17 @@
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false
+    "noEmit": false,
   },
-  "include": ["./components", "./features", "./lib", "./pages", "./services", "./utils", "./app", "main.js"],
+  "include": ["./app", "./components", "./features", "./pages", "./services", "./utils", "main.js"],
   "exclude": ["node_modules", "coverage"]
 }

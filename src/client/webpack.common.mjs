@@ -13,8 +13,8 @@ const include = [
   resolve(__dirname, './app'),
   resolve(__dirname, './components'),
   resolve(__dirname, './features'),
-  resolve(__dirname, './lib'),
   resolve(__dirname, './pages'),
+  resolve(__dirname, './services'),
   resolve(__dirname, './main.js'),
 ]
 
@@ -22,7 +22,7 @@ const config = {
   context: __dirname,
   entry: ['./main.js'],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '...'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   output: {
     filename: '[name].js',
@@ -56,7 +56,7 @@ const config = {
   },
   plugins: [
     new ESLintPlugin({
-      extensions: ['js', 'jsx'],
+      extensions: ['js', 'jsx', 'ts', 'tsx'],
       failOnError: true,
       failOnWarning: true,
     }),
