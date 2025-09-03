@@ -1,34 +1,52 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
-import { withStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../services/bargraph.js'
 
-const styles = (theme) => ({
-  circle: {
+const PREFIX = 'BarGraph'
+
+const classes = {
+  circle: `${PREFIX}-circle`,
+  container: `${PREFIX}-container`,
+  root: `${PREFIX}-root`,
+  svg: `${PREFIX}-svg`,
+  circleRoot: `${PREFIX}-circleRoot`,
+}
+
+const Root = styled('div')((
+  {
+    theme,
+  },
+) => ({
+  [`& .${classes.circle}`]: {
     r: 5,
   },
-  container: {
+
+  [`& .${classes.container}`]: {
     overflowX: 'scroll',
   },
-  root: {
+
+  [`& .${classes.root}`]: {
     width: '100%',
   },
-  svg: {
+
+  [`& .${classes.svg}`]: {
     fontFamily: theme?.typography?.fontFamily,
     height: '73vh',
     minWidth: '700px',
     width: '100%',
   },
-  circleRoot: {
+
+  [`& .${classes.circleRoot}`]: {
     left: '45%',
     position: 'absolute',
     top: '50%',
   },
-})
+}))
 
-const BarGraph = ({ graphData, classes }) => {
+const BarGraph = ({ graphData }) => {
   const { sets, colors, loading, xAxis, xAxisLabel, yAxis, yAxisLabel } =
     graphData
 
@@ -56,7 +74,7 @@ const BarGraph = ({ graphData, classes }) => {
   }, [graphData])
 
   return (
-    <div>
+    <Root>
       <Grid container className={classes.container}>
         <Grid size={12} style={{ height: '75vh' }}>
           {loading === 'pending' ? (
@@ -70,7 +88,7 @@ const BarGraph = ({ graphData, classes }) => {
           )}
         </Grid>
       </Grid>
-    </div>
+    </Root>
   )
 }
 
@@ -79,4 +97,4 @@ BarGraph.propTypes = {
   graphData: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(BarGraph)
+export default BarGraph
