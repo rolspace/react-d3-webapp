@@ -1,5 +1,10 @@
 import * as d3 from 'd3'
-import _ from 'lodash'
+
+const get = (obj, path) => {
+  return path
+    .split('.')
+    .reduce((acc, part) => (acc && acc[part] !== 'undefined' ? acc[part] : undefined), obj)
+}
 
 const margins = { top: 40, right: 40, bottom: 40, left: 40 }
 const xLabelMargin = 35
@@ -20,7 +25,7 @@ const renderBarGraphSet = (graphInfo, set, index) => {
     .attr(
       'x',
       (d) =>
-        xScales[index](_.get(d, xAxis)) +
+        xScales[index](get(d, xAxis)) +
         (index !== 0 ? xScales[index].bandwidth() / 2 : 0),
     )
     .attr(
@@ -29,8 +34,8 @@ const renderBarGraphSet = (graphInfo, set, index) => {
         ? xScales[index].bandwidth() / 2
         : xScales[index].bandwidth(),
     )
-    .attr('y', (d) => yScale(_.get(d, yAxis)))
-    .attr('height', (d) => height - yScale(_.get(d, yAxis)))
+    .attr('y', (d) => yScale(get(d, yAxis)))
+    .attr('height', (d) => height - yScale(get(d, yAxis)))
 }
 
 export const renderBarGraph = (node, data) => {
@@ -46,7 +51,7 @@ export const renderBarGraph = (node, data) => {
     const width = data.width - margins.right - margins.left
 
     const xScales = data.sets.map((set) => {
-      const domain = set.map((d) => _.get(d, data.xAxis))
+      const domain = set.map((d) => get(d, data.xAxis))
       return d3
         .scaleBand()
         .domain(domain)
@@ -55,7 +60,7 @@ export const renderBarGraph = (node, data) => {
     })
 
     const yMax = Math.max(
-      ...data.sets.map((set) => d3.max(set, (d) => _.get(d, data.yAxis))),
+      ...data.sets.map((set) => d3.max(set, (d) => get(d, data.yAxis))),
     )
     const yTrueMax = yMax % 10 === 0 ? yMax : yMax + (10 - (yMax % 10))
     const yScale = d3
