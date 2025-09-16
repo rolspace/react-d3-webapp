@@ -5,7 +5,7 @@ import PrivateRoute from '../features/user/PrivateRoute.jsx'
 import GraphPage from '../pages/GraphPage.jsx'
 import HomePage from '../pages/HomePage.jsx'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes.jsx'
-import BarGraphChangedFiles from './BarGraphChangedFiles.jsx'
+import BarGraphChangedFiles from './BarGraphChangedFiles'
 
 const options = {
   xAxis: 'label',
