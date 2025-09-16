@@ -1,3 +1,5 @@
+import { cloneDeep } from './object'
+
 export enum RangeTypes {
   LOW = 'low',
   HIGH = 'high',
@@ -8,6 +10,10 @@ export interface RangeItem {
   max: number;
   count: number;
   label: string;
+}
+
+type CollectionItem = {
+  node: Record<string, any>;
 }
 
 const lowRange: RangeItem[] = [
@@ -34,13 +40,6 @@ const highRange: RangeItem[] = [
   { min: 1500, max: 10000, count: 0, label: '1500+' },
 ]
 
-// TODO: this is very suspect, should be replaced with a more robust type
-type CollectionItem = {
-  node: Record<string, any>;
-}
-
-type DataItem = Record<string, number>;
-
 const assignToRange = (
   range: RangeItem[],
   property: string,
@@ -58,19 +57,13 @@ const assignToRange = (
   return range
 }
 
-// Simple deep clone for arrays/objects (sufficient for this file's use)
-const deepClone = <T>(obj: T): T => {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-
 const createRange = (
   rangeType: RangeTypes,
   collection: CollectionItem[] | undefined,
   property: string
 ): RangeItem[] => {
 
-  const startRange = deepClone(
+  const startRange = cloneDeep(
     rangeType === RangeTypes.LOW ? lowRange : highRange
   )
 
@@ -88,7 +81,7 @@ const createRange = (
 
 // TODO: change to getLowRange
 export const createLowRange = (
-  collection: CollectionItem[] | undefined,
+  collection: CollectionItem[],
   property: string
 ): RangeItem[] => {
   const group = createRange(RangeTypes.LOW, collection, property)
@@ -97,7 +90,7 @@ export const createLowRange = (
 
 // TODO: change to getHighRange
 export const createHighRange = (
-  collection: CollectionItem[] | undefined,
+  collection: CollectionItem[],
   property: string
 ): RangeItem[] => {
   const group = createRange(RangeTypes.HIGH, collection, property)

@@ -1,9 +1,9 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/material/styles'
-import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
-import { renderBarGraph } from '../services/bargraph.js'
+import { styled, Theme } from '@mui/material/styles'
+import { FC, useEffect, useRef } from 'react'
+import { renderBarGraph } from '../services/barGraph'
+import { BarGraphDataSets } from '../types/barGraph.types'
 
 const PREFIX = 'BarGraph'
 
@@ -15,11 +15,7 @@ const classes = {
   circleRoot: `${PREFIX}-circleRoot`,
 }
 
-const Root = styled('div')((
-  {
-    theme,
-  },
-) => ({
+const Root = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   [`& .${classes.circle}`]: {
     r: 5,
   },
@@ -46,26 +42,31 @@ const Root = styled('div')((
   },
 }))
 
-const BarGraph = ({ graphData }) => {
+interface BarGraphProps {
+  graphData: BarGraphDataSets;
+}
+
+const BarGraph: FC<BarGraphProps> = ({ graphData }) => {
   const { sets, colors, loading, xAxis, xAxisLabel, yAxis, yAxisLabel } =
     graphData
 
-  const svgRef = useRef(null)
+  const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
     const renderGraph = () => {
-      const { current: node } = svgRef
+      const { current: svgElement } = svgRef
 
-      if (node && sets) {
-        renderBarGraph(node, {
+      if (svgElement && sets) {
+        renderBarGraph(svgElement, {
           sets,
-          colors,
           xAxis,
-          xAxisLabel,
           yAxis,
-          yAxisLabel,
-          height: 500,
-          width: 800,
+        }, {
+            colors,
+            xAxisLabel,
+            yAxisLabel,
+            height: 500,
+            width: 800,
         })
       }
     }
@@ -90,11 +91,6 @@ const BarGraph = ({ graphData }) => {
       </Grid>
     </Root>
   )
-}
-
-BarGraph.propTypes = {
-  classes: PropTypes.object.isRequired,
-  graphData: PropTypes.object.isRequired,
 }
 
 export default BarGraph
