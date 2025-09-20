@@ -4,8 +4,6 @@ import TextField from '@mui/material/TextField'
 import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { repoChanged } from './repoSlice.js'
 
 const styles = {
   container: {
@@ -18,8 +16,6 @@ const styles = {
 }
 
 const RepoForm = ({ classes }) => {
-  const { owner, repository, error } = useSelector((state) => state.repo)
-  const { token } = useSelector((state) => state.user)
 
   const [ownerValue, setOwnerValue] = useState(owner)
   const [ownerValueChanged, setOwnerValueChanged] = useState(false)
@@ -27,13 +23,10 @@ const RepoForm = ({ classes }) => {
   const [repositoryValue, setRepositoryValue] = useState(repository)
   const [repositoryValueChanged, setRepositoryValueChanged] = useState(false)
 
-  const dispatch = useDispatch()
-
   const handleSubmit = (event) => {
     event.preventDefault()
 
     if (token !== '') {
-      dispatch(repoChanged({ ownerValue, repositoryValue }))
     }
 
     setOwnerValueChanged(false)

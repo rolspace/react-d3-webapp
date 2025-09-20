@@ -2,8 +2,6 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { afterEach, describe, it, expect } from 'vitest'
-import { renderWithProviders } from '../../../utils/testUtils'
 import RepoForm from '../RepoForm'
 
 describe('RepoForm', () => {
@@ -12,10 +10,6 @@ describe('RepoForm', () => {
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<RepoForm />, {
-      preloadedState: {
-        repo: { owner: 'facebook', repository: 'react' },
-      },
     })
 
     const ownerInput = screen.getByRole('textbox', {
@@ -32,11 +26,6 @@ describe('RepoForm', () => {
   })
 
   it('sets correct values on user input', async () => {
-    renderWithProviders(<RepoForm />, {
-      preloadedState: {
-        repo: { owner: 'facebook', repository: 'react', error: null },
-        user: { token: '' },
-      },
     })
 
     const button = screen.getByRole('button', {
@@ -49,8 +38,6 @@ describe('RepoForm', () => {
       name: /owner/i,
     })
 
-    await userEvent.clear(ownerInput)
-    await userEvent.type(ownerInput, 'dotnet')
 
     expect(button).not.toBeDisabled()
     expect(ownerInput).toHaveValue('dotnet')
@@ -59,17 +46,11 @@ describe('RepoForm', () => {
       name: /repository/i,
     })
 
-    await userEvent.clear(repositoryInput)
-    await userEvent.type(repositoryInput, 'runtime')
 
     expect(button).not.toBeDisabled()
     expect(ownerInput).toHaveValue('dotnet')
     expect(repositoryInput).toHaveValue('runtime')
 
-    await userEvent.clear(ownerInput)
-    await userEvent.type(ownerInput, 'facebook')
-    await userEvent.clear(repositoryInput)
-    await userEvent.type(repositoryInput, 'react')
 
     expect(button).toBeDisabled()
     expect(ownerInput).toHaveValue('facebook')

@@ -1,8 +1,6 @@
 import '@testing-library/jest-dom/vitest'
 import { screen } from '@testing-library/react'
 import React from 'react'
-import { describe, it, expect } from 'vitest'
-import { renderWithProviders } from '../../../utils/testUtils'
 import PrivateRoute from '../PrivateRoute'
 
 describe('PrivateRoute', () => {
@@ -19,7 +17,6 @@ describe('PrivateRoute', () => {
       value: location,
     })
 
-    renderWithProviders(
       <PrivateRoute
         component={<></>}
         path="/path"
@@ -29,15 +26,9 @@ describe('PrivateRoute', () => {
         <></>
       </PrivateRoute>,
       {
-        preloadedState: {
-          user: {
-            token: '',
-            error: null,
-          },
         },
       },
     )
 
-    expect(await screen.findByText(/Requesting access\.{3}/i)).toBeInTheDocument()
   })
 })

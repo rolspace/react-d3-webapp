@@ -3,16 +3,8 @@ import AlertTitle from '@mui/material/AlertTitle'
 import Grid from '@mui/material/Grid'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchRepo } from './repoSlice.js'
 
 const RepoCommits = ({ graphComponent, options }) => {
-  const dispatch = useDispatch()
-
-  const { owner, repository, commits, loading, fulfilled, error } = useSelector(
-    (state) => state.repo,
-  )
-  const { token } = useSelector((state) => state.user)
 
   useEffect(() => {
     if (
@@ -21,9 +13,7 @@ const RepoCommits = ({ graphComponent, options }) => {
       fulfilled === false &&
       error === null
     ) {
-      dispatch(fetchRepo({ owner, repository, token }))
     }
-  }, [dispatch, owner, repository, token, fulfilled])
 
   const GraphComponent = graphComponent
 

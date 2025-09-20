@@ -3,10 +3,8 @@ import { cleanup, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import React from 'react'
-import { afterAll, afterEach, beforeAll, describe, it, expect } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
-import { renderWithProviders } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
 const handlers = [
@@ -75,7 +73,6 @@ describe('RepoCommits', () => {
   it('fetches repo data and renders adds vs. deletes graph', async () => {
     process.env.API_URL = 'http://localhost'
 
-    const { container } = renderWithProviders(
       <RepoCommits
         graphComponent={BarGraphAddsDeletes}
         options={{
@@ -84,21 +81,6 @@ describe('RepoCommits', () => {
         }}
       />,
       {
-        preloadedState: {
-          user: {
-            token: 'AbcDeF123456',
-          },
-          repo: {
-            owner: 'facebook',
-            name: 'react',
-            commits: {
-              changedFiles: [],
-              linesAdded: [],
-              linesDeleted: [],
-            },
-            loading: 'idle',
-            fulfilled: false,
-            error: null,
           },
         },
       },
@@ -115,7 +97,6 @@ describe('RepoCommits', () => {
   it('fetches repo data and renders changed files graph', async () => {
     process.env.API_URL = 'http://localhost'
 
-    const { container } = renderWithProviders(
       <RepoCommits
         graphComponent={BarGraphChangedFiles}
         options={{
@@ -124,22 +105,6 @@ describe('RepoCommits', () => {
         }}
       />,
       {
-        preloadedState: {
-          user: {
-            token: 'AbcDeF123456',
-            error: null,
-          },
-          repo: {
-            owner: 'facebook',
-            name: 'react',
-            commits: {
-              changedFiles: [],
-              linesAdded: [],
-              linesDeleted: [],
-            },
-            loading: 'idle',
-            fulfilled: false,
-            error: null,
           },
         },
       },

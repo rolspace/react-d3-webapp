@@ -6,8 +6,6 @@ import {
 import 'core-js/stable'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-import store from './app/store.js'
 import App from './components/App.jsx'
 
 const theme = createTheme({
@@ -45,11 +43,4 @@ const container = document.getElementById('container')
 const root = createRoot(container)
 
 root.render(
-  <Provider store={store}>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </StyledEngineProvider>
-  </Provider>,
 )
