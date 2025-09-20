@@ -43,4 +43,9 @@ const container = document.getElementById('container')
 const root = createRoot(container)
 
 root.render(
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </StyledEngineProvider>,
 )

@@ -3,8 +3,10 @@ import { cleanup, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import React from 'react'
+import { afterAll, afterEach, beforeAll, describe, it, expect, beforeEach } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
+import { renderWithStores, resetStores } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
 const handlers = [
@@ -65,6 +67,10 @@ afterAll(() => server.close())
 describe('RepoCommits', () => {
   beforeAll(() => server.listen())
 
+  beforeEach(() => {
+    resetStores()
+  })
+
   afterEach(() => {
     server.resetHandlers()
     cleanup()
@@ -73,6 +79,7 @@ describe('RepoCommits', () => {
   it('fetches repo data and renders adds vs. deletes graph', async () => {
     process.env.API_URL = 'http://localhost'
 
+    const { container } = renderWithStores(
       <RepoCommits
         graphComponent={BarGraphAddsDeletes}
         options={{
@@ -81,7 +88,20 @@ describe('RepoCommits', () => {
         }}
       />,
       {
+        userInitialState: {
+          token: 'AbcDeF123456',
+        },
+        repoInitialState: {
+          owner: 'facebook',
+          repository: 'react',
+          commits: {
+            changedFiles: [],
+            linesAdded: [],
+            linesDeleted: [],
           },
+          loading: 'idle',
+          fulfilled: false,
+          error: null,
         },
       },
     )
@@ -97,6 +117,7 @@ describe('RepoCommits', () => {
   it('fetches repo data and renders changed files graph', async () => {
     process.env.API_URL = 'http://localhost'
 
+    const { container } = renderWithStores(
       <RepoCommits
         graphComponent={BarGraphChangedFiles}
         options={{
@@ -105,7 +126,21 @@ describe('RepoCommits', () => {
         }}
       />,
       {
+        userInitialState: {
+          token: 'AbcDeF123456',
+          error: null,
+        },
+        repoInitialState: {
+          owner: 'facebook',
+          repository: 'react',
+          commits: {
+            changedFiles: [],
+            linesAdded: [],
+            linesDeleted: [],
           },
+          loading: 'idle',
+          fulfilled: false,
+          error: null,
         },
       },
     )

@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField'
 import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { useRepoStore } from '../../stores/repoStore'
+import { useUserStore } from '../../stores/userStore'
 
 const styles = {
   container: {
@@ -16,6 +18,11 @@ const styles = {
 }
 
 const RepoForm = ({ classes }) => {
+  const owner = useRepoStore((state) => state.owner)
+  const repository = useRepoStore((state) => state.repository)
+  const error = useRepoStore((state) => state.error)
+  const token = useUserStore((state) => state.token)
+  const setRepo = useRepoStore((state) => state.setRepo)
 
   const [ownerValue, setOwnerValue] = useState(owner)
   const [ownerValueChanged, setOwnerValueChanged] = useState(false)
@@ -27,6 +34,7 @@ const RepoForm = ({ classes }) => {
     event.preventDefault()
 
     if (token !== '') {
+      setRepo({ ownerValue, repositoryValue })
     }
 
     setOwnerValueChanged(false)
