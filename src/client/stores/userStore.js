@@ -19,19 +19,16 @@ export const useUserStore = create((set, get) => ({
         }),
       })
 
-      const data = await response.json()
-
       if (response.ok) {
-        set({ token: data.access_token, error: null })
+        const { accessToken } = await response.json()
+        set({ token: accessToken, error: null })
       } else {
-        set({ token: '', error: data })
+        const { statusText } = response
+        set({ token: '', error: statusText })
       }
-
-      return data
     } catch (error) {
-      const errorPayload = { message: error.message }
-      set({ token: '', error: errorPayload })
-      throw errorPayload
+      set({ token: '', error })
+      throw error
     }
   },
 

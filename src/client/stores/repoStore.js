@@ -61,16 +61,14 @@ export const useRepoStore = create((set, get) => ({
       if (response.ok) {
         set({
           commits: {
-            changedFiles: createLowRange(result.data, 'changedFiles'),
-            linesAdded: createHighRange(result.data, 'additions'),
-            linesDeleted: createHighRange(result.data, 'deletions'),
+            changedFiles: createLowRange(result, 'changedFiles'),
+            linesAdded: createHighRange(result, 'additions'),
+            linesDeleted: createHighRange(result, 'deletions'),
           },
         })
       } else {
         set({ error: result })
       }
-
-      return result
     } catch (error) {
       set({
         loading: 'idle',
