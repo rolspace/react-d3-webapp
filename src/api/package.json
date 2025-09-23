@@ -17,7 +17,7 @@
     "lint": "eslint .",
     "format": "prettier -w .",
     "start": "node index.js",
-    "test": "yarn vitest",
+    "test": "yarn vitest run",
     "test-coverage": "yarn vitest run --coverage"
   },
   "dependencies": {
