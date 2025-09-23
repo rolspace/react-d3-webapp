@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { OK, UNPROCESSABLE } from '../lib/status.js'
+import { BAD_REQUEST, OK } from '../lib/status.js'
 
 export const post = async (req, res, next) => {
   try {
@@ -9,8 +9,8 @@ export const post = async (req, res, next) => {
 
     if (!code || !state) {
       return res
-        .status(UNPROCESSABLE)
-        .send({ message: 'No token sent in the request' })
+        .status(BAD_REQUEST)
+        .send({ message: `${code ? 'state' : 'code'} is required.` })
     }
 
     const response = await axios.post(
@@ -28,9 +28,9 @@ export const post = async (req, res, next) => {
       },
     )
 
-    const { data } = response
+    const { data: { access_token: accessToken } } = response
 
-    res.status(OK).send(data)
+    res.status(OK).send({ accessToken })
   } catch (error) {
     next(error)
   }

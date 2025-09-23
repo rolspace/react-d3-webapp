@@ -55,7 +55,7 @@ describe('repo module', () => {
     server.close()
   })
 
-  it('responds with a 404 status code if the name path parameter is not included', async () => {
+  it('responds with a 400 status code if the "name" path parameter is not included', async () => {
     const req = { params: { owner: 'owner' }, body: { token: 'token' } }
 
     await import(queriesModulePath)
@@ -63,10 +63,10 @@ describe('repo module', () => {
     await post(req, res, () => {})
 
     expect(res.status).toHaveBeenCalledTimes(1)
-    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.status).toHaveBeenCalledWith(400)
   })
 
-  it('responds with a 404 status code if the owner path parameter are not included', async () => {
+  it('responds with a 400 status code if the "owner" path parameter is not included', async () => {
     const req = { params: { name: 'name' }, body: { token: 'token' } }
 
     await import(queriesModulePath)
@@ -74,10 +74,10 @@ describe('repo module', () => {
     await post(req, res, () => {})
 
     expect(res.status).toHaveBeenCalledTimes(1)
-    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.status).toHaveBeenCalledWith(400)
   })
 
-  it('responds with a 422 status code if the token is not included', async () => {
+  it('responds with a 400 status code if the token is not included', async () => {
     const req = { params: { name: 'name', owner: 'owner' }, body: {} }
 
     await import(queriesModulePath)
@@ -86,7 +86,7 @@ describe('repo module', () => {
 
     expect(res.send).toHaveBeenCalledTimes(1)
     expect(res.status).toHaveBeenCalledTimes(1)
-    expect(res.status).toHaveBeenCalledWith(422)
+    expect(res.status).toHaveBeenCalledWith(400)
   })
 
   it('calls the next handler, if there is an error retrieving the external data', async () => {
