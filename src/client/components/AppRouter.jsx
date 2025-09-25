@@ -4,7 +4,7 @@ import RepoCommits from '../features/repo/RepoCommits.jsx'
 import PrivateRoute from '../features/user/PrivateRoute.jsx'
 import GraphPage from '../pages/GraphPage.jsx'
 import HomePage from '../pages/HomePage.jsx'
-import BarGraphAddsDeletes from './BarGraphAddsDeletes.jsx'
+import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
 
 const options = {
