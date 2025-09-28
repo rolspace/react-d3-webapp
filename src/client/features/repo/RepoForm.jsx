@@ -1,23 +1,30 @@
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import { withStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
 import { useUserStore } from '../../stores/userStore'
 
-const styles = {
-  container: {
+const PREFIX = 'RepoForm';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  buttonContainer: `${PREFIX}-buttonContainer`
+};
+
+const Root = styled('form')({
+  [`& .${classes.container}`]: {
     paddingTop: '60px',
   },
-  buttonContainer: {
+  [`& .${classes.buttonContainer}`]: {
     lineHeight: '72px',
     textAlign: 'center',
   },
-}
+});
 
-const RepoForm = ({ classes }) => {
+const RepoForm = () => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
   const error = useRepoStore((state) => state.error)
@@ -42,7 +49,7 @@ const RepoForm = ({ classes }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Root onSubmit={handleSubmit}>
       <Grid container className={classes.container}>
         <Grid size={{ xs: 4, sm: 5 }}>
           <TextField
@@ -94,12 +101,12 @@ const RepoForm = ({ classes }) => {
           </Button>
         </Grid>
       </Grid>
-    </form>
-  )
+    </Root>
+  );
 }
 
 RepoForm.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(RepoForm)
+export default (RepoForm)
