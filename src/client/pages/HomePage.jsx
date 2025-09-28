@@ -1,22 +1,28 @@
 import Grid from '@mui/material/Grid'
-import { withStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 import GraphList from '../components/GraphList'
 
-const styles = {
-  container: {
-    paddingTop: '80px',
-  },
+const PREFIX = 'HomePage'
+
+const classes = {
+  container: `${PREFIX}-container`,
 }
 
-const HomePage = ({ classes }) => {
+const Root = styled(Grid)(() => ({
+  [`&.${classes.container}`]: {
+    paddingTop: '80px',
+  },
+}))
+
+const HomePage = () => {
   return (
-    <Grid container className={classes.container} justifyContent="center">
+    <Root container className={classes.container} justifyContent="center">
       <Grid size={{ xs: 12, sm: 6 }}>
         <GraphList />
       </Grid>
-    </Grid>
+    </Root>
   )
 }
 
@@ -24,6 +30,4 @@ HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export { HomePage }
-
-export default withStyles(styles)(HomePage)
+export default HomePage
