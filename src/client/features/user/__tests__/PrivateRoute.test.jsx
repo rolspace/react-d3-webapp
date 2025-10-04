@@ -1,24 +1,39 @@
 import '@testing-library/jest-dom/vitest'
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
+import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
 import React from 'react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { renderWithStores, resetStores } from '../../../utils/testUtils'
 import PrivateRoute from '../PrivateRoute'
 
+const handlers = [
+  http.post(/\/api\/token\//, () => {
+    return HttpResponse.json({
+      accessToken: 'mock-token',
+    })
+  }),
+]
+
+const server = setupServer(...handlers)
+
 describe('PrivateRoute', () => {
+  beforeAll(() => server.listen())
+
+  afterAll(() => server.close())
+
   beforeEach(() => {
+    vi.spyOn(window.history, 'replaceState').mockImplementation(() => {})
+
     resetStores()
-    // Mock fetch
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ access_token: 'mock-token' }),
-      }),
-    )
+  })
+
+  afterEach(() => {
+    server.resetHandlers()
+    cleanup()
   })
 
   it('renders content correctly when "code" and "state" are provided', async () => {
-    // Set environment variable for API URL
     process.env.API_URL = 'http://localhost'
 
     const searchValue = '?code=code&state=state'
@@ -40,7 +55,7 @@ describe('PrivateRoute', () => {
         pathname="/path"
         search={searchValue}
       >
-        <></>
+        <div>child</div>
       </PrivateRoute>,
       {
         userInitialState: {
@@ -50,6 +65,6 @@ describe('PrivateRoute', () => {
       },
     )
 
-    expect(screen.getByText('Requesting access...')).toBeInTheDocument()
+    expect(await screen.findByText(/child/)).toBeInTheDocument()
   })
 })
