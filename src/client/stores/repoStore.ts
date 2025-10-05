@@ -1,7 +1,31 @@
 import { create } from 'zustand'
-import { createHighRange, createLowRange } from '../services/range.ts'
+import { createHighRange, createLowRange } from '../services/range'
 
-export const useRepoStore = create((set, get) => ({
+interface CommitData {
+  changedFiles: any[]
+  linesAdded: any[]
+  linesDeleted: any[]
+}
+
+interface RepoState {
+  owner: string
+  repository: string
+  commits: CommitData
+  loading: 'idle' | 'pending'
+  fulfilled: boolean
+  error: any | null
+}
+
+interface RepoActions {
+  setRepo: ({ ownerValue, repositoryValue }: { ownerValue: string; repositoryValue: string }) => void
+  fetchRepo: ({ owner, repository, token }: { owner: string; repository: string; token: string }) => Promise<void>
+  clearError: () => void
+  resetRepo: () => void
+}
+
+type RepoStore = RepoState & RepoActions
+
+export const useRepoStore = create<RepoStore>((set, get) => ({
   owner: 'facebook',
   repository: 'react',
   commits: {
