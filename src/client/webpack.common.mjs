@@ -10,11 +10,12 @@ const __dirname = dirname(__filename)
 const isVerbose =
   process.argv.includes('--verbose') || process.argv.includes('-v')
 const include = [
-  resolve(__dirname, './app'),
   resolve(__dirname, './components'),
   resolve(__dirname, './features'),
   resolve(__dirname, './pages'),
   resolve(__dirname, './services'),
+  resolve(__dirname, './store'),
+  resolve(__dirname, './types'),
   resolve(__dirname, './main.js'),
 ]
 

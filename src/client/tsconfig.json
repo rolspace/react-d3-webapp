@@ -17,6 +17,6 @@
     "isolatedModules": true,
     "noEmit": false,
   },
-  "include": ["./app", "./components", "./features", "./pages", "./services", "./utils", "main.js"],
+  "include": ["./components", "./features", "./pages", "./services", "./stores", "./types", "./utils", "main.js"],
   "exclude": ["node_modules", "coverage"]
 }
