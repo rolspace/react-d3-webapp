@@ -1,12 +1,15 @@
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Grid from '@mui/material/Grid'
-import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, ComponentType } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
 import { useUserStore } from '../../stores/userStore'
 
-const RepoCommits = ({ graphComponent, options }) => {
+interface RepoCommitsProps {
+  graphComponent: ComponentType<any>
+}
+
+const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
   const commits = useRepoStore((state) => state.commits)
@@ -48,12 +51,7 @@ const RepoCommits = ({ graphComponent, options }) => {
     )
   }
 
-  return <GraphComponent datasource={commits} loading={loading} {...options} />
-}
-
-RepoCommits.propTypes = {
-  graphComponent: PropTypes.elementType.isRequired,
-  options: PropTypes.object.isRequired,
+  return <GraphComponent datasource={commits} loading={loading} />
 }
 
 export default RepoCommits

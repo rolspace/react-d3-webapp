@@ -3,7 +3,7 @@ import { cleanup, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import React from 'react'
-import { afterAll, afterEach, beforeAll, describe, it, expect, beforeEach } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
 import { renderWithStores, resetStores } from '../../../utils/testUtils'
@@ -62,10 +62,10 @@ const handlers = [
 
 const server = setupServer(...handlers)
 
-afterAll(() => server.close())
-
 describe('RepoCommits', () => {
   beforeAll(() => server.listen())
+
+  afterAll(() => server.close())
 
   beforeEach(() => {
     resetStores()
