@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React from 'react'
 import { BarGraphDataItem } from '../types/barGraph.types'
 import BarGraph from './BarGraph'
 
@@ -10,11 +10,9 @@ interface Datasource {
 interface BarGraphAddsDeletesProps {
   datasource: Datasource
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-  xAxis: string
-  yAxis: string
 }
 
-const BarGraphAddsDeletes: FC<BarGraphAddsDeletesProps> = ({ datasource, loading, xAxis, yAxis }) => {
+const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, loading }) => {
   if (!datasource) {
     return null
   }
@@ -27,9 +25,7 @@ const BarGraphAddsDeletes: FC<BarGraphAddsDeletesProps> = ({ datasource, loading
         sets: [linesAdded, linesDeleted],
         colors: ['#2da44e', '#cf222e'],
         loading,
-        xAxis,
         xAxisLabel: 'Code Lines',
-        yAxis,
         yAxisLabel: 'Total Commits',
       }}
     />

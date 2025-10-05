@@ -6,12 +6,6 @@ import Typography from '@mui/material/Typography'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-interface CustomCardProps {
-  description: string
-  title: string
-  to: string
-}
-
 const PREFIX = 'Card'
 
 const classes = {
@@ -21,7 +15,7 @@ const classes = {
   card_subtitle: `${PREFIX}-card_subtitle`,
 }
 
-const StyledButtonBase = styled(ButtonBase)({
+const Root = styled(ButtonBase)({
   [`& .${classes.card}`]: {
     '&:hover': {
       backgroundColor: '#eee',
@@ -43,10 +37,15 @@ const StyledButtonBase = styled(ButtonBase)({
   },
 })
 
-const CustomCard = (props: CustomCardProps) => {
-  const { description, title, to } = props
+interface CustomCardProps {
+  description: string
+  title: string
+  to: string
+}
+
+const CustomCard: React.FC<CustomCardProps> = ({ description, title, to }) => {
   return (
-    <StyledButtonBase className={classes.card_button} disableRipple>
+    <Root className={classes.card_button} disableRipple>
       <Link className={classes.card_anchor} to={to}>
         <Card className={classes.card}>
           <CardContent>
@@ -64,7 +63,7 @@ const CustomCard = (props: CustomCardProps) => {
           </CardContent>
         </Card>
       </Link>
-    </StyledButtonBase>
+    </Root>
   )
 }
 

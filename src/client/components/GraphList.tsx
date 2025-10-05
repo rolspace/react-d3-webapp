@@ -1,9 +1,9 @@
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import React, { FC } from 'react'
+import React from 'react'
 import CustomCard from './Card'
 
-const GraphList: FC = () => {
+const GraphList: React.FC = () => {
   return (
     <ImageList cols={2} gap={16} rowHeight="auto">
       <ImageListItem>

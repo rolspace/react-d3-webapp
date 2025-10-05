@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React from 'react'
 import { BarGraphDataItem } from '../types/barGraph.types'
 import BarGraph from './BarGraph'
 
@@ -13,7 +13,7 @@ interface BarGraphChangedFilesProps {
   yAxis: string
 }
 
-const BarGraphChangedFiles: FC<BarGraphChangedFilesProps> = ({
+const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
   datasource,
   loading,
   xAxis,
@@ -27,9 +27,7 @@ const BarGraphChangedFiles: FC<BarGraphChangedFilesProps> = ({
         sets: [changedFiles],
         colors: ['#00bcd4'],
         loading,
-        xAxis,
         xAxisLabel: 'Changed Files',
-        yAxis,
         yAxisLabel: 'Total Commits',
       }}
     />

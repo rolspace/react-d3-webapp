@@ -1,7 +1,7 @@
 import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
 import { styled, Theme } from '@mui/material/styles'
-import { FC, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../services/barGraph'
 import { BarGraphDataSets } from '../types/barGraph.types'
 
@@ -46,8 +46,8 @@ interface BarGraphProps {
   graphData: BarGraphDataSets;
 }
 
-const BarGraph: FC<BarGraphProps> = ({ graphData }) => {
-  const { sets, colors, loading, xAxis, xAxisLabel, yAxis, yAxisLabel } =
+const BarGraph: React.FC<BarGraphProps> = ({ graphData }) => {
+  const { sets, colors, loading, xAxisLabel, yAxisLabel } =
     graphData
 
   const svgRef = useRef<SVGSVGElement>(null)
@@ -58,15 +58,13 @@ const BarGraph: FC<BarGraphProps> = ({ graphData }) => {
 
       if (svgElement && sets) {
         renderBarGraph(svgElement, {
-          sets,
-          xAxis,
-          yAxis,
+          sets
         }, {
-            colors,
-            xAxisLabel,
-            yAxisLabel,
-            height: 500,
-            width: 800,
+          colors,
+          xAxisLabel,
+          yAxisLabel,
+          height: 500,
+          width: 800,
         })
       }
     }
