@@ -13,12 +13,16 @@ const margins: Margins = { top: 40, right: 40, bottom: 40, left: 40 }
 const xLabelMargin = 35
 const yLabelMargin = 50
 
+const xAxis = 'label'
+const yAxis = 'count'
+
 const renderBarGraphSet = (
     node: d3.Selection<SVGGElement, unknown, null, undefined>,
     set: BarGraphDataItem[],
     setIndex: number,
     setProperties: BarGraphDataSetProperties): void => {
-  const { colors, height, setCount, xAxis, xScales, yAxis, yScale,  } =
+
+  const { colors, height, setCount, xScale, yScale,  } =
     setProperties
 
   node
@@ -32,14 +36,14 @@ const renderBarGraphSet = (
     .attr(
       'x',
       (d: BarGraphDataItem) =>
-        (xScales[setIndex](get(d, xAxis)) ?? 0) +
-        (setIndex !== 0 ? xScales[setIndex].bandwidth() / 2 : 0),
+        (xScale[setIndex](get(d, xAxis)) ?? 0) +
+        (setIndex !== 0 ? xScale[setIndex].bandwidth() / 2 : 0),
     )
     .attr(
       'width',
       setCount > 1
-        ? xScales[setIndex].bandwidth() / 2
-        : xScales[setIndex].bandwidth(),
+        ? xScale[setIndex].bandwidth() / 2
+        : xScale[setIndex].bandwidth(),
     )
     .attr('y', (d: BarGraphDataItem) => yScale(get(d, yAxis)))
     .attr('height', (d: BarGraphDataItem) => height - yScale(get(d, yAxis)))
@@ -57,8 +61,8 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
     const height = style.height - margins.top - margins.bottom
     const width = style.width - margins.right - margins.left
 
-    const xScales = data.sets.map((set) => {
-      const domain = set.map((d) => get(d, data.xAxis))
+    const xScale = data.sets.map((set) => {
+      const domain = set.map((d) => get(d, xAxis))
       return d3
         .scaleBand()
         .domain(domain)
@@ -68,7 +72,7 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
 
     const yMax = Math.max(
       ...data.sets.map((set) => 
-        d3.max(set, (d) => get(d, data.yAxis)) ?? 0
+        d3.max(set, (d) => get(d, yAxis)) ?? 0
       ),
     )
 
@@ -83,7 +87,7 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
       .append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(xScales[0]))
+      .call(d3.axisBottom(xScale[0]))
 
     innerNode
       .append('text')
@@ -111,9 +115,7 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
       height,
       setCount: data.sets.length,
       colors: style.colors,
-      xAxis: data.xAxis,
-      yAxis: data.yAxis,
-      xScales,
+      xScale,
       yScale,
     }
 

@@ -5,9 +5,7 @@ export interface BarGraphDataSets {
   sets: BarGraphDataItem[][];
   colors: string[];
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
-  xAxis: string;
   xAxisLabel: string;
-  yAxis: string;
   yAxisLabel: string;
 }
 
@@ -20,8 +18,6 @@ export interface BarGraphDataItem {
 
 export interface BarGraphData {
   sets: Array<BarGraphDataItem[]>;
-  xAxis: string;
-  yAxis: string;
 }
 
 export interface BarGraphStyle {
@@ -36,8 +32,6 @@ export interface BarGraphDataSetProperties {
     colors: string[];
     height: number;
     setCount: number;
-    xAxis: string;
-    xScales: ScaleBand<string>[];
-    yAxis: string;
+    xScale: ScaleBand<string>[];
     yScale: ScaleLinear<number, number, never>;
 }

@@ -5,6 +5,7 @@ export enum RangeTypes {
   HIGH = 'high',
 }
 
+// Rename to DataItem
 export interface RangeItem {
   min: number;
   max: number;
@@ -12,10 +13,12 @@ export interface RangeItem {
   label: string;
 }
 
+// Change type by removing node and using a generic
 type CollectionItem = {
   node: Record<string, any>;
 }
 
+// Rename to shortRange?
 const lowRange: RangeItem[] = [
   { min: 1, max: 1, count: 0, label: '1' },
   { min: 2, max: 2, count: 0, label: '2' },
