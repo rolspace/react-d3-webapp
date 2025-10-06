@@ -4,14 +4,16 @@ import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { withStyles } from '@mui/styles'
-import PropTypes from 'prop-types'
+import { Theme } from '@mui/material/styles'
+import { WithStyles, withStyles } from '@mui/styles'
 import React, { useState } from 'react'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
-import AppDrawer from './AppDrawer.jsx'
-import AppRouter from './AppRouter.jsx'
+import AppDrawer from './AppDrawer'
+import AppRouter from './AppRouter'
 
-const styles = (theme) => ({
+
+
+const styles = (theme: Theme) => ({
   container: {
     [theme?.breakpoints?.up('md')]: {
       paddingLeft: '80px',
@@ -28,7 +30,9 @@ const styles = (theme) => ({
   },
 })
 
-const App = ({ classes }) => {
+interface AppProps extends WithStyles<typeof styles> {}
+
+const App: React.FC<AppProps> = ({ classes }) => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleDrawer = () => {
@@ -65,10 +69,6 @@ const App = ({ classes }) => {
       </div>
     </Router>
   )
-}
-
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
 }
 
 export { App }
