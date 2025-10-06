@@ -1,18 +1,17 @@
 import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
 import { useUserStore } from '../../stores/userStore'
 
-const PREFIX = 'RepoForm';
+const PREFIX = 'RepoForm'
 
 const classes = {
   container: `${PREFIX}-container`,
   buttonContainer: `${PREFIX}-buttonContainer`
-};
+}
 
 const Root = styled('form')({
   [`& .${classes.container}`]: {
@@ -22,9 +21,9 @@ const Root = styled('form')({
     lineHeight: '72px',
     textAlign: 'center',
   },
-});
+})
 
-const RepoForm = () => {
+const RepoForm: React.FC = () => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
   const error = useRepoStore((state) => state.error)
@@ -37,7 +36,7 @@ const RepoForm = () => {
   const [repositoryValue, setRepositoryValue] = useState(repository)
   const [repositoryValueChanged, setRepositoryValueChanged] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (token !== '') {
@@ -102,11 +101,7 @@ const RepoForm = () => {
         </Grid>
       </Grid>
     </Root>
-  );
+  )
 }
 
-RepoForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default (RepoForm)
+export default RepoForm
