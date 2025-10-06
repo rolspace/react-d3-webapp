@@ -1,7 +1,14 @@
 import React from 'react'
-import RepoForm from '../features/repo/RepoForm.jsx'
+import RepoForm from '../features/repo/RepoForm'
 
-const GraphPage = (DatasourceComponent, GraphComponent, options) => {
+interface GraphPageProps {
+  graphComponent: React.ComponentType<any>
+}
+
+const GraphPage = (
+  DatasourceComponent: React.FC<GraphPageProps>,
+  GraphComponent: React.FC<any>
+) => {
   return class GraphPageContainer extends React.Component {
     render() {
       return (
@@ -9,7 +16,6 @@ const GraphPage = (DatasourceComponent, GraphComponent, options) => {
           <RepoForm />
           <DatasourceComponent
             graphComponent={GraphComponent}
-            options={options}
           />
         </div>
       )
