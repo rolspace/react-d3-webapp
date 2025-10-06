@@ -3,11 +3,15 @@ import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AppDrawer = ({ onClose, open }) => {
+interface AppDrawerProps {
+  onClose: () => void
+  open: boolean
+}
+
+const AppDrawer: React.FC<AppDrawerProps> = ({ onClose, open }) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
       <Divider />
@@ -25,11 +29,6 @@ const AppDrawer = ({ onClose, open }) => {
       </List>
     </Drawer>
   )
-}
-
-AppDrawer.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
 }
 
 export default AppDrawer
