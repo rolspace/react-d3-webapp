@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
-import PropTypes from 'prop-types'
 import React from 'react'
 import GraphList from '../components/GraphList'
 
@@ -16,7 +15,7 @@ const Root = styled(Grid)(() => ({
   },
 }))
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <Root container className={classes.container} justifyContent="center">
       <Grid size={{ xs: 12, sm: 6 }}>
@@ -24,10 +23,6 @@ const HomePage = () => {
       </Grid>
     </Root>
   )
-}
-
-HomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
 }
 
 export default HomePage
