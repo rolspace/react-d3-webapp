@@ -16,12 +16,12 @@ const include = [
   resolve(__dirname, './services'),
   resolve(__dirname, './store'),
   resolve(__dirname, './types'),
-  resolve(__dirname, './main.js'),
+  resolve(__dirname, './main.tsx'),
 ]
 
 const config = {
   context: __dirname,
-  entry: ['./main.js'],
+  entry: ['./main.tsx'],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },

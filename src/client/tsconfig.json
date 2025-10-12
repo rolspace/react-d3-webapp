@@ -17,6 +17,6 @@
     "isolatedModules": true,
     "noEmit": false,
   },
-  "include": ["./components", "./features", "./pages", "./services", "./stores", "./types", "./utils", "main.js"],
+  "include": ["./components", "./features", "./pages", "./services", "./stores", "./types", "./utils", "main.tsx"],
   "exclude": ["node_modules", "coverage"]
 }
