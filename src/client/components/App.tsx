@@ -4,35 +4,40 @@ import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { Theme } from '@mui/material/styles'
-import { WithStyles, withStyles } from '@mui/styles'
+import { styled, Theme } from '@mui/material/styles'
 import React, { useState } from 'react'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 import AppDrawer from './AppDrawer'
 import AppRouter from './AppRouter'
 
+const PREFIX = 'App'
+
+const classes = {
+  container: `${PREFIX}-container`,
+  bar_anchor: `${PREFIX}-bar_anchor`,
+  bar_anchor_reset: `${PREFIX}-bar_anchor_reset`,
+  menuButton: `${PREFIX}-menuButton`,
+}
 
 
-const styles = (theme: Theme) => ({
-  container: {
+const AppRoot = styled('div')<{ theme?: Theme }>(({ theme }) => ({
+  [`& .${classes.container}`]: {
     [theme?.breakpoints?.up('md')]: {
       paddingLeft: '80px',
       paddingRight: '80px',
     },
   },
-  bar_anchor: {
+  [`& .${classes.bar_anchor}`]: {
     color: 'white',
     textDecoration: 'none',
   },
-  bar_anchor_reset: {
+  [`& .${classes.bar_anchor_reset}`]: {
     color: 'inherit',
     textDecoration: 'inherit',
-  },
-})
+  }
+}))
 
-interface AppProps extends WithStyles<typeof styles> {}
-
-const App: React.FC<AppProps> = ({ classes }) => {
+const App: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleDrawer = () => {
@@ -41,7 +46,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
 
   return (
     <Router>
-      <div>
+      <AppRoot>
         <AppBar>
           <Toolbar>
             <IconButton
@@ -66,11 +71,9 @@ const App: React.FC<AppProps> = ({ classes }) => {
             <AppRouter />
           </Grid>
         </Grid>
-      </div>
+      </AppRoot>
     </Router>
   )
 }
 
-export { App }
-
-export default withStyles(styles)(App)
+export default App
