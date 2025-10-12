@@ -1,12 +1,11 @@
 import {
   createTheme,
-  StyledEngineProvider,
   ThemeProvider,
 } from '@mui/material/styles'
 import 'core-js/stable'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './components/App.jsx'
+import App from './components/App'
 
 const theme = createTheme({
   palette: {
@@ -40,12 +39,14 @@ const theme = createTheme({
 })
 
 const container = document.getElementById('container')
+if (!container) {
+  throw new Error('Failed to find the root element')
+}
+
 const root = createRoot(container)
 
 root.render(
-  <StyledEngineProvider injectFirst>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </StyledEngineProvider>,
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>
 )
