@@ -3,8 +3,14 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import React from 'react'
 import BarGraphAddsDeletes from '../BarGraphAddsDeletes'
+import { BarGraphDataItem } from '../../types/barGraph.types'
 
-const datasource = {
+interface Datasource {
+  linesAdded: BarGraphDataItem[]
+  linesDeleted: BarGraphDataItem[]
+}
+
+const datasource: Datasource = {
   linesAdded: [
     {
       count: 1,
@@ -44,9 +50,7 @@ describe('BarGraphAddsDeletes', () => {
     render(
       <BarGraphAddsDeletes
         datasource={datasource}
-        loading="false"
-        xAxis="label"
-        yAxis="count"
+        loading="succeeded"
       />,
     )
     expect(screen.getByText(/code lines/i)).toBeInTheDocument()
@@ -56,7 +60,7 @@ describe('BarGraphAddsDeletes', () => {
   })
 
   it('does not render component if required props are missing', () => {
-    render(<BarGraphAddsDeletes />)
+    render(<BarGraphAddsDeletes datasource={{}} loading={'succeeded'} />)
     expect(screen.queryByText(/code lines/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/total commits/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/1-20/i)).not.toBeInTheDocument()
