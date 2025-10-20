@@ -1,15 +1,38 @@
-import { render } from '@testing-library/react'
-import PropTypes from 'prop-types'
+import { render, RenderOptions } from '@testing-library/react'
+import { ReactElement, ReactNode } from 'react'
 import { useUserStore } from '../stores/userStore'
 import { useRepoStore } from '../stores/repoStore'
 
+interface UserInitialState {
+  token?: string
+  error?: string | null
+}
+
+interface RepoInitialState {
+  owner?: string
+  repository?: string
+  commits?: {
+    changedFiles: any[]
+    linesAdded: any[]
+    linesDeleted: any[]
+  }
+  loading?: 'idle' | 'pending'
+  fulfilled?: boolean
+  error?: any | null
+}
+
+interface RenderWithStoresOptions extends Omit<RenderOptions, 'wrapper'> {
+  userInitialState?: UserInitialState
+  repoInitialState?: RepoInitialState
+}
+
 export function renderWithStores(
-  ui,
+  ui: ReactElement,
   {
     userInitialState = {},
     repoInitialState = {},
     ...renderOptions
-  } = {},
+  }: RenderWithStoresOptions = {},
 ) {
   // Initialize stores before rendering
   if (Object.keys(userInitialState).length > 0) {
@@ -19,12 +42,8 @@ export function renderWithStores(
     useRepoStore.setState(repoInitialState)
   }
 
-  function Wrapper({ children }) {
+  function Wrapper({ children }: { children: ReactNode }) {
     return children
-  }
-
-  Wrapper.propTypes = {
-    children: PropTypes.element.isRequired,
   }
 
   // Return an object with access to stores and all of RTL's query functions
