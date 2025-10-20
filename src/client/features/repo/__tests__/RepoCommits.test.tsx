@@ -2,7 +2,6 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
-import React from 'react'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
@@ -80,13 +79,7 @@ describe('RepoCommits', () => {
     process.env.API_URL = 'http://localhost'
 
     const { container } = renderWithStores(
-      <RepoCommits
-        graphComponent={BarGraphAddsDeletes}
-        options={{
-          xAxis: 'label',
-          yAxis: 'count',
-        }}
-      />,
+      <RepoCommits graphComponent={BarGraphAddsDeletes} />,
       {
         userInitialState: {
           token: 'AbcDeF123456',
@@ -118,13 +111,7 @@ describe('RepoCommits', () => {
     process.env.API_URL = 'http://localhost'
 
     const { container } = renderWithStores(
-      <RepoCommits
-        graphComponent={BarGraphChangedFiles}
-        options={{
-          xAxis: 'label',
-          yAxis: 'count',
-        }}
-      />,
+      <RepoCommits graphComponent={BarGraphChangedFiles} />,
       {
         userInitialState: {
           token: 'AbcDeF123456',

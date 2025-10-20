@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
 import { afterEach, describe, it, expect, beforeEach } from 'vitest'
 import { renderWithStores, resetStores } from '../../../utils/testUtils'
 import RepoForm from '../RepoForm'
