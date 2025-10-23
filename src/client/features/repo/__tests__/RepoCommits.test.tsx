@@ -10,8 +10,8 @@ import RepoCommits from '../RepoCommits'
 
 const handlers = [
   http.post(/\/api\/repo\//, () => {
-    return HttpResponse.json({
-      data: [
+    return HttpResponse.json(
+      [
         {
           node: {
             additions: 54,
@@ -54,8 +54,7 @@ const handlers = [
             },
           },
         },
-      ],
-    })
+      ])
   }),
 ]
 
