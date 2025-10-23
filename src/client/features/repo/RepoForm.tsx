@@ -40,7 +40,7 @@ const RepoForm: React.FC = () => {
     event.preventDefault()
 
     if (token !== '') {
-      setRepo({ ownerValue, repositoryValue })
+      setRepo({ owner: ownerValue, repository: repositoryValue })
     }
 
     setOwnerValueChanged(false)

@@ -8,6 +8,11 @@ interface CommitData {
   linesDeleted: DataItem[]
 }
 
+interface SetRepoParams {
+  owner: string
+  repository: string
+}
+
 interface RepoState {
   owner: string
   repository: string
@@ -18,10 +23,10 @@ interface RepoState {
 }
 
 interface RepoActions {
-  setRepo: ({ ownerValue, repositoryValue }: { ownerValue: string; repositoryValue: string }) => void
-  fetchRepo: ({ owner, repository, token }: { owner: string; repository: string; token: string }) => Promise<void>
+  setRepo: ({ owner, repository }: SetRepoParams) => void
+  fetchRepo: ({ owner, repository, token }: SetRepoParams & { token: string}) => Promise<void>
+  clearRepo: () => void
   clearError: () => void
-  resetRepo: () => void
 }
 
 type RepoStore = RepoState & RepoActions
@@ -38,10 +43,10 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
   fulfilled: false,
   error: null,
 
-  setRepo: ({ ownerValue, repositoryValue }) => {
+  setRepo: ({ owner, repository }) => {
     set({
-      owner: ownerValue,
-      repository: repositoryValue,
+      owner,
+      repository,
       loading: 'idle',
       fulfilled: false,
       error: null,
@@ -52,7 +57,6 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
       },
     })
   },
-
   fetchRepo: async ({ owner, repository, token }) => {
     try {
       set({
@@ -91,8 +95,6 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
             linesDeleted: createHighRange(result, 'deletions'),
           },
         })
-      } else {
-        set({ error: result })
       }
     } catch (error) {
       set({
@@ -108,9 +110,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
       throw error
     }
   },
-
-  clearError: () => set({ error: null }),
-  resetRepo: () =>
+  clearRepo: () =>
     set({
       owner: 'facebook',
       repository: 'react',
@@ -123,4 +123,5 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
       fulfilled: false,
       error: null,
     }),
+  clearError: () => set({ error: null }),
 }))
