@@ -4,8 +4,8 @@ interface UserState {
   token: string
   error: string | null
   fetchToken: ({ code, state }: { code: string; state: string }) => Promise<void>
-  clearError: () => void
   clearToken: () => void
+  clearError: () => void
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -39,7 +39,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       throw error
     }
   },
-
-  clearError: () => set({ error: null }),
   clearToken: () => set({ token: '', error: null }),
+  clearError: () => set({ error: null }),
 }))
