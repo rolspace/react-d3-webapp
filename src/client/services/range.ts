@@ -1,3 +1,4 @@
+import { DataItem } from '../types/graph.types';
 import { cloneDeep } from './object'
 
 export enum RangeTypes {
@@ -62,31 +63,27 @@ const assignToRange = (
 
 const createRange = (
   rangeType: RangeTypes,
-  collection: CollectionItem[] | undefined,
+  collection: CollectionItem[],
   property: string
-): RangeItem[] => {
-
-  const startRange = cloneDeep(
+): DataItem[] => {
+  const selectedRange =
     rangeType === RangeTypes.LOW ? lowRange : highRange
-  )
 
-  if (collection?.length) {
-    const updatedGroup = collection.reduce((range, value) => {
-      range = assignToRange(range, property, value)
-      return range
-    }, startRange)
+  const startRange = cloneDeep(selectedRange)
+  
+  const updatedGroup = collection.reduce((range, value) => {
+    range = assignToRange(range, property, value)
+    return range
+  }, startRange)
 
-    return updatedGroup
-  }
-
-  return startRange
+  return updatedGroup.map(({label, count}) => ({label, count}))
 }
 
 // TODO: change to getLowRange
 export const createLowRange = (
   collection: CollectionItem[],
   property: string
-): RangeItem[] => {
+): DataItem[] => {
   const group = createRange(RangeTypes.LOW, collection, property)
   return group
 }
@@ -95,7 +92,7 @@ export const createLowRange = (
 export const createHighRange = (
   collection: CollectionItem[],
   property: string
-): RangeItem[] => {
+): DataItem[] => {
   const group = createRange(RangeTypes.HIGH, collection, property)
   return group
 }

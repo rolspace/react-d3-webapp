@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 import { createHighRange, createLowRange } from '../services/range'
+import { DataItem } from '../types/graph.types'
 
 interface CommitData {
-  changedFiles: any[]
-  linesAdded: any[]
-  linesDeleted: any[]
+  changedFiles: DataItem[]
+  linesAdded: DataItem[]
+  linesDeleted: DataItem[]
 }
 
 interface RepoState {

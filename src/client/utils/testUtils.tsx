@@ -2,6 +2,7 @@ import { render, RenderOptions } from '@testing-library/react'
 import { ReactElement, ReactNode } from 'react'
 import { useUserStore } from '../stores/userStore'
 import { useRepoStore } from '../stores/repoStore'
+import { DataItem } from '../types/graph.types'
 
 interface UserInitialState {
   token?: string
@@ -12,9 +13,9 @@ interface RepoInitialState {
   owner?: string
   repository?: string
   commits?: {
-    changedFiles: any[]
-    linesAdded: any[]
-    linesDeleted: any[]
+    changedFiles: DataItem[]
+    linesAdded: DataItem[]
+    linesDeleted: DataItem[]
   }
   loading?: 'idle' | 'pending'
   fulfilled?: boolean
