@@ -1,13 +1,12 @@
 import { DataItem } from '../types/graph.types';
 import { cloneDeep } from './object'
 
-export enum RangeTypes {
+enum RangeTypes {
   LOW = 'low',
   HIGH = 'high',
 }
 
-// Rename to DataItem
-export interface RangeItem {
+interface RangeItem {
   min: number;
   max: number;
   count: number;
