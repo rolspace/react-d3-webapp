@@ -43,7 +43,7 @@ const Root = styled('div')<{ theme?: Theme }>(({ theme }) => ({
 }))
 
 interface BarGraphProps {
-  graphData: BarGraphDataSets;
+  graphData: BarGraphDataSets
 }
 
 const BarGraph: React.FC<BarGraphProps> = ({ graphData }) => {

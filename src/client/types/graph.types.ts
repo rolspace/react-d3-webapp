@@ -1,4 +1,4 @@
 export interface DataItem {
-  count: number;
-  label: string;    
+  count: number
+  label: string
 }

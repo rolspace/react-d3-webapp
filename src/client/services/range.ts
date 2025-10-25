@@ -1,4 +1,4 @@
-import { DataItem } from '../types/graph.types';
+import { DataItem } from '../types/graph.types'
 import { cloneDeep } from './object'
 
 enum RangeTypes {
@@ -7,16 +7,16 @@ enum RangeTypes {
 }
 
 interface RangeItem {
-  min: number;
-  max: number;
-  count: number;
-  label: string;
+  min: number
+  max: number
+  count: number
+  label: string
 }
 
 // Change type by removing node and using a generic
 // Rename to DataItem, remove node wrapper
 type CollectionItem = {
-  node: Record<string, any>;
+  node: Record<string, any>
 }
 
 // Rename to shortRange?
