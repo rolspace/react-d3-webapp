@@ -8,6 +8,16 @@
       "cwd": "${workspaceFolder}/src/client"
     },
     {
+      "name": "Local Client: debug",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["vitest", "run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}/src/client"
+    },
+    {
       "name": "Local API: launch",
       "command": "yarn start",
       "request": "launch",
@@ -27,16 +37,6 @@
         "package": "${workspaceFolder}/src/api/package.json",
         "localRoot": "${workspaceFolder}/src/api"
       }
-    },
-    {
-      "name": "Local Client: debug",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["vitest", "run"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "cwd": "${workspaceFolder}/src/client"
     }
   ]
 }
