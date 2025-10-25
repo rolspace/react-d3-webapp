@@ -12,7 +12,7 @@ interface RepoCommitsProps {
 const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
-  const commits = useRepoStore((state) => state.commits)
+  const commitData = useRepoStore((state) => state.commitData)
   const loading = useRepoStore((state) => state.loading)
   const fulfilled = useRepoStore((state) => state.fulfilled)
   const error = useRepoStore((state) => state.error)
@@ -51,7 +51,7 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
     )
   }
 
-  return <GraphComponent datasource={commits} loading={loading} />
+  return <GraphComponent datasource={commitData} loading={loading} />
 }
 
 export default RepoCommits

@@ -1,14 +1,9 @@
 import React from 'react'
-import { BarGraphDataItem } from '../types/barGraph.types'
+import { CommitData } from '../stores/repoStore'
 import BarGraph from './BarGraph'
 
-interface Datasource {
-  linesAdded?: BarGraphDataItem[]
-  linesDeleted?: BarGraphDataItem[]
-}
-
 interface BarGraphAddsDeletesProps {
-  datasource: Datasource
+  datasource: CommitData
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 

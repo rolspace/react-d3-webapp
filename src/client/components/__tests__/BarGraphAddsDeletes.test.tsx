@@ -1,42 +1,29 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
 import React from 'react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { CommitData } from '../../stores/repoStore'
 import BarGraphAddsDeletes from '../BarGraphAddsDeletes'
-import { BarGraphDataItem } from '../../types/barGraph.types'
 
-interface Datasource {
-  linesAdded: BarGraphDataItem[]
-  linesDeleted: BarGraphDataItem[]
-}
-
-const datasource: Datasource = {
+const datasource: CommitData = {
   linesAdded: [
     {
       count: 1,
       label: '1-20',
-      max: 20,
-      min: 1,
     },
     {
       count: 2,
       label: '21-40',
-      max: 40,
-      min: 21,
     },
   ],
   linesDeleted: [
     {
       count: 3,
       label: '1-20',
-      max: 20,
-      min: 1,
     },
     {
       count: 4,
       label: '21-40',
-      max: 40,
-      min: 21,
     },
   ],
 }

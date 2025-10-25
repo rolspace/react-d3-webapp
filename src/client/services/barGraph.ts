@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import { get } from './object'
-import { BarGraphData, BarGraphDataItem, BarGraphDataSetProperties, BarGraphStyle } from '../types/barGraph.types'
+import { BarGraphData, BarGraphDataSetProperties, BarGraphStyle } from '../types/barGraph.types'
+import { DataItem } from '../types/graph.types'
 
 interface Margins {
   top: number
@@ -18,7 +19,7 @@ const yAxis = 'count'
 
 const renderBarGraphSet = (
     node: d3.Selection<SVGGElement, unknown, null, undefined>,
-    set: BarGraphDataItem[],
+    set: DataItem[],
     setIndex: number,
     setProperties: BarGraphDataSetProperties): void => {
 
@@ -35,7 +36,7 @@ const renderBarGraphSet = (
     .style('stroke', '#000')
     .attr(
       'x',
-      (d: BarGraphDataItem) =>
+      (d: DataItem) =>
         (xScale[setIndex](get(d, xAxis)) ?? 0) +
         (setIndex !== 0 ? xScale[setIndex].bandwidth() / 2 : 0),
     )
@@ -45,8 +46,8 @@ const renderBarGraphSet = (
         ? xScale[setIndex].bandwidth() / 2
         : xScale[setIndex].bandwidth(),
     )
-    .attr('y', (d: BarGraphDataItem) => yScale(get(d, yAxis)))
-    .attr('height', (d: BarGraphDataItem) => height - yScale(get(d, yAxis)))
+    .attr('y', (d: DataItem) => yScale(get(d, yAxis)))
+    .attr('height', (d: DataItem) => height - yScale(get(d, yAxis)))
 }
 
 export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, style: BarGraphStyle): void => {

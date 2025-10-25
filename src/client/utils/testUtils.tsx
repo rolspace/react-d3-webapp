@@ -64,7 +64,7 @@ export function resetStores() {
   useRepoStore.setState({
     owner: 'facebook',
     repository: 'react',
-    commits: {
+    commitData: {
       changedFiles: [],
       linesAdded: [],
       linesDeleted: [],

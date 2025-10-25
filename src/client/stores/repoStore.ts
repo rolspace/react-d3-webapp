@@ -2,39 +2,37 @@ import { create } from 'zustand'
 import { createHighRange, createLowRange } from '../services/range'
 import { DataItem } from '../types/graph.types'
 
-interface CommitData {
-  changedFiles: DataItem[]
-  linesAdded: DataItem[]
-  linesDeleted: DataItem[]
+export interface CommitData {
+  changedFiles?: DataItem[]
+  linesAdded?: DataItem[]
+  linesDeleted?: DataItem[]
 }
 
-interface SetRepoParams {
+interface RepoIdentifier {
   owner: string
   repository: string
 }
 
-interface RepoState {
-  owner: string
-  repository: string
-  commits: CommitData
+interface RepoProperties {
+  commitData: CommitData
   loading: 'idle' | 'pending'
   fulfilled: boolean
   error: any | null
 }
 
 interface RepoActions {
-  setRepo: ({ owner, repository }: SetRepoParams) => void
-  fetchRepo: ({ owner, repository, token }: SetRepoParams & { token: string}) => Promise<void>
+  setRepo: ({ owner, repository }: RepoIdentifier) => void
+  fetchRepo: ({ owner, repository, token }: RepoIdentifier & { token: string}) => Promise<void>
   clearRepo: () => void
   clearError: () => void
 }
 
-type RepoStore = RepoState & RepoActions
+type RepoStore = RepoIdentifier & RepoProperties & RepoActions
 
 export const useRepoStore = create<RepoStore>((set, get) => ({
   owner: 'facebook',
   repository: 'react',
-  commits: {
+  commitData: {
     changedFiles: [],
     linesAdded: [],
     linesDeleted: [],
@@ -43,14 +41,14 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
   fulfilled: false,
   error: null,
 
-  setRepo: ({ owner, repository }) => {
+  setRepo: ({ owner, repository }: RepoIdentifier) => {
     set({
       owner,
       repository,
       loading: 'idle',
       fulfilled: false,
       error: null,
-      commits: {
+      commitData: {
         changedFiles: [],
         linesAdded: [],
         linesDeleted: [],
@@ -63,7 +61,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
         loading: 'pending',
         fulfilled: false,
         error: null,
-        commits: {
+        commitData: {
           changedFiles: [],
           linesAdded: [],
           linesDeleted: [],
@@ -89,7 +87,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
 
       if (response.ok) {
         set({
-          commits: {
+          commitData: {
             changedFiles: createLowRange(result, 'changedFiles'),
             linesAdded: createHighRange(result, 'additions'),
             linesDeleted: createHighRange(result, 'deletions'),
@@ -101,7 +99,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
         loading: 'idle',
         fulfilled: true,
         error,
-        commits: {
+        commitData: {
           changedFiles: [],
           linesAdded: [],
           linesDeleted: [],
@@ -114,7 +112,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
     set({
       owner: 'facebook',
       repository: 'react',
-      commits: {
+      commitData: {
         changedFiles: [],
         linesAdded: [],
         linesDeleted: [],

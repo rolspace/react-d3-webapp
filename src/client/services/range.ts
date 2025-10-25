@@ -14,6 +14,7 @@ interface RangeItem {
 }
 
 // Change type by removing node and using a generic
+// Rename to DataItem, remove node wrapper
 type CollectionItem = {
   node: Record<string, any>;
 }

@@ -1,23 +1,16 @@
-import { ScaleBand, ScaleLinear } from 'd3';
+import { ScaleBand, ScaleLinear } from 'd3'
+import { DataItem } from '../types/graph.types'
 
-// TODO: change this
 export interface BarGraphDataSets {
-  sets: BarGraphDataItem[][];
+  sets: DataItem[][];
   colors: string[];
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   xAxisLabel: string;
   yAxisLabel: string;
 }
 
-export interface BarGraphDataItem {
-  min: number;
-  max: number;
-  count: number;
-  label: string;
-}
-
 export interface BarGraphData {
-  sets: Array<BarGraphDataItem[]>;
+  sets: DataItem[][];
 }
 
 export interface BarGraphStyle {
