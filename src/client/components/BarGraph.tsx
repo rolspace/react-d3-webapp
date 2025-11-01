@@ -2,8 +2,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
 import { styled, Theme } from '@mui/material/styles'
 import React, { useEffect, useRef } from 'react'
-import { renderBarGraph } from '../services/barGraph'
-import { BarGraphDataSets } from '../types/barGraph.types'
+import { renderBarGraph } from '../services/bargraph'
+import { BarGraphDataSets } from '../types/graph.types'
 
 const PREFIX = 'BarGraph'
 

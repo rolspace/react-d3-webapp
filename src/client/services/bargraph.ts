@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import { get } from './object'
-import { BarGraphData, BarGraphDataSetProperties, BarGraphStyle } from '../types/barGraph.types'
-import { DataItem } from '../types/graph.types'
+import { BarGraphData, BarGraphDataSetProperties, BarGraphStyle, DataItem } from '../types/graph.types'
 
 interface Margins {
   top: number
