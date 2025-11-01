@@ -4,6 +4,7 @@ import { styled, Theme } from '@mui/material/styles'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../services/bargraph'
 import { BarGraphDataSets } from '../types/graph.types'
+import { Status } from '../types/state.types'
 
 const PREFIX = 'BarGraph'
 
@@ -47,7 +48,7 @@ interface BarGraphProps {
 }
 
 const BarGraph: React.FC<BarGraphProps> = ({ graphData }) => {
-  const { sets, colors, loading, xAxisLabel, yAxisLabel } =
+  const { sets, colors, status, xAxisLabel, yAxisLabel } =
     graphData
 
   const svgRef = useRef<SVGSVGElement>(null)
@@ -76,7 +77,7 @@ const BarGraph: React.FC<BarGraphProps> = ({ graphData }) => {
     <Root>
       <Grid container className={classes.container}>
         <Grid size={12} style={{ height: '75vh' }}>
-          {loading === 'pending' ? (
+          {status === Status.Pending ? (
             <CircularProgress classes={{ root: classes.circleRoot }} />
           ) : (
             <svg

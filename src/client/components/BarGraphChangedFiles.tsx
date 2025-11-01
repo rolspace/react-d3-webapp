@@ -1,15 +1,16 @@
 import React from 'react'
 import { CommitData } from '../stores/repoStore'
+import { Status } from '../types/state.types'
 import BarGraph from './BarGraph'
 
 interface BarGraphChangedFilesProps {
   datasource: CommitData
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  status: Status
 }
 
 const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
   datasource,
-  loading,
+  status,
 }) => {
 
   if (!datasource) {
@@ -23,7 +24,7 @@ const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
       graphData={{
         sets: [changedFiles],
         colors: ['#00bcd4'],
-        loading,
+        status,
         xAxisLabel: 'Changed Files',
         yAxisLabel: 'Total Commits',
       }}

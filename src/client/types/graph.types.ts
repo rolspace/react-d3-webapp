@@ -1,4 +1,5 @@
 import { ScaleBand, ScaleLinear } from 'd3'
+import { Status } from './state.types'
 
 export interface DataItem {
   count: number
@@ -11,23 +12,23 @@ export interface BarGraphData {
 
 export type BarGraphDataSets = {
   colors: string[]
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  status: Status
   xAxisLabel: string
   yAxisLabel: string
 } & BarGraphData
 
 export interface BarGraphStyle {
-    colors: string[]
-    height: number
-    xAxisLabel: string
-    width: number
-    yAxisLabel: string
+  colors: string[]
+  height: number
+  xAxisLabel: string
+  width: number
+  yAxisLabel: string
 }
 
 export interface BarGraphDataSetProperties {
-    colors: string[]
-    height: number
-    setCount: number
-    xScale: ScaleBand<string>[]
-    yScale: ScaleLinear<number, number, never>
+  colors: string[]
+  height: number
+  setCount: number
+  xScale: ScaleBand<string>[]
+  yScale: ScaleLinear<number, number, never>
 }

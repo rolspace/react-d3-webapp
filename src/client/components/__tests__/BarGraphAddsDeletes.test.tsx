@@ -2,6 +2,7 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import { CommitData } from '../../stores/repoStore'
+import { Status } from '../../types/state.types'
 import BarGraphAddsDeletes from '../BarGraphAddsDeletes'
 
 const datasource: CommitData = {
@@ -36,7 +37,7 @@ describe('BarGraphAddsDeletes', () => {
     render(
       <BarGraphAddsDeletes
         datasource={datasource}
-        loading="succeeded"
+        status={Status.Success}
       />,
     )
     expect(screen.getByText(/code lines/i)).toBeInTheDocument()
@@ -46,7 +47,7 @@ describe('BarGraphAddsDeletes', () => {
   })
 
   it('does not render component if required props are missing', () => {
-    render(<BarGraphAddsDeletes datasource={{}} loading={'succeeded'} />)
+    render(<BarGraphAddsDeletes datasource={{}} status={Status.Success} />)
     expect(screen.queryByText(/code lines/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/total commits/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/1-20/i)).not.toBeInTheDocument()

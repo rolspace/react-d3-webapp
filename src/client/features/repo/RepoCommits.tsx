@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid'
 import React, { useEffect, ComponentType } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
 import { useUserStore } from '../../stores/userStore'
+import { Status } from '../../types/state.types'
 
 interface RepoCommitsProps {
   graphComponent: ComponentType<any>
@@ -13,8 +14,7 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
   const commitData = useRepoStore((state) => state.commitData)
-  const loading = useRepoStore((state) => state.loading)
-  const fulfilled = useRepoStore((state) => state.fulfilled)
+  const status = useRepoStore((state) => state.status)
   const error = useRepoStore((state) => state.error)
   const token = useUserStore((state) => state.token)
   const fetchRepo = useRepoStore((state) => state.fetchRepo)
@@ -22,13 +22,12 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   useEffect(() => {
     if (
       token !== '' &&
-      loading === 'idle' &&
-      fulfilled === false &&
+      status === Status.Idle &&
       error === null
     ) {
       fetchRepo({ owner, repository, token })
     }
-  }, [owner, repository, token, fulfilled, loading, error, fetchRepo])
+  }, [owner, repository, token, status, error, fetchRepo])
 
   const GraphComponent = graphComponent
 
@@ -51,7 +50,7 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
     )
   }
 
-  return <GraphComponent datasource={commitData} loading={loading} />
+  return <GraphComponent datasource={commitData} status={status} />
 }
 
 export default RepoCommits

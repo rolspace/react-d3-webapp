@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { createHighRange, createLowRange } from '../services/range'
 import { DataItem } from '../types/graph.types'
+import { Status } from '../types/state.types'
 
 export interface CommitData {
   changedFiles?: DataItem[]
@@ -15,8 +16,7 @@ interface RepoIdentifier {
 
 interface RepoProperties {
   commitData: CommitData
-  loading: 'idle' | 'pending'
-  fulfilled: boolean
+  status: Status
   error: any | null
 }
 
@@ -37,16 +37,14 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
     linesAdded: [],
     linesDeleted: [],
   },
-  loading: 'idle',
-  fulfilled: false,
+  status: Status.Idle,
   error: null,
 
   setRepo: ({ owner, repository }: RepoIdentifier) => {
     set({
       owner,
       repository,
-      loading: 'idle',
-      fulfilled: false,
+      status: Status.Idle,
       error: null,
       commitData: {
         changedFiles: [],
@@ -58,8 +56,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
   fetchRepo: async ({ owner, repository, token }) => {
     try {
       set({
-        loading: 'pending',
-        fulfilled: false,
+        status: Status.Pending,
         error: null,
         commitData: {
           changedFiles: [],
@@ -83,21 +80,21 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
 
       const result = await response.json()
 
-      set({ loading: 'idle', fulfilled: true })
-
       if (response.ok) {
         set({
+          status: Status.Success,
           commitData: {
             changedFiles: createLowRange(result, 'changedFiles'),
             linesAdded: createHighRange(result, 'additions'),
             linesDeleted: createHighRange(result, 'deletions'),
           },
         })
+      } else {
+        set({ status: Status.Failure })
       }
     } catch (error) {
       set({
-        loading: 'idle',
-        fulfilled: true,
+        status: Status.Failure,
         error,
         commitData: {
           changedFiles: [],
@@ -117,8 +114,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
         linesAdded: [],
         linesDeleted: [],
       },
-      loading: 'idle',
-      fulfilled: false,
+      status: Status.Idle,
       error: null,
     }),
   clearError: () => set({ error: null }),

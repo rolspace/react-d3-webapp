@@ -5,6 +5,7 @@ import { setupServer } from 'msw/node'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import BarGraphAddsDeletes from '../../../components/BarGraphAddsDeletes'
 import BarGraphChangedFiles from '../../../components/BarGraphChangedFiles'
+import { Status } from '../../../types/state.types'
 import { renderWithStores, resetStores } from '../../../utils/testUtils'
 import RepoCommits from '../RepoCommits'
 
@@ -86,13 +87,12 @@ describe('RepoCommits', () => {
         repoInitialState: {
           owner: 'facebook',
           repository: 'react',
-          commits: {
+          commitData: {
             changedFiles: [],
             linesAdded: [],
             linesDeleted: [],
           },
-          loading: 'idle',
-          fulfilled: false,
+          status: Status.Idle,
           error: null,
         },
       },
@@ -119,13 +119,12 @@ describe('RepoCommits', () => {
         repoInitialState: {
           owner: 'facebook',
           repository: 'react',
-          commits: {
+          commitData: {
             changedFiles: [],
             linesAdded: [],
             linesDeleted: [],
           },
-          loading: 'idle',
-          fulfilled: false,
+          status: Status.Idle,
           error: null,
         },
       },

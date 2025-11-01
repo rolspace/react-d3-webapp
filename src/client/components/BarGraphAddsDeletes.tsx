@@ -1,13 +1,14 @@
 import React from 'react'
 import { CommitData } from '../stores/repoStore'
+import { Status } from '../types/state.types'
 import BarGraph from './BarGraph'
 
 interface BarGraphAddsDeletesProps {
   datasource: CommitData
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  status: Status
 }
 
-const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, loading }) => {
+const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, status }) => {
   if (!datasource) {
     return null
   }
@@ -19,7 +20,7 @@ const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, l
       graphData={{
         sets: [linesAdded, linesDeleted],
         colors: ['#2da44e', '#cf222e'],
-        loading,
+        status,
         xAxisLabel: 'Code Lines',
         yAxisLabel: 'Total Commits',
       }}

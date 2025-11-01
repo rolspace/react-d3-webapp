@@ -2,6 +2,7 @@ import { render, RenderOptions } from '@testing-library/react'
 import { ReactElement, ReactNode } from 'react'
 import { useUserStore, UserState } from '../stores/userStore'
 import { useRepoStore, RepoStore } from '../stores/repoStore'
+import { Status } from '../types/state.types'
 
 interface RenderWithStoresOptions extends Omit<RenderOptions, 'wrapper'> {
   userInitialState?: Partial<UserState>
@@ -50,8 +51,7 @@ export function resetStores() {
       linesAdded: [],
       linesDeleted: [],
     },
-    loading: 'idle',
-    fulfilled: false,
+    status: Status.Idle,
     error: null,
   })
 }
