@@ -1,30 +1,11 @@
 import { render, RenderOptions } from '@testing-library/react'
 import { ReactElement, ReactNode } from 'react'
-import { useUserStore } from '../stores/userStore'
-import { useRepoStore } from '../stores/repoStore'
-import { DataItem } from '../types/graph.types'
-
-interface UserInitialState {
-  token?: string
-  error?: string | null
-}
-
-interface RepoInitialState {
-  owner?: string
-  repository?: string
-  commits?: {
-    changedFiles: DataItem[]
-    linesAdded: DataItem[]
-    linesDeleted: DataItem[]
-  }
-  loading?: 'idle' | 'pending'
-  fulfilled?: boolean
-  error?: any | null
-}
+import { useUserStore, UserState } from '../stores/userStore'
+import { useRepoStore, RepoStore } from '../stores/repoStore'
 
 interface RenderWithStoresOptions extends Omit<RenderOptions, 'wrapper'> {
-  userInitialState?: UserInitialState
-  repoInitialState?: RepoInitialState
+  userInitialState?: Partial<UserState>
+  repoInitialState?: Partial<RepoStore>
 }
 
 export function renderWithStores(

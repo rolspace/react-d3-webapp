@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface UserState {
+export interface UserState {
   token: string
   error: string | null
   fetchToken: ({ code, state }: { code: string; state: string }) => Promise<void>

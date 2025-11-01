@@ -27,7 +27,7 @@ interface RepoActions {
   clearError: () => void
 }
 
-type RepoStore = RepoIdentifier & RepoProperties & RepoActions
+export type RepoStore = RepoIdentifier & RepoProperties & RepoActions
 
 export const useRepoStore = create<RepoStore>((set, get) => ({
   owner: 'facebook',
