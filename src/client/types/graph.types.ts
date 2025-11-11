@@ -12,7 +12,6 @@ export interface BarGraphData {
 
 export type BarGraphDataSets = {
   colors: string[]
-  status: Status
   xAxisLabel: string
   yAxisLabel: string
 } & BarGraphData

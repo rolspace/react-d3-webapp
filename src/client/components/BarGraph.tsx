@@ -45,10 +45,11 @@ const Root = styled('div')<{ theme?: Theme }>(({ theme }) => ({
 
 interface BarGraphProps {
   graphData: BarGraphDataSets
+  status: Status
 }
 
-const BarGraph: React.FC<BarGraphProps> = ({ graphData }) => {
-  const { sets, colors, status, xAxisLabel, yAxisLabel } =
+const BarGraph: React.FC<BarGraphProps> = ({ graphData, status }) => {
+  const { sets, colors, xAxisLabel, yAxisLabel } =
     graphData
 
   const svgRef = useRef<SVGSVGElement>(null)

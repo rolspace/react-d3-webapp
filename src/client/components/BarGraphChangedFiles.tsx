@@ -24,10 +24,10 @@ const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
       graphData={{
         sets: [changedFiles],
         colors: ['#00bcd4'],
-        status,
         xAxisLabel: 'Changed Files',
         yAxisLabel: 'Total Commits',
       }}
+      status={status}
     />
   )
 }
