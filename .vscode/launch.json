@@ -8,7 +8,7 @@
       "cwd": "${workspaceFolder}/src/client"
     },
     {
-      "name": "Local Client: debug",
+      "name": "Local Client: debug tests",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "yarn",
