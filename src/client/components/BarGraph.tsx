@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import { styled, Theme } from '@mui/material/styles'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../services/bargraph'
-import { BarGraphDataSets } from '../types/graph.types'
+import { BarGraphProperties } from '../types/graph.types'
 import { Status } from '../types/state.types'
 
 const PREFIX = 'BarGraph'
@@ -44,13 +44,13 @@ const Root = styled('div')<{ theme?: Theme }>(({ theme }) => ({
 }))
 
 interface BarGraphProps {
-  graphData: BarGraphDataSets
+  graphProperties: BarGraphProperties
   status: Status
 }
 
-const BarGraph: React.FC<BarGraphProps> = ({ graphData, status }) => {
+const BarGraph: React.FC<BarGraphProps> = ({ graphProperties, status }) => {
   const { sets, colors, xAxisLabel, yAxisLabel } =
-    graphData
+    graphProperties
 
   const svgRef = useRef<SVGSVGElement>(null)
 
@@ -72,7 +72,7 @@ const BarGraph: React.FC<BarGraphProps> = ({ graphData, status }) => {
     }
 
     renderGraph()
-  }, [graphData])
+  }, [graphProperties])
 
   return (
     <Root>

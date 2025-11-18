@@ -10,7 +10,7 @@ export interface BarGraphData {
   sets: DataItem[][]
 }
 
-export type BarGraphDataSets = {
+export type BarGraphProperties = {
   colors: string[]
   xAxisLabel: string
   yAxisLabel: string
