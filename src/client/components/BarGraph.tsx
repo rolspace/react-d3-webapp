@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import { styled, Theme } from '@mui/material/styles'
 import React, { useEffect, useRef } from 'react'
 import { renderBarGraph } from '../services/bargraph'
-import { BarGraphProperties } from '../types/graph.types'
+import { BarGraphDataSets, BarGraphStyle } from '../types/graph.types'
 import { Status } from '../types/state.types'
 
 const PREFIX = 'BarGraph'
@@ -44,14 +44,12 @@ const Root = styled('div')<{ theme?: Theme }>(({ theme }) => ({
 }))
 
 interface BarGraphProps {
-  graphProperties: BarGraphProperties
+  graphStyle: Omit<BarGraphStyle, 'height' | 'width'>
+  sets: BarGraphDataSets
   status: Status
 }
 
-const BarGraph: React.FC<BarGraphProps> = ({ graphProperties, status }) => {
-  const { sets, colors, xAxisLabel, yAxisLabel } =
-    graphProperties
-
+const BarGraph: React.FC<BarGraphProps> = ({ graphStyle, sets, status }) => {
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
@@ -59,20 +57,12 @@ const BarGraph: React.FC<BarGraphProps> = ({ graphProperties, status }) => {
       const { current: svgElement } = svgRef
 
       if (svgElement && sets) {
-        renderBarGraph(svgElement, {
-          sets
-        }, {
-          colors,
-          xAxisLabel,
-          yAxisLabel,
-          height: 500,
-          width: 800,
-        })
+        renderBarGraph(svgElement, sets, { ...graphStyle, height: 500, width: 800 })
       }
     }
 
     renderGraph()
-  }, [graphProperties])
+  }, [sets, graphStyle])
 
   return (
     <Root>

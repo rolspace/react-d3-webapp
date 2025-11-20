@@ -21,12 +21,12 @@ const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
 
   return (
     <BarGraph
-      graphProperties={{
-        sets: [changedFiles],
+      graphStyle={{
         colors: ['#00bcd4'],
         xAxisLabel: 'Changed Files',
         yAxisLabel: 'Total Commits',
       }}
+      sets={[changedFiles]}
       status={status}
     />
   )

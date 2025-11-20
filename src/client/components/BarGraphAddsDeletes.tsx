@@ -17,12 +17,12 @@ const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, s
 
   return (
     <BarGraph
-      graphProperties={{
-        sets: [linesAdded, linesDeleted],
+      graphStyle={{
         colors: ['#2da44e', '#cf222e'],
         xAxisLabel: 'Code Lines',
         yAxisLabel: 'Total Commits',
-      }}
+      }}  
+      sets={[linesAdded, linesDeleted]}
       status={status}
     />
   )

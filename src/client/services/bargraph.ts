@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import { get } from './object'
-import { BarGraphData, BarGraphDataSetProperties, BarGraphStyle, DataItem } from '../types/graph.types'
+import { BarGraphDataSets, BarGraphStyle, DataItem } from '../types/graph.types'
 
 interface Margins {
   top: number
@@ -17,61 +17,63 @@ const xAxis = 'label'
 const yAxis = 'count'
 
 const renderBarGraphSet = (
-    node: d3.Selection<SVGGElement, unknown, null, undefined>,
-    set: DataItem[],
-    setIndex: number,
-    setProperties: BarGraphDataSetProperties): void => {
-
-  const { colors, height, setCount, xScale, yScale,  } =
-    setProperties
+  node: d3.Selection<SVGGElement, unknown, null, undefined>,
+  set: DataItem[],
+  setIndex: number,
+  setColor: string,
+  setCount: number,
+  setXScale: d3.ScaleBand<string>,
+  yScale: d3.ScaleLinear<number, number, never>,
+  graphHeight: number): void => {
 
   node
     .selectAll('bar')
     .data(set)
     .enter()
     .append('rect')
-    .style('fill', colors[setIndex])
+    .style('fill', setColor)
     .style('stroke-width', 1)
     .style('stroke', '#000')
     .attr(
       'x',
       (d: DataItem) =>
-        (xScale[setIndex](get(d, xAxis)) ?? 0) +
-        (setIndex !== 0 ? xScale[setIndex].bandwidth() / 2 : 0),
+        (setXScale(get(d, xAxis)) ?? 0) +
+        (setIndex !== 0 ? setXScale.bandwidth() / 2 : 0),
     )
     .attr(
       'width',
       setCount > 1
-        ? xScale[setIndex].bandwidth() / 2
-        : xScale[setIndex].bandwidth(),
+        ? setXScale.bandwidth() / 2
+        : setXScale.bandwidth(),
     )
     .attr('y', (d: DataItem) => yScale(get(d, yAxis)))
-    .attr('height', (d: DataItem) => height - yScale(get(d, yAxis)))
+    .attr('height', (d: DataItem) => graphHeight - yScale(get(d, yAxis)))
 }
 
-export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, style: BarGraphStyle): void => {
-  if (data.sets.every((set) => !set.length)) {
+export const renderBarGraph = (svgElement: SVGSVGElement, sets: BarGraphDataSets, style: BarGraphStyle): void => {
+  if (sets.every((set) => !set.length)) {
     d3.select(svgElement).selectAll('*').remove()
   } else {
+    const { colors, height, width } = style
     const innerNode = d3.select(svgElement).append('g')
 
     innerNode.attr('transform', `translate(${margins.top}, ${margins.left})`)
 
-    const xAxisPadding = data.sets.length > 1 ? 0.2 : 0.4
-    const height = style.height - margins.top - margins.bottom
-    const width = style.width - margins.right - margins.left
+    const xAxisPadding = sets.length > 1 ? 0.2 : 0.4
+    const graphHeight = height - margins.top - margins.bottom
+    const graphWidth = width - margins.right - margins.left
 
-    const xScale = data.sets.map((set) => {
+    const xScale = sets.map((set) => {
       const domain = set.map((d) => get(d, xAxis))
       return d3
         .scaleBand()
         .domain(domain)
-        .rangeRound([0, style.width])
+        .rangeRound([0, width])
         .padding(xAxisPadding)
     })
 
     const yMax = Math.max(
-      ...data.sets.map((set) => 
+      ...sets.map((set) => 
         d3.max(set, (d) => get(d, yAxis)) ?? 0
       ),
     )
@@ -81,17 +83,17 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
     const yScale = d3
       .scaleLinear()
       .domain([0, yTrueMax])
-      .rangeRound([height, 0])
+      .rangeRound([graphHeight, 0])
 
     innerNode
       .append('g')
       .attr('class', 'axis axis--x')
-      .attr('transform', `translate(0, ${height})`)
+      .attr('transform', `translate(0, ${graphHeight})`)
       .call(d3.axisBottom(xScale[0]))
 
     innerNode
       .append('text')
-      .attr('transform', `translate(${width / 2},${height + xLabelMargin})`)
+      .attr('transform', `translate(${graphWidth / 2}, ${graphHeight + xLabelMargin})`)
       .style('text-anchor', 'middle')
       .style('font-size', '0.813rem')
       .text(style.xAxisLabel)
@@ -104,21 +106,20 @@ export const renderBarGraph = (svgElement: SVGSVGElement, data: BarGraphData, st
     innerNode
       .append('text')
       .attr('transform', 'rotate(-90)')
-      .attr('x', 0 - height / 2)
+      .attr('x', 0 - graphHeight / 2)
       .attr('y', 0 - yLabelMargin)
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
       .style('font-size', '0.813rem')
       .text(style.yAxisLabel)
 
-    const dataSetProperties: BarGraphDataSetProperties = {
-      height,
-      setCount: data.sets.length,
-      colors: style.colors,
-      xScale,
-      yScale,
-    }
+    const setCount = sets.length
 
-    data.sets.forEach((set, setIndex) => renderBarGraphSet(innerNode, set, setIndex, dataSetProperties))
+    sets.forEach((set, setIndex) => {
+      const setColor = colors[setIndex]
+      const setXScale = xScale[setIndex]
+
+      renderBarGraphSet(innerNode, set, setIndex, setColor, setCount, setXScale, yScale, graphHeight)
+    })
   }
 }
