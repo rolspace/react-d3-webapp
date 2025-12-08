@@ -17,7 +17,7 @@ interface RepoIdentifier {
 interface RepoProperties {
   commitData: CommitData
   status: Status
-  error: any | null
+  error: Error | null
 }
 
 interface RepoActions {
@@ -90,18 +90,20 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
           },
         })
       } else {
-        set({ status: Status.Failure })
+        const { statusText } = response
+        throw new Error(statusText)
       }
     } catch (error) {
       set({
         status: Status.Failure,
-        error,
+        error: error instanceof Error ? error : new Error('Unknown error'),
         commitData: {
           changedFiles: [],
           linesAdded: [],
           linesDeleted: [],
         },
       })
+      
       throw error
     }
   },
@@ -116,6 +118,7 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
       },
       status: Status.Idle,
       error: null,
-    }),
+    }
+  ),
   clearError: () => set({ error: null }),
 }))

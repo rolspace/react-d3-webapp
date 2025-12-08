@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 export interface UserState {
   token: string
-  error: string | null
+  error: Error | null
   fetchToken: ({ code, state }: { code: string; state: string }) => Promise<void>
   clearToken: () => void
   clearError: () => void
@@ -32,10 +32,14 @@ export const useUserStore = create<UserState>((set, get) => ({
         set({ token: accessToken, error: null })
       } else {
         const { statusText } = response
-        set({ token: '', error: statusText })
+        throw new Error(statusText)
       }
     } catch (error) {
-      set({ token: '', error: error instanceof Error ? error.message : 'Unknown error' })
+      set({
+        token: '',
+        error: error instanceof Error ? error : new Error('Unknown error')
+      })
+      
       throw error
     }
   },
