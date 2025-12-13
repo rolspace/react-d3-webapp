@@ -2,8 +2,9 @@ import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import RepoCommits from '../features/repo/RepoCommits'
 import PrivateRoute from '../features/user/PrivateRoute'
+import AuthCallback from '../pages/AuthCallback'
 import GraphPage from '../pages/GraphPage'
-import HomePage from '../pages/HomePage'
+import Login from '../pages/Login'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
 
@@ -15,7 +16,8 @@ const AppRouter: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
       <Route
         path="/graphs/repo-additions-deletions"
         element={
