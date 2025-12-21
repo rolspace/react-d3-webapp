@@ -5,6 +5,7 @@ export default defineConfig({
   test: {
     name: 'frontend',
     environment: 'jsdom',
+    globals: true, // Enable auto cleanup and global test APIs
     include: ['frontend/**/*.test.{ts,tsx}'],
     exclude: ['node_modules', 'dist', 'coverage'],
     coverage: {
