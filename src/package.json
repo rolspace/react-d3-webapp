@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@emotion/react": "^11.14.0",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
     "@testing-library/dom": "^10.4.0",
