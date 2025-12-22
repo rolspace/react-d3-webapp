@@ -1,4 +1,4 @@
-import neostandard from 'neostandard'
+import neostandard, { plugins } from 'neostandard'
 
 export default [
   ...neostandard({
