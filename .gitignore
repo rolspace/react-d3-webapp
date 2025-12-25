@@ -42,8 +42,11 @@ build/Release
 node_modules/
 jspm_packages/
 
-# Typescript v1 declaration files
+# TypeScript v1 declaration files
 typings/
+
+# TypeScript output
+dist/
 
 # Optional npm cache directory
 .npm
@@ -63,6 +66,7 @@ typings/
 # dotenv environment variables file
 .env*
 
+# yarn v2+
 .pnp.*
 .yarn/*
 !.yarn/patches
