@@ -20,7 +20,6 @@
   "include": [
     "backend/**/*",
     "index.ts",
-    "run.ts"
   ],
   "exclude": [
     "node_modules",
