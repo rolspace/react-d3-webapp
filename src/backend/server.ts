@@ -13,7 +13,6 @@ import * as sampleRoute from './routes/sample.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Create Express app
 export const app: Express = express()
 
 // Disable x-powered-by header for security
@@ -38,8 +37,10 @@ app.post('/api/sample', (req, res, next) => sampleRoute.post(req, res, next))
 
 // SPA fallback - serve index.html for all other routes
 app.use((req, res, next) => {
-  // Don't serve index.html for API routes
-  if (req.path.startsWith('/api') || req.path.startsWith('/dist')) {
+  // Don't serve index.html for API or auth routes
+  if (req.path.startsWith('/api') ||
+      req.path.startsWith('/auth') ||
+      req.path.startsWith('/dist')) {
     return next()
   }
 
@@ -51,20 +52,19 @@ app.use((req, res, next) => {
   }
 })
 
-// Error handling middleware (must be last)
+// Error handling middleware
 app.use(errorHandler)
 
-// Initialize HTTPS server
+// Server initialization
 export const init = () => {
   try {
-    // Read SSL certificates
-    const certPath = config.httpsCertPath
-    const keyPath = config.httpsKeyPath
+    const { httpsCertPath } = config
+    const { httpsKeyPath } = config
 
-    if (!fs.existsSync(certPath) || !fs.existsSync(keyPath)) {
+    if (!fs.existsSync(httpsCertPath) || !fs.existsSync(httpsKeyPath)) {
       logger.error('SSL certificates not found!')
-      logger.error(`Looking for cert at: ${certPath}`)
-      logger.error(`Looking for key at: ${keyPath}`)
+      logger.error(`Looking for cert at: ${httpsCertPath}`)
+      logger.error(`Looking for key at: ${httpsKeyPath}`)
       logger.error(
         'Please run: cd backend/certs && ./generate-certs.sh to generate certificates',
       )
@@ -72,8 +72,8 @@ export const init = () => {
     }
 
     const credentials = {
-      cert: fs.readFileSync(certPath),
-      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(httpsCertPath),
+      key: fs.readFileSync(httpsKeyPath),
     }
 
     // Create HTTPS server
