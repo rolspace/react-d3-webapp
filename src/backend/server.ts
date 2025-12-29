@@ -5,10 +5,12 @@ import express, { Express } from 'express'
 import { fileURLToPath } from 'url'
 import { config } from './lib/config.js'
 import { logger } from './lib/logger.js'
+import { generatePKCEChallenge, storeCodeVerifier } from './lib/pkce.js'
 import { requestLogger } from './middleware/requestLogger.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import * as healthRoute from './routes/health.js'
 import * as sampleRoute from './routes/sample.js'
+import { handleOAuthCallback } from './lib/oauth.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -34,6 +36,67 @@ app.use(express.static(publicPath))
 app.get('/api/health', (req, res, next) => healthRoute.get(req, res, next))
 app.get('/api/sample', (req, res, next) => sampleRoute.get(req, res, next))
 app.post('/api/sample', (req, res, next) => sampleRoute.post(req, res, next))
+
+// Login Route
+app.get('/login', (req, res) => {
+  try {
+    const pkce = generatePKCEChallenge()
+    const state = crypto.randomUUID()
+
+    // This is temporary, will change it after initial validation
+    storeCodeVerifier(state, pkce.codeVerifier)
+
+    const authUrl = new URL('https://github.com/login/oauth/authorize')
+    authUrl.searchParams.set('client_id', process.env.GITHUB_CLIENT_ID || '')
+    authUrl.searchParams.set('redirect_uri', process.env.REDIRECT_URI || '')
+    authUrl.searchParams.set('state', state)
+    authUrl.searchParams.set('code_challenge', pkce.codeChallenge)
+    authUrl.searchParams.set('code_challenge_method', pkce.codeChallengeMethod)
+
+    res.cookie('oauth_state', state, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      maxAge: 5 * 60 * 1000, // 5 minutes
+    })
+
+    res.redirect(authUrl.toString())
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to initiate OAuth flow' })
+  }
+})
+
+// OAuth Callback Route
+app.get('/auth/github/callback', async (req, res, next) => {
+  try {
+    const { query: { code, state } } = req
+
+    if (!code || !state || typeof code !== 'string' || typeof state !== 'string') {
+      return res.status(400).json({ error: 'Missing code or state parameter' })
+    }
+
+    // Validate state from cookie
+    const { cookies: { oauth_state: storedState } } = req
+    if (storedState !== state) {
+      return res.status(400).json({ error: 'Invalid state parameter' })
+    }
+
+    // Exchange code for token using PKCE
+    const tokenData = await handleOAuthCallback(code, state)
+
+    if (!tokenData) {
+      return res.status(400).json({ error: 'Failed to obtain access token' })
+    }
+
+    res.clearCookie('oauth_state')
+
+    // Store the access token in session
+  } catch (error) {
+    res.status(500).json({
+      error: error instanceof Error ? error.message : 'OAuth callback failed',
+    })
+  }
+})
 
 // SPA fallback - serve index.html for all other routes
 app.use((req, res, next) => {
