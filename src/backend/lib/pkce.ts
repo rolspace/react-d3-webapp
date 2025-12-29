@@ -18,7 +18,7 @@ interface PKCEChallenge {
  *
  * @returns A random code verifier string
  */
-export function generateCodeVerifier(): string {
+function generateCodeVerifier(): string {
   return base64UrlEncode(crypto.randomBytes(96))
 }
 
@@ -29,7 +29,7 @@ export function generateCodeVerifier(): string {
  * @param codeVerifier - The code verifier string
  * @returns The code challenge string
  */
-export function createCodeChallenge(codeVerifier: string): string {
+function createCodeChallenge(codeVerifier: string): string {
   const hash = crypto.createHash('sha256').update(codeVerifier).digest()
   return base64UrlEncode(hash)
 }
