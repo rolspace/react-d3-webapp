@@ -47,7 +47,7 @@ export async function handleOAuthCallback(
     body: JSON.stringify({
       client_id: process.env.GITHUB_CLIENT_ID,
       code,
-      code_verifier: codeVerifier, // This is the key part!
+      code_verifier: codeVerifier,
       redirect_uri: process.env.REDIRECT_URI,
     }),
   })

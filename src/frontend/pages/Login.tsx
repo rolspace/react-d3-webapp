@@ -46,10 +46,7 @@ const Login: React.FC = () => {
       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
         <div className={classes.content}>
           <Typography variant="h3" className={classes.title}>
-            Welcome
-          </Typography>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
-            Sign in to view your GitHub repository statistics
+            Welcome!
           </Typography>
           <Button
             variant="contained"
