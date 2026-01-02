@@ -6,6 +6,7 @@ import GraphPage from '../pages/GraphPage'
 import Login from '../pages/Login'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
+import HomePage from '../pages/HomePage'
 
 const AppRouter: React.FC = () => {
   const { pathname, search } = useLocation()
@@ -16,6 +17,7 @@ const AppRouter: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/home" element={<HomePage />} />
       <Route
         path="/graphs/repo-additions-deletions"
         element={

@@ -2,6 +2,8 @@ import https from 'https'
 import fs from 'fs'
 import path from 'path'
 import express, { Express } from 'express'
+import session from 'express-session'
+import cookieParser from 'cookie-parser'
 import { fileURLToPath } from 'url'
 import { config } from './lib/config.js'
 import { logger } from './lib/logger.js'
@@ -10,6 +12,7 @@ import { requestLogger } from './middleware/requestLogger.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import * as healthRoute from './routes/health.js'
 import * as sampleRoute from './routes/sample.js'
+import * as repoRoute from './routes/repo.js'
 import { handleOAuthCallback } from './lib/oauth.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -17,11 +20,30 @@ const __dirname = path.dirname(__filename)
 
 export const app: Express = express()
 
+if (!process.env.SESSION_SECRET) {
+  logger.error('SESSION_SECRET is not set in environment variables')
+  throw new Error('SESSION_SECRET environment variable is required')
+}
+
 // Disable x-powered-by header for security
 app.disable('x-powered-by')
 
 // Middleware
 app.use(express.json())
+app.use(cookieParser())
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  }),
+)
 app.use(requestLogger)
 
 // Serve static files from public directory
@@ -91,6 +113,10 @@ app.get('/auth/github/callback', async (req, res, next) => {
     res.clearCookie('oauth_state')
 
     // Store the access token in session
+    const { access_token: accessToken } = tokenData
+    req.session.accessToken = accessToken
+
+    res.redirect('/home')
   } catch (error) {
     res.status(500).json({
       error: error instanceof Error ? error.message : 'OAuth callback failed',
