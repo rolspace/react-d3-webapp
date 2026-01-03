@@ -1,19 +1,17 @@
-import https from 'https'
-import fs from 'fs'
-import path from 'path'
+import cookieParser from 'cookie-parser'
 import express, { Express } from 'express'
 import session from 'express-session'
-import cookieParser from 'cookie-parser'
+import fs from 'fs'
+import https from 'https'
+import path from 'path'
 import { fileURLToPath } from 'url'
 import { config } from './lib/config.js'
 import { logger } from './lib/logger.js'
-import { generatePKCEChallenge, storeCodeVerifier } from './lib/pkce.js'
-import { requestLogger } from './middleware/requestLogger.js'
-import { errorHandler } from './middleware/errorHandler.js'
-import * as healthRoute from './routes/health.js'
-import * as sampleRoute from './routes/sample.js'
-import * as repoRoute from './routes/repo.js'
 import { handleOAuthCallback } from './lib/oauth.js'
+import { generatePKCEChallenge, storeCodeVerifier } from './lib/pkce.js'
+import { errorHandler } from './middleware/errorHandler.js'
+import { requestLogger } from './middleware/requestLogger.js'
+import * as repoRoute from './routes/repo.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -55,9 +53,6 @@ const publicPath = __dirname.includes('/dist/backend')
 app.use(express.static(publicPath))
 
 // API Routes
-app.get('/api/health', (req, res, next) => healthRoute.get(req, res, next))
-app.get('/api/sample', (req, res, next) => sampleRoute.get(req, res, next))
-app.post('/api/sample', (req, res, next) => sampleRoute.post(req, res, next))
 
 // Login Route
 app.get('/login', (req, res) => {
