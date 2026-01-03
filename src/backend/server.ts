@@ -53,6 +53,7 @@ const publicPath = __dirname.includes('/dist/backend')
 app.use(express.static(publicPath))
 
 // API Routes
+app.get('/api/repo/:owner/:repo', (req, res, next) => repoRoute.get(req, res, next))
 
 // Login Route
 app.get('/login', (req, res) => {
