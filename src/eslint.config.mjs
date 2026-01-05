@@ -17,9 +17,6 @@ export default [
         version: 'detect',
       },
     },
-    plugins: {
-      react: plugins.react,
-    },
     rules: {
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/jsx-closing-bracket-location': [
