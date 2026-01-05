@@ -50,6 +50,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      signal: AbortSignal.timeout(process.env.GRAPHQL_TIMEOUT ? parseInt(process.env.GRAPHQL_TIMEOUT) : 5000),
     })
 
     const data = await client.request(query, { owner, repo })
