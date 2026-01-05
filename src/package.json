@@ -53,6 +53,7 @@
     "d3": "^7.9.0",
     "dotenv-webpack": "^8.1.0",
     "eslint": "^9.30.0",
+    "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-import": "^2.32.0",
     "eslint-webpack-plugin": "^5.0.2",
     "http-proxy-middleware": "^3.0.5",

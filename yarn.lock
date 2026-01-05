@@ -11010,6 +11010,7 @@ __metadata:
     dotenv: "npm:^16.6.1"
     dotenv-webpack: "npm:^8.1.0"
     eslint: "npm:^9.30.0"
+    eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-webpack-plugin: "npm:^5.0.2"
     express: "npm:^5.1.0"
