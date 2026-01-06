@@ -145,45 +145,35 @@ Access the application at: `https://localhost:3001`
 
 ## API Endpoints
 
-### GET /api/health
-Health check endpoint.
+### GET /login
+Initiates GitHub OAuth flow with PKCE.
+
+Redirects to GitHub authorization page and sets state cookie.
+
+### GET /auth/github/callback
+OAuth callback endpoint.
+
+**Query Parameters:**
+- `code` - Authorization code from GitHub
+- `state` - State parameter for CSRF protection
+
+Exchanges code for access token and stores in session, then redirects to `/home`.
+
+### GET /api/repo/:owner/:repo
+Get repository data from GitHub GraphQL API.
+
+**Path Parameters:**
+- `owner` - Repository owner username
+- `repo` - Repository name
 
 **Response:**
 ```json
 {
-  "status": "ok",
-  "timestamp": "2024-01-01T00:00:00.000Z"
-}
-```
-
-### GET /api/sample
-Get all sample items.
-
-**Response:**
-```json
-[
-  { "id": 1, "name": "Item 1", "value": 100 },
-  { "id": 2, "name": "Item 2", "value": 200 }
-]
-```
-
-### POST /api/sample
-Create a new sample item.
-
-**Request:**
-```json
-{
-  "name": "New Item",
-  "value": 300
-}
-```
-
-**Response:**
-```json
-{
-  "id": 3,
-  "name": "New Item",
-  "value": 300
+  "owner": "username",
+  "name": "repo-name",
+  "description": "Repository description",
+  "stars": 100,
+  "commits": [...]
 }
 ```
 
