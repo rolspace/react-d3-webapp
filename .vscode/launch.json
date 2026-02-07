@@ -23,20 +23,6 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/src/api"
-    },
-    {
-      "name": "Docker API: launch",
-      "type": "docker",
-      "request": "launch",
-      "serverReadyAction": {
-        "action": "openExternally"
-      },
-      "preLaunchTask": "docker-run-api: debug",
-      "platform": "node",
-      "node": {
-        "package": "${workspaceFolder}/src/api/package.json",
-        "localRoot": "${workspaceFolder}/src/api"
-      }
     }
   ]
 }
