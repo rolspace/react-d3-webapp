@@ -1,6 +1,6 @@
 import winston from 'winston'
 
-const { combine, timestamp, printf, colorize } = winston.format
+const { format: { combine, timestamp, printf, colorize } } = winston
 
 // Custom log format
 const logFormat = printf(({ level, message, timestamp }) => {
