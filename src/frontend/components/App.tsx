@@ -59,7 +59,7 @@ const App: React.FC = () => {
             </IconButton>
             <Typography variant="h6" className={classes.bar_anchor}>
               <Link className={classes.bar_anchor_reset} to="/">
-                Source Control Charts
+                Git Charts
               </Link>
             </Typography>
           </Toolbar>
