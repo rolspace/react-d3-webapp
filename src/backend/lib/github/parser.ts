@@ -24,9 +24,15 @@ export function parseRepoEdges(edges: CommitEdge[], properties: (keyof CommitNod
       .map((edge) => edge.node[prop])
       .filter((val) => typeof val === 'number') as number[]
 
-    commitData[prop] = createRanges(values.map((val) => {
-      return { [prop]: val } as DataItem
-    }), 20)
+    if (values.length === 0) {
+      logger.warn(`No numeric values found for property '${prop}' in commit edges`)
+      commitData[prop] = [] as SeriesItem[]
+    }
+    else {
+      commitData[prop] = createRanges(values.map((val) => {
+        return { [prop]: val } as DataItem
+      }), 20)
+    }
   })
 
   return [commitData]
