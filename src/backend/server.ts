@@ -12,6 +12,7 @@ import { generatePKCEChallenge, storeCodeVerifier } from './lib/pkce.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { requestLogger } from './middleware/requestLogger.js'
 import * as repoRoute from './routes/repo.js'
+import * as userRoute from './routes/user.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -54,6 +55,7 @@ app.use(express.static(publicPath))
 
 // API Routes
 app.get('/api/repo/:owner/:repo', (req, res, next) => repoRoute.get(req, res, next))
+app.get('/api/user/me', (req, res, next) => userRoute.get(req, res, next))
 
 // Login Route
 app.get('/login', (req, res) => {
