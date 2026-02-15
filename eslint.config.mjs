@@ -3,7 +3,7 @@ import neostandard, { plugins } from 'neostandard'
 export default [
   ...neostandard({
     env: ['node', 'browser', 'jest'],
-    ignores: ['dist', 'coverage', 'public/dist', 'node_modules'],
+    ignores: ['coverage', 'src/dist', 'src/public/dist', 'node_modules'],
     ts: true,
   }),
   plugins.react.configs.flat.recommended,

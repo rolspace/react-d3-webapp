@@ -1,2 +1,6 @@
-**/coverage
-.yarn
+node_modules
+dist
+coverage
+public/dist
+.env
+*.log
