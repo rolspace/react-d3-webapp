@@ -1,84 +1,263 @@
 # React + D3 Web App
 
-[![build](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp)
+A TypeScript-based Backend for Frontend application with Express backend serving a React SPA, using HTTPS for secure local development.
 
-A long time ago I started a personal project to become more familiar with Node, React, and other tools part of the modern JavaScript ecosystem.
+## Features
 
-I started this project, abandoned it, started it again, abandoned it again, and finally, started it one last time, up to this point.
+- **Backend**: Express.js with TypeScript, HTTPS support, REST APIs
+- **Frontend**: React 19 with TypeScript, Zustand state management
+- **Bundling**: Webpack with hot module reloading in dev mode
+- **Testing**: Vitest for both backend and frontend
+- **Development**: HTTPS support with self-signed certificates
 
-Initially, this project was supposed to connect with the Instagram API in order to generate a series of graphs to present user data. After the last Instagram API update, that was not a possibility anymore.
+## Architecture
 
-Later, I decided that the best thing to do was to connect to the GitHub GraphQL API to attempt something similar.
+### Backend Stack
+- Express 5.x with TypeScript
+- Winston for structured logging
+- CORS middleware for cross-origin requests
+- HTTPS with self-signed certificates (development)
 
-As it stands, this web application allows you to sign in with a GitHub account to query some basic data from a public repository.
+### Frontend Stack
+- React 19 with TypeScript
+- Zustand for state management
+- Webpack 5 for bundling
+- Hot Module Reloading in development
 
-**Graph #1** shows how many commits in a repo have added (or deleted) a range of lines.
+### Development Mode
+- Backend runs on `https://localhost:3001` (API only)
+- Frontend served via BrowserSync on `https://localhost:3000`
+- Webpack Hot Module Reloading enabled
+- API requests proxied from frontend to backend
 
-**Graph #2** shows how many commits in a repo have changed a range of files.
+### Production Mode
+- Single HTTPS server serves both static files and APIs
+- Optimized webpack bundle
+- Compiled TypeScript backend
 
-Additional graphs are work-in-progress.
+## Setup
 
-## How to run
+### 1. Generate SSL Certificates
 
-The workspace contains two applications:
+Before running the application, you need to generate self-signed SSL certificates for local HTTPS:
 
-- the Node API
-- the React Frontend client
+```bash
+cd backend/certs
+./generate-certs.sh
+```
 
-Install the dependencies for both applications by running `yarn --immutable`.
+This creates:
+- `cert.pem` - SSL certificate
+- `key.pem` - Private key
 
-### Node API
+**Important**: You may need to trust these certificates in your browser/system for local development.
 
-Ideally, the Node API should be started first. It requires three environment variables:
+### 2. Create Environment File
 
-- APPLICATION_ID: GitHub application id
-- APPLICATION_SECRET: GitHub application secret
-- CLIENT_URL: URL for the React Frontend
+Copy the example environment file and configure as needed:
 
-> Make sure these environment variables are set before starting the application.
-> DotEnv can be used to set the environment variables when NODE_ENV !== 'production'.
-> Production mode will not allow environment variables from DotEnv.
+```bash
+cp .env.example .env
+```
 
-The Node Backend can be started in four ways:
+Default configuration:
+```
+PORT=3001
+NODE_ENV=development
+HTTPS_CERT_PATH=./backend/certs/cert.pem
+HTTPS_KEY_PATH=./backend/certs/key.pem
+API_URL=https://localhost:3001
+```
 
-**Option 1**: start from the terminal
+### 3. Install Dependencies
 
-- Using the terminal, set the `./src/api` folder as the current directory.
-- Run the `yarn start` command to launch the application. Make sure to create the `.env` file to set the required environment variables.
+From the root of the monorepo:
 
-**Option 2**: start the local launch config in VSCode
+```bash
+yarn install
+```
 
-- Run the `Local API: launch` launch config in VSCode. It will start the application. Make sure to create the `.env` file to set the required environment variables.
+Or from this directory:
 
-**Option 3**: start the Docker launch config in VSCode
+```bash
+yarn workspace react-d3-bff install
+```
 
-- Run the `Docker API: launch` launch config in VSCode. It will start the application in a Docker container. Make sure to create the `.env` file to set the required environment variables.
+## Development
 
-**Option 4**: use the Docker Compose file
+### Start Development Server
 
-- If you have the Docker extension for VSCode, just right click on the [docker-compose.yml](./docker-compose.yml) file at the root of the workspace and select _Compose Up_. Make sure to create the `.env` file to set the required environment variables.
+```bash
+yarn dev
+```
 
-> The Docker Compose file, [docker-compose.debug.yml](./docker-compose.debug.yml), can be used for debugging.
+This starts:
+- Backend HTTPS server on port 3001
+- Frontend dev server on port 3000 with hot reload
+- BrowserSync UI on port 3002
 
-The PORT environment variable can be set in order to overwrite the default port used by the backend server (port 9000).
+Access the application at: `https://localhost:3000`
 
-### React Frontend client
+### Run Tests
 
-The React Frontend client requires two environment variables:
+```bash
+# Run all tests
+yarn test
 
-- APPLICATION_ID: GitHub application ID
-- API_URL: URL for the Node API
+# Run tests in watch mode
+yarn test:watch
 
-> Make sure these environment variables are set before building the application.
-> DotEnv can be used to set the environment variables when starting the application in development mode (`yarn start dev`)
+# Run with coverage
+yarn test-coverage
+```
 
-The client application can be started locally in two ways:
+### Lint Code
 
-**Option 1**: start from the terminal
+```bash
+yarn lint
+```
 
-- Using the terminal, set the `./src/client` folder as the current directory.
-- Run the `yarn start dev` command to launch the application in development mode. Make sure to create the `.env` file to set the required environment variables.
+### Format Code
 
-**Option 2**: start from the Local client launch config in VSCode
+```bash
+yarn format
+```
 
-- Run the `Local client: launch` config in VSCode. Make sure to modify the `.env` file to set the required environment variables.
+## Production Build
+
+Build both frontend and backend for production:
+
+```bash
+yarn build
+```
+
+This creates:
+- Frontend bundle in `public/dist/main.js`
+- Compiled backend in `dist/backend/`
+
+### Run Production Build
+
+```bash
+yarn start
+```
+
+Access the application at: `https://localhost:3001`
+
+## API Endpoints
+
+### GET /login
+Initiates GitHub OAuth flow with PKCE.
+
+Redirects to GitHub authorization page and sets state cookie.
+
+### GET /auth/github/callback
+OAuth callback endpoint.
+
+**Query Parameters:**
+- `code` - Authorization code from GitHub
+- `state` - State parameter for CSRF protection
+
+Exchanges code for access token and stores in session, then redirects to `/home`.
+
+### GET /api/repo/:owner/:repo
+Get repository data from GitHub GraphQL API.
+
+**Path Parameters:**
+- `owner` - Repository owner username
+- `repo` - Repository name
+
+**Response:**
+```json
+{
+  "owner": "username",
+  "name": "repo-name",
+  "description": "Repository description",
+  "stars": 100,
+  "commits": [...]
+}
+```
+
+## Project Structure
+
+```
+src/bff/
+├── backend/              # Backend application
+│   ├── routes/          # API route handlers
+│   ├── middleware/      # Express middleware
+│   ├── lib/            # Config, logger, utilities
+│   ├── certs/          # SSL certificates (gitignored)
+│   └── server.ts       # Express app with HTTPS
+├── frontend/            # Frontend application
+│   ├── components/     # React components
+│   ├── stores/         # Zustand stores
+│   ├── services/       # API client functions
+│   ├── types/          # TypeScript interfaces
+│   └── main.tsx        # React entry point
+├── webpack/            # Webpack configurations
+├── public/             # Static assets
+├── index.ts           # Backend entry point
+└── run.ts             # Development server runner
+```
+
+## Testing
+
+### Backend Tests
+- Route handlers with mocked request/response
+- Middleware functionality
+- Error handling
+
+### Frontend Tests
+- Component rendering and interaction
+- Store state management
+- API service functions
+
+Test files are co-located with source files in `__tests__` directories.
+
+## HTTPS in Development
+
+The application uses HTTPS in development to simulate production environment. Self-signed certificates are used for local development.
+
+### Trusting Certificates (macOS)
+
+```bash
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain backend/certs/cert.pem
+```
+
+### Trusting Certificates (Linux)
+
+```bash
+sudo cp backend/certs/cert.pem /usr/local/share/ca-certificates/bff-dev.crt
+sudo update-ca-certificates
+```
+
+### Trusting Certificates (Windows)
+
+Import `cert.pem` into the Trusted Root Certification Authorities store.
+
+## Troubleshooting
+
+### Certificate Not Found Error
+
+If you see "SSL certificates not found", make sure you've run:
+
+```bash
+cd backend/certs && ./generate-certs.sh
+```
+
+### Port Already in Use
+
+If ports 3000 or 3001 are in use, you can change them in `.env`:
+
+```
+PORT=3005  # Backend port
+```
+
+For frontend port, modify `run.ts` line with `port: 3000`.
+
+### CORS Errors
+
+The backend is configured to allow requests from `localhost:3000` and `localhost:3001`. If you change ports, update the CORS configuration in `backend/server.ts`.
+
+## License
+
+MIT
