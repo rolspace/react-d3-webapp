@@ -21,8 +21,6 @@
     "start": "node src/dist/backend/index.js",
     "dev": "tsx src/run.ts",
     "build": "tsx src/run.ts build",
-    "build:frontend": "webpack --config src/webpack/webpack.prod.ts",
-    "build:backend": "tsc -p src/tsconfig.backend.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "test-coverage": "vitest run --coverage",
