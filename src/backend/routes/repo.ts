@@ -1,10 +1,8 @@
 import { graphql } from '@octokit/graphql'
-import { GraphQlQueryResponse } from '@octokit/graphql/types'
 import { NextFunction, Request, Response } from 'express'
+import { parseRepoEdges } from '../lib/github/parser.js'
 import { OK, UNAUTHORIZED } from '../lib/status.js'
 import { GitHubRepositoryResponse } from '../types/commit.js'
-import { parse } from 'path'
-import { parseRepoEdges } from '../lib/github/parser.js'
 
 const query = `
   query GetRepoCommits($owner: String!, $repo: String!) {
@@ -59,7 +57,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
       },
     })
 
-    const { repository: { ref: { target: { history: { edges } } } }  } = await graphqlWithAuth(query, { owner, repo }) as GitHubRepositoryResponse
+    const { repository: { ref: { target: { history: { edges } } } } } = await graphqlWithAuth(query, { owner, repo }) as GitHubRepositoryResponse
 
     const repoSeries = parseRepoEdges(edges, ['additions', 'deletions', 'changedFiles'])
 
