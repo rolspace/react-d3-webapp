@@ -65,6 +65,7 @@ dist/
 
 # dotenv environment variables file
 .env*
+!.env.example
 
 # yarn v2+
 .pnp.*
