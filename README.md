@@ -1,6 +1,8 @@
 # React + D3 Web App
 
-A TypeScript-based Backend for Frontend application with Express backend serving a React SPA, using HTTPS for secure local development.
+[![build](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/rolspace/react-d3-webapp/actions/workflows/ci.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rolspace_react-d3-webapp&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rolspace_react-d3-webapp)
+
+A React web application with an Express backend, which connects to the GitHub GraphQL API and uses D3.js to display data graphs.
 
 ## Features
 
@@ -22,13 +24,9 @@ A TypeScript-based Backend for Frontend application with Express backend serving
 - React 19 with TypeScript
 - Zustand for state management
 - Webpack 5 for bundling
-- Hot Module Reloading in development
 
 ### Development Mode
-- Backend runs on `https://localhost:3001` (API only)
-- Frontend served via BrowserSync on `https://localhost:3000`
-- Webpack Hot Module Reloading enabled
-- API requests proxied from frontend to backend
+- The Backend and Frontend run on `https://localhost:3000`
 
 ### Production Mode
 - Single HTTPS server serves both static files and APIs
@@ -42,7 +40,7 @@ A TypeScript-based Backend for Frontend application with Express backend serving
 Before running the application, you need to generate self-signed SSL certificates for local HTTPS:
 
 ```bash
-cd backend/certs
+cd src/backend/certs
 ./generate-certs.sh
 ```
 
@@ -57,30 +55,33 @@ This creates:
 Copy the example environment file and configure as needed:
 
 ```bash
-cp .env.example .env
+cp .env.example src/.env
 ```
+
+**Important**: the .env file must be copied to the src folder.
 
 Default configuration:
 ```
-PORT=3001
+PORT=3000
 NODE_ENV=development
+SESSION_SECRET=your_session_secret_here
+GRAPHQL_TIMEOUT=5000
 HTTPS_CERT_PATH=./backend/certs/cert.pem
 HTTPS_KEY_PATH=./backend/certs/key.pem
-API_URL=https://localhost:3001
+API_URL=https://localhost:3000
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+REDIRECT_URI=https://localhost:3000/auth/github/callback
 ```
+
+See [.env.example](.env.example) for the complete configuration template.
 
 ### 3. Install Dependencies
 
-From the root of the monorepo:
+From the project root:
 
 ```bash
 yarn install
-```
-
-Or from this directory:
-
-```bash
-yarn workspace react-d3-bff install
 ```
 
 ## Development
@@ -92,9 +93,7 @@ yarn dev
 ```
 
 This starts:
-- Backend HTTPS server on port 3001
-- Frontend dev server on port 3000 with hot reload
-- BrowserSync UI on port 3002
+- Backend HTTPS server on port 3000, the server provides the Frontend static files.
 
 Access the application at: `https://localhost:3000`
 
@@ -108,7 +107,7 @@ yarn test
 yarn test:watch
 
 # Run with coverage
-yarn test-coverage
+yarn test:coverage
 ```
 
 ### Lint Code
@@ -132,8 +131,8 @@ yarn build
 ```
 
 This creates:
-- Frontend bundle in `public/dist/main.js`
-- Compiled backend in `dist/backend/`
+- Frontend bundle in `src/public/dist/main.js`
+- Compiled backend in `src/dist/backend/`
 
 ### Run Production Build
 
@@ -141,7 +140,7 @@ This creates:
 yarn start
 ```
 
-Access the application at: `https://localhost:3001`
+Access the application at: `https://localhost:3000`
 
 ## API Endpoints
 
@@ -160,7 +159,7 @@ OAuth callback endpoint.
 Exchanges code for access token and stores in session, then redirects to `/home`.
 
 ### GET /api/repo/:owner/:repo
-Get repository data from GitHub GraphQL API.
+Get aggregated repository data from GitHub GraphQL API.
 
 **Path Parameters:**
 - `owner` - Repository owner username
@@ -169,25 +168,63 @@ Get repository data from GitHub GraphQL API.
 **Response:**
 ```json
 {
-  "owner": "username",
-  "name": "repo-name",
-  "description": "Repository description",
-  "stars": 100,
-  "commits": [...]
+  "additions": [
+    {
+      "min": 0,
+      "max": 109,
+      "count": 60,
+      "label": "0-109"
+    },
+    {
+      "min": 110,
+      "max": 219,
+      "count": 17,
+      "label": "110-219"
+    }
+  ],
+  "deletions": [
+    {
+      "min": 0,
+      "max": 762,
+      "count": 98,
+      "label": "0-762"
+    },
+    {
+      "min": 763,
+      "max": 1526,
+      "count": 0,
+      "label": "763-1526"
+    }
+  ],
+  "changedFiles": [
+    {
+      "min": 1,
+      "max": 16,
+      "count": 87,
+      "label": "1-16"
+    },
+    {
+      "min": 17,
+      "max": 32,
+      "count": 10,
+      "label": "17-32"
+    }
+  ]
 }
 ```
 
 ## Project Structure
 
 ```
-src/bff/
-├── backend/              # Backend application
-│   ├── routes/          # API route handlers
-│   ├── middleware/      # Express middleware
-│   ├── lib/            # Config, logger, utilities
+src/
+├── backend/            # Backend application
 │   ├── certs/          # SSL certificates (gitignored)
+│   ├── lib/            # Config, logger, utilities
+│   ├── middleware/     # Express middleware
+│   ├── routes/         # API route handlers
+│   ├── types/          # TypeScript interfaces
 │   └── server.ts       # Express app with HTTPS
-├── frontend/            # Frontend application
+├── frontend/           # Frontend application
 │   ├── components/     # React components
 │   ├── stores/         # Zustand stores
 │   ├── services/       # API client functions
@@ -220,13 +257,13 @@ The application uses HTTPS in development to simulate production environment. Se
 ### Trusting Certificates (macOS)
 
 ```bash
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain backend/certs/cert.pem
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain src/backend/certs/cert.pem
 ```
 
 ### Trusting Certificates (Linux)
 
 ```bash
-sudo cp backend/certs/cert.pem /usr/local/share/ca-certificates/bff-dev.crt
+sudo cp src/backend/certs/cert.pem /usr/local/share/ca-certificates/reactd3webapp-dev.crt
 sudo update-ca-certificates
 ```
 
@@ -241,22 +278,22 @@ Import `cert.pem` into the Trusted Root Certification Authorities store.
 If you see "SSL certificates not found", make sure you've run:
 
 ```bash
-cd backend/certs && ./generate-certs.sh
+cd src/backend/certs && ./generate-certs.sh
 ```
 
 ### Port Already in Use
 
-If ports 3000 or 3001 are in use, you can change them in `.env`:
+If port 3000 is in use, you can change it in `.env`:
 
 ```
-PORT=3005  # Backend port
+PORT=3005
 ```
 
-For frontend port, modify `run.ts` line with `port: 3000`.
+Update the corresponding `API_URL` and `REDIRECT_URI` values to match the new port.
 
 ### CORS Errors
 
-The backend is configured to allow requests from `localhost:3000` and `localhost:3001`. If you change ports, update the CORS configuration in `backend/server.ts`.
+The backend is configured to allow requests from `localhost:3000`. If you change the port, you may need to update the CORS configuration in [src/backend/server.ts](src/backend/server.ts).
 
 ## License
 
