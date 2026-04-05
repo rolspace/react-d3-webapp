@@ -123,7 +123,8 @@ const tasks: Record<string, () => void | Promise<void>> = {
   },
 }
 
-const selectedTask = tasks[task]
+const selectedTask = tasks[task] // eslint-disable-line prefer-destructuring
+
 if (selectedTask) {
   const result = selectedTask()
   if (result instanceof Promise) {

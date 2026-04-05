@@ -2,7 +2,6 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React from 'react'
 
 const PREFIX = 'Login'
 

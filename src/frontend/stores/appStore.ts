@@ -24,8 +24,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ loading: true, error: null })
     try {
       const newItem = await createSampleItem(item)
-      const currentItems = get().items
-      set({ items: [...currentItems, newItem], loading: false })
+      const { items } = get()
+      set({ items: [...items, newItem], loading: false })
     } catch (error) {
       set({
         error: error instanceof Error ? error : new Error('Unknown error'),

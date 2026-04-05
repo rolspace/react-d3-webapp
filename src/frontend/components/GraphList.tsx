@@ -1,6 +1,5 @@
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import React from 'react'
 import CustomCard from './Card'
 
 const GraphList: React.FC = () => {

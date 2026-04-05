@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
-import React from 'react'
 import GraphList from '../components/GraphList'
 
 const PREFIX = 'HomePage'

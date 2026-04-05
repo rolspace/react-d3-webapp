@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import RepoCommits from '../features/repo/RepoCommits'
 import PrivateRoute from '../features/user/PrivateRoute'

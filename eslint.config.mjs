@@ -61,6 +61,7 @@ export default [
           ignore: ['location', 'query', 'code'],
         },
       ],
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ]
