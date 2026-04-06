@@ -27,8 +27,7 @@ export function parseRepoEdges(edges: CommitEdge[], properties: (keyof CommitNod
     if (values.length === 0) {
       logger.warn(`No numeric values found for property '${prop}' in commit edges`)
       commitData[prop] = [] as SeriesItem[]
-    }
-    else {
+    } else {
       commitData[prop] = createRanges(values.map((val) => {
         return { [prop]: val } as DataItem
       }), 20)
@@ -89,11 +88,15 @@ function createRanges(data: DataItem[], numberOfRanges: number = 20): SeriesItem
   for (let i = 0; i < numberOfRanges; i++) {
     const min = minValue + i * rangeWidth
     const max = i === numberOfRanges - 1 ? maxValue : minValue + (i + 1) * rangeWidth
+
+    const minRange = i === 0 ? Math.floor(min) : Math.floor(min) + 1
+    const maxRange = Math.floor(max)
+
     ranges.push({
-      min: Math.round(min * 100) / 100,
-      max: Math.round(max * 100) / 100,
+      min: minRange,
+      max: maxRange,
       count: 0,
-      label: `${Math.round(min)}-${Math.round(max)}`,
+      label: `${minRange}-${maxRange}`,
     })
   }
 
