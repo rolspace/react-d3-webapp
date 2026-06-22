@@ -10810,20 +10810,13 @@ __metadata:
   linkType: hard
 
 "picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "picomatch@npm:2.3.1"
-  checksum: 10/60c2595003b05e4535394d1da94850f5372c9427ca4413b71210f437f7b2ca091dbd611c45e8b37d10036fa8eade25c1b8951654f9d3973bfa66a2ff4d3b08bc
+  version: 2.3.2
+  resolution: "picomatch@npm:2.3.2"
+  checksum: 10/b788ef8148a2415b9dec12f0bb350ae6a5830f8f1950e472abc2f5225494debf7d1b75eb031df0ceaea9e8ec3e7bad599e8dbf3c60d61b42be429ba41bff4426
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "picomatch@npm:4.0.2"
-  checksum: 10/ce617b8da36797d09c0baacb96ca8a44460452c89362d7cb8f70ca46b4158ba8bc3606912de7c818eb4a939f7f9015cef3c766ec8a0c6bfc725fdc078e39c717
-  languageName: node
-  linkType: hard
-
-"picomatch@npm:^4.0.3":
+"picomatch@npm:^4.0.2, picomatch@npm:^4.0.3":
   version: 4.0.3
   resolution: "picomatch@npm:4.0.3"
   checksum: 10/57b99055f40b16798f2802916d9c17e9744e620a0db136554af01d19598b96e45e2f00014c91d1b8b13874b80caa8c295b3d589a3f72373ec4aaf54baa5962d5
@@ -11042,71 +11035,6 @@ __metadata:
   checksum: 10/4168c82157bd69175d5bd960e59b74e253e237b358213694946a427a6f750a18b8e150f036fed3421b3e83294b071a4e2bb01037a79ccacdac05360c63d3ebba
   languageName: node
   linkType: hard
-
-"react-d3-webapp-workspace@workspace:src":
-  version: 0.0.0-use.local
-  resolution: "react-d3-webapp-workspace@workspace:src"
-  dependencies:
-    "@babel/core": "npm:^7.27.7"
-    "@babel/preset-env": "npm:^7.27.2"
-    "@babel/preset-react": "npm:^7.27.1"
-    "@babel/preset-typescript": "npm:^7.27.1"
-    "@emotion/react": "npm:^11.14.0"
-    "@emotion/styled": "npm:^11.14.1"
-    "@mui/icons-material": "npm:^7.3.6"
-    "@mui/material": "npm:^7.3.6"
-    "@mui/styles": "npm:6.4.8"
-    "@octokit/graphql": "npm:^9.0.3"
-    "@testing-library/dom": "npm:^10.4.0"
-    "@testing-library/jest-dom": "npm:^6.6.4"
-    "@testing-library/react": "npm:^16.3.0"
-    "@testing-library/user-event": "npm:^14.6.1"
-    "@types/cookie-parser": "npm:^1.4.10"
-    "@types/d3": "npm:^7"
-    "@types/express": "npm:^5.0.0"
-    "@types/express-session": "npm:^1.18.2"
-    "@types/node": "npm:^24.1.0"
-    "@types/react": "npm:^19.1.8"
-    "@types/react-dom": "npm:^19.1.6"
-    "@vitest/coverage-v8": "npm:^3.2.4"
-    babel-loader: "npm:^10.0.0"
-    browser-sync: "npm:^3.0.4"
-    connect-history-api-fallback: "npm:^2.0.0"
-    cookie-parser: "npm:^1.4.7"
-    d3: "npm:^7.9.0"
-    dotenv: "npm:^16.6.1"
-    dotenv-webpack: "npm:^8.1.0"
-    eslint: "npm:^9.30.0"
-    eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-plugin-import: "npm:^2.32.0"
-    eslint-webpack-plugin: "npm:^5.0.2"
-    express: "npm:^5.1.0"
-    express-session: "npm:^1.18.2"
-    graphql: "npm:^16.12.0"
-    graphql-request: "npm:^7.4.0"
-    http-proxy-middleware: "npm:^3.0.5"
-    jsdom: "npm:^26.1.0"
-    msw: "npm:^2.10.2"
-    neostandard: "npm:^0.12.1"
-    prettier: "npm:^3.6.2"
-    prettier-config-standard: "npm:^7.0.0"
-    query-string: "npm:^9.3.1"
-    react: "npm:^19.1.0"
-    react-dom: "npm:^19.1.0"
-    react-router: "npm:^7.11.0"
-    ts-loader: "npm:^9.5.2"
-    tsx: "npm:^4.19.2"
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^3.2.4"
-    webpack: "npm:^5.99.9"
-    webpack-cli: "npm:^6.0.1"
-    webpack-dev-middleware: "npm:^7.4.2"
-    webpack-hot-middleware: "npm:^2.26.1"
-    webpack-merge: "npm:^6.0.1"
-    winston: "npm:^3.17.0"
-    zustand: "npm:^5.0.8"
-  languageName: unknown
-  linkType: soft
 
 "react-d3-webapp@workspace:.":
   version: 0.0.0-use.local
