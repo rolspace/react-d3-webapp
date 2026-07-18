@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath // empty' | { read -r f; case \"$f\" in */docs/requirements/*.md) jq -n --arg f \"$f\" '{hookSpecificOutput:{hookEventName:\"PostToolUse\",additionalContext:(\"A requirements document was created or updated at \" + $f + \". Use the Skill tool to invoke the plan-generator skill (.claude/skills/plan-generator/SKILL.md), passing this exact file path as the requirements document: \" + $f)}}' ;; esac; } 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath // empty' | { read -r f; case \"$f\" in */docs/plans/*.md) jq -n --arg f \"$f\" '{hookSpecificOutput:{hookEventName:\"PostToolUse\",additionalContext:(\"A plan document was created or updated at \" + $f + \". Read the full plan file at this path, then implement it end to end: make the code changes it describes, in the order specified, following the project CLAUDE.md conventions and matching existing code patterns. After implementing, run the relevant tests and lint to verify correctness. Plan file: \" + $f)}}' ;; esac; } 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
