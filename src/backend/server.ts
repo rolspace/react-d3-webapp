@@ -133,7 +133,7 @@ app.use((req, res, next) => {
 
   const indexPath = path.join(publicPath, 'index.html')
   if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath)
+    res.sendFile('index.html', { root: publicPath })
   } else {
     res.status(404).send('index.html not found')
   }
