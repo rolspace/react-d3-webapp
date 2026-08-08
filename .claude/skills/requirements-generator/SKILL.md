@@ -2,6 +2,7 @@
 name: requirements-generator
 description: Generates a formal requirements document from a user story using the project's requirements template. Use this skill whenever the user asks to generate a requirements document, create requirements from a user story, write up requirements, or turn a user story into a requirements doc. Trigger even if the user just pastes a user story and asks to "document this" or "make requirements for this".
 allowed-tools: Read, Glob, Write, Bash, PowerShell
+context: fork
 ---
 
 ## Steps

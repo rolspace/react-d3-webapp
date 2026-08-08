@@ -3,7 +3,6 @@ name: plan-generator
 description: Generates an implementation plan from a requirements document using the project's plan template. Use this skill whenever the user asks to create an implementation plan, generate a plan from requirements, plan out a feature, or turn a requirements document into a dev plan. Trigger even if the user just names a requirements file and says "plan this" or "create a plan for this".
 allowed-tools: Read, Glob, Grep, Write, Bash, PowerShell
 context: fork
-agent: Plan
 ---
 
 ## Steps

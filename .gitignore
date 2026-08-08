@@ -67,6 +67,12 @@ dist/
 .env*
 !.env.example
 
+# MCP
+.mcp.json
+
+# worktree
+.claude/worktrees/
+
 # yarn v2+
 .pnp.*
 .yarn/*
