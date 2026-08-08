@@ -63,7 +63,7 @@ app.get('/login', (req, res) => {
     const pkce = generatePKCEChallenge()
     const state = crypto.randomUUID()
 
-    // This is temporary, will change it after initial validation
+    // TODO: This is temporary, will change it after initial validation
     storeCodeVerifier(state, pkce.codeVerifier)
 
     const authUrl = new URL('https://github.com/login/oauth/authorize')
