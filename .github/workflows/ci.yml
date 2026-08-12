@@ -1,16 +1,13 @@
 name: ci
 run-name: Run CI
 
-on: [push]
+on: [push, pull_request]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  ci-client:
-    name: Run CI for the React client application
-    defaults:
-      run:
-        working-directory: ./src/client
+  ci:
+    name: Run CI
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -33,56 +30,21 @@ jobs:
         run: yarn lint
 
       - name: Test with coverage
-        run: yarn test --coverage
+        run: yarn test:coverage
 
       - name: Upload coverage
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: client-coverage
-          path: ./src/client/coverage/
+          name: coverage
+          path: ./src/coverage/
 
       - name: Build
         run: yarn build
 
-  ci-api:
-    name: Run CI for the Node API application
-    defaults:
-      run:
-        working-directory: ./src/api
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
-
-      - name: Setup Node ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
-
-      - name: yarn install
-        run: yarn --immutable
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Test with coverage
-        run: yarn test --coverage
-
-      - name: Upload coverage
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: api-coverage
-          path: ./src/api/coverage/
-
   ci-sonar:
     name: Perform Sonar analysis
     runs-on: ubuntu-latest
-    needs: [ci-client, ci-api]
+    needs: [ci]
     permissions:
       contents: read
 
@@ -102,17 +64,11 @@ jobs:
         run: |
           echo "value=$(echo ${{ github.sha }} | sed 's/\(.\{7\}\).*/\1/')" >> "$GITHUB_OUTPUT"
 
-      - name: Download client coverage
+      - name: Download coverage
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          name: client-coverage
-          path: ./src/client/coverage/
-
-      - name: Download API coverage
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
-        with:
-          name: api-coverage
-          path: ./src/api/coverage/
+          name: coverage
+          path: ./src/coverage/
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@1a6d90ebcb0e6a6b1d87e37ba693fe453195ae25
