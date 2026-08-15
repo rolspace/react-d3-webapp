@@ -8,13 +8,6 @@ export default defineConfig({
     globals: true, // Enable auto cleanup and global test APIs
     include: ['frontend/**/*.test.{ts,tsx}'],
     exclude: ['node_modules', 'dist', 'coverage'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'lcov'],
-      include: ['frontend/**/*.{ts,tsx}'],
-      exclude: ['frontend/**/*.test.{ts,tsx}', 'frontend/**/__tests__/**'],
-      reportsDirectory: './coverage/frontend',
-    },
   },
   resolve: {
     alias: {
