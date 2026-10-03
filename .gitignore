@@ -73,6 +73,9 @@ dist/
 # worktree
 .claude/worktrees/
 
+# TODO files
+TODO
+
 # yarn v2+
 .pnp.*
 .yarn/*
