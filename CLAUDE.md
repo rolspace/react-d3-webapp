@@ -2,28 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Structure
-
-This project consists of two main parts within the `src/` directory:
-- **Backend** (`src/backend/`): Node.js Express API that serves as a middleman to GitHub GraphQL API
-- **Frontend** (`src/frontend/`): React frontend application with D3.js data visualizations
-
-Both applications are managed as a single package with shared dependencies.
-
-## Development Commands
-
-All commands are run from the project root:
-
-- `yarn install` - Install dependencies
-- `yarn dev` - Start development server (backend + frontend with hot reload)
-- `yarn build` - Build both frontend and backend for production
-- `yarn start` - Start production server
-- `yarn test` - Run tests for both backend and frontend
-- `yarn test:watch` - Run tests in watch mode
-- `yarn test:coverage` - Run tests with coverage report
-- `yarn lint` - Run ESLint on all source files
-- `yarn format` - Format all files with Prettier
-
 ## Architecture
 
 ### Backend Layer
