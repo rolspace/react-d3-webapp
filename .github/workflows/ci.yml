@@ -6,10 +6,12 @@ on:
     paths-ignore:
       - '.claude/**'
       - 'docs/**'
+      - '*.md'
   pull_request:
     paths-ignore:
       - '.claude/**'
       - 'docs/**'
+      - '*.md'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
