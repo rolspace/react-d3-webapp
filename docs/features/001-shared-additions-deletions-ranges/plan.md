@@ -2,7 +2,7 @@
 
 ## Context
 
-`src/backend/lib/github/parser.ts` exports `parseRepoEdges`, which is called from `src/backend/routes/repo.ts` as `parseRepoEdges(edges, ['additions', 'deletions', 'changedFiles'])`. Today it loops over each requested property and calls the private `createRanges` helper independently per property, so `additions` and `deletions` each get bucket boundaries derived only from their own min/max. Per `docs/requirements/001-shared-additions-deletions-ranges.md`, `additions` and `deletions` must share one set of computed boundaries (min, max, 20 bucket edges/labels) derived from their combined values, while each still gets its own per-bucket `count`. `changedFiles` must remain completely independent, and `createRanges`'s existing signature/behavior must stay unchanged for single-property callers.
+`src/backend/lib/github/parser.ts` exports `parseRepoEdges`, which is called from `src/backend/routes/repo.ts` as `parseRepoEdges(edges, ['additions', 'deletions', 'changedFiles'])`. Today it loops over each requested property and calls the private `createRanges` helper independently per property, so `additions` and `deletions` each get bucket boundaries derived only from their own min/max. Per `docs/features/001-shared-additions-deletions-ranges/requirements.md`, `additions` and `deletions` must share one set of computed boundaries (min, max, 20 bucket edges/labels) derived from their combined values, while each still gets its own per-bucket `count`. `changedFiles` must remain completely independent, and `createRanges`'s existing signature/behavior must stay unchanged for single-property callers.
 
 ---
 
