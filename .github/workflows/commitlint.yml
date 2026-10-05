@@ -1,0 +1,32 @@
+name: commitlint
+run-name: Lint commit messages
+
+on: [push, pull_request]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  commitlint:
+    name: Lint commit messages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: yarn install
+        run: yarn --immutable
+
+      - name: Lint commit messages
+        run: node .yarn/releases/yarn-4.9.2.cjs commitlint --from ${{ github.event.pull_request.base.sha || 'HEAD~1' }} --to HEAD
