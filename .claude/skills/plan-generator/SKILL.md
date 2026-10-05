@@ -9,13 +9,13 @@ context: fork
 
 ### 1. Locate the requirements document
 
-The user must provide a requirements document path or number (e.g., `docs/requirements/002-api-integration-tests.md` or just `002`). If none was provided, stop and tell the user to re-invoke the skill with a requirements document. Otherwise, resolve the argument to the exact file.
+The user must provide a requirements document path or number (e.g., `docs/features/002-api-integration-tests/requirements.md` or just `002`). If none was provided, stop and tell the user to re-invoke the skill with a requirements document. Otherwise, resolve the argument to the exact file.
 
-Output path mirrors the input: `docs/requirements/NNN-slug.md` → `docs/plans/NNN-slug.md`.
+Output path mirrors the input: `docs/features/NNN-slug/requirements.md` → `docs/features/NNN-slug/plan.md`.
 
 ### 2. Read inputs in parallel
 
-- `docs/templates/plan-template.md`
+- `.claude/skills/plan-generator/plan-template.md`
 - The resolved requirements document
 - `ARCHITECTURE.md`
 
@@ -51,11 +51,11 @@ Fill in the plan template. Each section must be specific enough that a developer
 
 **Title**: `# Plan: [Feature Name]` — match the requirements document title.
 
-**Context**: 3–5 sentences on the current state and what this plan achieves. Reference `docs/requirements/NNN-slug.md`.
+**Context**: 3–5 sentences on the current state and what this plan achieves. Reference `docs/features/NNN-slug/requirements.md`.
 
 **Files to Create / Modify / Delete**: Use real paths from exploration. Drop any table with nothing to say. For each file, explain what changes and why — not just which file.
 
-**Implementation**: One numbered subsection per unit of work. Include before/after code snippets when the change is non-obvious (interface changes, new registrations, config, subtle behavioral differences). C# must compile against the project's actual types.
+**Implementation**: One numbered subsection per unit of work. Include before/after code snippets when the change is non-obvious (interface changes, new registrations, config, subtle behavioral differences). TypeScript must compile against the project's actual types.
 
 **Key Technical Decisions**: Non-obvious choices with rationale. Omit if there are none.
 
@@ -69,4 +69,4 @@ Verify the plan does not violate `ARCHITECTURE.md`. If the requirements force an
 
 ### 7. Save the plan
 
-Ensure `docs/plans/` exists — use `mkdir -p docs/plans` (Bash on Linux/Mac) or `New-Item -ItemType Directory -Force docs/plans` (PowerShell on Windows) — then write to `docs/plans/NNN-slug.md`. Confirm the output path and a one-sentence summary to the user.
+Ensure `docs/features/NNN-slug/` exists — use `mkdir -p docs/features/NNN-slug` (Bash on Linux/Mac) or `New-Item -ItemType Directory -Force docs/features/NNN-slug` (PowerShell on Windows) — then write to `docs/features/NNN-slug/plan.md`. Confirm the output path and a one-sentence summary to the user.

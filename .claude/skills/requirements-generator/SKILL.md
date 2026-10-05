@@ -9,11 +9,11 @@ context: fork
 
 ### 1. Read the template
 
-Read `docs/templates/requirements-template.md`.
+Read `.claude/skills/requirements-generator/requirements-template.md`.
 
 ### 2. Determine the next document number
 
-Glob `docs/requirements/*.md`. Files follow `NNN-description.md`. Find the highest existing number, increment by 1, and zero-pad to 3 digits. Start at `001` if none exist.
+Glob `docs/features/`. Folder names follow `NNN-description/`. Find the highest existing number, increment by 1, and zero-pad to 3 digits. Start at `001` if none exist.
 
 ### 3. Derive the filename slug
 
@@ -40,6 +40,6 @@ For testing sections: unit tests (isolated logic), integration tests (component 
 
 ### 5. Write the file
 
-Ensure `docs/requirements/` exists — use `mkdir -p docs/requirements` (Bash on Linux/Mac) or `New-Item -ItemType Directory -Force docs/requirements` (PowerShell on Windows) — then write the completed document to `docs/requirements/NNN-slug.md`.
+Ensure `docs/features/NNN-slug/` exists — use `mkdir -p docs/features/NNN-slug` (Bash on Linux/Mac) or `New-Item -ItemType Directory -Force docs/features/NNN-slug` (PowerShell on Windows) — then write the completed document to `docs/features/NNN-slug/requirements.md`.
 
 Confirm to the user: file path, document number, and a one-sentence summary.
