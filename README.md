@@ -84,6 +84,10 @@ From the project root:
 yarn install
 ```
 
+### Alternative: Dev Container
+
+Instead of steps 1-3, open the project in a [dev container](https://containers.dev/) (VS Code: **Dev Containers: Reopen in Container**). On creation it installs dependencies, creates `src/.env` from `.env.example` and generates the SSL certificates. Then fill in `SESSION_SECRET`, `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` in `src/.env`, and trust the certificate in your browser (see [HTTPS in Development](#https-in-development)). Port 3000 is forwarded to the host.
+
 ## Development
 
 ### Start Development Server
