@@ -3,8 +3,8 @@ set -euo pipefail
 
 sudo corepack enable
 
-# Named volumes are created root-owned; let the node user write Claude Code config.
-sudo chown -R "$(id -u):$(id -g)" "$HOME/.claude"
+# Named volumes are created root-owned; let the node user write Claude Code and gh config.
+sudo chown -R "$(id -u):$(id -g)" "$HOME/.claude" "$HOME/.config"
 yarn install --immutable
 
 if [ ! -f src/.env ]; then

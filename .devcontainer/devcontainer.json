@@ -2,10 +2,12 @@
   "name": "react-d3-webapp",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
   "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
   },
   "mounts": [
-    "source=react-d3-webapp-claude-config,target=/home/node/.claude,type=volume"
+    "source=react-d3-webapp-claude-config,target=/home/node/.claude,type=volume",
+    "source=react-d3-webapp-gh-config,target=/home/node/.config/gh,type=volume"
   ],
   "forwardPorts": [3000],
   "portsAttributes": {
