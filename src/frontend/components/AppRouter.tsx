@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router'
 import RepoCommits from '../features/repo/RepoCommits'
 import PrivateRoute from '../features/user/PrivateRoute'
+import RequireAuth from '../features/user/RequireAuth'
 import GraphPage from '../pages/GraphPage'
 import Login from '../pages/Login'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
@@ -15,8 +16,15 @@ const AppRouter: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<HomePage />} />
+      <Route
+        path="/"
+        element={
+          <RequireAuth>
+            <HomePage />
+          </RequireAuth>
+        }
+      />
+      <Route path="/welcome" element={<Login />} />
       <Route
         path="/graphs/repo-additions-deletions"
         element={

@@ -114,7 +114,7 @@ app.get('/auth/github/callback', async (req, res, next) => {
     const { access_token: accessToken } = tokenData
     req.session.accessToken = accessToken
 
-    res.redirect('/home')
+    res.redirect('/')
   } catch (error) {
     res.status(500).json({
       error: error instanceof Error ? error.message : 'OAuth callback failed',
