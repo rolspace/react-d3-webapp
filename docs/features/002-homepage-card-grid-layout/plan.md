@@ -48,11 +48,16 @@ A new `RequireAuth` component calls `/api/user/me` with `fetch`. 200 renders chi
 | `src/backend/server.ts` | OAuth callback success redirect `'/home'` becomes `'/'`. |
 | `src/frontend/pages/HomePage.tsx` | Replace link-card list with the 2x2 card grid driven by `homeCards`. |
 | `src/frontend/components/AppRouter.tsx` | `/` renders `<RequireAuth><HomePage/></RequireAuth>`; remove `/home`; move `Login` to `/welcome`. |
+| `src/frontend/components/App.tsx` | Remove the menu `IconButton`, its `handleDrawer`/`menuOpen` state, the `AppDrawer` element, and the now-unused imports and `menuButton` class. The app bar keeps only the "Git Charts" home link. |
 | `package.json` | Add `@playwright/test` dev dependency and `test:e2e` script. |
 
 ## Files to Delete
 
-None. `GraphList.tsx` and `Card.tsx` become unused by the homepage but are left in place (graph pages remain reachable via `AppDrawer`); removing them is out of scope.
+| File | Reason |
+|---|---|
+| `src/frontend/components/AppDrawer.tsx` | Navigation drawer removed from the application; it was the only in-app link to the graph pages. |
+
+`GraphList.tsx` and `Card.tsx` become unused by the homepage but are left in place; removing them is out of scope.
 
 ---
 
@@ -154,6 +159,16 @@ CSS grid with MUI's `md` breakpoint (900px) gives equal columns, consistent gap,
 
 The `/home` route is removed. Unauthenticated users are sent straight to the backend `/login` (by `RequireAuth`), so `Login` is no longer on the primary path; it is kept at `/welcome` rather than deleted.
 
+The `/graphs/*` routes stay registered, but nothing in the UI links to them after the drawer removal. They are reachable by direct URL only.
+
+### 9. Remove the navigation drawer (`App.tsx`, `AppDrawer.tsx`)
+
+- Delete `src/frontend/components/AppDrawer.tsx`.
+- In `src/frontend/components/App.tsx`, remove the `MenuIcon` menu button, the `useState`-based `menuOpen`/`handleDrawer` logic, the `<AppDrawer>` element, and the unused imports and `menuButton` class. The `AppBar` keeps the "Git Charts" link to `/`.
+- Verify with `git grep -i drawer` returning no matches in `src/`.
+
+No test covers the drawer or menu button, so no test changes are needed. The E2E and AppRouter tests do not click the menu.
+
 ---
 
 ## Key Technical Decisions
@@ -166,6 +181,7 @@ The `/home` route is removed. Unauthenticated users are sent straight to the bac
 - **Yarn `nodeLinker: node-modules` (decided)**: Yarn PnP is the default, and Playwright's TypeScript loader calls `require()` with conditions, which PnP rejects (`Some options passed to require() aren't supported by PnP yet (conditions)`). `.yarnrc.yml` now sets `nodeLinker: node-modules` repo-wide. This is a change to every contributor's install layout; `yarn install` regenerates `node_modules/` and no `.pnp.cjs` is produced.
 - **E2E file names (decided)**: `playwright.config.ts` and `e2e/homepage.spec.ts` are TypeScript, as originally planned. They were briefly `.mjs` while PnP was in place; they were renamed once the linker changed.
 - **Error rethrow in `PlaceholderChart` (implementation detail)**: the caught D3 error is stored with `useState` and rethrown during render (`if (error) throw error`), instead of the `setError(() => { throw e })` updater trick. Behaviour is the same: the error boundary receives it. The explicit form is clearer and is what the tests exercise.
+- **Navigation drawer removed (decided)**: `AppDrawer` and its menu button were removed from the app bar. The homepage card grid is the only navigation entry point. Graph pages are not linked from the UI anymore; this removes the only in-app navigation to graph pages, as requested.
 - **Frontend test glob is `*.test.{ts,tsx}`** (`src/vitest.config.frontend.ts`), so new tests must be `.tsx`; the existing `PrivateRoute.test.jsx` is not matched and is left alone.
 
 ---
