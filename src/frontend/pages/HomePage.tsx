@@ -1,26 +1,30 @@
-import Grid from '@mui/material/Grid'
-import { styled } from '@mui/material/styles'
-import GraphList from '../components/GraphList'
-
-const PREFIX = 'HomePage'
-
-const classes = {
-  container: `${PREFIX}-container`,
-}
-
-const Root = styled(Grid)(() => ({
-  [`&.${classes.container}`]: {
-    paddingTop: '80px',
-  },
-}))
+import Box from '@mui/material/Box'
+import ChartErrorBoundary from '../components/ChartErrorBoundary'
+import DashboardCard from '../components/DashboardCard'
+import PlaceholderChart from '../components/PlaceholderChart'
+import { homeCards } from './homeCards'
 
 const HomePage: React.FC = () => {
   return (
-    <Root container className={classes.container} justifyContent="center">
-      <Grid size={{ xs: 12, sm: 6 }}>
-        <GraphList />
-      </Grid>
-    </Root>
+    <Box sx={{ pt: 10, px: { xs: 2, md: 0 } }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gap: 3,
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+        }}
+      >
+        {homeCards.map(({ id, title }) => (
+          <Box key={id} sx={{ minWidth: 0 }}>
+            <DashboardCard title={title}>
+              <ChartErrorBoundary>
+                <PlaceholderChart title={title} />
+              </ChartErrorBoundary>
+            </DashboardCard>
+          </Box>
+        ))}
+      </Box>
+    </Box>
   )
 }
 
