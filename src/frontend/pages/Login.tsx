@@ -39,8 +39,7 @@ const Login: React.FC = () => {
     <Root
       container
       className={classes.container}
-      justifyContent="center"
-      alignItems="center"
+      sx={{ justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
         <div className={classes.content}>

@@ -35,7 +35,7 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
     return (
       <Grid container>
         <Grid size={12}>
-          <Grid container justifyContent="center">
+          <Grid container sx={{ justifyContent: 'center' }}>
             <Grid size={{ sm: 10, md: 6 }}>
               <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
