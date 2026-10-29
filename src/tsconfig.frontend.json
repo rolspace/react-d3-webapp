@@ -6,7 +6,7 @@
     "moduleResolution": "bundler",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "types": ["vitest"],
+    "types": ["vitest", "node"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
