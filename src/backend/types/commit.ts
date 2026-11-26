@@ -1,23 +1,23 @@
 interface CommitAuthor {
   user: {
     login: string;
-  };
+  } | null;
 }
 
 export interface CommitNode {
   additions: number;
   deletions: number;
   changedFiles: number;
-  pushedDate: string | null;
+  committedDate: string | null;
   oid: string;
-  author: CommitAuthor;
+  author: CommitAuthor | null;
 }
 
 export interface CommitEdge {
   node: CommitNode;
 }
 
-interface CommitHistory {
+export interface CommitHistory {
   pageInfo: {
     hasNextPage: boolean;
   };
@@ -31,6 +31,20 @@ export interface GitHubRepositoryResponse {
         id: string;
         history: CommitHistory;
       };
-    };
+    } | null;
   };
+}
+
+export interface CommitRow {
+  oid: string;
+  date: string | null;
+  additions: number;
+  deletions: number;
+  changedFiles: number;
+  author: string | null;
+}
+
+export interface RepoCommitsResponse {
+  commits: CommitRow[];
+  hasNextPage: boolean;
 }
