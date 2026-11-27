@@ -1,13 +1,6 @@
 import { create } from 'zustand'
-import { createHighRange, createLowRange } from '../services/range'
-import { DataItem } from '../types/graph.types'
+import { CommitRow, RepoCommitsResponse } from '../types/commit.types'
 import { Status } from '../types/state.types'
-
-export interface CommitData {
-  changedFiles?: DataItem[]
-  linesAdded?: DataItem[]
-  linesDeleted?: DataItem[]
-}
 
 interface RepoIdentifier {
   owner: string
@@ -15,7 +8,8 @@ interface RepoIdentifier {
 }
 
 interface RepoProperties {
-  commitData: CommitData
+  commits: CommitRow[]
+  hasNextPage: boolean
   status: Status
   error: Error | null
 }
@@ -29,14 +23,16 @@ interface RepoActions {
 
 export type RepoStore = RepoIdentifier & RepoProperties & RepoActions
 
+// A function so that each reset gets a new array.
+const emptyCommits = (): Pick<RepoProperties, 'commits' | 'hasNextPage'> => ({
+  commits: [],
+  hasNextPage: false,
+})
+
 export const useRepoStore = create<RepoStore>((set) => ({
   owner: 'facebook',
   repository: 'react',
-  commitData: {
-    changedFiles: [],
-    linesAdded: [],
-    linesDeleted: [],
-  },
+  ...emptyCommits(),
   status: Status.Idle,
   error: null,
 
@@ -46,11 +42,7 @@ export const useRepoStore = create<RepoStore>((set) => ({
       repository,
       status: Status.Idle,
       error: null,
-      commitData: {
-        changedFiles: [],
-        linesAdded: [],
-        linesDeleted: [],
-      },
+      ...emptyCommits(),
     })
   },
   fetchRepo: async ({ owner, repository, token }) => {
@@ -58,11 +50,7 @@ export const useRepoStore = create<RepoStore>((set) => ({
       set({
         status: Status.Pending,
         error: null,
-        commitData: {
-          changedFiles: [],
-          linesAdded: [],
-          linesDeleted: [],
-        },
+        ...emptyCommits(),
       })
 
       const response = await fetch(
@@ -78,16 +66,13 @@ export const useRepoStore = create<RepoStore>((set) => ({
         },
       )
 
-      const result = await response.json()
+      const result: RepoCommitsResponse = await response.json()
 
       if (response.ok) {
         set({
           status: Status.Success,
-          commitData: {
-            changedFiles: createLowRange(result, 'changedFiles'),
-            linesAdded: createHighRange(result, 'additions'),
-            linesDeleted: createHighRange(result, 'deletions'),
-          },
+          commits: Array.isArray(result.commits) ? result.commits : [],
+          hasNextPage: result.hasNextPage === true,
         })
       } else {
         const { statusText } = response
@@ -97,11 +82,7 @@ export const useRepoStore = create<RepoStore>((set) => ({
       set({
         status: Status.Failure,
         error: error instanceof Error ? error : new Error('Unknown error'),
-        commitData: {
-          changedFiles: [],
-          linesAdded: [],
-          linesDeleted: [],
-        },
+        ...emptyCommits(),
       })
 
       throw error
@@ -111,11 +92,7 @@ export const useRepoStore = create<RepoStore>((set) => ({
     set({
       owner: 'facebook',
       repository: 'react',
-      commitData: {
-        changedFiles: [],
-        linesAdded: [],
-        linesDeleted: [],
-      },
+      ...emptyCommits(),
       status: Status.Idle,
       error: null,
     }),
