@@ -40,7 +40,7 @@ The repo page currently shows no information about when commits happen. Each com
 ## Non-Functional Requirements
 
 ### Code Architecture and Modularity
-- Put the weekly grouping in a pure function in `src/frontend/utils/` using `d3.timeWeek`/`d3.utcMonday` and `d3.rollup`, tested apart from rendering.
+- Put the weekly grouping in a pure function in `src/frontend/utils/` using `d3.utcMonday` and `d3.rollup`, tested apart from rendering. (`d3.timeWeek` is not used: it starts weeks on Sunday in local time, which conflicts with the Monday-start UTC weeks above.)
 - Reuse the shared chart scaffolding used by the other repo charts.
 
 ### Performance
