@@ -20,7 +20,7 @@ const rows = [
 let requestCount = 0
 
 const server = setupServer(
-  http.post(/\/api\/repo\//, () => {
+  http.get(/\/api\/repo\//, () => {
     requestCount += 1
     return HttpResponse.json({ commits: rows, hasNextPage: false })
   }),
@@ -51,7 +51,6 @@ describe('RepoCommits', () => {
   it('RepoCommits_AddsDeletesLoaded_RendersSharedBinBarsAndControls', async () => {
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphAddsDeletes} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
@@ -63,7 +62,6 @@ describe('RepoCommits', () => {
   it('RepoCommits_ChangedFilesLoaded_RendersIndependentBins', async () => {
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphChangedFiles} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     expect(await screen.findByText(/total commits/i)).toBeInTheDocument()
@@ -74,7 +72,6 @@ describe('RepoCommits', () => {
   it('RepoCommits_BinCountChanged_RebinsWithoutRefetching', async () => {
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphAddsDeletes} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
     await screen.findByText(/total commits/i)
 
@@ -90,7 +87,6 @@ describe('RepoCommits', () => {
     const user = userEvent.setup()
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphAddsDeletes} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
     await screen.findByText(/total commits/i)
     expect(firstXTick(container)).toBe('1-27')
@@ -114,12 +110,11 @@ describe('RepoCommits', () => {
 
   it('RepoCommits_FetchFails_ShowsErrorAlert', async () => {
     server.use(
-      http.post(/\/api\/repo\//, () =>
+      http.get(/\/api\/repo\//, () =>
         HttpResponse.json({}, { status: 500, statusText: 'Internal Server Error' })),
     )
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphAddsDeletes} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     expect(await screen.findByText(/an error ocurred while loading/i)).toBeInTheDocument()
@@ -127,10 +122,9 @@ describe('RepoCommits', () => {
   })
 
   it('RepoCommits_EmptyCommits_RendersEmptyGraphWithoutControls', async () => {
-    server.use(http.post(/\/api\/repo\//, () => HttpResponse.json({ commits: [], hasNextPage: false })))
+    server.use(http.get(/\/api\/repo\//, () => HttpResponse.json({ commits: [], hasNextPage: false })))
     const { container } = renderWithStores(
       <RepoCommits graphComponent={BarGraphAddsDeletes} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     await waitFor(() => expect(useRepoStore.getState().status).toBe(Status.Success))

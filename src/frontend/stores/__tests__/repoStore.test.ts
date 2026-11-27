@@ -10,10 +10,10 @@ const rowA: CommitRow = { oid: 'a1', date: '2023-04-21T18:23:50Z', additions: 5,
 const rowB: CommitRow = { oid: 'b2', date: null, additions: 9, deletions: 0, changedFiles: 3, author: null }
 
 const server = setupServer(
-  http.post(/\/api\/repo\//, () => HttpResponse.json({ commits: [rowA, rowB], hasNextPage: true })),
+  http.get(/\/api\/repo\//, () => HttpResponse.json({ commits: [rowA, rowB], hasNextPage: true })),
 )
 
-const fetchArgs = { owner: 'facebook', repository: 'react', token: 'AbcDeF123456' }
+const fetchArgs = { owner: 'facebook', repository: 'react' }
 
 describe('repoStore', () => {
   beforeAll(() => {
@@ -60,7 +60,7 @@ describe('repoStore', () => {
 
   it('fetchRepo_ErrorResponse_SetsFailureClearsCommitsAndRethrows', async () => {
     server.use(
-      http.post(/\/api\/repo\//, () =>
+      http.get(/\/api\/repo\//, () =>
         HttpResponse.json({}, { status: 500, statusText: 'Internal Server Error' })),
     )
     useRepoStore.setState({ commits: [rowA], hasNextPage: true })
@@ -75,7 +75,7 @@ describe('repoStore', () => {
   })
 
   it('fetchRepo_NetworkError_SetsFailureAndRethrows', async () => {
-    server.use(http.post(/\/api\/repo\//, () => HttpResponse.error()))
+    server.use(http.get(/\/api\/repo\//, () => HttpResponse.error()))
 
     await expect(useRepoStore.getState().fetchRepo(fetchArgs)).rejects.toThrow()
 

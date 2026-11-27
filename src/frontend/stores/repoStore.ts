@@ -16,7 +16,7 @@ interface RepoProperties {
 
 interface RepoActions {
   setRepo: ({ owner, repository }: RepoIdentifier) => void
-  fetchRepo: ({ owner, repository, token }: RepoIdentifier & { token: string }) => Promise<void>
+  fetchRepo: ({ owner, repository }: RepoIdentifier) => Promise<void>
   clearRepo: () => void
   clearError: () => void
 }
@@ -45,7 +45,7 @@ export const useRepoStore = create<RepoStore>((set) => ({
       ...emptyCommits(),
     })
   },
-  fetchRepo: async ({ owner, repository, token }) => {
+  fetchRepo: async ({ owner, repository }) => {
     try {
       set({
         status: Status.Pending,
@@ -53,17 +53,10 @@ export const useRepoStore = create<RepoStore>((set) => ({
         ...emptyCommits(),
       })
 
+      // The server reads the GitHub token from the session cookie, so the client sends none.
       const response = await fetch(
-        `${process.env.API_URL}/api/repo/${owner}/${repository}/`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            token,
-          }),
-        },
+        `${process.env.API_URL}/api/repo/${owner}/${repository}`,
+        { credentials: 'include' },
       )
 
       const result: RepoCommitsResponse = await response.json()

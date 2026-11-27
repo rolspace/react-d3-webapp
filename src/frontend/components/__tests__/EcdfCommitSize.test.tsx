@@ -193,7 +193,7 @@ describe('EcdfCommitSize', () => {
 
 describe('RepoCommits with EcdfCommitSize', () => {
   const server = setupServer(
-    http.post(/\/api\/repo\//, () => HttpResponse.json({ commits: rows, hasNextPage: true })),
+    http.get(/\/api\/repo\//, () => HttpResponse.json({ commits: rows, hasNextPage: true })),
   )
 
   beforeAll(() => {
@@ -215,7 +215,6 @@ describe('RepoCommits with EcdfCommitSize', () => {
   it('RepoCommits_EcdfRoute_FetchesAndRendersSteps', async () => {
     const { container } = renderWithStores(
       <RepoCommits graphComponent={EcdfCommitSize} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     expect(await screen.findByText(/latest 4 commits/i)).toBeInTheDocument()

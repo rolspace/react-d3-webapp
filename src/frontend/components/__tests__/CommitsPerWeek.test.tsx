@@ -191,7 +191,7 @@ describe('CommitsPerWeek', () => {
 
 describe('RepoCommits with CommitsPerWeek', () => {
   const server = setupServer(
-    http.post(/\/api\/repo\//, () => HttpResponse.json({ commits: rows, hasNextPage: true })),
+    http.get(/\/api\/repo\//, () => HttpResponse.json({ commits: rows, hasNextPage: true })),
   )
 
   beforeAll(() => {
@@ -213,7 +213,6 @@ describe('RepoCommits with CommitsPerWeek', () => {
   it('RepoCommits_WeeklyRoute_FetchesAndRendersBars', async () => {
     const { container } = renderWithStores(
       <RepoCommits graphComponent={CommitsPerWeek} />,
-      { userInitialState: { token: 'AbcDeF123456' } },
     )
 
     expect(await screen.findByText(/latest 4 commits/i)).toBeInTheDocument()
