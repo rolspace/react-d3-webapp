@@ -1,17 +1,12 @@
 import * as d3 from 'd3'
 import { get } from './object'
 import { BarGraphDataSets, BarGraphStyle, DataItem } from '../types/graph.types'
-
-interface Margins {
-  top: number
-  right: number
-  bottom: number
-  left: number
-}
-
-const margins: Margins = { top: 40, right: 40, bottom: 40, left: 40 }
-const xLabelMargin = 35
-const yLabelMargin = 50
+import {
+  clearChart,
+  createChartFrame,
+  drawXAxis,
+  drawYAxis,
+} from './chartScaffold'
 
 const xAxis = 'label'
 const yAxis = 'count'
@@ -52,20 +47,17 @@ const renderBarGraphSet = (
 }
 
 export const renderBarGraph = (svgElement: SVGSVGElement, sets: BarGraphDataSets, style: BarGraphStyle): void => {
-  d3.select(svgElement).selectAll('*').remove()
+  clearChart(svgElement)
 
   if (sets.every((set) => !set.length)) {
     return
   }
 
   const { colors, height, width } = style
-  const innerNode = d3.select(svgElement).append('g')
-
-  innerNode.attr('transform', `translate(${margins.top}, ${margins.left})`)
+  const frame = createChartFrame(svgElement, { width, height })
+  const { root: innerNode, innerHeight: graphHeight } = frame
 
   const xAxisPadding = sets.length > 1 ? 0.2 : 0.4
-  const graphHeight = height - margins.top - margins.bottom
-  const graphWidth = width - margins.right - margins.left
 
   const xScale = sets.map((set) => {
     const domain = set.map((d) => get(d, xAxis))
@@ -92,33 +84,8 @@ export const renderBarGraph = (svgElement: SVGSVGElement, sets: BarGraphDataSets
   const xDomain = xScale[0].domain()
   const tickStep = Math.ceil(xDomain.length / MAX_X_TICK_LABELS)
 
-  innerNode
-    .append('g')
-    .attr('class', 'axis axis--x')
-    .attr('transform', `translate(0, ${graphHeight})`)
-    .call(d3.axisBottom(xScale[0]).tickValues(xDomain.filter((_, i) => i % tickStep === 0)))
-
-  innerNode
-    .append('text')
-    .attr('transform', `translate(${graphWidth / 2}, ${graphHeight + xLabelMargin})`)
-    .style('text-anchor', 'middle')
-    .style('font-size', '0.813rem')
-    .text(style.xAxisLabel)
-
-  innerNode
-    .append('g')
-    .attr('class', 'axis axis--y')
-    .call(d3.axisLeft(yScale).ticks(9))
-
-  innerNode
-    .append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('x', 0 - graphHeight / 2)
-    .attr('y', 0 - yLabelMargin)
-    .attr('dy', '1em')
-    .style('text-anchor', 'middle')
-    .style('font-size', '0.813rem')
-    .text(style.yAxisLabel)
+  drawXAxis(frame, d3.axisBottom(xScale[0]).tickValues(xDomain.filter((_, i) => i % tickStep === 0)), style.xAxisLabel)
+  drawYAxis(frame, d3.axisLeft(yScale).ticks(9), style.yAxisLabel)
 
   const { length: setCount } = sets
 
