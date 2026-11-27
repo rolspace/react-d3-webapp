@@ -1,10 +1,9 @@
 import FormLabel from '@mui/material/FormLabel'
 import Slider from '@mui/material/Slider'
 import Stack from '@mui/material/Stack'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import React, { useId } from 'react'
 import { BinScale, MAX_BIN_COUNT, MIN_BIN_COUNT } from '../utils/binning'
+import ScaleToggle from './ScaleToggle'
 
 interface HistogramControlsProps {
   binCount: number
@@ -17,7 +16,6 @@ const HistogramControls: React.FC<HistogramControlsProps> = ({
   binCount, scale, onBinCountChange, onScaleChange,
 }) => {
   const binLabelId = useId()
-  const scaleLabelId = useId()
 
   return (
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} sx={{ alignItems: 'center', mb: 2 }}>
@@ -33,19 +31,7 @@ const HistogramControls: React.FC<HistogramControlsProps> = ({
           onChange={(_, value) => onBinCountChange(value as number)}
         />
       </Stack>
-      <Stack>
-        <FormLabel id={scaleLabelId}>Scale</FormLabel>
-        <ToggleButtonGroup
-          aria-labelledby={scaleLabelId}
-          exclusive
-          size="small"
-          value={scale}
-          onChange={(_, value: BinScale | null) => value && onScaleChange(value)}
-        >
-          <ToggleButton value="linear">Linear</ToggleButton>
-          <ToggleButton value="log">Log</ToggleButton>
-        </ToggleButtonGroup>
-      </Stack>
+      <ScaleToggle value={scale} onChange={onScaleChange} />
     </Stack>
   )
 }

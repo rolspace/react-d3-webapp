@@ -6,6 +6,7 @@ import GraphPage from '../pages/GraphPage'
 import Login from '../pages/Login'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
+import EcdfCommitSize from './EcdfCommitSize'
 import HomePage from '../pages/HomePage'
 
 const AppRouter: React.FC = () => {
@@ -13,6 +14,7 @@ const AppRouter: React.FC = () => {
 
   const AddsDeletes = GraphPage(RepoCommits, BarGraphAddsDeletes)
   const ChangedFiles = GraphPage(RepoCommits, BarGraphChangedFiles)
+  const CommitSize = GraphPage(RepoCommits, EcdfCommitSize)
 
   return (
     <Routes>
@@ -46,6 +48,18 @@ const AppRouter: React.FC = () => {
             search={search}
           >
             <ChangedFiles />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/graphs/repo-commit-size"
+        element={
+          <PrivateRoute
+            path="/graphs/repo-commit-size"
+            pathname={pathname}
+            search={search}
+          >
+            <CommitSize />
           </PrivateRoute>
         }
       />

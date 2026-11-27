@@ -20,7 +20,11 @@ const GraphList: React.FC = () => {
         />
       </ImageListItem>
       <ImageListItem>
-        <CustomCard to="/" title="Graph #3" description="Pending" />
+        <CustomCard
+          to="/graphs/repo-commit-size"
+          title="Commit Size Distribution"
+          description="Share of commits at or below each size"
+        />
       </ImageListItem>
       <ImageListItem>
         <CustomCard to="/" title="Graph #4" description="Pending" />
