@@ -21,7 +21,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, path, pathname, s
     } else if (token === '') {
       window.location.replace(
         `https://github.com/login/oauth/authorize?client_id=${
-          process.env.APPLICATION_ID
+          process.env.GITHUB_CLIENT_ID
         }&state=${crypto.randomUUID()}&redirect_uri=${
           window.location.protocol
         }//${window.location.host}${pathname}`,
