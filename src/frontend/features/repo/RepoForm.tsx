@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import { useState } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
-import { useUserStore } from '../../stores/userStore'
 
 const PREFIX = 'RepoForm'
 
@@ -27,7 +26,6 @@ const RepoForm: React.FC = () => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
   const error = useRepoStore((state) => state.error)
-  const token = useUserStore((state) => state.token)
   const setRepo = useRepoStore((state) => state.setRepo)
 
   const [ownerValue, setOwnerValue] = useState(owner)
@@ -39,9 +37,7 @@ const RepoForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (token !== '') {
-      setRepo({ owner: ownerValue, repository: repositoryValue })
-    }
+    setRepo({ owner: ownerValue, repository: repositoryValue })
 
     setOwnerValueChanged(false)
     setRepositoryValueChanged(false)

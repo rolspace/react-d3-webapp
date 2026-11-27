@@ -3,11 +3,15 @@ import React, { ReactNode, useEffect, useState } from 'react'
 
 type AuthStatus = 'pending' | 'authenticated' | 'unauthenticated'
 
+const loginUrl = () =>
+  `/login?next=${encodeURIComponent(`${window.location.pathname}${window.location.search}`)}`
+
 interface RequireAuthProps {
   children: ReactNode
 }
 
 // Gates children on the server session established by the OAuth callback.
+// A logged-out visitor is sent to the server login, which returns them to this page afterwards.
 const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>('pending')
 
@@ -23,13 +27,13 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
           setStatus('authenticated')
         } else {
           setStatus('unauthenticated')
-          window.location.replace('/login')
+          window.location.replace(loginUrl())
         }
       })
       .catch((e) => {
         if (e.name !== 'AbortError') {
           setStatus('unauthenticated')
-          window.location.replace('/login')
+          window.location.replace(loginUrl())
         }
       })
 

@@ -9,6 +9,7 @@ import { config } from './lib/config.js'
 import { logger } from './lib/logger.js'
 import { handleOAuthCallback } from './lib/oauth.js'
 import { generatePKCEChallenge, storeCodeVerifier } from './lib/pkce.js'
+import { safeReturnPath } from './lib/returnPath.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { requestLogger } from './middleware/requestLogger.js'
 import * as repoRoute from './routes/repo.js'
@@ -60,6 +61,12 @@ app.get('/api/user/me', (req, res, next) => userRoute.get(req, res, next))
 // Login Route
 app.get('/login', (req, res) => {
   try {
+    // Remember the page the user asked for so the callback can send them back to it.
+    const returnTo = safeReturnPath(req.query.next)
+    if (returnTo) {
+      req.session.returnTo = returnTo
+    }
+
     const pkce = generatePKCEChallenge()
     const state = crypto.randomUUID()
 
@@ -114,7 +121,10 @@ app.get('/auth/github/callback', async (req, res, next) => {
     const { access_token: accessToken } = tokenData
     req.session.accessToken = accessToken
 
-    res.redirect('/')
+    const returnTo = safeReturnPath(req.session.returnTo) ?? '/'
+    delete req.session.returnTo
+
+    res.redirect(returnTo)
   } catch (error) {
     res.status(500).json({
       error: error instanceof Error ? error.message : 'OAuth callback failed',

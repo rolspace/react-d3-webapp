@@ -3,7 +3,6 @@ import AlertTitle from '@mui/material/AlertTitle'
 import Grid from '@mui/material/Grid'
 import React, { useEffect, ComponentType } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
-import { useUserStore } from '../../stores/userStore'
 import { RepoGraphProps } from '../../types/graph.types'
 import { Status } from '../../types/state.types'
 
@@ -18,19 +17,14 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   const hasNextPage = useRepoStore((state) => state.hasNextPage)
   const status = useRepoStore((state) => state.status)
   const error = useRepoStore((state) => state.error)
-  const token = useUserStore((state) => state.token)
   const fetchRepo = useRepoStore((state) => state.fetchRepo)
 
   useEffect(() => {
-    if (
-      token !== '' &&
-      status === Status.Idle &&
-      error === null
-    ) {
+    if (status === Status.Idle && error === null) {
       // The store records the failure in `error`, so the rethrown error needs no handling here.
-      fetchRepo({ owner, repository, token }).catch(() => undefined)
+      fetchRepo({ owner, repository }).catch(() => undefined)
     }
-  }, [owner, repository, token, status, error, fetchRepo])
+  }, [owner, repository, status, error, fetchRepo])
 
   const GraphComponent = graphComponent
 

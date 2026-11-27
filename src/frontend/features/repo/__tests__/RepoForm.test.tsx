@@ -37,7 +37,6 @@ describe('RepoForm', () => {
 
     renderWithStores(<RepoForm />, {
       repoInitialState: { owner: 'facebook', repository: 'react', error: null },
-      userInitialState: { token: '' },
     })
 
     const button = screen.getByRole('button', {

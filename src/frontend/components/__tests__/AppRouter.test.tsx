@@ -65,7 +65,7 @@ describe('AppRouter', () => {
 
     const { container } = renderAt('/')
 
-    await waitFor(() => expect(replaceSpy).toHaveBeenCalledWith('/login'))
+    await waitFor(() => expect(replaceSpy).toHaveBeenCalledWith('/login?next=%2F'))
     expect(container.querySelectorAll('.MuiCard-root')).toHaveLength(0)
   })
 })

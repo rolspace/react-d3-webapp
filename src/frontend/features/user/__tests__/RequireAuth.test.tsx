@@ -60,8 +60,34 @@ describe('RequireAuth', () => {
       </RequireAuth>,
     )
 
-    await waitFor(() => expect(replaceSpy).toHaveBeenCalledWith('/login'))
+    await waitFor(() => expect(replaceSpy).toHaveBeenCalledWith('/login?next=%2F'))
     expect(screen.queryByText('protected content')).not.toBeInTheDocument()
+
+    vi.unstubAllGlobals()
+  })
+
+  it('RequireAuth_UnauthorizedOnGraphPage_ReturnsToThatPageAfterLogin', async () => {
+    server.use(
+      http.get('http://localhost/api/user/me', () =>
+        HttpResponse.json({ error: 'Unauthorized' }, { status: 401 }),
+      ),
+    )
+    const replaceSpy = vi.fn()
+    vi.stubGlobal('location', {
+      ...window.location,
+      pathname: '/graphs/repo-commits-per-week',
+      search: '?range=all',
+      replace: replaceSpy,
+    })
+
+    render(
+      <RequireAuth>
+        <span>protected content</span>
+      </RequireAuth>,
+    )
+
+    const expected = `/login?next=${encodeURIComponent('/graphs/repo-commits-per-week?range=all')}`
+    await waitFor(() => expect(replaceSpy).toHaveBeenCalledWith(expected))
 
     vi.unstubAllGlobals()
   })
