@@ -49,7 +49,6 @@ describe('PrivateRoute', () => {
 
     renderWithStores(
       <PrivateRoute
-        component={<></>}
         path="/path"
         pathname="/path"
         search={searchValue}

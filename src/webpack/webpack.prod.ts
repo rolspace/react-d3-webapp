@@ -10,6 +10,7 @@ const config: Configuration = merge(common, {
       'process.env.API_URL': JSON.stringify(
         process.env.API_URL || 'https://localhost:3000',
       ),
+      'process.env.GITHUB_CLIENT_ID': JSON.stringify(process.env.GITHUB_CLIENT_ID || ''),
     }),
   ],
   optimization: {
