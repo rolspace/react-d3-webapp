@@ -14,9 +14,9 @@ const HomePage: React.FC = () => {
           gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
         }}
       >
-        {homeCards.map(({ id, title }) => (
+        {homeCards.map(({ id, title, to }) => (
           <Box key={id} sx={{ minWidth: 0 }}>
-            <DashboardCard title={title}>
+            <DashboardCard title={title} to={to}>
               <ChartErrorBoundary>
                 <PlaceholderChart title={title} />
               </ChartErrorBoundary>
