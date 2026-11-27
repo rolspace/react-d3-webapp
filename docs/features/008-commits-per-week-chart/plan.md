@@ -4,7 +4,9 @@
 
 After features 005–007, `repoStore` holds raw `commits: CommitRow[]` and `hasNextPage`. `RepoCommits` passes `RepoGraphProps` (`commits`, `hasNextPage`, `status`) to the graph component a route gives it. Each `CommitRow` has `date: string | null`, which the backend copies from GitHub's ISO-8601 `committedDate` (`src/backend/lib/github/commits.ts`). No chart uses it yet. Feature 007 added the shared scaffolding this chart reuses: `services/chartScaffold.ts` (`createChartFrame`, `drawXAxis`, `drawYAxis`, `CHART_*` constants), `ChartTooltip`, `ChartEmptyState` and `ChartCoverageNote`.
 
-This plan implements `docs/features/008-commits-per-week-chart/requirements.md`. It adds a route, `/graphs/repo-commits-per-week`, with a bar chart of commits per UTC week (Monday start). The x axis is a time scale, and empty weeks inside the range are drawn as zero-height bars. A tooltip works with both the pointer and the keyboard. The chart also shows the date range covered, a note counting undated commits, the "latest N commits" note, and an empty state for when no commit has a usable date. The grouping is a pure utility in `src/frontend/utils/weekly.ts`.
+Graph pages are protected by the server session. The backend stores the GitHub token in the session during OAuth, and `repoStore` fetches `/api/repo/:owner/:repo` with the session cookie. The client holds no token.
+
+This plan implements `docs/features/008-commits-per-week-chart/requirements.md`. It adds a route, `/graphs/repo-commits-per-week`, with a bar chart of commits per UTC week (Monday start). The x axis is a time scale, and empty weeks inside the range are drawn as zero-height bars. A tooltip works with both the pointer and the keyboard. The chart also shows the date range covered, a note counting undated commits, the "latest N commits" note, and an empty state for when no commit has a usable date. The grouping is a pure utility in `src/frontend/utils/weekly.ts`. The page is linked from the home page.
 
 ---
 
@@ -26,6 +28,14 @@ A small `useContainerWidth` hook reads the container's width with `ResizeObserve
 
 **Chosen**: Option B. It is the only option that meets the 360 px NFR. It reuses a pattern the codebase already has (`PlaceholderChart`) and the size options of the shared scaffolding.
 
+### Login for graph pages
+
+The first draft guarded graph routes with a client-side OAuth flow (`PrivateRoute`). That flow could not work. GitHub accepts a `redirect_uri` only when it matches the OAuth app's registered callback (`REDIRECT_URI`, `/auth/github/callback`), and `PrivateRoute` sent the graph page URL, so GitHub rejected it. The flow also depended on `POST /api/token/`, which the backend never had.
+
+**Option 1 (chosen): use the server session.** The graph routes use the same `RequireAuth` guard as the home page. A logged-out visitor is sent to `/login?next=<page>`. The backend stores a validated `next` path in the session, and the OAuth callback redirects there. The `redirect_uri` is the registered callback, so GitHub accepts it.
+
+**Option 2 (rejected): keep the client-side flow.** GitHub OAuth Apps allow one callback URL, so the graph URLs cannot be registered. This would also need a new backend token route and would conflict with the home page's session login.
+
 ---
 
 ## Files to Create
@@ -39,6 +49,10 @@ A small `useContainerWidth` hook reads the container's width with `ResizeObserve
 | `src/frontend/services/__tests__/weeklyChart.test.ts` | Unit tests for the layout and tick thinning. |
 | `src/frontend/components/CommitsPerWeek.tsx` | The route's graph component (`RepoGraphProps`). It holds the range summary, exclusion note, coverage note, SVG, highlight column and tooltip. |
 | `src/frontend/components/__tests__/CommitsPerWeek.test.tsx` | Component tests and an integration test through `RepoCommits`. |
+| `src/frontend/features/user/__tests__/RequireAuth.test.tsx` | Existing file, extended with the graph-page return case. |
+| `src/backend/lib/returnPath.ts` | `safeReturnPath`. It accepts a same-origin path only, so the `next` parameter cannot redirect to another site. |
+| `src/backend/lib/__tests__/returnPath.test.ts` | Unit tests for `safeReturnPath`. |
+| `src/backend/__tests__/auth.test.ts` | Integration tests for `/login` and `/auth/github/callback` through the real Express app, with GitHub's token endpoint stubbed. |
 
 ---
 
@@ -46,10 +60,38 @@ A small `useContainerWidth` hook reads the container's width with `ResizeObserve
 
 | File | Change |
 |---|---|
-| `src/frontend/components/AppRouter.tsx` | Add `const CommitsWeekly = GraphPage(RepoCommits, CommitsPerWeek)` and a `PrivateRoute` for `/graphs/repo-commits-per-week`, built the same way as the `/graphs/repo-commit-size` route. |
-| `src/frontend/components/GraphList.tsx` | Replace the `Graph #4` / `Pending` placeholder card with `to="/graphs/repo-commits-per-week"`, title `Commits per Week`, description `Weekly commit activity over the loaded commits`. Note: nothing currently imports `GraphList`. This keeps it in step with the routes, as 007 did. |
+| `src/frontend/components/AppRouter.tsx` | Adds `CommitsWeekly = GraphPage(RepoCommits, CommitsPerWeek)` and a `/graphs/repo-commits-per-week` route. Every graph route is wrapped in `RequireAuth`, which replaces `PrivateRoute`. The `useLocation` call is removed. |
+| `src/frontend/pages/homeCards.ts` | Adds an optional `to` to `HomeCardConfig`. The `section-4` placeholder becomes `commits-per-week`, titled `Commits per Week`, with `to: '/graphs/repo-commits-per-week'`. |
+| `src/frontend/components/DashboardCard.tsx` | Accepts an optional `to`. When it is set, the title is a router link (MUI `Link` with `component={Link}`). |
+| `src/frontend/pages/HomePage.tsx` | Passes `to` from the card config to `DashboardCard`. |
+| `src/frontend/pages/__tests__/HomePage.test.tsx` | Wraps the render in `MemoryRouter`, since the card now contains a link. Adds a test that the card links to the weekly chart. |
+| `src/frontend/features/user/RequireAuth.tsx` | Unauthenticated visitors go to `/login?next=<pathname + search>` instead of `/login`. |
+| `src/frontend/features/user/__tests__/RequireAuth.test.tsx` | Expects `/login?next=%2F` for the home page. Adds a case for a graph page URL. |
+| `src/frontend/components/__tests__/AppRouter.test.tsx` | Expects the unauthenticated redirect to be `/login?next=%2F`. |
+| `src/frontend/stores/repoStore.ts` | `fetchRepo` takes `{ owner, repository }` only. It sends `GET /api/repo/:owner/:repo` with `credentials: 'include'`, which matches the backend route. |
+| `src/frontend/features/repo/RepoCommits.tsx` | Fetches whenever the store is idle with no error. The token gate is removed. |
+| `src/frontend/features/repo/RepoForm.tsx` | Submitting always calls `setRepo`. The token gate is removed. |
+| `src/frontend/utils/testUtils.tsx` | `renderWithStores` and `resetStores` cover the repo store only. The commented-out old helpers and the unused `renderWithProviders` alias are removed. |
+| `src/backend/server.ts` | `/login` stores a validated `next` path in `req.session.returnTo`. The callback redirects to it, defaulting to `/`, and then clears it. |
+| `src/backend/types/session.d.ts` | Adds `returnTo?: string` to `SessionData`. |
+| `package.json`, `yarn.lock` | `query-string` is removed. Only `PrivateRoute` used it. |
+| Existing tests (`RepoCommits.test.tsx`, `repoStore.test.ts`, `RepoForm.test.tsx`, `EcdfCommitSize.test.tsx`, `CommitsPerWeek.test.tsx`) | Remove the client token setup. Repo mocks change from `http.post` to `http.get`. |
 
-No store, type or backend changes are needed. `CommitRow.date` and `RepoGraphProps.hasNextPage` already exist.
+### Removed (dead code)
+
+| File | Reason |
+|---|---|
+| `src/frontend/features/user/PrivateRoute.tsx` and its tests (`PrivateRoute.test.tsx`, `PrivateRouteLogin.test.tsx`) | Replaced by `RequireAuth` on the graph routes. |
+| `src/frontend/stores/userStore.ts` | Held the client token and `fetchToken`, which called the nonexistent `/api/token/`. Nothing else used it. |
+| `src/frontend/components/GraphList.tsx` | Never imported. The home page builds its cards from `homeCards.ts`. |
+| `src/frontend/components/Card.tsx` | Only `GraphList` used it. |
+| `src/frontend/stores/appStore.ts` and `src/frontend/stores/__tests__/appStore.test.ts` | Template sample store, never imported by the app. |
+| `src/frontend/services/api.ts` and `src/frontend/services/__tests__/api.test.ts` | Only the sample store used it. |
+| `src/frontend/types/app.types.ts` | Only the sample store and `api.ts` used it. |
+
+`PrivateRoute.test.jsx` was converted to `PrivateRoute.test.tsx` and then removed with `PrivateRoute.tsx`. The Vitest frontend include pattern (`{ts,tsx}`) is unchanged.
+
+No changes are needed to `CommitRow.date` or `RepoGraphProps.hasNextPage`, which already exist.
 
 ---
 
@@ -199,7 +241,7 @@ export function createWeeklyLayout(weeks: WeekBucket[], width: number): WeeklyLa
   const innerWidth = w - CHART_MARGINS.left - CHART_MARGINS.right
   const innerHeight = height - CHART_MARGINS.top - CHART_MARGINS.bottom
   const [{ weekStart: first }] = weeks
-  const { weekStart: last } = weeks[weeks.length - 1]
+  const [{ weekStart: last }] = weeks.slice(-1)
 
   const x = d3.scaleUtc()
     .domain([first, d3.utcMonday.offset(last, 1)])
@@ -264,7 +306,7 @@ export function renderWeeklyChart(
 ```
 
 Notes:
-- `prefer-destructuring` (with `enforceForRenamedProperties`) and `curly: all` are enforced in `eslint.config.mjs`. The snippets follow both rules.
+- `prefer-destructuring` (with `enforceForRenamedProperties`) and `curly: all` are enforced in `eslint.config.mjs`. The snippets follow both rules. The last-week lookup uses `weeks.slice(-1)` because the rule rejects `weeks[weeks.length - 1]` in a destructuring-style declaration.
 - `y`'s domain is `[0, …]`, so the y axis always starts at zero (Requirement 1.3). `Math.max(1, …)` guards against a degenerate `[0, 0]` domain, although a non-empty `weeks` always has at least one commit.
 - In the single-week case, `slotWidth` covers the whole plot. `MAX_BAR_WIDTH` keeps that one bar from filling the chart, and it is centred (Requirement 3.3).
 
@@ -279,7 +321,7 @@ const formatDay = d3.utcFormat('%b %-d, %Y')
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
 ```
 
-Component outline:
+Hooks and the draw effect:
 
 ```tsx
 const CommitsPerWeek: React.FC<RepoGraphProps> = ({ commits, hasNextPage, status }) => {
@@ -297,10 +339,12 @@ const CommitsPerWeek: React.FC<RepoGraphProps> = ({ commits, hasNextPage, status
     if (plotRef.current && layout) {
       renderWeeklyChart(plotRef.current, weeks, layout, { x: X_LABEL, y: Y_LABEL })
     }
-  }, [weeks, layout])
+  }, [weeks, layout, status])
 
   // Reset the cursor when the data changes so it never points past the end.
-  useEffect(() => setActive(null), [weeks])
+  useEffect(() => {
+    setActive(null)
+  }, [weeks])
 
   if (status === Status.Pending) {
     return <CircularProgress sx={{ display: 'block', mx: 'auto', my: 8 }} />
@@ -327,7 +371,7 @@ const CommitsPerWeek: React.FC<RepoGraphProps> = ({ commits, hasNextPage, status
 }
 ```
 
-All hooks run before the early returns, as in `EcdfCommitSize`.
+All hooks run before the early returns, as in `EcdfCommitSize`. The draw effect depends on `status` as well as the data. Without it, a chart whose data arrived before the status changed to success would never draw. The cursor reset uses a block body so the effect returns nothing.
 
 **Summary, notes and coverage** (HTML above the chart):
 
@@ -424,44 +468,117 @@ const slotX = active === null ? 0 : marginLeft + active * layout.slotWidth
 - The `aria-label` is the text alternative that summarises the total and the range (Usability NFR).
 - `ref={setContainer}` is a callback ref, so `useContainerWidth` re-measures as soon as the container mounts.
 
-### 5. `AppRouter.tsx` and `GraphList.tsx`
+### 5. Routes and home page link
+
+`AppRouter.tsx`: every graph route, including the new one, is protected by `RequireAuth`. `PrivateRoute` and the `useLocation` call are removed.
 
 ```tsx
-import CommitsPerWeek from './CommitsPerWeek'
-// ...
 const CommitsWeekly = GraphPage(RepoCommits, CommitsPerWeek)
 // ...
 <Route
   path="/graphs/repo-commits-per-week"
   element={
-    <PrivateRoute path="/graphs/repo-commits-per-week" pathname={pathname} search={search}>
+    <RequireAuth>
       <CommitsWeekly />
-    </PrivateRoute>
+    </RequireAuth>
   }
 />
 ```
 
-```tsx
-<ImageListItem>
-  <CustomCard
-    to="/graphs/repo-commits-per-week"
-    title="Commits per Week"
-    description="Weekly commit activity over the loaded commits"
-  />
-</ImageListItem>
+The home page builds its cards from `homeCards.ts`. The `section-4` placeholder becomes the weekly chart card, so the four-card grid is unchanged. The title links to the route, and the card keeps the placeholder chart like the other home cards.
+
+```ts
+export interface HomeCardConfig {
+  id: string
+  title: string
+  /** Route the card title links to. Cards without one are placeholders. */
+  to?: string
+}
+
+export const homeCards: HomeCardConfig[] = [
+  { id: 'adds-deletes', title: 'Adds / Deletes' },
+  { id: 'changed-files', title: 'Changed Files' },
+  { id: 'section-3', title: 'Section 3' },
+  { id: 'commits-per-week', title: 'Commits per Week', to: '/graphs/repo-commits-per-week' },
+]
 ```
+
+`DashboardCard` renders the title as a router link when `to` is set:
+
+```tsx
+<Typography variant="h6" component="h2" sx={{ color: 'text.primary', mb: 2 }}>
+  {to ? (
+    <MuiLink component={Link} to={to} color="inherit" underline="hover">
+      {title}
+    </MuiLink>
+  ) : title}
+</Typography>
+```
+
+`GraphList.tsx` is not part of the feature. It was never imported, so it was removed as dead code (see "Removed" above).
+
+### 6. Login return path and repo data fetch
+
+The graph pages depend on the session established by the OAuth callback. Three changes make the login return to the requested page.
+
+**Backend: `/login` and the callback** (`src/backend/server.ts`)
+
+```ts
+app.get('/login', (req, res) => {
+  try {
+    // Remember the page the user asked for so the callback can send them back to it.
+    const returnTo = safeReturnPath(req.query.next)
+    if (returnTo) {
+      req.session.returnTo = returnTo
+    }
+
+    const pkce = generatePKCEChallenge()
+    // ...
+```
+
+```ts
+    req.session.accessToken = accessToken
+
+    const returnTo = safeReturnPath(req.session.returnTo) ?? '/'
+    delete req.session.returnTo
+
+    res.redirect(returnTo)
+```
+
+`safeReturnPath` (`src/backend/lib/returnPath.ts`) accepts only a path that starts with `/`, rejects `//` and backslashes, and returns `undefined` for anything else. The check runs when the value is stored and again when it is used.
+
+**Frontend: `RequireAuth`** sends a logged-out visitor to the server login and keeps the current page:
+
+```ts
+const loginUrl = () =>
+  `/login?next=${encodeURIComponent(`${window.location.pathname}${window.location.search}`)}`
+```
+
+**Frontend: repo fetch** (`repoStore.ts`) matches the backend route and sends the session cookie:
+
+```ts
+// The server reads the GitHub token from the session cookie, so the client sends none.
+const response = await fetch(
+  `${process.env.API_URL}/api/repo/${owner}/${repository}`,
+  { credentials: 'include' },
+)
+```
+
+`RepoCommits` fetches whenever the store is idle with no error. `RepoForm` submits without a token check.
 
 ---
 
 ## Key Technical Decisions
 
-- **`d3.utcMonday`, not `d3.timeWeek`**: `timeWeek` is an alias for `timeSunday`, which counts weeks from Sunday in local time. That breaks both the Monday-start rule and the UTC rule in Requirement 1.1. `utcMonday` gives both, and UTC weeks are always exactly 7 × 24 h, so the slot width is uniform.
+- **`d3.utcMonday`, not `d3.timeWeek`**: `timeWeek` is an alias for `timeSunday`, which counts weeks from Sunday in local time. That breaks both the Monday-start rule and the UTC rule in Requirement 1.1. `utcMonday` gives both, and UTC weeks are always exactly 7 × 24 h, so the slot width is uniform. Requirement 1.1 in `requirements.md` names only `d3.utcMonday` and `d3.rollup`, and says why `d3.timeWeek` is not used.
 - **`new Date(iso)` + `isNaN` check instead of `d3.isoParse`**: The result is the same (both return no date for bad input). The explicit helper also rejects non-strings and blank strings, and it is easy to test. GitHub's `committedDate` always carries a `Z`/offset. A string with no offset would be read as local time, but the API never returns one.
 - **Gap filling with `utcMonday.range`**: Generating every week between the first and last week, then looking up counts in the `rollup` map, gives a continuous axis (Requirement 1.2) in O(weeks + commits).
 - **Time scale with centred bars and mid-week ticks**: The requirements ask for a time-scale axis (1.3), so `scaleBand` is out. Bars are centred in their 7-day slot and capped at 48 px. Ticks are placed at mid-week (+84 h) and labelled with `utcMonday.floor(tick)`, so every label sits under its bar and still shows the week start date.
 - **Tick thinning by measured width**: `weekTickValues` keeps every k-th week so labels are at least 80 px apart. At 360 px (about 280 px inner) that leaves 3 labels. At 800 px it leaves 9 labels.
 - **The slot, not the bar, is the hover target, and there is one focus stop**: Zero-height bars cannot be hovered as `<rect>`s, and 100+ weeks would mean 100+ tab stops. Slot-based pointer mapping and arrow-key navigation on one focusable `svg` solve both. This matches the ECDF interaction model.
 - **Separate empty states**: No rows at all keeps the shared default ("No commits to display…"). Rows that exist but have no valid date show "No dated commits are available for this repository." together with the exclusion count (Requirements 2.2 and 2.3).
+- **Session-based login for graph pages**: Graph pages use the same server session as the home page, so there is one login path and the client holds no GitHub token. The return path is kept in the server session and validated on the way in and out, which prevents an open redirect. See "Login for graph pages".
+- **Home link replaces the `section-4` placeholder**: This keeps the four-card grid. The other home cards are still placeholders and do not link anywhere.
 
 ---
 
@@ -533,7 +650,10 @@ Helper: `weeksOf(counts: number[])` builds consecutive `WeekBucket`s that start 
 #### Test 6: `createWeeklyLayout_BelowMinWidth_ClampsToMinChartWidth`
 - **Assert**: `createWeeklyLayout(weeksOf([1]), 100)!.width` is `MIN_CHART_WIDTH`.
 
-#### Test 7: `weekTickValues_FewWeeks_KeepsAllWeeks`
+#### Test 7: `createWeeklyLayout_InnerWidth_MatchesMargins`
+- **Assert**: `innerWidth` is the chart width minus the left and right margins.
+
+#### Test 8: `weekTickValues_FewWeeks_KeepsAllWeeks`
 - **Assert**: For 3 week starts at `innerWidth` 720, all 3 are returned. For 30 week starts at 280, the first is always kept and no more than 3 are returned.
 
 ### `src/frontend/components/__tests__/CommitsPerWeek.test.tsx`
@@ -575,12 +695,45 @@ Render `<CommitsPerWeek commits={rows} hasNextPage={false} status={Status.Succes
 - **Assert**: `getByRole('progressbar')` is present, and there is no `role="status"`.
 
 #### Test 11: `CommitsPerWeek_100Commits_GroupsAndDrawsUnder50ms`
-- **Setup**: 100 rows with random dates over the 2 years before `2024-06-01Z` (about 104 weeks). Use a detached `<svg><g/></svg>` as in the ECDF perf test.
+- **Setup**: 100 rows with deterministic dates over the 2 years from `2022-06-01Z` (about 104 weeks). Use a detached `<svg><g/></svg>` as in the ECDF perf test.
 - **Assert**: `groupCommitsByWeek` + `createWeeklyLayout(…, 800)` + `renderWeeklyChart` together take under 50 ms (`performance.now()`). The `rect.weekly-bar` count equals `weeks.length`.
 
 #### Test 12: `RepoCommits_WeeklyRoute_FetchesAndRendersBars` (separate `describe` with MSW)
-- **Setup**: `http.post(/\/api\/repo\//)` returns `{ commits: rows, hasNextPage: true }`. Render `renderWithStores(<RepoCommits graphComponent={CommitsPerWeek} />, { userInitialState: { token: 'AbcDeF123456' } })`. Call `resetStores()` in `beforeEach`. This is the same pattern as `EcdfCommitSize.test.tsx`.
+- **Setup**: `http.get(/\/api\/repo\//)` returns `{ commits: rows, hasNextPage: true }`. Render `renderWithStores(<RepoCommits graphComponent={CommitsPerWeek} />)`. No client token is set. Call `resetStores()` in `beforeEach`.
 - **Assert**: `await findByText(/latest 4 commits/i)` resolves, then `waitFor` 4 `rect.weekly-bar`.
+
+### Changes to existing frontend tests
+
+| File | Test | Change |
+|---|---|---|
+| `features/user/__tests__/RequireAuth.test.tsx` | `RequireAuth_Unauthorized_RedirectsToLoginWithoutChildren` | Expects `/login?next=%2F`. |
+| `features/user/__tests__/RequireAuth.test.tsx` | `RequireAuth_UnauthorizedOnGraphPage_ReturnsToThatPageAfterLogin` (new) | A graph page URL with a query string comes back as the `next` value. |
+| `components/__tests__/AppRouter.test.tsx` | `AppRouter_RootPathUnauthenticated_RedirectsToLogin` | Expects `/login?next=%2F`. |
+| `pages/__tests__/HomePage.test.tsx` | `HomePage_CommitsPerWeekCard_LinksToWeeklyChart` (new) | The card title is a link to `/graphs/repo-commits-per-week`, and the adds/deletes card is not a link. The render is wrapped in `MemoryRouter`. |
+| `stores/__tests__/repoStore.test.ts` | All `fetchRepo` tests | Mocks are `GET`, and the arguments are `{ owner, repository }`. |
+| `features/repo/__tests__/RepoCommits.test.tsx`, `components/__tests__/EcdfCommitSize.test.tsx`, `components/__tests__/CommitsPerWeek.test.tsx` | All tests | Mocks are `GET`, and the client token setup is removed. |
+| `features/repo/__tests__/RepoForm.test.tsx` | `sets correct values on user input` | The client token setup is removed. |
+
+### Backend tests
+
+#### `src/backend/lib/__tests__/returnPath.test.ts` (new)
+
+- `safeReturnPath_SameOriginPath_ReturnsPathWithQuery`: `/graphs/repo-commits-per-week?x=1` is returned unchanged.
+- `safeReturnPath_AbsoluteUrl_ReturnsUndefined`: `https://evil.example/` is rejected.
+- `safeReturnPath_ProtocolRelativeUrl_ReturnsUndefined`: `//evil.example/` is rejected.
+- `safeReturnPath_BackslashForm_ReturnsUndefined`: `/\evil.example` is rejected.
+- `safeReturnPath_NonString_ReturnsUndefined`: `undefined` and arrays are rejected.
+
+#### `src/backend/__tests__/auth.test.ts` (new)
+
+The test starts the real Express app on an ephemeral port. Each request is reported as HTTPS, because `express-session` will not send a `Secure` cookie over plain HTTP, and production runs over HTTPS. GitHub's token endpoint is stubbed, and the session cookies are replayed from the login response into the callback.
+
+- `login_NextPathGiven_CallbackRedirectsToThatPath`: `/login?next=/graphs/repo-commits-per-week?range=all` ends at that path after the callback.
+- `login_NoNextPath_CallbackRedirectsHome`: without `next`, the callback goes to `/`.
+- `login_ExternalNextPath_IgnoredAndCallbackRedirectsHome`: `https://evil.example/steal` is ignored.
+- `login_ProtocolRelativeNextPath_IgnoredAndCallbackRedirectsHome`: `//evil.example/steal` is ignored.
+
+**Test totals after this change:** the full suite (frontend and backend) runs 22 test files and 121 tests, and passes. Of those, the backend contributes 2 files and 9 tests. Lint and both type checks are clean.
 
 ---
 
@@ -590,8 +743,9 @@ Render `<CommitsPerWeek commits={rows} hasNextPage={false} status={Status.Succes
 # 1. Build passes
 yarn build
 
-# 2. Frontend type check
+# 2. Type checks (frontend and backend)
 yarn tsc -p src/tsconfig.frontend.json --noEmit
+yarn tsc -p src/tsconfig.backend.json --noEmit
 
 # 3. Relevant test files pass
 yarn test src/frontend/utils/__tests__/weekly.test.ts src/frontend/services/__tests__/weeklyChart.test.ts src/frontend/components/__tests__/CommitsPerWeek.test.tsx
@@ -601,9 +755,24 @@ yarn test
 yarn lint
 ```
 
-Manual check with `yarn dev` at `https://localhost:3000`:
-1. Log in and open `/graphs/repo-commits-per-week` for `facebook/react`. You should see blue bars per week with a continuous axis (gaps as empty slots), a y axis from 0, the "N commits from … to …" line, and the "latest 100 commits" note.
-2. Hover across the chart, including empty weeks. The column highlight and tooltip (`Week of …`, `N commits`) should follow the pointer.
-3. Press Tab to focus the chart. Focus should start at the latest week. ←/→/Home/End move between weeks, and Escape hides the tooltip.
-4. In DevTools device mode at 360 px wide: labels thin to about 3 and keep their normal size, the chart is shorter, and there is no horizontal scroll. Resize the window back up and more labels appear.
-5. Change the system time zone (or run Chrome with `TZ=Pacific/Kiritimati`) and reload. The bars and week labels should be identical.
+Manual check with `yarn dev` at `https://localhost:3000` (restart it after the auth changes):
+1. While logged out, open `/graphs/repo-commits-per-week`. You should be sent to GitHub's authorization page. The `redirect_uri` in the address bar should be `https://localhost:3000/auth/github/callback`, not the graph URL. After you approve, you should land back on `/graphs/repo-commits-per-week`, not `/`.
+2. The chart should show blue bars per week with a continuous axis (gaps as empty slots), a y axis from 0, the "N commits from … to …" line, and the "latest N commits" note for `facebook/react`.
+3. From the home page, the "Commits per Week" title should link to the chart.
+4. Hover across the chart, including empty weeks. The column highlight and tooltip (`Week of …`, `N commits`) should follow the pointer.
+5. Press Tab to focus the chart. Focus should start at the latest week. ←/→/Home/End move between weeks, and Escape hides the tooltip.
+6. In DevTools device mode at 360 px wide: labels thin to about 3 and keep their normal size, the chart is shorter, and there is no horizontal scroll. Resize the window back up and more labels appear.
+7. Change the system time zone (or run Chrome with `TZ=Pacific/Kiritimati`) and reload. The bars and week labels should be identical.
+
+---
+
+## Revision History
+
+| Change | Reason |
+|---|---|
+| Graph routes use `RequireAuth` with a server-side return path, and `PrivateRoute` was removed | The client-side OAuth flow failed: GitHub rejected the graph URL as `redirect_uri`, and `/api/token/` did not exist. |
+| The repo fetch is `GET` with the session cookie, and the client token is removed | The backend route is `GET` and reads the token from the session. |
+| Home page link replaces the `section-4` placeholder | The chart was not reachable from the UI. |
+| Dead frontend code removed (`PrivateRoute`, `userStore`, `GraphList`, `Card`, the sample store, `api.ts`, `app.types.ts`, `query-string`) | Nothing imported these. |
+| `PrivateRoute.test.jsx` converted to `.tsx` and then removed with `PrivateRoute` | Its component was removed. |
+| The draw effect depends on `status`; the cursor reset uses a block body | Avoids a chart that never draws when status changes without a data change, and keeps the effect's return value empty. |
