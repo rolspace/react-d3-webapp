@@ -1,30 +1,39 @@
-import React from 'react'
-import { CommitData } from '../stores/repoStore'
-import { Status } from '../types/state.types'
+import React, { useMemo, useState } from 'react'
+import { RepoGraphProps } from '../types/graph.types'
+import { BinScale, DEFAULT_BIN_COUNT, binSharedSeries } from '../utils/binning'
 import BarGraph from './BarGraph'
+import HistogramControls from './HistogramControls'
 
-interface BarGraphAddsDeletesProps {
-  datasource: CommitData
-  status: Status
+const graphStyle = {
+  colors: ['#2da44e', '#cf222e'],
+  xAxisLabel: 'Code Lines',
+  yAxisLabel: 'Total Commits',
 }
 
-const BarGraphAddsDeletes: React.FC<BarGraphAddsDeletesProps> = ({ datasource, status }) => {
-  if (!datasource) {
-    return null
-  }
+const BarGraphAddsDeletes: React.FC<RepoGraphProps> = ({ commits, status }) => {
+  const [binCount, setBinCount] = useState(DEFAULT_BIN_COUNT)
+  const [scale, setScale] = useState<BinScale>('linear')
 
-  const { linesAdded = [], linesDeleted = [] } = datasource
+  const sets = useMemo(
+    () => binSharedSeries(
+      [commits.map((c) => c.additions), commits.map((c) => c.deletions)],
+      { binCount, scale },
+    ),
+    [commits, binCount, scale],
+  )
 
   return (
-    <BarGraph
-      graphStyle={{
-        colors: ['#2da44e', '#cf222e'],
-        xAxisLabel: 'Code Lines',
-        yAxisLabel: 'Total Commits',
-      }}
-      sets={[linesAdded, linesDeleted]}
-      status={status}
-    />
+    <>
+      {commits.length > 0 && (
+        <HistogramControls
+          binCount={binCount}
+          scale={scale}
+          onBinCountChange={setBinCount}
+          onScaleChange={setScale}
+        />
+      )}
+      <BarGraph graphStyle={graphStyle} sets={sets} status={status} />
+    </>
   )
 }
 

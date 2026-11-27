@@ -1,3 +1,6 @@
+import { CommitRow } from './commit.types'
+import { Status } from './state.types'
+
 export interface DataItem {
   count: number
   label: string
@@ -11,4 +14,10 @@ export interface BarGraphStyle {
   width: number
   xAxisLabel: string
   yAxisLabel: string
+}
+
+export interface RepoGraphProps {
+  commits: CommitRow[]
+  hasNextPage: boolean
+  status: Status
 }

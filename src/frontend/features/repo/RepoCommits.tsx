@@ -4,16 +4,18 @@ import Grid from '@mui/material/Grid'
 import React, { useEffect, ComponentType } from 'react'
 import { useRepoStore } from '../../stores/repoStore'
 import { useUserStore } from '../../stores/userStore'
+import { RepoGraphProps } from '../../types/graph.types'
 import { Status } from '../../types/state.types'
 
 interface RepoCommitsProps {
-  graphComponent: ComponentType<any>
+  graphComponent: ComponentType<RepoGraphProps>
 }
 
 const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
   const owner = useRepoStore((state) => state.owner)
   const repository = useRepoStore((state) => state.repository)
-  const commitData = useRepoStore((state) => state.commitData)
+  const commits = useRepoStore((state) => state.commits)
+  const hasNextPage = useRepoStore((state) => state.hasNextPage)
   const status = useRepoStore((state) => state.status)
   const error = useRepoStore((state) => state.error)
   const token = useUserStore((state) => state.token)
@@ -25,7 +27,8 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
       status === Status.Idle &&
       error === null
     ) {
-      fetchRepo({ owner, repository, token })
+      // The store records the failure in `error`, so the rethrown error needs no handling here.
+      fetchRepo({ owner, repository, token }).catch(() => undefined)
     }
   }, [owner, repository, token, status, error, fetchRepo])
 
@@ -50,7 +53,7 @@ const RepoCommits: React.FC<RepoCommitsProps> = ({ graphComponent }) => {
     )
   }
 
-  return <GraphComponent datasource={commitData} status={status} />
+  return <GraphComponent commits={commits} hasNextPage={hasNextPage} status={status} />
 }
 
 export default RepoCommits

@@ -1,33 +1,36 @@
-import React from 'react'
-import { CommitData } from '../stores/repoStore'
-import { Status } from '../types/state.types'
+import React, { useMemo, useState } from 'react'
+import { RepoGraphProps } from '../types/graph.types'
+import { BinScale, DEFAULT_BIN_COUNT, binSeries } from '../utils/binning'
 import BarGraph from './BarGraph'
+import HistogramControls from './HistogramControls'
 
-interface BarGraphChangedFilesProps {
-  datasource: CommitData
-  status: Status
+const graphStyle = {
+  colors: ['#00bcd4'],
+  xAxisLabel: 'Changed Files',
+  yAxisLabel: 'Total Commits',
 }
 
-const BarGraphChangedFiles: React.FC<BarGraphChangedFilesProps> = ({
-  datasource,
-  status,
-}) => {
-  if (!datasource) {
-    return null
-  }
+const BarGraphChangedFiles: React.FC<RepoGraphProps> = ({ commits, status }) => {
+  const [binCount, setBinCount] = useState(DEFAULT_BIN_COUNT)
+  const [scale, setScale] = useState<BinScale>('linear')
 
-  const { changedFiles = [] } = datasource
+  const sets = useMemo(
+    () => [binSeries(commits.map((c) => c.changedFiles), { binCount, scale })],
+    [commits, binCount, scale],
+  )
 
   return (
-    <BarGraph
-      graphStyle={{
-        colors: ['#00bcd4'],
-        xAxisLabel: 'Changed Files',
-        yAxisLabel: 'Total Commits',
-      }}
-      sets={[changedFiles]}
-      status={status}
-    />
+    <>
+      {commits.length > 0 && (
+        <HistogramControls
+          binCount={binCount}
+          scale={scale}
+          onBinCountChange={setBinCount}
+          onScaleChange={setScale}
+        />
+      )}
+      <BarGraph graphStyle={graphStyle} sets={sets} status={status} />
+    </>
   )
 }
 
