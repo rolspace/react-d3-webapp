@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { render, screen, within } from '@testing-library/react'
+import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { homeCards } from '../homeCards'
 import HomePage from '../HomePage'
@@ -21,9 +22,11 @@ vi.mock('../../components/PlaceholderChart', async () => {
 
 const renderPage = () =>
   render(
-    <ThemeProvider theme={createTheme()}>
-      <HomePage />
-    </ThemeProvider>,
+    <MemoryRouter>
+      <ThemeProvider theme={createTheme()}>
+        <HomePage />
+      </ThemeProvider>
+    </MemoryRouter>,
   )
 
 describe('HomePage', () => {
@@ -43,6 +46,17 @@ describe('HomePage', () => {
     for (const { title } of homeCards) {
       expect(screen.getByRole('heading', { name: title, level: 2 })).toBeInTheDocument()
     }
+  })
+
+  it('HomePage_CommitsPerWeekCard_LinksToWeeklyChart', () => {
+    renderPage()
+
+    expect(screen.getByRole('link', { name: 'Commits per Week' })).toHaveAttribute(
+      'href',
+      '/graphs/repo-commits-per-week',
+    )
+    expect(screen.getByRole('link', { name: 'Commits per Week' }).closest('h2')).not.toBeNull()
+    expect(screen.queryByRole('link', { name: 'Adds / Deletes' })).toBeNull()
   })
 
   it('HomePage_OneChartThrows_OtherCardsStillRendered', () => {

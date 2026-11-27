@@ -27,7 +27,11 @@ const GraphList: React.FC = () => {
         />
       </ImageListItem>
       <ImageListItem>
-        <CustomCard to="/" title="Graph #4" description="Pending" />
+        <CustomCard
+          to="/graphs/repo-commits-per-week"
+          title="Commits per Week"
+          description="Weekly commit activity over the loaded commits"
+        />
       </ImageListItem>
     </ImageList>
   )
