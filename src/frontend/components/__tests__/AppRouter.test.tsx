@@ -54,6 +54,24 @@ describe('AppRouter', () => {
     expect(screen.getByRole('heading', { name: 'Adds / Deletes', level: 2 })).toBeInTheDocument()
   })
 
+  it('AppRouter_SummaryPathAuthenticated_RendersSummaryPanel', async () => {
+    server.use(
+      http.get('http://localhost/api/user/me', () => HttpResponse.json({ login: 'octocat' })),
+      http.get(/\/api\/repo\//, () =>
+        HttpResponse.json({
+          commits: [
+            { oid: 'a'.repeat(40), date: '2024-01-08T10:00:00Z', additions: 1, deletions: 0, changedFiles: 1, author: 'octocat' },
+            { oid: 'b'.repeat(40), date: '2024-01-09T10:00:00Z', additions: 2, deletions: 0, changedFiles: 1, author: 'octocat' },
+          ],
+          hasNextPage: false,
+        })),
+    )
+
+    renderAt('/graphs/repo-summary')
+
+    expect(await screen.findByText(/Totals cover the latest 2 commits/)).toBeInTheDocument()
+  })
+
   it('AppRouter_RootPathUnauthenticated_RedirectsToLogin', async () => {
     server.use(
       http.get('http://localhost/api/user/me', () =>

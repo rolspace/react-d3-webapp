@@ -59,6 +59,14 @@ describe('HomePage', () => {
     expect(screen.queryByRole('link', { name: 'Adds / Deletes' })).toBeNull()
   })
 
+  it('HomePage_SummaryStatsCard_LinksToSummaryPage', () => {
+    renderPage()
+
+    const link = screen.getByRole('link', { name: 'Summary Stats' })
+    expect(link).toHaveAttribute('href', '/graphs/repo-summary')
+    expect(link.closest('h2')).not.toBeNull()
+  })
+
   it('HomePage_OneChartThrows_OtherCardsStillRendered', () => {
     mockState.throwFor = 'Changed Files'
 
