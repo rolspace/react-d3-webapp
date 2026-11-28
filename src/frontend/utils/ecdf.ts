@@ -20,7 +20,7 @@ export interface Ecdf {
 // Absorbs floating-point error in p * total (for example 0.9 * n).
 const QUANTILE_EPSILON = 1e-9
 
-const isFiniteNumber = (v: unknown): v is number =>
+export const isFiniteNumber = (v: unknown): v is number =>
   typeof v === 'number' && Number.isFinite(v)
 
 const byValue = bisector<EcdfStep, number>((s) => s.value)

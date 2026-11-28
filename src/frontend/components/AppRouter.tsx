@@ -5,6 +5,7 @@ import GraphPage from '../pages/GraphPage'
 import Login from '../pages/Login'
 import BarGraphAddsDeletes from './BarGraphAddsDeletes'
 import BarGraphChangedFiles from './BarGraphChangedFiles'
+import CommitSummaryStats from './CommitSummaryStats'
 import CommitsPerWeek from './CommitsPerWeek'
 import EcdfCommitSize from './EcdfCommitSize'
 import HomePage from '../pages/HomePage'
@@ -14,6 +15,7 @@ const AppRouter: React.FC = () => {
   const ChangedFiles = GraphPage(RepoCommits, BarGraphChangedFiles)
   const CommitSize = GraphPage(RepoCommits, EcdfCommitSize)
   const CommitsWeekly = GraphPage(RepoCommits, CommitsPerWeek)
+  const CommitSummary = GraphPage(RepoCommits, CommitSummaryStats)
 
   return (
     <Routes>
@@ -55,6 +57,14 @@ const AppRouter: React.FC = () => {
         element={
           <RequireAuth>
             <CommitsWeekly />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/graphs/repo-summary"
+        element={
+          <RequireAuth>
+            <CommitSummary />
           </RequireAuth>
         }
       />
